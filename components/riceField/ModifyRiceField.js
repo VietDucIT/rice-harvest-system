@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
+import { ScrollView, Image, StyleSheet, Alert } from "react-native";
 import { View, TextField, Text } from "react-native-ui-lib";
 
 import CustomButton from "../core/CustomButton";
@@ -7,8 +7,9 @@ import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
-const ModifyRiceField = () => {
+const ModifyRiceField = ({ navigation }) => {
   const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
   const [d1, setD1] = useState(0);
   const [d2, setD2] = useState(0);
   const [d3, setD3] = useState(0);
@@ -22,12 +23,22 @@ const ModifyRiceField = () => {
     setD3(0);
     setD4(0);
     setCoordinate({});
+    setDescription("");
     console.log("Reset completed.");
   };
 
   useEffect(() => {
     setCoordinate({ d1, d2, d3, d4 });
   }, [d1, d2, d3, d4]);
+
+  const showAlert = () =>
+    Alert.alert("Chỉnh sửa thông tin", "Đã lưu thông tin ruộng lúa.", [
+      {
+        text: "Cancel",
+        // onPress: () => Alert.alert("Cancel Pressed"),
+        style: "cancel",
+      },
+    ]);
 
   return (
     <ScrollView>
@@ -89,8 +100,24 @@ const ModifyRiceField = () => {
           />
         </View>
 
+        <View>
+          <View>
+            <Text text70 style={styles.label}>
+              Mô tả:
+            </Text>
+          </View>
+          <TextField
+            text70
+            grey10
+            multiline={true}
+            numberOfLines={3}
+            onChangeText={setDescription}
+            value={description}
+          />
+        </View>
+
         <View flex marginT-20 center>
-          <CustomButton label="Lưu" />
+          <CustomButton label="Lưu" onPress={showAlert} />
           <CustomButton label="Nhập lại" marginT-5 marginB-20 onPress={reset} />
         </View>
       </View>

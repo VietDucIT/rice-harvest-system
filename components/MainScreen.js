@@ -47,7 +47,7 @@ const MainScreen = ({ navigation }) => {
               label="Cập nhật giá lúa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("...")}
+              onPress={() => navigation.navigate("RicePrice")}
             />
           </View>
           <View marginV-20 center>
@@ -55,7 +55,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý ruộng lúa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("...")}
+              onPress={() => navigation.navigate("RiceFields")}
             />
           </View>
           <View marginV-20 center>

@@ -3,6 +3,7 @@ import { Typography, Colors, Spacings } from "react-native-ui-lib";
 const StyleInit = () => {
   Colors.loadColors({
     green: "#5CB157",
+    red: "#F00",
   });
 
   Typography.loadTypographies({

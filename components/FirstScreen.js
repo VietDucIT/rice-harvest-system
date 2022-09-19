@@ -62,6 +62,16 @@ const FirstScreen = ({ navigation }) => {
               style={styles.heading}
               onPress={() => navigation.navigate("SignUp")}
             />
+            {/* Test screen */}
+            <Button
+              link
+              text70
+              green20
+              label="Click me"
+              marginT-5
+              style={styles.heading}
+              onPress={() => navigation.navigate("Calculator")}
+            />
           </View>
         </View>
       </View>

@@ -12,8 +12,14 @@ import CurrentWeather from "./components/weather/CurrentWeather";
 import HourlyWeatherForecast from "./components/weather/HourlyWeatherForecast";
 import DailyWeatherForecast from "./components/weather/DailyWeatherForecast";
 
+import RiceFields from "./components/riceField/RiceFields";
+import RiceFieldInfo from "./components/riceField/RiceFieldInfo";
 import ModifyRiceField from "./components/riceField/ModifyRiceField";
 import Map from "./components/Map/Map";
+
+import RicePrice from "./components/rice/RicePrice";
+
+import Calculator from "./components/calculator/Calculator";
 
 import Loader from "./components/core/Loader";
 
@@ -23,8 +29,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="FirstScreen" component={FirstScreen} />
+        <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="ModifyUserInfo" component={ModifyUserInfo} />
         <Stack.Screen name="CurrentWeather" component={CurrentWeather} />
@@ -36,8 +42,13 @@ export default function App() {
           name="DailyWeatherForecast"
           component={DailyWeatherForecast}
         />
+        <Stack.Screen name="RiceFields" component={RiceFields} />
+        <Stack.Screen name="RiceFieldInfo" component={RiceFieldInfo} />
         <Stack.Screen name="ModifyRiceField" component={ModifyRiceField} />
         <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="RicePrice" component={RicePrice} />
+        <Stack.Screen name="Calculator" component={Calculator} />
+
         {/* <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignUp" component={SignUp} /> */}
       </Stack.Navigator>
