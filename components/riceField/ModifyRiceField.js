@@ -34,7 +34,7 @@ const ModifyRiceField = ({ navigation }) => {
   const showAlert = () =>
     Alert.alert("Chỉnh sửa thông tin", "Đã lưu thông tin ruộng lúa.", [
       {
-        text: "Cancel",
+        text: "Đóng",
         // onPress: () => Alert.alert("Cancel Pressed"),
         style: "cancel",
       },

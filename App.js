@@ -15,8 +15,12 @@ import DailyWeatherForecast from "./components/weather/DailyWeatherForecast";
 import RiceFields from "./components/riceField/RiceFields";
 import RiceFieldInfo from "./components/riceField/RiceFieldInfo";
 import ModifyRiceField from "./components/riceField/ModifyRiceField";
-import Map from "./components/Map/Map";
 
+import RiceSeasons from "./components/riceSeason/RiceSeasons";
+import RiceSeasonInfo from "./components/riceSeason/RiceSeasonInfo";
+import ModifyRiceSeason from "./components/riceSeason/ModifyRiceSeason";
+
+import Map from "./components/Map/Map";
 import RicePrice from "./components/rice/RicePrice";
 
 import Calculator from "./components/calculator/Calculator";
@@ -45,6 +49,11 @@ export default function App() {
         <Stack.Screen name="RiceFields" component={RiceFields} />
         <Stack.Screen name="RiceFieldInfo" component={RiceFieldInfo} />
         <Stack.Screen name="ModifyRiceField" component={ModifyRiceField} />
+
+        <Stack.Screen name="RiceSeasons" component={RiceSeasons} />
+        <Stack.Screen name="RiceSeasonInfo" component={RiceSeasonInfo} />
+        <Stack.Screen name="ModifyRiceSeason" component={ModifyRiceSeason} />
+
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="RicePrice" component={RicePrice} />
         <Stack.Screen name="Calculator" component={Calculator} />

@@ -70,7 +70,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate("Calculator")}
+              onPress={() => navigation.navigate("RiceSeasons")}
             />
           </View>
         </View>

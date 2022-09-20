@@ -228,7 +228,11 @@ const Calculator = ({ navigation }) => {
                 250
               </Text>
             </View>
-            <View style={styles.sumContainer} margin-10>
+            <View
+              style={[styles.sumContainer, styles.plusContainer]}
+              margin-10
+              center
+            >
               <Text green text50>
                 +
               </Text>
@@ -274,6 +278,10 @@ const styles = StyleSheet.create({
   sumItems: {
     // fontSize: 20,
     // fontWeight: "500",
+  },
+  plusContainer: {
+    borderWidth: 1,
+    borderColor: "grey",
   },
   totalContainer: {
     width: "100%",

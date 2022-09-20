@@ -63,7 +63,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý vụ mùa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("...")}
+              onPress={() => navigation.navigate("RiceSeasons")}
             />
           </View>
           {/* <View marginV-20 center>
@@ -71,6 +71,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý khu vực thu mua"
               text60
               style={styles.btn}
+              onPress={() => navigation.navigate("RiceBuyingAreas")}
             />
           </View>
           <View marginV-20 center>
@@ -78,20 +79,7 @@ const MainScreen = ({ navigation }) => {
               label="Xem bản đồ ruộng đất"
               text60
               style={styles.btn}
-            />
-          </View>
-          <View marginV-20 center>
-            <CustomButton
-              label="Quản lý khu vực thu mua"
-              text60
-              style={styles.btn}
-            />
-          </View>
-          <View marginV-20 center>
-            <CustomButton
-              label="Xem bản đồ ruộng đất"
-              text60
-              style={styles.btn}
+              onPress={() => navigation.navigate("Map")}
             />
           </View> */}
         </View>
