@@ -1,8 +1,10 @@
 import React from "react";
-import { Image, StyleSheet, FlatList, StatusBar, Button } from "react-native";
+import { Image, StyleSheet, FlatList } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import UserOptionModal from "../user/UserOptionModal";
 import { StyleInit } from "../../config/StyleInit";
+import CustomButton from "../core/CustomButton";
 
 StyleInit();
 
@@ -42,27 +44,39 @@ const RiceFields = ({ navigation }) => {
       </Text>
     </View>
   );
-  // onPress={() => navigation.navigate("RiceFieldInfo")}
 
   return (
-    <View flex paddingH-25 paddingT-60>
-      <View center>
-        <Image
-          style={styles.logo}
-          source={require("../../assets/images/Logo.png")}
-        />
-      </View>
-      <View center marginV-10>
-        <Text text50 green>
-          Quản lý ruộng lúa
-        </Text>
-      </View>
+    <View flex marginB-60>
+      <UserOptionModal />
 
-      <FlatList
-        data={riceFields}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <View>
+        <View center marginT-30>
+          <Image
+            style={styles.logo}
+            source={require("../../assets/images/Logo.png")}
+          />
+          <View marginV-10>
+            <Text text50 green>
+              Quản lý ruộng lúa
+            </Text>
+          </View>
+        </View>
+
+        <View marginT-20>
+          <FlatList
+            data={riceFields}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        <View marginT-30 center>
+          <CustomButton
+            label="Thêm"
+            onPress={() => navigation.navigate("AddRiceField")}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -73,8 +87,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  label: {},
-
   fieldItem: {
     flexDirection: "row",
     flexWrap: "wrap",

@@ -2,7 +2,9 @@ import React from "react";
 import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import UserOptionModal from "../user/UserOptionModal";
 import { StyleInit } from "../../config/StyleInit";
+import CustomButton from "../core/CustomButton";
 
 StyleInit();
 
@@ -62,7 +64,7 @@ const RiceSeasons = ({ navigation }) => {
         <Text text80>{item.riceField}</Text>
         <Text
           green
-          text80
+          text70
           onPress={() => navigation.navigate("RiceSeasonInfo")}
         >
           Xem
@@ -72,24 +74,37 @@ const RiceSeasons = ({ navigation }) => {
   );
 
   return (
-    <View flex paddingH-25 paddingT-60>
-      <View center>
-        <Image
-          style={styles.logo}
-          source={require("../../assets/images/Logo.png")}
-        />
-      </View>
-      <View center marginV-10>
-        <Text text50 green>
-          Quản lý vụ mùa
-        </Text>
-      </View>
+    <View flex marginB-60>
+      <UserOptionModal />
 
-      <FlatList
-        data={riceSeasons}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <View>
+        <View center marginT-30>
+          <Image
+            style={styles.logo}
+            source={require("../../assets/images/Logo.png")}
+          />
+          <View marginV-10>
+            <Text text50 green>
+              Quản lý vụ mùa
+            </Text>
+          </View>
+        </View>
+
+        <View marginT-20>
+          <FlatList
+            data={riceSeasons}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        <View marginT-30 center>
+          <CustomButton
+            label="Thêm"
+            onPress={() => navigation.navigate("AddRiceSeason")}
+          />
+        </View>
+      </View>
     </View>
   );
 };

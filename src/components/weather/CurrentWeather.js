@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useLocation } from "react-router-native";
-// import queryString from "query-string";
 import { ScrollView, Image, StyleSheet } from "react-native";
 import { View, Text, Button } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -12,6 +10,7 @@ import { StyleInit } from "../../config/StyleInit";
 import getDayTime from "../../services/getDayTime";
 import getWeatherByName from "../../services/getApiByName";
 
+import UserOptionModal from "../user/UserOptionModal";
 import Loader from "../core/Loader";
 import cityList from "../../json/city";
 import initWeatherData from "../../json/initWeatherData";
@@ -51,16 +50,11 @@ const CurrentWeather = ({ navigation }) => {
   return (
     <ScrollView>
       {/* <View flex paddingH-25 paddingT-120> */}
-      {/* DELETE ! */}
       {weatherData && (
-        <View flex marginV-50>
-          {/* <View left paddingL-10>
-            <Button link green>
-              <FontAwesome5 name="home" size={30} color="green" />
-            </Button>
-          </View> */}
+        <View flex marginB-50>
+          <UserOptionModal />
 
-          <View paddingT-30>
+          <View paddingT-50>
             <View center>
               <Image
                 style={styles.logo}

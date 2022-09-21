@@ -4,6 +4,7 @@ import { View, Text, Button } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Feather from "react-native-vector-icons/Feather";
 
+import UserOptionModal from "../user/UserOptionModal";
 import Color from "../../config/color";
 import CustomButton from "../core/CustomButton";
 import { StyleInit } from "../../config/StyleInit";
@@ -101,13 +102,8 @@ const DailyWeatherForecast = ({ navigation }) => {
 
   return (
     <ScrollView>
-      {/* <View flex paddingH-25 paddingT-120> */}
-      <View flex marginV-50>
-        {/* <View left paddingL-10>
-          <Button link green>
-            <FontAwesome5 name="home" size={30} color="green" />
-          </Button>
-        </View> */}
+      <View flex marginB-50>
+        <UserOptionModal />
 
         <View paddingT-30>
           <View center>

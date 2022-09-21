@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView, Image, StyleSheet } from "react-native";
-import { View, Text, Button } from "react-native-ui-lib";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { View, Text } from "react-native-ui-lib";
 
 import CustomButton from "./core/CustomButton";
 import { StyleInit } from "../config/StyleInit";
+import UserOptionModal from "./user/UserOptionModal";
 
 StyleInit();
 
@@ -13,13 +13,9 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <ScrollView>
-      {/* <View flex paddingH-25 paddingT-120> */}
-      <View flex marginV-50>
-        {/* <View left paddingL-10>
-          <Button link>
-            <FontAwesome5 name="home" size={30} color="green" />
-          </Button>
-        </View> */}
+      <View flex marginB-50>
+        <UserOptionModal />
+
         <View paddingT-50>
           <View center>
             <Image
@@ -33,6 +29,7 @@ const MainScreen = ({ navigation }) => {
             </Text>
           </View>
         </View>
+
         <View>
           <View marginV-20 center>
             <CustomButton
