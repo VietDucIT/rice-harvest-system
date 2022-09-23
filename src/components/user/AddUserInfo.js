@@ -23,7 +23,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
-const ModifyUserInfo = ({ navigation }) => {
+const AddUserInfo = ({ navigation }) => {
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
 
@@ -54,13 +54,13 @@ const ModifyUserInfo = ({ navigation }) => {
   };
 
   const handleAdd = () => {
-    Alert.alert("Thông báo", "Chỉnh sửa thông tin thành công.", [
+    Alert.alert("Thông báo", "Đăng ký thông tin thành công.", [
       {
         text: "Đóng",
         style: "cancel",
       },
     ]);
-    navigation.navigate("UserInfo");
+    navigation.navigate("MainScreen");
   };
 
   return (
@@ -76,7 +76,7 @@ const ModifyUserInfo = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Chỉnh sửa thông tin
+                Đăng ký thông tin
               </Text>
             </View>
           </View>
@@ -201,7 +201,7 @@ const ModifyUserInfo = ({ navigation }) => {
     </ScrollView>
   );
 };
-export default ModifyUserInfo;
+export default AddUserInfo;
 
 const styles = StyleSheet.create({
   logo: {

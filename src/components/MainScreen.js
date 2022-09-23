@@ -39,6 +39,7 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("CurrentWeather")}
             />
           </View>
+
           <View marginV-20 center>
             <CustomButton
               label="Cập nhật giá lúa"
@@ -47,6 +48,7 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("RicePrice")}
             />
           </View>
+
           <View marginV-20 center>
             <CustomButton
               label="Quản lý ruộng lúa"
@@ -55,6 +57,7 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("RiceFields")}
             />
           </View>
+
           <View marginV-20 center>
             <CustomButton
               label="Quản lý vụ mùa"
@@ -63,7 +66,8 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("RiceSeasons")}
             />
           </View>
-          {/* <View marginV-20 center>
+
+          <View marginV-20 center>
             <CustomButton
               label="Quản lý khu vực thu mua"
               text60
@@ -71,6 +75,7 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("RiceBuyingAreas")}
             />
           </View>
+
           <View marginV-20 center>
             <CustomButton
               label="Xem bản đồ ruộng đất"
@@ -78,7 +83,16 @@ const MainScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => navigation.navigate("Map")}
             />
-          </View> */}
+          </View>
+
+          <View marginV-20 center>
+            <CustomButton
+              label="Máy tính"
+              text60
+              style={styles.btn}
+              onPress={() => navigation.navigate("Calculator")}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>

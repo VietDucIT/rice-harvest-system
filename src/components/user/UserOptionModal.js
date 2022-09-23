@@ -38,7 +38,7 @@ const UserOptionModal = ({ navigation }) => {
               <Button
                 link
                 style={styles.modalText}
-                onPress={() => console.log("Sửa thông tin")}
+                onPress={() => navigation.navigate("ModifyUserInfo")}
                 marginV-5
               >
                 <Text text65>Sửa thông tin</Text>

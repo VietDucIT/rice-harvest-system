@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Image, StyleSheet, Button, ScrollView } from "react-native";
-import { View, Text, TextField } from "react-native-ui-lib";
+import { Image, StyleSheet, ScrollView, Pressable } from "react-native";
+import { View, Text, TextField, Button } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
+import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+import ColumnItem from "./ColumnItem";
 
 StyleInit();
 
 const Calculator = ({ navigation }) => {
   const [total, setTotal] = useState(0);
   const [sum, setSum] = useState(0);
-  const [item, setItem] = useState(0);
+
+  const addColumnItem = () => {
+    console.log("Add a column");
+  };
+
+  const handleTotal = (sum1) => {
+    setTotal(sum1);
+  };
 
   return (
     <ScrollView>
@@ -38,219 +47,80 @@ const Calculator = ({ navigation }) => {
             style={styles.contentWrapper}
           >
             <View style={styles.calculatorContainer}>
-              <View style={styles.sumContainer} margin-10>
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              {/* <View style={styles.sumContainer} margin-10>
                 <TextField
-                  text70
+                  text65
+                  centered
                   grey10
                   onChangeText={setItem}
                   value={item}
+                  validate={"required"}
                   style={styles.item}
                 />
                 <TextField
-                  text70
+                  text65
+                  centered
                   grey10
                   onChangeText={setItem}
                   value={item}
+                  validate={"required"}
                   style={styles.item}
                 />
                 <TextField
-                  text70
+                  text65
+                  centered
                   grey10
                   onChangeText={setItem}
                   value={item}
+                  validate={"required"}
                   style={styles.item}
                 />
                 <TextField
-                  text70
+                  text65
+                  centered
                   grey10
                   onChangeText={setItem}
                   value={item}
+                  validate={"required"}
                   style={styles.item}
                 />
                 <TextField
-                  text70
+                  text65
+                  centered
                   grey10
                   onChangeText={setItem}
                   value={item}
+                  validate={"required"}
                   style={styles.item}
                 />
-                <Text green text60 style={styles.sumItems}>
+                <Text green text60 center style={styles.sumItems}>
                   250
                 </Text>
-              </View>
-
-              <View style={styles.sumContainer} margin-10>
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <Text green text60 style={styles.sumItems}>
-                  250
-                </Text>
-              </View>
-
-              <View style={styles.sumContainer} margin-10>
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <Text green text60 style={styles.sumItems}>
-                  250
-                </Text>
-              </View>
-
-              <View style={styles.sumContainer} margin-10>
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <Text green text60 style={styles.sumItems}>
-                  250
-                </Text>
-              </View>
-
-              <View style={styles.sumContainer} margin-10>
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <TextField
-                  text70
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  style={styles.item}
-                />
-                <Text green text60 style={styles.sumItems}>
-                  250
-                </Text>
-              </View>
+              </View> */}
 
               <View
-                style={[styles.sumContainer, styles.plusContainer]}
+                style={styles.plusContainer}
                 margin-10
                 center
+                onPress={() => console.log(123)}
               >
-                <Text green text50>
+                {/* <Text green text50>
                   +
-                </Text>
+                </Text> */}
+                <Button
+                  link
+                  text30
+                  green20
+                  label="+"
+                  // marginT-5
+                  style={styles.heading}
+                  onPress={addColumnItem}
+                />
               </View>
             </View>
 
@@ -284,20 +154,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
   },
-  sumContainer: {
+  plusContainer: {
+    height: 325,
     width: 70,
     marginBottom: 40,
-  },
-  item: {
-    height: 20,
-  },
-  sumItems: {
-    // fontSize: 20,
-    // fontWeight: "500",
-  },
-  plusContainer: {
     borderWidth: 1,
-    borderColor: "grey",
+    borderColor: Color.lightGreyColor,
   },
   totalContainer: {
     width: "100%",

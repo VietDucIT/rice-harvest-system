@@ -197,6 +197,7 @@ const ModifyRiceSeason = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setTotalRice}
                 value={totalRice}
                 placeholder="0"
@@ -209,8 +210,9 @@ const ModifyRiceSeason = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                multiline={true}
+                multiline
                 numberOfLines={3}
+                validate={"required"}
                 onChangeText={setDescription}
                 value={description}
               />

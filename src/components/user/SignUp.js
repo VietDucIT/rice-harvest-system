@@ -1,16 +1,47 @@
 import React, { useState } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet, Alert } from "react-native";
 import { View, TextField, Text, Button } from "react-native-ui-lib";
 
 import CustomButton from "../core/CustomButton";
+import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
 const SignUp = ({ navigation }) => {
+  const usernameArray = [];
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const checkSignUp = () => {
+    // Alert
+    if (usernameArray.includes(username)) {
+      Alert.alert(
+        "Thông báo",
+        "Tên đăng nhập đã tồn tại. Nếu bạn đã có tài khoản, chọn Đăng nhập. Nếu đó không phải bạn, chọn Nhập lại.",
+        [
+          {
+            text: "Đăng nhập",
+            onPress: () => navigation.navigate("FirstScreen"),
+          },
+          {
+            text: "Nhập lại",
+            style: "cancel",
+          },
+        ]
+      );
+    } else {
+      Alert.alert("Thông báo", "Đăng ký thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate("AddUserInfo");
+    }
+  };
 
   const reset = () => {
     setUsername("");
@@ -39,33 +70,59 @@ const SignUp = ({ navigation }) => {
               text70
               placeholder="Tên đăng nhập"
               grey10
-              onChangeText={setUsername}
+              floatingPlaceholder
+              floatOnFocus
+              floatingPlaceholderColor={Color.greenColor}
+              containerStyle={{ marginBottom: 10 }}
+              maxLength={30}
+              validate={"required"}
               value={username}
+              onChangeText={setUsername}
+              errorMessage={"Vui lòng nhập Tên đăng nhập"}
+              errorColor={Color.redColor}
             />
 
             <TextField
-              text70
+              secureTextEntry
+              text65
               placeholder="Mật khẩu"
-              secureTextEntry
               grey10
-              onChangeText={setPassword}
+              floatingPlaceholder
+              floatOnFocus
+              floatingPlaceholderColor={Color.greenColor}
+              containerStyle={{ marginBottom: 10 }}
+              maxLength={20}
+              showCharacterCounter
+              validate={"required"}
               value={password}
+              onChangeText={setPassword}
+              errorMessage={"Vui lòng nhập Mật khẩu"}
+              errorColor={Color.redColor}
             />
 
             <TextField
-              text70
-              placeholder="Nhập lại mật khẩu"
               secureTextEntry
+              text65
+              placeholder="Nhập lại mật khẩu"
               grey10
-              onChangeText={setConfirmPassword}
+              floatingPlaceholder
+              floatOnFocus
+              floatingPlaceholderColor={Color.greenColor}
+              containerStyle={{ marginBottom: 10 }}
+              maxLength={20}
+              showCharacterCounter
+              validate={"required"}
               value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              errorMessage={"Vui lòng nhập Mật khẩu"}
+              errorColor={Color.redColor}
             />
           </View>
 
           <View flex marginT-50 center>
             <View flex marginT-30 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Đăng ký" marginL-20 />
+              <CustomButton label="Đăng ký" marginL-20 onPress={checkSignUp} />
             </View>
 
             <Text text90 marginT-30>

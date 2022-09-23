@@ -6,7 +6,7 @@ import {
   Alert,
   Text as TextR,
 } from "react-native";
-import { View, TextField, Text } from "react-native-ui-lib";
+import { View, TextField, Text, Typography } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -74,8 +74,11 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setAddress}
                 value={address}
+                title="Địa chỉ:"
+                titleStyle={{ fontSize: Typography.text70.fontSize }}
               />
             </View>
 
@@ -87,6 +90,7 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setD1}
                 value={d1}
                 placeholder="Điểm 1"
@@ -94,6 +98,7 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setD2}
                 value={d2}
                 placeholder="Điểm 2"
@@ -101,6 +106,7 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setD3}
                 value={d3}
                 placeholder="Điểm 3"
@@ -108,6 +114,7 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
+                validate={"required"}
                 onChangeText={setD4}
                 value={d4}
                 placeholder="Điểm 4"
@@ -122,8 +129,9 @@ const ModifyRiceField = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                multiline={true}
+                multiline
                 numberOfLines={3}
+                validate={"required"}
                 onChangeText={setDescription}
                 value={description}
               />
