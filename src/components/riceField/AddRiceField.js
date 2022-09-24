@@ -17,31 +17,59 @@ import { StyleInit } from "../../config/StyleInit";
 StyleInit();
 
 const AddRiceField = ({ navigation }) => {
+  let d1 = {};
+  let d2 = {};
+  let d3 = {};
+  let d4 = {};
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
-  const [d1, setD1] = useState(0);
-  const [d2, setD2] = useState(0);
-  const [d3, setD3] = useState(0);
-  const [d4, setD4] = useState(0);
-  const [coordinate, setCoordinate] = useState({});
+  const [village, setVillage] = useState("");
+  const [commune, setCommune] = useState("");
+  const [town, setTown] = useState("");
+  const [province, setProvince] = useState("");
+  const [x1, setX1] = useState(0);
+  const [y1, setY1] = useState(0);
+  const [x2, setX2] = useState(0);
+  const [y2, setY2] = useState(0);
+  const [x3, setX3] = useState(0);
+  const [y3, setY3] = useState(0);
+  const [x4, setX4] = useState(0);
+  const [y4, setY4] = useState(0);
+  // const [coordinate, setCoordinate] = useState({});
 
   const reset = () => {
     setAddress("");
-    setD1(0);
-    setD2(0);
-    setD3(0);
-    setD4(0);
-    setCoordinate({});
+    setX1(0);
+    setY1(0);
+    setX2(0);
+    setY2(0);
+    setX3(0);
+    setY3(0);
+    setX4(0);
+    setY4(0);
+    // setCoordinate({});
     setDescription("");
     console.log("Reset completed.");
   };
 
   useEffect(() => {
-    setCoordinate({ d1, d2, d3, d4 });
-  }, [d1, d2, d3, d4]);
+    d1 = Object.assign({ lat: x1, lon: y1 });
+  }, [x1, y1]);
+
+  useEffect(() => {
+    d2 = Object.assign({ lat: x2, lon: y2 });
+  }, [x2, y2]);
+
+  useEffect(() => {
+    d3 = Object.assign({ lat: x3, lon: y3 });
+  }, [x3, y3]);
+
+  useEffect(() => {
+    d4 = Object.assign({ lat: x4, lon: y4 });
+  }, [x4, y4]);
 
   const showAlert = () => {
-    Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
+    Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
       {
         text: "Đóng",
         style: "cancel",
@@ -74,7 +102,8 @@ const AddRiceField = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
-              <TextField
+
+              {/* <TextField
                 text70
                 grey10
                 validate={"required"}
@@ -84,7 +113,82 @@ const AddRiceField = ({ navigation }) => {
                 errorColor={Color.redColor}
                 // title="Địa chỉ:"
                 // titleStyle={{ fontSize: Typography.text70.fontSize }}
-              />
+              /> */}
+
+              <View flex style={styles.addressContainer}>
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    validate={"required"}
+                    onChangeText={setVillage}
+                    value={village}
+                    placeholder="Ấp"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    errorMessage={"Bắt buộc"}
+                    errorColor={Color.redColor}
+                    style={styles.addressItem}
+                    autoCapitalize="words"
+                  />
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    validate={"required"}
+                    onChangeText={setCommune}
+                    value={commune}
+                    placeholder="Xã"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    errorMessage={"Bắt buộc"}
+                    errorColor={Color.redColor}
+                    style={styles.addressItem}
+                    autoCapitalize="words"
+                    marginL-20
+                  />
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    validate={"required"}
+                    onChangeText={setTown}
+                    value={town}
+                    placeholder="Huyện"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    errorMessage={"Bắt buộc"}
+                    errorColor={Color.redColor}
+                    style={styles.addressItem}
+                    autoCapitalize="words"
+                  />
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    validate={"required"}
+                    onChangeText={setProvince}
+                    value={province}
+                    placeholder="Tỉnh"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    errorMessage={"Bắt buộc"}
+                    errorColor={Color.redColor}
+                    style={styles.addressItem}
+                    autoCapitalize="words"
+                  />
+                </View>
+              </View>
             </View>
 
             {/* Coordinate */}
@@ -92,6 +196,8 @@ const AddRiceField = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Tọa độ:
               </TextR>
+
+              {/* D1 */}
               <View flex style={styles.coordItemContainer}>
                 <TextR text70 style={styles.label}>
                   Điểm 1:
@@ -100,43 +206,144 @@ const AddRiceField = ({ navigation }) => {
                   text70
                   grey10
                   validate={"required"}
-                  onChangeText={setD1}
-                  value={d1}
-                  placeholder="Điểm 1"
+                  onChangeText={setX1}
+                  value={x1}
+                  placeholder="X"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
                 />
                 <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setY1}
+                  value={y1}
+                  placeholder="Y"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+                {/* <TextField
                   text70
                   grey10
                   validate={"required"}
                   onChangeText={setD1}
                   value={d1}
                   placeholder="Điểm 1"
+                /> */}
+              </View>
+
+              {/* D2 */}
+              <View flex style={styles.coordItemContainer}>
+                <TextR text70 style={styles.label}>
+                  Điểm 2:
+                </TextR>
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setX2}
+                  value={x2}
+                  placeholder="X"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setY2}
+                  value={y2}
+                  placeholder="Y"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
                 />
               </View>
-              <TextField
-                text70
-                grey10
-                validate={"required"}
-                onChangeText={setD2}
-                value={d2}
-                placeholder="Điểm 2"
-              />
-              <TextField
-                text70
-                grey10
-                validate={"required"}
-                onChangeText={setD3}
-                value={d3}
-                placeholder="Điểm 3"
-              />
-              <TextField
-                text70
-                grey10
-                validate={"required"}
-                onChangeText={setD4}
-                value={d4}
-                placeholder="Điểm 4"
-              />
+
+              {/* D3 */}
+              <View flex style={styles.coordItemContainer}>
+                <TextR text70 style={styles.label}>
+                  Điểm 3:
+                </TextR>
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setX3}
+                  value={x3}
+                  placeholder="X"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setY3}
+                  value={y3}
+                  placeholder="Y"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+              </View>
+
+              {/* D4 */}
+              <View flex style={styles.coordItemContainer}>
+                <TextR text70 style={styles.label}>
+                  Điểm 4:
+                </TextR>
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setX4}
+                  value={x4}
+                  placeholder="X"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+                <TextField
+                  text70
+                  grey10
+                  validate={"required"}
+                  onChangeText={setY4}
+                  value={y4}
+                  placeholder="Y"
+                  floatingPlaceholder
+                  floatOnFocus
+                  containerStyle={{ marginBottom: 10 }}
+                  errorMessage={"Bắt buộc"}
+                  errorColor={Color.redColor}
+                  style={styles.coorItem}
+                />
+              </View>
             </View>
 
             {/* Description */}
@@ -158,7 +365,7 @@ const AddRiceField = ({ navigation }) => {
 
           <View flex marginT-30 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Lưu" onPress={showAlert} />
+            <CustomButton label="Tạo" onPress={showAlert} />
           </View>
         </View>
       </View>
@@ -176,9 +383,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
   },
+  addressContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  addressItem: {
+    width: 120,
+  },
   coordItemContainer: {
     flexWrap: "wrap",
     flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  coorItem: {
+    width: 100,
   },
   btnContainer: {
     flexDirection: "row",

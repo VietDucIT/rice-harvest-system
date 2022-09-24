@@ -8,6 +8,7 @@ import MainScreen from "./components/MainScreen";
 import SignUp from "./components/user/SignUp";
 import AddUserInfo from "./components/user/AddUserInfo";
 import ModifyUserInfo from "./components/user/ModifyUserInfo";
+import UserInfo from "./components/user/UserInfo";
 import UserOptionModal from "./components/user/UserOptionModal";
 
 import CurrentWeather from "./components/weather/CurrentWeather";
@@ -43,6 +44,7 @@ export default function App() {
 
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="AddUserInfo" component={AddUserInfo} />
+        <Stack.Screen name="UserInfo" component={UserInfo} />
         <Stack.Screen name="ModifyUserInfo" component={ModifyUserInfo} />
 
         <Stack.Screen name="CurrentWeather" component={CurrentWeather} />
