@@ -212,9 +212,8 @@ const ModifyRiceSeason = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={3}
-                validate={"required"}
-                onChangeText={setDescription}
                 value={description}
+                onChangeText={setDescription}
               />
             </View>
 

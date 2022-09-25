@@ -14,7 +14,7 @@ import CustomButton from "../core/CustomButton";
 import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-const ModifyRiceBuyingArea = ({ navigation }) => {
+const AddRiceBuyingArea = ({ navigation }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [village, setVillage] = useState("");
@@ -35,13 +35,13 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
   };
 
   const showAlert = () => {
-    Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
+    Alert.alert("Thông báo", "Tạo khu vực thu mua thành công.", [
       {
         text: "Đóng",
         style: "cancel",
       },
     ]);
-    navigation.navigate("RiceBuyingAreaInfo");
+    navigation.navigate("RiceBuyingAreas");
   };
 
   return (
@@ -57,7 +57,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Chỉnh sửa thông tin
+                Tạo khu vực thu mua
               </Text>
             </View>
           </View>
@@ -191,14 +191,14 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
 
           <View flex marginT-30 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Lưu" onPress={showAlert} />
+            <CustomButton label="Tạo" onPress={showAlert} />
           </View>
         </View>
       </View>
     </ScrollView>
   );
 };
-export default ModifyRiceBuyingArea;
+export default AddRiceBuyingArea;
 
 const styles = StyleSheet.create({
   logo: {

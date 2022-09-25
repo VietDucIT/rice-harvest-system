@@ -25,6 +25,11 @@ import RiceSeasonInfo from "./components/riceSeason/RiceSeasonInfo";
 import AddRiceSeason from "./components/riceSeason/AddRiceSeason";
 import ModifyRiceSeason from "./components/riceSeason/ModifyRiceSeason";
 
+import RiceBuyingAreas from "./components/riceBuyingArea/RiceBuyingAreas";
+import RiceBuyingAreaInfo from "./components/riceBuyingArea/RiceBuyingAreaInfo";
+import AddRiceBuyingArea from "./components/riceBuyingArea/AddRiceBuyingArea";
+import ModifyRiceBuyingArea from "./components/riceBuyingArea/ModifyRiceBuyingArea";
+
 import Map from "./components/Map/Map";
 import RicePrice from "./components/rice/RicePrice";
 
@@ -41,12 +46,10 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="FirstScreen" component={FirstScreen} />
         <Stack.Screen name="MainScreen" component={MainScreen} />
-
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="AddUserInfo" component={AddUserInfo} />
         <Stack.Screen name="UserInfo" component={UserInfo} />
         <Stack.Screen name="ModifyUserInfo" component={ModifyUserInfo} />
-
         <Stack.Screen name="CurrentWeather" component={CurrentWeather} />
         <Stack.Screen
           name="HourlyWeatherForecast"
@@ -60,20 +63,26 @@ export default function App() {
         <Stack.Screen name="RiceFieldInfo" component={RiceFieldInfo} />
         <Stack.Screen name="AddRiceField" component={AddRiceField} />
         <Stack.Screen name="ModifyRiceField" component={ModifyRiceField} />
-
         <Stack.Screen name="RiceSeasons" component={RiceSeasons} />
         <Stack.Screen name="RiceSeasonInfo" component={RiceSeasonInfo} />
         <Stack.Screen name="AddRiceSeason" component={AddRiceSeason} />
         <Stack.Screen name="ModifyRiceSeason" component={ModifyRiceSeason} />
-
+        <Stack.Screen name="RiceBuyingAreas" component={RiceBuyingAreas} />
+        <Stack.Screen
+          name="RiceBuyingAreaInfo"
+          component={RiceBuyingAreaInfo}
+        />
+        <Stack.Screen name="AddRiceBuyingArea" component={AddRiceBuyingArea} />
+        <Stack.Screen
+          name="ModifyRiceBuyingArea"
+          component={ModifyRiceBuyingArea}
+        />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="RicePrice" component={RicePrice} />
         <Stack.Screen name="Calculator" component={Calculator} />
-
         {/* <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignUp" component={SignUp} /> */}
         <Stack.Screen name="Test" component={Test} />
-
         {/* ???? */}
         <Stack.Screen name="UserOptionModal" component={UserOptionModal} />
       </Stack.Navigator>

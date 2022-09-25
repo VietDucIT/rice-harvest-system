@@ -136,7 +136,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate("UserInfo")}
+              onPress={() => navigation.navigate("MainScreen")}
             />
           </View>
         </View>

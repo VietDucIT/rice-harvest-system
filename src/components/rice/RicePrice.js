@@ -1,13 +1,15 @@
 import React from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
-import { View, Text, Button } from "react-native-ui-lib";
+import { Image, Linking, ScrollView, StyleSheet } from "react-native";
+import { View, Text } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionModal from "../user/UserOptionModal";
-import CustomButton from "../core/CustomButton";
 import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
+
+const url =
+  "https://congthuong.vn/gia-lua-gao-hom-nay-199-soi-dong-phien-dau-tuan-220431.html";
 
 const RicePrice = ({ navigation }) => {
   const date = "19/09/2022";
@@ -58,7 +60,13 @@ const RicePrice = ({ navigation }) => {
           </View>
 
           <View right marginR-15 marginT-10>
-            <Text text80>(theo Báo Công thương)</Text>
+            <Text text80>
+              (theo{" "}
+              <Text green onPress={() => Linking.openURL(url)}>
+                Báo Công thương
+              </Text>
+              )
+            </Text>
           </View>
         </View>
       </View>

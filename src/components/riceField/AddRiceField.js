@@ -39,6 +39,10 @@ const AddRiceField = ({ navigation }) => {
 
   const reset = () => {
     setAddress("");
+    setVillage("");
+    setCommune("");
+    setTown("");
+    setProvince("");
     setX1(0);
     setY1(0);
     setX2(0);
@@ -356,9 +360,8 @@ const AddRiceField = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={3}
-                validate={"required"}
-                onChangeText={setDescription}
                 value={description}
+                onChangeText={setDescription}
               />
             </View>
           </View>

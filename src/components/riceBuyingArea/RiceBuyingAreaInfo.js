@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  Image,
-  StyleSheet,
-  FlatList,
-  StatusBar,
-  Text as TextR,
-} from "react-native";
+import { ScrollView, Image, StyleSheet, Text as TextR } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
@@ -17,12 +10,12 @@ import Map from "../Map/Map";
 
 StyleInit();
 
-const RiceFieldInfo = ({ navigation }) => {
-  const fieldData = {
+const RiceBuyingAreaInfo = ({ navigation }) => {
+  const buyingAreaData = {
     id: 1,
+    name: "Khu vực 1",
     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-    coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
-    description: "Ruộng sau nhà bác 4",
+    description: "Bờ đông kênh Cầu Tre",
   };
 
   return (
@@ -38,30 +31,25 @@ const RiceFieldInfo = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Thông tin ruộng lúa
+                Thông tin khu vực thu mua
               </Text>
             </View>
           </View>
 
           <View flex style={styles.contentWrapper} marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Mẫu ruộng số: </TextR>
-              <Text>{fieldData.id}</Text>
+              <TextR style={styles.itemLabel}>Tên: </TextR>
+              <Text>{buyingAreaData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>{fieldData.address}</Text>
-            </View>
-
-            <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Tọa độ các điểm: </TextR>
-              <Text>{fieldData.coord}</Text>
+              <Text>{buyingAreaData.address}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text>{fieldData.description}</Text>
+              <Text>{buyingAreaData.description}</Text>
             </View>
 
             <View flex style={styles.mapContainer}>
@@ -72,7 +60,7 @@ const RiceFieldInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate("ModifyRiceField")}
+              onPress={() => navigation.navigate("ModifyRiceBuyingArea")}
             />
           </View>
         </View>
@@ -80,7 +68,7 @@ const RiceFieldInfo = ({ navigation }) => {
     </ScrollView>
   );
 };
-export default RiceFieldInfo;
+export default RiceBuyingAreaInfo;
 
 const styles = StyleSheet.create({
   logo: {
