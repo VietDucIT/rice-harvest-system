@@ -2,6 +2,8 @@ import React from "react";
 import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import { StyleInit } from "../../config/StyleInit";
 import CustomButton from "../core/CustomButton";
@@ -14,7 +16,7 @@ const RiceSeasons = ({ navigation }) => {
       id: 1,
       name: "Thu Đông 2022",
       riceField: "Mẫu ruộng số 1",
-      rice: "OM18",
+      rice: "OM 18",
       timeStart: "19/9/2022",
       timeEnd: "19/12/2022",
       totalRice: 900,
@@ -23,7 +25,7 @@ const RiceSeasons = ({ navigation }) => {
       id: 2,
       name: "Đông Xuân 2023",
       riceField: "Mẫu ruộng số 1",
-      rice: "OM5451",
+      rice: "OM 5451",
       timeStart: "19/9/2022",
       timeEnd: "19/12/2022",
       totalRice: 900,
@@ -32,7 +34,7 @@ const RiceSeasons = ({ navigation }) => {
       id: 3,
       name: "Đông Xuân 2023",
       riceField: "Mẫu ruộng số 2",
-      rice: "OM18",
+      rice: "OM 18",
       timeStart: "19/9/2022",
       timeEnd: "19/12/2022",
       totalRice: 900,
@@ -41,7 +43,7 @@ const RiceSeasons = ({ navigation }) => {
       id: 4,
       name: "Hè Thu 2023",
       riceField: "Mẫu ruộng số 1",
-      rice: "OM18",
+      rice: "OM 18",
       timeStart: "19/9/2022",
       timeEnd: "19/12/2022",
       totalRice: 900,
@@ -50,7 +52,7 @@ const RiceSeasons = ({ navigation }) => {
       id: 5,
       name: "Hè Thu 2023",
       riceField: "Mẫu ruộng số 2",
-      rice: "ST25",
+      rice: "ST 25",
       timeStart: "19/9/2022",
       timeEnd: "19/12/2022",
       totalRice: 900,
@@ -65,7 +67,7 @@ const RiceSeasons = ({ navigation }) => {
         <Text
           green
           text70
-          onPress={() => navigation.navigate("RiceSeasonInfo")}
+          onPress={() => navigation.navigate(nameList.riceSeasonInfo)}
         >
           Xem
         </Text>
@@ -101,7 +103,7 @@ const RiceSeasons = ({ navigation }) => {
         <View marginT-30 center>
           <CustomButton
             label="Thêm"
-            onPress={() => navigation.navigate("AddRiceSeason")}
+            onPress={() => navigation.navigate(nameList.addRiceSeason)}
           />
         </View>
       </View>

@@ -24,6 +24,7 @@ const RicePrice = ({ navigation }) => {
       ["Nàng hoa 9", "5.600 – 5.800"],
       ["Nếp An Giang", "5.900 – 6.100"],
       ["Nếp Long An", "6.200 – 6.500"],
+      ["...", "..."],
     ],
   };
 

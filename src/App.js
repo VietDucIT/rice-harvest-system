@@ -40,54 +40,106 @@ import Loader from "./components/core/Loader";
 
 const Stack = createNativeStackNavigator();
 
+const nameList = {
+  firstScreen: "Đăng nhập",
+  mainScreen: "Màn hình chính",
+  signUp: "Đăng ký",
+  addUserInfo: "Đăng ký thông tin",
+  userInfo: "Thông tin người dùng",
+  modifyUserInfo: "Chỉnh sửa người dùng",
+  currentWeather: "Thời tiết hiện tại",
+  hourlyWeatherForecast: "Dự báo thời tiết theo giờ",
+  dailyWeatherForecast: "Dự báo thời tiết theo ngày",
+  riceFields: "Danh sách ruộng lúa",
+  riceFieldInfo: "Thông tin ruộng lúa",
+  addRiceField: "Thêm ruộng lúa",
+  modifyRiceField: "Sửa ruộng lúa",
+  riceSeasons: "Danh sách vụ mùa",
+  riceSeasonInfo: "Thông tin vụ mùa",
+  addRiceSeason: "Thêm vụ mùa",
+  modifyRiceSeason: "Sửa vụ mùa",
+  riceBuyingAreas: "Danh sách khu vực thu mua",
+  riceBuyingAreaInfo: "Thông tin khu vực thu mua",
+  addRiceBuyingArea: "Thêm khu vực thu mua",
+  modifyRiceBuyingArea: "Sửa khu vực thu mua",
+  map: "Bản đồ",
+  ricePrice: "Giá lúa",
+  calculator: "Máy tính",
+  userOptionModal: "Tùy chọn người dùng",
+  test: "Test",
+};
+
 export default function App() {
+  console.log(nameList);
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="FirstScreen" component={FirstScreen} />
-        <Stack.Screen name="MainScreen" component={MainScreen} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="AddUserInfo" component={AddUserInfo} />
-        <Stack.Screen name="UserInfo" component={UserInfo} />
-        <Stack.Screen name="ModifyUserInfo" component={ModifyUserInfo} />
-        <Stack.Screen name="CurrentWeather" component={CurrentWeather} />
+        <Stack.Screen name={nameList.firstScreen} component={FirstScreen} />
+        <Stack.Screen name={nameList.mainScreen} component={MainScreen} />
+        <Stack.Screen name={nameList.signUp} component={SignUp} />
+        <Stack.Screen name={nameList.addUserInfo} component={AddUserInfo} />
+        <Stack.Screen name={nameList.userInfo} component={UserInfo} />
         <Stack.Screen
-          name="HourlyWeatherForecast"
+          name={nameList.modifyUserInfo}
+          component={ModifyUserInfo}
+        />
+        <Stack.Screen
+          name={nameList.currentWeather}
+          component={CurrentWeather}
+        />
+        <Stack.Screen
+          name={nameList.hourlyWeatherForecast}
           component={HourlyWeatherForecast}
         />
         <Stack.Screen
-          name="DailyWeatherForecast"
+          name={nameList.dailyWeatherForecast}
           component={DailyWeatherForecast}
         />
-        <Stack.Screen name="RiceFields" component={RiceFields} />
-        <Stack.Screen name="RiceFieldInfo" component={RiceFieldInfo} />
-        <Stack.Screen name="AddRiceField" component={AddRiceField} />
-        <Stack.Screen name="ModifyRiceField" component={ModifyRiceField} />
-        <Stack.Screen name="RiceSeasons" component={RiceSeasons} />
-        <Stack.Screen name="RiceSeasonInfo" component={RiceSeasonInfo} />
-        <Stack.Screen name="AddRiceSeason" component={AddRiceSeason} />
-        <Stack.Screen name="ModifyRiceSeason" component={ModifyRiceSeason} />
-        <Stack.Screen name="RiceBuyingAreas" component={RiceBuyingAreas} />
+        <Stack.Screen name={nameList.riceFields} component={RiceFields} />
+        <Stack.Screen name={nameList.riceFieldInfo} component={RiceFieldInfo} />
+        <Stack.Screen name={nameList.addRiceField} component={AddRiceField} />
         <Stack.Screen
-          name="RiceBuyingAreaInfo"
+          name={nameList.modifyRiceField}
+          component={ModifyRiceField}
+        />
+        <Stack.Screen name={nameList.riceSeasons} component={RiceSeasons} />
+        <Stack.Screen
+          name={nameList.riceSeasonInfo}
+          component={RiceSeasonInfo}
+        />
+        <Stack.Screen name={nameList.addRiceSeason} component={AddRiceSeason} />
+        <Stack.Screen
+          name={nameList.modifyRiceSeason}
+          component={ModifyRiceSeason}
+        />
+        <Stack.Screen
+          name={nameList.riceBuyingAreas}
+          component={RiceBuyingAreas}
+        />
+        <Stack.Screen
+          name={nameList.riceBuyingAreaInfo}
           component={RiceBuyingAreaInfo}
         />
-        <Stack.Screen name="AddRiceBuyingArea" component={AddRiceBuyingArea} />
         <Stack.Screen
-          name="ModifyRiceBuyingArea"
+          name={nameList.addRiceBuyingArea}
+          component={AddRiceBuyingArea}
+        />
+        <Stack.Screen
+          name={nameList.modifyRiceBuyingArea}
           component={ModifyRiceBuyingArea}
         />
-        <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen name="RicePrice" component={RicePrice} />
-        <Stack.Screen name="Calculator" component={Calculator} />
-        {/* <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="SignUp" component={SignUp} /> */}
-        <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name={nameList.map} component={Map} />
+        <Stack.Screen name={nameList.ricePrice} component={RicePrice} />
+        <Stack.Screen name={nameList.calculator} component={Calculator} />
+        <Stack.Screen name={nameList.test} component={Test} />
         {/* ???? */}
-        <Stack.Screen name="UserOptionModal" component={UserOptionModal} />
+        <Stack.Screen
+          name={nameList.userOptionModal}
+          component={UserOptionModal}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
-
-  // return <Loader />;
 }
+
+export { nameList };

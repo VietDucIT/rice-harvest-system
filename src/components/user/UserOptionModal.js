@@ -1,15 +1,60 @@
 import React, { useState } from "react";
-import { Modal, StyleSheet } from "react-native";
+import { Alert, Modal, StyleSheet } from "react-native";
 import { View, Text, Button } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
+import { nameList } from "../../App";
+
 import CustomButton from "../core/CustomButton";
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
 const UserOptionModal = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSignOut = () => {
+    Alert.alert("Xác nhận", "Bạn có chắc chắn muốn đăng xuất?", [
+      {
+        text: "Đăng xuất",
+        onPress: () => {
+          Alert.alert("Thông báo", "Bạn đã đăng xuất thành công.", [
+            {
+              text: "Đóng",
+              style: "cancel",
+            },
+          ]);
+          navigation.navigate(nameList.firstScreen);
+        },
+      },
+      {
+        text: "Đóng",
+        style: "cancel",
+      },
+    ]);
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert("Xác nhận", "Bạn có chắc chắn muốn xóa tài khoản này?", [
+      {
+        text: "Chắc chắn",
+        onPress: () => {
+          Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
+            {
+              text: "Đóng",
+              style: "cancel",
+            },
+          ]);
+          navigation.navigate(nameList.SignUp);
+        },
+      },
+      {
+        text: "Đóng",
+        style: "cancel",
+      },
+    ]);
+  };
 
   return (
     <View>
@@ -38,15 +83,15 @@ const UserOptionModal = ({ navigation }) => {
               <Button
                 link
                 style={styles.modalText}
-                onPress={() => navigation.navigate("ModifyUserInfo")}
+                onPress={() => navigation.navigate(nameList.userInfo)}
                 marginV-5
               >
-                <Text text65>Sửa thông tin</Text>
+                <Text text65>Thông tin cá nhân</Text>
               </Button>
               <Button
                 link
                 style={styles.modalText}
-                onPress={() => console.log("Đăng xuất")}
+                onPress={handleSignOut}
                 marginV-5
               >
                 <Text text65>Đăng xuất</Text>
@@ -54,7 +99,7 @@ const UserOptionModal = ({ navigation }) => {
               <Button
                 link
                 style={styles.modalText}
-                onPress={() => console.log("Xóa tài khoản")}
+                onPress={handleDeleteAccount}
                 marginV-5
               >
                 <Text text65>Xóa tài khoản</Text>
@@ -99,5 +144,9 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    padding: 10,
+    borderBottomColor: color.greenColor,
+    borderStyle: "solid",
+    borderBottomWidth: 1,
   },
 });

@@ -2,9 +2,13 @@ import React from "react";
 import { Image, StyleSheet, FlatList } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
-import { StyleInit } from "../../config/StyleInit";
 import CustomButton from "../core/CustomButton";
+
+import color from "../../config/color";
+import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
@@ -39,7 +43,11 @@ const RiceFields = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <View flex style={styles.fieldItem} padding-5 marginV-8 marginH-16>
       <Text text70>{item.name}</Text>
-      <Text green text70 onPress={() => navigation.navigate("RiceFieldInfo")}>
+      <Text
+        green
+        text70
+        onPress={() => navigation.navigate(nameList.riceFieldInfo)}
+      >
         Xem
       </Text>
     </View>
@@ -73,7 +81,7 @@ const RiceFields = ({ navigation }) => {
         <View marginT-30 center>
           <CustomButton
             label="Thêm"
-            onPress={() => navigation.navigate("AddRiceField")}
+            onPress={() => navigation.navigate(nameList.addRiceField)}
           />
         </View>
       </View>
@@ -91,5 +99,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    borderBottomColor: color.greenColor,
+    borderStyle: "solid",
+    borderBottomWidth: 1,
   },
 });

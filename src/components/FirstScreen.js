@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Alert } from "react-native";
 import { View, TextField, Text, Button } from "react-native-ui-lib";
 
+import { nameList } from "../App";
+
 import CustomButton from "./core/CustomButton";
 import Color from "../config/color";
 import { StyleInit } from "../config/StyleInit";
@@ -9,14 +11,29 @@ import { StyleInit } from "../config/StyleInit";
 StyleInit();
 
 const FirstScreen = ({ navigation }) => {
-  const usernameArray = [];
+  const userArray = [
+    {
+      username: "Duc",
+      password: "123",
+    },
+  ];
+
+  const findUsername = (name, array) => {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].username === name) return i;
+    }
+    return -1;
+  };
+
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState("");
   // const [error, setError] = useState("");
 
+  const indexItem = findUsername(username, userArray);
+
   const checkLogIn = () => {
     // Alert
-    if (!usernameArray.includes(username)) {
+    if (indexItem < 0) {
       Alert.alert(
         "Thông báo",
         "Tên đăng nhập không tồn tại. Vui lòng nhập lại.",
@@ -27,7 +44,7 @@ const FirstScreen = ({ navigation }) => {
           },
         ]
       );
-    } else if (1 === 1) {
+    } else if (userArray[indexItem].password !== password) {
       // Wrong password
       Alert.alert("Thông báo", "Mật khẩu không chính xác. Vui lòng nhập lại.", [
         {
@@ -36,13 +53,7 @@ const FirstScreen = ({ navigation }) => {
         },
       ]);
     } else {
-      navigation.navigate("MainScreen");
-      // Alert.alert("Thông báo", "Đăng nhập thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
+      navigation.navigate(nameList.mainScreen);
     }
   };
 
@@ -126,18 +137,18 @@ const FirstScreen = ({ navigation }) => {
               label="Đăng ký"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate("SignUp")}
+              onPress={() => navigation.navigate(nameList.signUp)}
             />
             {/* Test screen */}
-            <Button
+            {/* <Button
               link
               text70
               green20
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate("MainScreen")}
-            />
+              onPress={() => navigation.navigate(nameList.addUserInfo)}
+            /> */}
           </View>
         </View>
       </View>

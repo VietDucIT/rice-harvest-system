@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Image, StyleSheet, Text as TextR } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 import { StyleInit } from "../../config/StyleInit";
@@ -74,7 +76,7 @@ const RiceSeasonInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate("ModifyRiceSeason")}
+              onPress={() => navigation.navigate(nameList.modifyRiceSeason)}
             />
           </View>
         </View>

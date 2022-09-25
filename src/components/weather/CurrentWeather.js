@@ -4,6 +4,8 @@ import { View, Text } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Geolocation from "react-native-geolocation-service";
 
+import { nameList } from "../../App";
+
 import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -128,7 +130,9 @@ const CurrentWeather = ({ navigation }) => {
                 label="Dự báo thời tiết theo giờ"
                 text55
                 style={styles.btn}
-                onPress={() => navigation.navigate("HourlyWeatherForecast")}
+                onPress={() =>
+                  navigation.navigate(nameList.hourlyWeatherForecast)
+                }
               />
             </View>
             <View marginV-10 center>
@@ -136,7 +140,9 @@ const CurrentWeather = ({ navigation }) => {
                 label="Dự báo thời tiết theo ngày"
                 text55
                 style={styles.btn}
-                onPress={() => navigation.navigate("DailyWeatherForecast")}
+                onPress={() =>
+                  navigation.navigate(nameList.dailyWeatherForecast)
+                }
               />
             </View>
           </View>

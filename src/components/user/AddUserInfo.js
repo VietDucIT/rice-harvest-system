@@ -15,6 +15,8 @@ import {
   Picker,
 } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
@@ -50,6 +52,7 @@ const AddUserInfo = ({ navigation }) => {
     setBirthYear(currentYear);
     setAddress("");
     setPhone("");
+    setRole(0);
     console.log("Reset completed.");
   };
 
@@ -60,7 +63,7 @@ const AddUserInfo = ({ navigation }) => {
         style: "cancel",
       },
     ]);
-    navigation.navigate("MainScreen");
+    navigation.navigate(nameList.mainScreen);
   };
 
   return (

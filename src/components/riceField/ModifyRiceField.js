@@ -6,13 +6,15 @@ import {
   Alert,
   Text as TextR,
 } from "react-native";
-import { View, TextField, Text, Typography, Picker } from "react-native-ui-lib";
+import { View, TextField, Text, Picker } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
 import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+StyleInit();
 
 const ModifyRiceField = ({ navigation }) => {
   let d1 = {};

@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
@@ -83,7 +85,7 @@ const UserInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate("ModifyUserInfo")}
+              onPress={() => navigation.navigate(nameList.modifyUserInfo)}
               style={{ width: 100 }}
             />
           </View>

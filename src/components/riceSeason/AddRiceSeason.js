@@ -14,6 +14,8 @@ import {
   Picker,
 } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 import { StyleInit } from "../../config/StyleInit";
@@ -31,7 +33,14 @@ const AddRiceSeason = ({ navigation }) => {
     "Mẫu ruộng số 3",
     "Mẫu ruộng số 4",
   ];
-  const riceArray = ["OM18", "OM5451", "ST24", "ST25", "IR504"];
+  const riceArray = [
+    "OM 18",
+    "OM 5451",
+    "ST 24",
+    "ST 25",
+    "IR 504",
+    "Nếp Long An",
+  ];
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
@@ -59,14 +68,15 @@ const AddRiceSeason = ({ navigation }) => {
     console.log("Reset completed.");
   };
 
-  const showAlert = () =>
-    Alert.alert("Đăng ký thông tin", "Đã lưu thông tin vụ mùa.", [
+  const handleAdd = () => {
+    Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
       {
         text: "Đóng",
-        // onPress: () => Alert.alert("Cancel Pressed"),
         style: "cancel",
       },
     ]);
+    navigation.navigate(nameList.riceSeasons);
+  };
 
   return (
     <ScrollView>
@@ -81,7 +91,7 @@ const AddRiceSeason = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Đăng ký thông tin
+                Thêm vụ mùa
               </Text>
             </View>
           </View>
@@ -109,7 +119,6 @@ const AddRiceSeason = ({ navigation }) => {
                   placeholder={"Chọn năm"}
                   onChange={(year) => {
                     setSeasonYear(year.value);
-                    // console.log(year);
                   }}
                   marginL-20
                   style={styles.seasonYear}
@@ -129,7 +138,6 @@ const AddRiceSeason = ({ navigation }) => {
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
                   setRiceField(field.value);
-                  // console.log(field);
                 }}
               >
                 {riceFieldArray.map((item, index) => (
@@ -146,7 +154,6 @@ const AddRiceSeason = ({ navigation }) => {
                 placeholder={"Chọn giống lúa"}
                 onChange={(rice) => {
                   setRice(rice.value);
-                  // console.log(rice);
                 }}
               >
                 {riceArray.map((item, index) => (
@@ -168,7 +175,6 @@ const AddRiceSeason = ({ navigation }) => {
                 value={timeStart}
                 onChange={(time) => {
                   setTimeStart(time);
-                  // console.log(time);
                 }}
               />
             </View>
@@ -186,7 +192,6 @@ const AddRiceSeason = ({ navigation }) => {
                 value={timeEnd}
                 onChange={(time) => {
                   setTimeEnd(time);
-                  // console.log(rice);
                 }}
               />
             </View>
@@ -219,7 +224,7 @@ const AddRiceSeason = ({ navigation }) => {
 
             <View flex marginT-30 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Lưu" onPress={showAlert} />
+              <CustomButton label="Tạo" onPress={handleAdd} />
             </View>
           </View>
         </View>

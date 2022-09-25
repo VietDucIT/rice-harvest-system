@@ -2,6 +2,8 @@ import React from "react";
 import { ScrollView, Image, StyleSheet } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../App";
+
 import CustomButton from "./core/CustomButton";
 import { StyleInit } from "../config/StyleInit";
 import UserOptionModal from "./user/UserOptionModal";
@@ -36,7 +38,7 @@ const MainScreen = ({ navigation }) => {
               label="Thông tin thời tiết"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("CurrentWeather")}
+              onPress={() => navigation.navigate(nameList.currentWeather)}
             />
           </View>
 
@@ -45,7 +47,7 @@ const MainScreen = ({ navigation }) => {
               label="Cập nhật giá lúa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("RicePrice")}
+              onPress={() => navigation.navigate(nameList.ricePrice)}
             />
           </View>
 
@@ -54,7 +56,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý ruộng lúa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("RiceFields")}
+              onPress={() => navigation.navigate(nameList.riceFields)}
             />
           </View>
 
@@ -63,7 +65,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý vụ mùa"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("RiceSeasons")}
+              onPress={() => navigation.navigate(nameList.riceSeasons)}
             />
           </View>
 
@@ -72,7 +74,7 @@ const MainScreen = ({ navigation }) => {
               label="Quản lý khu vực thu mua"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("RiceBuyingAreas")}
+              onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
             />
           </View>
 
@@ -81,7 +83,7 @@ const MainScreen = ({ navigation }) => {
               label="Xem bản đồ ruộng đất"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("Map")}
+              onPress={() => navigation.navigate(nameList.map)}
             />
           </View>
 
@@ -90,7 +92,7 @@ const MainScreen = ({ navigation }) => {
               label="Máy tính"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate("Calculator")}
+              onPress={() => navigation.navigate(nameList.calculator)}
             />
           </View>
         </View>

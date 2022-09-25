@@ -4,10 +4,11 @@ import {
   Image,
   StyleSheet,
   FlatList,
-  StatusBar,
   Text as TextR,
 } from "react-native";
 import { View, Text } from "react-native-ui-lib";
+
+import { nameList } from "../../App";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -72,7 +73,7 @@ const RiceFieldInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate("ModifyRiceField")}
+              onPress={() => navigation.navigate(nameList.modifyRiceField)}
             />
           </View>
         </View>

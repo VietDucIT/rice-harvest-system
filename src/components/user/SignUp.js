@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Alert } from "react-native";
 import { View, TextField, Text, Button } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import CustomButton from "../core/CustomButton";
 import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -9,7 +11,7 @@ import { StyleInit } from "../../config/StyleInit";
 StyleInit();
 
 const SignUp = ({ navigation }) => {
-  const usernameArray = [];
+  const usernameArray = ["Duc"];
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +26,7 @@ const SignUp = ({ navigation }) => {
         [
           {
             text: "Đăng nhập",
-            onPress: () => navigation.navigate("FirstScreen"),
+            onPress: () => navigation.navigate(nameList.firstScreen),
           },
           {
             text: "Nhập lại",
@@ -39,7 +41,7 @@ const SignUp = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate("AddUserInfo");
+      navigation.navigate(nameList.addUserInfo);
     }
   };
 
@@ -114,7 +116,7 @@ const SignUp = ({ navigation }) => {
               validate={"required"}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              errorMessage={"Vui lòng nhập Mật khẩu"}
+              errorMessage={"Vui lòng nhập lại Mật khẩu"}
               errorColor={Color.redColor}
             />
           </View>
@@ -135,7 +137,7 @@ const SignUp = ({ navigation }) => {
               label="Đăng nhập"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate("FirstScreen")}
+              onPress={() => navigation.navigate(nameList.firstScreen)}
             />
           </View>
         </View>

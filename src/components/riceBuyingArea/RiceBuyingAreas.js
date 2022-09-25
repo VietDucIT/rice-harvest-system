@@ -2,6 +2,8 @@ import React from "react";
 import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import { StyleInit } from "../../config/StyleInit";
 import CustomButton from "../core/CustomButton";
@@ -50,7 +52,7 @@ const RiceBuyingAreas = ({ navigation }) => {
         <Text
           green
           text70
-          onPress={() => navigation.navigate("RiceBuyingAreaInfo")}
+          onPress={() => navigation.navigate(nameList.riceBuyingAreaInfo)}
         >
           Xem
         </Text>
@@ -86,7 +88,7 @@ const RiceBuyingAreas = ({ navigation }) => {
         <View marginT-30 center>
           <CustomButton
             label="Thêm"
-            onPress={() => navigation.navigate("AddRiceBuyingArea")}
+            onPress={() => navigation.navigate(nameList.addRiceBuyingArea)}
           />
         </View>
       </View>

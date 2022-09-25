@@ -6,7 +6,9 @@ import {
   Alert,
   Text as TextR,
 } from "react-native";
-import { View, TextField, Text, Typography, Picker } from "react-native-ui-lib";
+import { View, TextField, Text, Picker } from "react-native-ui-lib";
+
+import { nameList } from "../../App";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -79,7 +81,7 @@ const AddRiceField = ({ navigation }) => {
         style: "cancel",
       },
     ]);
-    navigation.navigate("RiceFieldInfo");
+    navigation.navigate(nameList.riceFieldInfo);
   };
 
   return (

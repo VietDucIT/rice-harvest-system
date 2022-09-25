@@ -6,13 +6,17 @@ import {
   Alert,
   Text as TextR,
 } from "react-native";
-import { View, TextField, Text, Typography, Picker } from "react-native-ui-lib";
+import { View, TextField, Text, Picker } from "react-native-ui-lib";
+
+import { nameList } from "../../App";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
 import Color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+StyleInit();
 
 const AddRiceBuyingArea = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -41,7 +45,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
         style: "cancel",
       },
     ]);
-    navigation.navigate("RiceBuyingAreas");
+    navigation.navigate(nameList.riceBuyingAreas);
   };
 
   return (

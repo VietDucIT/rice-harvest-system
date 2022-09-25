@@ -15,6 +15,8 @@ import {
   Picker,
 } from "react-native-ui-lib";
 
+import { nameList } from "../../App";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
@@ -60,7 +62,7 @@ const ModifyUserInfo = ({ navigation }) => {
         style: "cancel",
       },
     ]);
-    navigation.navigate("UserInfo");
+    navigation.navigate(nameList.userInfo);
   };
 
   return (
