@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
-  ScrollView,
-  Image,
-  StyleSheet,
   Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
   Text as TextR,
 } from "react-native";
-import { View, TextField, Text, Picker } from "react-native-ui-lib";
+import { Text, TextField, Picker, View } from "react-native-ui-lib";
 
-import { nameList } from "../../App";
+import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
-import Color from "../../config/color";
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
@@ -116,7 +116,7 @@ const AddRiceField = ({ navigation }) => {
                 value={address}
                 onChangeText={setAddress}
                 errorMessage={"Vui lòng nhập Địa chỉ"}
-                errorColor={Color.redColor}
+                errorColor={color.redColor}
                 // title="Địa chỉ:"
                 // titleStyle={{ fontSize: Typography.text70.fontSize }}
               /> */}
@@ -134,7 +134,7 @@ const AddRiceField = ({ navigation }) => {
                     floatOnFocus
                     containerStyle={{ marginBottom: 10 }}
                     errorMessage={"Bắt buộc"}
-                    errorColor={Color.redColor}
+                    errorColor={color.redColor}
                     style={styles.addressItem}
                     autoCapitalize="words"
                   />
@@ -152,7 +152,7 @@ const AddRiceField = ({ navigation }) => {
                     floatOnFocus
                     containerStyle={{ marginBottom: 10 }}
                     errorMessage={"Bắt buộc"}
-                    errorColor={Color.redColor}
+                    errorColor={color.redColor}
                     style={styles.addressItem}
                     autoCapitalize="words"
                     marginL-20
@@ -171,7 +171,7 @@ const AddRiceField = ({ navigation }) => {
                     floatOnFocus
                     containerStyle={{ marginBottom: 10 }}
                     errorMessage={"Bắt buộc"}
-                    errorColor={Color.redColor}
+                    errorColor={color.redColor}
                     style={styles.addressItem}
                     autoCapitalize="words"
                   />
@@ -189,7 +189,7 @@ const AddRiceField = ({ navigation }) => {
                     floatOnFocus
                     containerStyle={{ marginBottom: 10 }}
                     errorMessage={"Bắt buộc"}
-                    errorColor={Color.redColor}
+                    errorColor={color.redColor}
                     style={styles.addressItem}
                     autoCapitalize="words"
                   />
@@ -219,7 +219,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
                 <TextField
@@ -233,7 +233,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
                 {/* <TextField
@@ -262,7 +262,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
                 <TextField
@@ -276,7 +276,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
               </View>
@@ -297,7 +297,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
                 <TextField
@@ -311,7 +311,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
               </View>
@@ -332,7 +332,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
                 <TextField
@@ -346,7 +346,7 @@ const AddRiceField = ({ navigation }) => {
                   floatOnFocus
                   containerStyle={{ marginBottom: 10 }}
                   errorMessage={"Bắt buộc"}
-                  errorColor={Color.redColor}
+                  errorColor={color.redColor}
                   style={styles.coorItem}
                 />
               </View>

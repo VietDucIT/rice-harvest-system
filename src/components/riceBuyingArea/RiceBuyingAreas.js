@@ -1,12 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Image, FlatList, StyleSheet, Text as TextR } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 
-import { nameList } from "../../App";
+import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
-import { StyleInit } from "../../config/StyleInit";
 import CustomButton from "../core/CustomButton";
+import SearchBar from "../core/SearchBar";
+
+import color from "../../config/color";
+import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
@@ -77,6 +80,8 @@ const RiceBuyingAreas = ({ navigation }) => {
           </View>
         </View>
 
+        <SearchBar placeholder="Nhập tên khu vực" />
+
         <View marginT-20>
           <FlatList
             data={riceBuyingAreas}
@@ -107,6 +112,8 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // flexWrap: "wrap",
     // justifyContent: "space-between",
+    borderBottomColor: color.greenColor,
+    borderBottomWidth: 0.5,
   },
   riceBuyingAreaName: {
     fontSize: 16,

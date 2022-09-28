@@ -1,17 +1,18 @@
 import React from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Image, ScrollView, StyleSheet } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 
-import { nameList } from "../App";
+import nameList from "../json/nameList";
 
 import CustomButton from "./core/CustomButton";
-import { StyleInit } from "../config/StyleInit";
 import UserOptionModal from "./user/UserOptionModal";
+
+import { StyleInit } from "../config/StyleInit";
 
 StyleInit();
 
 const MainScreen = ({ navigation }) => {
-  const role = "Nông dân";
+  const role = 0;
 
   return (
     <ScrollView>
@@ -27,7 +28,7 @@ const MainScreen = ({ navigation }) => {
           </View>
           <View center marginV-20>
             <Text text50 green>
-              {role}
+              {role === 0 ? "Nông dân" : "Thương lái"}
             </Text>
           </View>
         </View>
@@ -51,32 +52,38 @@ const MainScreen = ({ navigation }) => {
             />
           </View>
 
-          <View marginV-20 center>
-            <CustomButton
-              label="Quản lý ruộng lúa"
-              text60
-              style={styles.btn}
-              onPress={() => navigation.navigate(nameList.riceFields)}
-            />
-          </View>
+          {role === 0 && (
+            <View marginV-20 center>
+              <CustomButton
+                label="Quản lý ruộng lúa"
+                text60
+                style={styles.btn}
+                onPress={() => navigation.navigate(nameList.riceFields)}
+              />
+            </View>
+          )}
 
-          <View marginV-20 center>
-            <CustomButton
-              label="Quản lý vụ mùa"
-              text60
-              style={styles.btn}
-              onPress={() => navigation.navigate(nameList.riceSeasons)}
-            />
-          </View>
+          {role === 0 && (
+            <View marginV-20 center>
+              <CustomButton
+                label="Quản lý vụ mùa"
+                text60
+                style={styles.btn}
+                onPress={() => navigation.navigate(nameList.riceSeasons)}
+              />
+            </View>
+          )}
 
-          <View marginV-20 center>
-            <CustomButton
-              label="Quản lý khu vực thu mua"
-              text60
-              style={styles.btn}
-              onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
-            />
-          </View>
+          {role === 1 && (
+            <View marginV-20 center>
+              <CustomButton
+                label="Quản lý khu vực thu mua"
+                text60
+                style={styles.btn}
+                onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
+              />
+            </View>
+          )}
 
           <View marginV-20 center>
             <CustomButton

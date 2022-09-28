@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 import {
-  ScrollView,
-  Image,
-  StyleSheet,
   Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
   Text as TextR,
 } from "react-native";
 import {
   DateTimePicker,
-  View,
-  TextField,
-  Text,
   Picker,
+  Text,
+  TextField,
+  View,
 } from "react-native-ui-lib";
-
-import { nameList } from "../../App";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/getDayTime";
+
+import nameList from "../../json/nameList";
 
 StyleInit();
 

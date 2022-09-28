@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Image, StyleSheet, Text as TextR } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Geolocation from "react-native-geolocation-service";
-
-import { nameList } from "../../App";
 
 import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
@@ -17,6 +15,7 @@ import getWeatherByName from "../../services/getApiByName";
 
 import cityList from "../../json/city";
 import initWeatherData from "../../json/initWeatherData";
+import nameList from "../../json/nameList";
 
 StyleInit();
 

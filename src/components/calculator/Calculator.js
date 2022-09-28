@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Image, StyleSheet, ScrollView } from "react-native";
-import { View, Text, Button } from "react-native-ui-lib";
+import { Button, Text, View } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
-import Color from "../../config/color";
-import { StyleInit } from "../../config/StyleInit";
 import ColumnItem from "./ColumnItem";
+
+import color from "../../config/color";
+import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     width: 70,
     marginBottom: 40,
     borderWidth: 1,
-    borderColor: Color.lightGreyColor,
+    borderColor: color.lightGreyColor,
   },
   totalContainer: {
     width: "100%",

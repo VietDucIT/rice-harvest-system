@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Linking, ScrollView, StyleSheet } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Text, View } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionModal from "../user/UserOptionModal";

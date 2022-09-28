@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
-import { View, Text, Button } from "react-native-ui-lib";
+import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import UserOptionModal from "../user/UserOptionModal";
 
 import { StyleInit } from "../../config/StyleInit";
 
-import initWeatherData from "../../json/initWeatherData";
 import getDayTime from "../../services/getDayTime";
+
+import initWeatherData from "../../json/initWeatherData";
 
 StyleInit();
 

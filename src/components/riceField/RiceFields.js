@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, StyleSheet, FlatList } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Image, FlatList, StyleSheet } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 
-import { nameList } from "../../App";
+import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import SearchBar from "../core/SearchBar";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -70,6 +71,8 @@ const RiceFields = ({ navigation }) => {
           </View>
         </View>
 
+        <SearchBar placeholder="Nhập tên ruộng lúa" />
+
         <View marginT-20>
           <FlatList
             data={riceFields}
@@ -100,7 +103,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     borderBottomColor: color.greenColor,
-    borderStyle: "solid",
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
   },
 });

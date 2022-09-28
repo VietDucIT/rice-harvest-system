@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  Image,
-  StyleSheet,
-  FlatList,
-  Text as TextR,
-} from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 
-import { nameList } from "../../App";
+import nameList from "../../json/nameList";
+
+import Map from "../Map/Map";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
-import { StyleInit } from "../../config/StyleInit";
 
-import Map from "../Map/Map";
+import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 

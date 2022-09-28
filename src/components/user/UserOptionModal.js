@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet } from "react-native";
-import { View, Text, Button } from "react-native-ui-lib";
+import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { nameList } from "../../App";
-
 import CustomButton from "../core/CustomButton";
+
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+import nameList from "../../json/nameList";
 
 StyleInit();
 

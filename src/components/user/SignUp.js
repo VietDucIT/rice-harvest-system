@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Image, ScrollView, StyleSheet, Alert } from "react-native";
-import { View, TextField, Text, Button } from "react-native-ui-lib";
-
-import { nameList } from "../../App";
+import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import { Button, Text, TextField, View } from "react-native-ui-lib";
 
 import CustomButton from "../core/CustomButton";
-import Color from "../../config/color";
+
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+import nameList from "../../json/nameList";
 
 StyleInit();
 
@@ -74,14 +75,14 @@ const SignUp = ({ navigation }) => {
               grey10
               floatingPlaceholder
               floatOnFocus
-              floatingPlaceholderColor={Color.greenColor}
+              floatingPlaceholderColor={color.greenColor}
               containerStyle={{ marginBottom: 10 }}
               maxLength={30}
               validate={"required"}
               value={username}
               onChangeText={setUsername}
               errorMessage={"Vui lòng nhập Tên đăng nhập"}
-              errorColor={Color.redColor}
+              errorColor={color.redColor}
             />
 
             <TextField
@@ -91,7 +92,7 @@ const SignUp = ({ navigation }) => {
               grey10
               floatingPlaceholder
               floatOnFocus
-              floatingPlaceholderColor={Color.greenColor}
+              floatingPlaceholderColor={color.greenColor}
               containerStyle={{ marginBottom: 10 }}
               maxLength={20}
               showCharacterCounter
@@ -99,7 +100,7 @@ const SignUp = ({ navigation }) => {
               value={password}
               onChangeText={setPassword}
               errorMessage={"Vui lòng nhập Mật khẩu"}
-              errorColor={Color.redColor}
+              errorColor={color.redColor}
             />
 
             <TextField
@@ -109,7 +110,7 @@ const SignUp = ({ navigation }) => {
               grey10
               floatingPlaceholder
               floatOnFocus
-              floatingPlaceholderColor={Color.greenColor}
+              floatingPlaceholderColor={color.greenColor}
               containerStyle={{ marginBottom: 10 }}
               maxLength={20}
               showCharacterCounter
@@ -117,7 +118,7 @@ const SignUp = ({ navigation }) => {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               errorMessage={"Vui lòng nhập lại Mật khẩu"}
-              errorColor={Color.redColor}
+              errorColor={color.redColor}
             />
           </View>
 

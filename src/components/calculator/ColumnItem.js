@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { View, Text, TextField } from "react-native-ui-lib";
+import { Text, TextField, View } from "react-native-ui-lib";
 
 import { StyleInit } from "../../config/StyleInit";
 

@@ -1,12 +1,13 @@
 import React from "react";
 import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
-import { View, Text } from "react-native-ui-lib";
-
-import { nameList } from "../../App";
+import { Text, View } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
-import { StyleInit } from "../../config/StyleInit";
 import CustomButton from "../core/CustomButton";
+
+import { StyleInit } from "../../config/StyleInit";
+
+import nameList from "../../json/nameList";
 
 StyleInit();
 

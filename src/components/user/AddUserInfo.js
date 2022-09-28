@@ -7,21 +7,21 @@ import {
   Text as TextR,
 } from "react-native";
 import {
-  View,
-  TextField,
-  Text,
-  RadioGroup,
-  RadioButton,
   Picker,
+  RadioButton,
+  RadioGroup,
+  Text,
+  TextField,
+  View,
 } from "react-native-ui-lib";
-
-import { nameList } from "../../App";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
-import Color from "../../config/color";
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+import nameList from "../../json/nameList";
 
 StyleInit();
 
@@ -97,7 +97,7 @@ const AddUserInfo = ({ navigation }) => {
                 value={name}
                 onChangeText={setName}
                 errorMessage={"Vui lòng nhập Họ tên"}
-                errorColor={Color.redColor}
+                errorColor={color.redColor}
               />
             </View>
 
@@ -148,7 +148,7 @@ const AddUserInfo = ({ navigation }) => {
                 value={address}
                 onChangeText={setAddress}
                 errorMessage={"Vui lòng nhập Địa chỉ chính xác"}
-                errorColor={Color.redColor}
+                errorColor={color.redColor}
               />
             </View>
 
@@ -164,7 +164,7 @@ const AddUserInfo = ({ navigation }) => {
                 value={phone}
                 onChangeText={setPhone}
                 errorMessage={"Vui lòng nhập Số điện thoại"}
-                errorColor={Color.redColor}
+                errorColor={color.redColor}
               />
             </View>
 
