@@ -7,6 +7,9 @@ import MainScreen from "./components/MainScreen";
 
 import Calculator from "./components/calculator/Calculator";
 
+import FarmerInfo from "./components/farmer/FarmerInfo";
+import FindFarmers from "./components/farmer/FindFarmers";
+
 import Map from "./components/Map/Map";
 
 import RicePrice from "./components/rice/RicePrice";
@@ -24,7 +27,13 @@ import RiceFields from "./components/riceField/RiceFields";
 import AddRiceSeason from "./components/riceSeason/AddRiceSeason";
 import ModifyRiceSeason from "./components/riceSeason/ModifyRiceSeason";
 import RiceSeasonInfo from "./components/riceSeason/RiceSeasonInfo";
+import RiceSeasonInfoForTrader from "./components/riceSeason/RiceSeasonInfoForTrader";
 import RiceSeasons from "./components/riceSeason/RiceSeasons";
+
+import ModifySuggestToBuy from "./components/trader/ModifySuggestToBuy";
+import SuggestToBuy from "./components/trader/SuggestToBuy";
+import SuggestToBuyInfo from "./components/trader/SuggestToBuyInfo";
+import SuggestToBuys from "./components/trader/SuggestToBuys";
 
 import AddUserInfo from "./components/user/AddUserInfo";
 import ModifyUserInfo from "./components/user/ModifyUserInfo";
@@ -50,6 +59,8 @@ export default function App() {
         <Stack.Screen name={nameList.firstScreen} component={FirstScreen} />
         <Stack.Screen name={nameList.mainScreen} component={MainScreen} />
         <Stack.Screen name={nameList.calculator} component={Calculator} />
+        <Stack.Screen name={nameList.farmerInfo} component={FarmerInfo} />
+        <Stack.Screen name={nameList.findFarmers} component={FindFarmers} />
         <Stack.Screen name={nameList.map} component={Map} />
         <Stack.Screen name={nameList.ricePrice} component={RicePrice} />
         <Stack.Screen
@@ -84,7 +95,21 @@ export default function App() {
           name={nameList.riceSeasonInfo}
           component={RiceSeasonInfo}
         />
+        <Stack.Screen
+          name={nameList.riceSeasonInfoForTrader}
+          component={RiceSeasonInfoForTrader}
+        />
         <Stack.Screen name={nameList.riceSeasons} component={RiceSeasons} />
+        <Stack.Screen
+          name={nameList.modifySuggestToBuy}
+          component={ModifySuggestToBuy}
+        />
+        <Stack.Screen name={nameList.suggestToBuy} component={SuggestToBuy} />
+        <Stack.Screen
+          name={nameList.suggestToBuyInfo}
+          component={SuggestToBuyInfo}
+        />
+        <Stack.Screen name={nameList.suggestToBuys} component={SuggestToBuys} />
         <Stack.Screen name={nameList.addUserInfo} component={AddUserInfo} />
         <Stack.Screen
           name={nameList.modifyUserInfo}

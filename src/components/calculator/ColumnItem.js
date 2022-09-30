@@ -21,6 +21,16 @@ const ColumnItem = ({ handleTotal }) => {
     handleTotal(sum);
   }, [sum]);
 
+  // useEffect(() => {
+  //   if (isReset === 1) {
+  //     setItem1(0);
+  //     setItem2(0);
+  //     setItem3(0);
+  //     setItem4(0);
+  //     setItem5(0);
+  //   }
+  // }, [isReset]);
+
   useEffect(
     () =>
       setSum(

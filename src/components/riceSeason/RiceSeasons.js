@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
+import { FlatList, Image, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -66,7 +66,11 @@ const RiceSeasons = ({ navigation }) => {
     <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
       <TextR style={styles.riceSeasonName}>{item.name}</TextR>
       <View flex style={styles.subContainer}>
-        <Text text80>{item.riceField}</Text>
+        <Text text80>
+          {item.riceField.length <= 40
+            ? `${item.riceField}`
+            : `${item.riceField.substring(0, 39)}...`}
+        </Text>
         <Text
           green
           text70
@@ -122,7 +126,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-
   riceSeasonItem: {
     // flexDirection: "row",
     // flexWrap: "wrap",

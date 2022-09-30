@@ -175,7 +175,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.calculator)}
+              onPress={() => navigation.navigate(nameList.suggestToBuy)}
             />
           </View>
         </View>

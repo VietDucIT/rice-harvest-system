@@ -42,6 +42,7 @@ const AddUserInfo = ({ navigation }) => {
   const yearArray = getYearList();
 
   const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
   const [gender, setGender] = useState(1);
   const [birthYear, setBirthYear] = useState(currentYear);
   const [address, setAddress] = useState("");
@@ -63,6 +64,7 @@ const AddUserInfo = ({ navigation }) => {
 
   const reset = () => {
     setName("");
+    setNickname("");
     setGender(1);
     setBirthYear(currentYear);
     setAddress("");
@@ -210,6 +212,20 @@ const AddUserInfo = ({ navigation }) => {
               <Text red style={styles.errorMessage}>
                 {errorName}
               </Text>
+            </View>
+
+            {/* Nickname */}
+            <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Tên thường dùng:
+              </TextR>
+              <TextField
+                text70
+                grey10
+                value={nickname}
+                onChangeText={setNickname}
+                style={styles.textField}
+              />
             </View>
 
             {/* Gender */}

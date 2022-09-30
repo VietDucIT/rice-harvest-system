@@ -15,6 +15,7 @@ const UserInfo = ({ navigation }) => {
   const userData = {
     id: 1,
     name: "Nguyễn Văn A",
+    nickname: "Hai A",
     gender: 1,
     birthYear: 1960,
     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
@@ -48,6 +49,11 @@ const UserInfo = ({ navigation }) => {
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Họ tên: </TextR>
               <Text green>{userData.name}</Text>
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Tên thường gọi: </TextR>
+              <Text green>{userData.nickname}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>

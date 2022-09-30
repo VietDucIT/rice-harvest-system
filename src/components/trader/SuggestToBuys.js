@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, FlatList, StyleSheet, Text as TextR } from "react-native";
+import { FlatList, Image, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -13,53 +13,48 @@ import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
-const RiceBuyingAreas = ({ navigation }) => {
-  const riceBuyingAreas = [
+const SuggestToBuys = ({ navigation }) => {
+  const suggestList = [
     {
       id: 1,
-      name: "Khu vực 1",
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      description: "Bờ đông kênh Cầu Tre.",
+      farmerName: "Nguyễn Văn A",
+      riceField: "Mẫu ruộng số 1",
     },
     {
       id: 2,
-      name: "Khu vực 2",
-      address: "Mỹ Đức, Mỹ Hương, Mỹ Tú, Sóc Trăng",
-      description: "Bờ tây kênh Cầu Tre.",
+      farmerName: "Nguyễn Văn A",
+      riceField: "Mẫu ruộng số 2",
     },
     {
       id: 3,
-      name: "Khu vực 3",
-      address: "An Tập, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      description: "Khu vực kênh Giao Thông.",
+      farmerName: "Nguyễn Văn A",
+      riceField: "Mẫu ruộng số 3",
     },
     {
       id: 4,
-      name: "Khu vực 4",
-      address: "Mỹ Tân, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      description: "Khu vực từ nhà thờ Ba Rinh đến cầu 6 Long.",
+      farmerName: "Cao Thanh B",
+      riceField: "Mẫu ruộng số 1",
     },
     {
       id: 5,
-      name: "Khu vực 5",
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      description: "Khu vực Ngã 4 Mỹ Đức.",
+      farmerName: "Lâm C",
+      riceField: "Mẫu ruộng số 2",
     },
   ];
 
   const renderItem = ({ item }) => (
-    <View style={styles.riceBuyingAreaItem} padding-5 marginV-8 marginH-16>
-      <TextR style={styles.riceBuyingAreaName}>{item.name}</TextR>
+    <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
+      <TextR style={styles.farmerName}>{item.farmerName}</TextR>
       <View flex style={styles.subContainer}>
         <Text text80>
-          {item.address.length <= 40
-            ? `${item.address}`
-            : `${item.address.substring(0, 39)}...`}
+          {item.riceField.length <= 40
+            ? `${item.riceField}`
+            : `${item.riceField.substring(0, 39)}...`}
         </Text>
         <Text
           green
           text70
-          onPress={() => navigation.navigate(nameList.riceBuyingAreaInfo)}
+          onPress={() => navigation.navigate(nameList.suggestToBuyInfo)}
         >
           Xem
         </Text>
@@ -79,16 +74,16 @@ const RiceBuyingAreas = ({ navigation }) => {
           />
           <View marginV-10>
             <Text text50 green>
-              Quản lý khu vực thu mua
+              Quản lý đề xuất thu mua
             </Text>
           </View>
         </View>
 
-        <SearchBar placeholder="Nhập tên khu vực" />
+        <SearchBar placeholder="Nhập tên nông dân" />
 
         <View marginT-20>
           <FlatList
-            data={riceBuyingAreas}
+            data={suggestList}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           />
@@ -97,29 +92,28 @@ const RiceBuyingAreas = ({ navigation }) => {
         <View marginT-30 center>
           <CustomButton
             label="Thêm"
-            onPress={() => navigation.navigate(nameList.addRiceBuyingArea)}
+            onPress={() => navigation.navigate(nameList.findFarmers)}
           />
         </View>
       </View>
     </View>
   );
 };
-export default RiceBuyingAreas;
+export default SuggestToBuys;
 
 const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
   },
-
-  riceBuyingAreaItem: {
+  riceSeasonItem: {
     // flexDirection: "row",
     // flexWrap: "wrap",
     // justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
-  riceBuyingAreaName: {
+  farmerName: {
     fontSize: 16,
     fontWeight: "600",
   },

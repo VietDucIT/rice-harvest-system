@@ -29,6 +29,7 @@ const Calculator = ({ navigation }) => {
   const [sum15, setSum15] = useState(0);
   const [sum16, setSum16] = useState(0);
   const [total, setTotal] = useState(0);
+  // const [isReset, setIsReset] = useState(0);
 
   // const addColumnItem = () => {
   //   console.log("Add a column");
@@ -64,6 +65,7 @@ const Calculator = ({ navigation }) => {
           text: "Xoá",
           onPress: () => {
             setTotal(0);
+            // setIsReset(1);
           },
         },
         {
@@ -103,25 +105,73 @@ const Calculator = ({ navigation }) => {
             style={styles.contentWrapper}
           >
             <View style={styles.calculatorContainer}>
-              <ColumnItem handleTotal={(sum) => setSum1(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum2(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum3(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum4(sum)} />
+              <ColumnItem
+                handleTotal={(sum) => setSum1(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum2(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum3(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum4(sum)}
+                // isReset={isReset}
+              />
 
-              <ColumnItem handleTotal={(sum) => setSum5(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum6(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum7(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum8(sum)} />
+              <ColumnItem
+                handleTotal={(sum) => setSum5(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum6(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum7(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum8(sum)}
+                // isReset={isReset}
+              />
 
-              <ColumnItem handleTotal={(sum) => setSum9(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum10(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum11(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum12(sum)} />
+              <ColumnItem
+                handleTotal={(sum) => setSum9(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum10(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum11(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum12(sum)}
+                // isReset={isReset}
+              />
 
-              <ColumnItem handleTotal={(sum) => setSum13(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum14(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum15(sum)} />
-              <ColumnItem handleTotal={(sum) => setSum16(sum)} />
+              <ColumnItem
+                handleTotal={(sum) => setSum13(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum14(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum15(sum)}
+                // isReset={isReset}
+              />
+              <ColumnItem
+                handleTotal={(sum) => setSum16(sum)}
+                // isReset={isReset}
+              />
 
               {/* <View
                 style={styles.plusContainer}

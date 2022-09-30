@@ -85,6 +85,17 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
+          {role === 1 && (
+            <View marginV-20 center>
+              <CustomButton
+                label="Tìm kiếm nông dân"
+                text60
+                style={styles.btn}
+                onPress={() => navigation.navigate(nameList.findUsers)}
+              />
+            </View>
+          )}
+
           <View marginV-20 center>
             <CustomButton
               label="Xem bản đồ ruộng đất"

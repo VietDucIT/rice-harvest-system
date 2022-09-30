@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textField: {
-    width: 200,
+    width: 220,
     height: 40,
     borderWidth: 1,
     borderRightWidth: 0,
