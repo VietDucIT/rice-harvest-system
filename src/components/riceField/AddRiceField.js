@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Incubator, Text, Picker, View } from "react-native-ui-lib";
+import { Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 

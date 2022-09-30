@@ -5,6 +5,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import UserOptionModal from "../user/UserOptionModal";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/getDayTime";
@@ -47,6 +48,7 @@ const HourlyWeatherForecast = ({ navigation }) => {
               <FontAwesome5 name="chevron-down" size={20} color="green" />
             )}
           </Button>
+
           {isShow && (
             <View flex center style={styles.weatherContainer}>
               <View centerH padding-20 style={styles.weatherItem}>
@@ -211,8 +213,10 @@ const styles = StyleSheet.create({
     height: 50,
   },
   hourItem: {
-    // backgroundColor: Color.green,
-    // borderWith: 10,
+    // backgroundColor: color.green,
+    // borderBottomWidth: 1,
+    // borderColor: color.greenColor,
+    // paddingBottom: 5,
     width: "100%",
     justifyContent: "space-between",
   },

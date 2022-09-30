@@ -7,13 +7,15 @@ import {
   Text as TextR,
 } from "react-native";
 import {
+  Incubator,
   Picker,
   RadioButton,
   RadioGroup,
   Text,
-  TextField,
   View,
 } from "react-native-ui-lib";
+
+import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -21,9 +23,9 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import nameList from "../../json/nameList";
-
 StyleInit();
+
+const { TextField } = Incubator;
 
 const ModifyUserInfo = ({ navigation }) => {
   const currentTime = new Date();
@@ -40,29 +42,138 @@ const ModifyUserInfo = ({ navigation }) => {
   const yearArray = getYearList();
 
   const [name, setName] = useState("");
-  const [gender, setGender] = useState(0);
+  const [gender, setGender] = useState(1);
   const [birthYear, setBirthYear] = useState(currentYear);
   const [address, setAddress] = useState("");
+  const [village, setVillage] = useState("");
+  const [commune, setCommune] = useState("");
+  const [town, setTown] = useState("");
+  const [province, setProvince] = useState("");
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState(0);
 
+  const [errorName, setErrorName] = useState("");
+  const [errorBirthYear, setErrorBirthYear] = useState("");
+  // const [errorAddress, setErrorAddress] = useState("");
+  const [errorVillage, setErrorVillage] = useState("");
+  const [errorCommune, setErrorCommune] = useState("");
+  const [errorTown, setErrorTown] = useState("");
+  const [errorProvince, setErrorProvince] = useState("");
+  const [errorPhone, setErrorPhone] = useState("");
+
   const reset = () => {
     setName("");
-    setGender(0);
+    setGender(1);
     setBirthYear(currentYear);
     setAddress("");
+    setVillage("");
+    setCommune("");
+    setTown("");
+    setProvince("");
     setPhone("");
+    setRole(0);
+    setErrorName("");
+    setErrorBirthYear("");
+    // setErrorAddress("");
+    setErrorVillage("");
+    setErrorCommune("");
+    setErrorTown("");
+    setErrorProvince("");
+    setErrorPhone("");
     console.log("Reset completed.");
   };
 
-  const handleAdd = () => {
-    Alert.alert("Thông báo", "Chỉnh sửa thông tin thành công.", [
-      {
-        text: "Đóng",
-        style: "cancel",
-      },
-    ]);
-    navigation.navigate(nameList.userInfo);
+  const onChangeName = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorName(message);
+    setName(text);
+  };
+
+  const onChangeVillage = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorVillage(message);
+    setVillage(text);
+  };
+
+  const onChangeCommune = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorCommune(message);
+    setCommune(text);
+  };
+
+  const onChangeTown = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorTown(message);
+    setTown(text);
+  };
+
+  const onChangeProvince = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorProvince(message);
+    setProvince(text);
+  };
+
+  const onChangePhone = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorPhone(message);
+    setPhone(text);
+  };
+
+  const handleModify = () => {
+    let err = false;
+    if (!birthYear) {
+      setErrorBirthYear("* Bắt buộc");
+      err = false;
+    } else {
+      setErrorBirthYear("");
+      err = true;
+    }
+
+    if (err) {
+      Alert.alert("Thông báo", "Đã lưu thông tin tài khoản.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.mainScreen);
+    }
   };
 
   return (
@@ -92,12 +203,13 @@ const ModifyUserInfo = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                validate={"required"}
                 value={name}
-                onChangeText={setName}
-                errorMessage={"Vui lòng nhập Họ tên"}
-                errorColor={color.redColor}
+                onChangeText={onChangeName}
+                style={styles.textField}
               />
+              <Text red style={styles.errorMessage}>
+                {errorName}
+              </Text>
             </View>
 
             {/* Gender */}
@@ -122,17 +234,23 @@ const ModifyUserInfo = ({ navigation }) => {
                 Năm sinh:
               </TextR>
               <Picker
+                migrateTextField
+                text70
                 placeholder={"Chọn năm"}
                 value={birthYear}
                 onChange={(year) => {
                   setBirthYear(year.value);
                   // console.log(year);
                 }}
+                style={styles.textField}
               >
                 {yearArray.map((item, index) => (
                   <Picker.Item key={index} value={item} label={item} />
                 ))}
               </Picker>
+              <Text red style={styles.errorMessage}>
+                {errorBirthYear}
+              </Text>
             </View>
 
             {/* Address */}
@@ -140,15 +258,96 @@ const ModifyUserInfo = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
-              <TextField
-                text70
-                grey10
-                validate={"required"}
-                value={address}
-                onChangeText={setAddress}
-                errorMessage={"Vui lòng nhập Địa chỉ chính xác"}
-                errorColor={color.redColor}
-              />
+
+              <View flex style={styles.addressContainer}>
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeVillage}
+                    value={village}
+                    placeholder="Ấp"
+                    floatingPlaceholder
+                    floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.addressItem, styles.textField]}
+                    autoCapitalize="words"
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorVillage}
+                  </Text>
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeCommune}
+                    value={commune}
+                    placeholder="Xã"
+                    floatingPlaceholder
+                    floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.addressItem, styles.textField]}
+                    autoCapitalize="words"
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorCommune}
+                  </Text>
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeTown}
+                    value={town}
+                    placeholder="Huyện"
+                    floatingPlaceholder
+                    floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.addressItem, styles.textField]}
+                    autoCapitalize="words"
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorTown}
+                  </Text>
+                </View>
+
+                <View marginH-20>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeProvince}
+                    value={province}
+                    placeholder="Tỉnh"
+                    floatingPlaceholder
+                    floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.addressItem, styles.textField]}
+                    autoCapitalize="words"
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorProvince}
+                  </Text>
+                </View>
+              </View>
             </View>
 
             {/* Phone */}
@@ -159,12 +358,13 @@ const ModifyUserInfo = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                validate={"required"}
                 value={phone}
-                onChangeText={setPhone}
-                errorMessage={"Vui lòng nhập Số điện thoại"}
-                errorColor={color.redColor}
+                onChangeText={onChangePhone}
+                style={styles.textField}
               />
+              <Text red style={styles.errorMessage}>
+                {errorPhone}
+              </Text>
             </View>
 
             {/* Role */}
@@ -195,7 +395,7 @@ const ModifyUserInfo = ({ navigation }) => {
 
             <View flex marginT-50 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Lưu" onPress={handleAdd} />
+              <CustomButton label="Lưu" onPress={handleModify} />
             </View>
           </View>
         </View>
@@ -217,6 +417,19 @@ const styles = StyleSheet.create({
   ratioContainer: {
     flexWrap: "wrap",
     flexDirection: "row",
+  },
+  textField: {
+    borderBottomWidth: 0.5,
+    borderColor: color.lightGreyColor,
+    paddingBottom: 5,
+  },
+  errorMessage: {},
+  addressContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  addressItem: {
+    width: 120,
   },
   btnContainer: {
     flexDirection: "row",

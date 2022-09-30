@@ -8,7 +8,6 @@ import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
-import { set } from "lodash";
 
 StyleInit();
 

@@ -175,7 +175,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.addRiceSeason)}
+              onPress={() => navigation.navigate(nameList.calculator)}
             />
           </View>
         </View>

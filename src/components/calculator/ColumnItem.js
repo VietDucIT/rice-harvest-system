@@ -17,7 +17,9 @@ const ColumnItem = ({ handleTotal }) => {
   const [item5, setItem5] = useState(0);
   const [sum, setSum] = useState(0);
 
-  useEffect(() => handleTotal(sum), [sum]);
+  useEffect(() => {
+    handleTotal(sum);
+  }, [sum]);
 
   useEffect(
     () =>
@@ -31,8 +33,6 @@ const ColumnItem = ({ handleTotal }) => {
     [item1, item2, item3, item4, item5]
   );
 
-  // const reset = () = {}
-
   return (
     <View style={styles.sumContainer} margin-10>
       <TextField
@@ -41,6 +41,7 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem1}
         value={item1}
+        keyboardType="numeric"
         style={styles.item}
       />
       <TextField
@@ -48,6 +49,7 @@ const ColumnItem = ({ handleTotal }) => {
         centered
         grey10
         onChangeText={setItem2}
+        keyboardType="numeric"
         value={item2}
         style={styles.item}
       />
@@ -56,6 +58,7 @@ const ColumnItem = ({ handleTotal }) => {
         centered
         grey10
         onChangeText={setItem3}
+        keyboardType="numeric"
         value={item3}
         style={styles.item}
       />
@@ -64,6 +67,7 @@ const ColumnItem = ({ handleTotal }) => {
         centered
         grey10
         onChangeText={setItem4}
+        keyboardType="numeric"
         value={item4}
         style={styles.item}
       />
@@ -72,6 +76,7 @@ const ColumnItem = ({ handleTotal }) => {
         centered
         grey10
         onChangeText={setItem5}
+        keyboardType="numeric"
         value={item5}
         style={styles.item}
       />

@@ -12,15 +12,47 @@ import { StyleInit } from "../../config/StyleInit";
 StyleInit();
 
 const Calculator = ({ navigation }) => {
+  const [sum1, setSum1] = useState(0);
+  const [sum2, setSum2] = useState(0);
+  const [sum3, setSum3] = useState(0);
+  const [sum4, setSum4] = useState(0);
+  const [sum5, setSum5] = useState(0);
+  const [sum6, setSum6] = useState(0);
+  const [sum7, setSum7] = useState(0);
+  const [sum8, setSum8] = useState(0);
+  const [sum9, setSum9] = useState(0);
+  const [sum10, setSum10] = useState(0);
+  const [sum11, setSum11] = useState(0);
+  const [sum12, setSum12] = useState(0);
+  const [sum13, setSum13] = useState(0);
+  const [sum14, setSum14] = useState(0);
+  const [sum15, setSum15] = useState(0);
+  const [sum16, setSum16] = useState(0);
   const [total, setTotal] = useState(0);
-  const [sum, setSum] = useState(0);
 
   // const addColumnItem = () => {
   //   console.log("Add a column");
   // };
 
-  const handleTotal = (sum1) => {
-    setTotal(sum1);
+  const calculateTotal = () => {
+    setTotal(
+      sum1 +
+        sum2 +
+        sum3 +
+        sum4 +
+        sum5 +
+        sum6 +
+        sum7 +
+        sum8 +
+        sum9 +
+        sum10 +
+        sum11 +
+        sum12 +
+        sum13 +
+        sum14 +
+        sum15 +
+        sum16
+    );
   };
 
   const reset = () => {
@@ -57,6 +89,9 @@ const Calculator = ({ navigation }) => {
               <Text text50 green>
                 Tính tổng sản lượng lúa
               </Text>
+              <Text text80 marginT-5>
+                (Kéo xuống dưới cùng để xem tổng sản lượng lúa)
+              </Text>
             </View>
           </View>
 
@@ -68,25 +103,25 @@ const Calculator = ({ navigation }) => {
             style={styles.contentWrapper}
           >
             <View style={styles.calculatorContainer}>
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={(sum) => setSum1(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum2(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum3(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum4(sum)} />
 
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={(sum) => setSum5(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum6(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum7(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum8(sum)} />
 
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={(sum) => setSum9(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum10(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum11(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum12(sum)} />
 
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={(sum) => setSum13(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum14(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum15(sum)} />
+              <ColumnItem handleTotal={(sum) => setSum16(sum)} />
 
               {/* <View
                 style={styles.plusContainer}
@@ -105,14 +140,15 @@ const Calculator = ({ navigation }) => {
               </View> */}
             </View>
 
-            <View right marginT-20 style={styles.totalContainer}>
+            <View flex marginT-20 center style={styles.btnContainer}>
+              <CustomButton label="Nhập lại" onPress={reset} />
+              <CustomButton label="Tính tổng" onPress={calculateTotal} />
+            </View>
+
+            <View center marginT-30 style={styles.totalContainer}>
               <Text text50 red>
                 Tổng cộng: <Text green>{total}</Text> kg
               </Text>
-            </View>
-
-            <View center marginT-30>
-              <CustomButton label="Nhập lại" onPress={reset} />
             </View>
           </View>
         </View>
@@ -148,5 +184,9 @@ const styles = StyleSheet.create({
   },
   totalContainer: {
     width: "100%",
+  },
+  btnContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });

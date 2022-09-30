@@ -196,12 +196,14 @@ const AddRiceSeason = ({ navigation }) => {
               <View flex style={styles.seasonNameContainer}>
                 <View>
                   <Picker
+                    migrateTextField
+                    text70
                     value={seasonName}
                     placeholder={"Chọn vụ mùa"}
                     onChange={(name) => {
                       setSeasonName(name.value);
                     }}
-                    style={styles.seasonName}
+                    style={[styles.seasonName, styles.textField]}
                   >
                     {seasonNameArray.map((item, index) => (
                       <Picker.Item key={index} value={item} label={item} />
@@ -212,15 +214,16 @@ const AddRiceSeason = ({ navigation }) => {
                   </Text>
                 </View>
 
-                <View>
+                <View marginL-20>
                   <Picker
+                    migrateTextField
+                    text70
                     value={seasonYear}
                     placeholder={"Chọn năm"}
                     onChange={(year) => {
                       setSeasonYear(year.value);
                     }}
-                    marginL-20
-                    style={styles.seasonYear}
+                    style={[styles.seasonYear, styles.textField]}
                   >
                     {seasonYearArray.map((item, index) => (
                       <Picker.Item key={index} value={item} label={item} />
@@ -237,11 +240,14 @@ const AddRiceSeason = ({ navigation }) => {
             <View marginT-20>
               <TextR style={styles.label}>Ruộng lúa:</TextR>
               <Picker
+                migrateTextField
+                text70
                 value={riceField}
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
                   setRiceField(field.value);
                 }}
+                style={styles.textField}
               >
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item key={index} value={item} label={item} />
@@ -256,11 +262,14 @@ const AddRiceSeason = ({ navigation }) => {
             <View marginT-20>
               <TextR style={styles.label}>Giống lúa:</TextR>
               <Picker
+                migrateTextField
+                text70
                 value={rice}
                 placeholder={"Chọn giống lúa"}
                 onChange={(rice) => {
                   setRice(rice.value);
                 }}
+                style={styles.textField}
               >
                 {riceArray.map((item, index) => (
                   <Picker.Item key={index} value={item} label={item} />
@@ -275,11 +284,14 @@ const AddRiceSeason = ({ navigation }) => {
             <View marginT-20>
               <TextR style={styles.label}>Tình trạng hiện tại:</TextR>
               <Picker
+                migrateTextField
+                text70
                 value={currentState}
                 placeholder={"Chọn tình trạng"}
                 onChange={(currentState) => {
                   setCurrentState(currentState.value);
                 }}
+                style={styles.textField}
               >
                 {stateArray.map((item, index) => (
                   <Picker.Item key={index} value={item} label={item} />
