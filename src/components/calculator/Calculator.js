@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Image, StyleSheet, ScrollView } from "react-native";
+import { Alert, Image, StyleSheet, ScrollView } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 
 import UserOptionModal from "../user/UserOptionModal";
+import CustomButton from "../core/CustomButton";
 import ColumnItem from "./ColumnItem";
 
 import color from "../../config/color";
@@ -14,12 +15,31 @@ const Calculator = ({ navigation }) => {
   const [total, setTotal] = useState(0);
   const [sum, setSum] = useState(0);
 
-  const addColumnItem = () => {
-    console.log("Add a column");
-  };
+  // const addColumnItem = () => {
+  //   console.log("Add a column");
+  // };
 
   const handleTotal = (sum1) => {
     setTotal(sum1);
+  };
+
+  const reset = () => {
+    Alert.alert(
+      "Xác nhận",
+      "Bạn có chắc chắn muốn xóa tất cả và Bắt đầu lại từ đầu?",
+      [
+        {
+          text: "Xoá",
+          onPress: () => {
+            setTotal(0);
+          },
+        },
+        {
+          text: "Không",
+          style: "cancel",
+        },
+      ]
+    );
   };
 
   return (
@@ -52,83 +72,47 @@ const Calculator = ({ navigation }) => {
               <ColumnItem handleTotal={handleTotal} />
               <ColumnItem handleTotal={handleTotal} />
               <ColumnItem handleTotal={handleTotal} />
-              <ColumnItem handleTotal={handleTotal} />
-              {/* <View style={styles.sumContainer} margin-10>
-                <TextField
-                  text65
-                  centered
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  validate={"required"}
-                  style={styles.item}
-                />
-                <TextField
-                  text65
-                  centered
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  validate={"required"}
-                  style={styles.item}
-                />
-                <TextField
-                  text65
-                  centered
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  validate={"required"}
-                  style={styles.item}
-                />
-                <TextField
-                  text65
-                  centered
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  validate={"required"}
-                  style={styles.item}
-                />
-                <TextField
-                  text65
-                  centered
-                  grey10
-                  onChangeText={setItem}
-                  value={item}
-                  validate={"required"}
-                  style={styles.item}
-                />
-                <Text green text60 center style={styles.sumItems}>
-                  250
-                </Text>
-              </View> */}
 
-              <View
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+              <ColumnItem handleTotal={handleTotal} />
+
+              {/* <View
                 style={styles.plusContainer}
                 margin-10
                 center
                 onPress={() => console.log(123)}
               >
-                {/* <Text green text50>
-                  +
-                </Text> */}
                 <Button
                   link
                   text30
                   green20
                   label="+"
-                  // marginT-5
                   style={styles.heading}
                   onPress={addColumnItem}
                 />
-              </View>
+              </View> */}
             </View>
 
             <View right marginT-20 style={styles.totalContainer}>
               <Text text50 red>
                 Tổng cộng: <Text green>{total}</Text> kg
               </Text>
+            </View>
+
+            <View center marginT-30>
+              <CustomButton label="Nhập lại" onPress={reset} />
             </View>
           </View>
         </View>

@@ -2,12 +2,14 @@ import React from "react";
 import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
+import nameList from "../../json/nameList";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import SearchBar from "../core/SearchBar";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
-
-import nameList from "../../json/nameList";
 
 StyleInit();
 
@@ -93,6 +95,8 @@ const RiceSeasons = ({ navigation }) => {
           </View>
         </View>
 
+        <SearchBar placeholder="Nhập tên vụ mùa" />
+
         <View marginT-20>
           <FlatList
             data={riceSeasons}
@@ -123,6 +127,8 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // flexWrap: "wrap",
     // justifyContent: "space-between",
+    borderBottomColor: color.greenColor,
+    borderBottomWidth: 0.5,
   },
   riceSeasonName: {
     fontSize: 16,

@@ -19,6 +19,7 @@ const RiceSeasonInfo = ({ navigation }) => {
     name: "Thu Đông 2022",
     riceField: "Mẫu ruộng số 1",
     rice: "OM 18",
+    currentState: "Đã thu hoạch",
     timeStart: "19/9/2022",
     timeEnd: "19/12/2022",
     totalRice: 900,
@@ -56,6 +57,11 @@ const RiceSeasonInfo = ({ navigation }) => {
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
               <Text text70>{riceSeasonData.rice}</Text>
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Tình trạng: </TextR>
+              <Text text70>{riceSeasonData.currentState}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>

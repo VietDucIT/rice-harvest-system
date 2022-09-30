@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { Text, TextField, View } from "react-native-ui-lib";
+import { Incubator, Text, View } from "react-native-ui-lib";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
+
+const { TextField } = Incubator;
 
 const ColumnItem = ({ handleTotal }) => {
   const [item1, setItem1] = useState(0);
@@ -28,6 +31,8 @@ const ColumnItem = ({ handleTotal }) => {
     [item1, item2, item3, item4, item5]
   );
 
+  // const reset = () = {}
+
   return (
     <View style={styles.sumContainer} margin-10>
       <TextField
@@ -36,7 +41,6 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem1}
         value={item1}
-        validate={"required"}
         style={styles.item}
       />
       <TextField
@@ -45,7 +49,6 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem2}
         value={item2}
-        validate={"required"}
         style={styles.item}
       />
       <TextField
@@ -54,7 +57,6 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem3}
         value={item3}
-        validate={"required"}
         style={styles.item}
       />
       <TextField
@@ -63,7 +65,6 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem4}
         value={item4}
-        validate={"required"}
         style={styles.item}
       />
       <TextField
@@ -72,10 +73,9 @@ const ColumnItem = ({ handleTotal }) => {
         grey10
         onChangeText={setItem5}
         value={item5}
-        validate={"required"}
         style={styles.item}
       />
-      <Text green text60 center style={styles.sumItems}>
+      <Text green text60 center marginT-20 style={styles.sumItems}>
         {sum}
       </Text>
     </View>
@@ -84,18 +84,15 @@ const ColumnItem = ({ handleTotal }) => {
 export default ColumnItem;
 
 const styles = StyleSheet.create({
-  calculatorContainer: {
-    width: "100%",
-    flex: 1,
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
   sumContainer: {
     width: 70,
     marginBottom: 40,
   },
   item: {
-    height: 25,
+    height: 50,
+    borderBottomWidth: 0.5,
+    borderColor: color.lightGreyColor,
+    paddingBottom: 5,
   },
   sumItems: {
     // fontSize: 20,

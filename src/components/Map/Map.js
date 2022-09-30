@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polygon } from "react-native-maps";
+
+import color from "../../config/color";
 
 const Map = () => {
   const pointList = [
@@ -22,17 +24,10 @@ const Map = () => {
           longitudeDelta: 0.04,
         }}
       >
-        <Polyline
+        <Polygon
           coordinates={pointList}
-          strokeColor="red" // fallback for when `strokeColors` is not supported by the map-provider
-          strokeColors={[
-            "#7F0000",
-            "#00000000", // no color, creates a "long" gradient between the previous and next coordinate
-            "#B24112",
-            "#E5845C",
-            "#238C23",
-            "#7F0000",
-          ]}
+          strokeColor={color.redColor}
+          fillColor={color.lightRedTransparent}
           // strokeWidth={6}
         />
       </MapView>

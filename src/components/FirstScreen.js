@@ -14,62 +14,60 @@ StyleInit();
 const { TextField } = Incubator;
 
 const FirstScreen = ({ navigation }) => {
+  // Just for test, then move logic to BE
   const userArray = [
     {
       username: "Duc",
       password: "123",
     },
   ];
-
   const findUsername = (name, array) => {
     for (let i = 0; i < array.length; i++) {
       if (array[i].username === name) return i;
     }
     return -1;
   };
+  const indexItem = findUsername(username, userArray);
 
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
 
-  const indexItem = findUsername(username, userArray);
+  const [errorUsername, setErrorUsername] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
   const checkLogIn = () => {
-    // Alert
     if (indexItem < 0) {
-      Alert.alert(
-        "Thông báo",
-        "Tên đăng nhập không tồn tại. Vui lòng nhập lại.",
-        [
-          {
-            text: "Nhập lại",
-            style: "cancel",
-          },
-        ]
-      );
+      setErrorUsername("* Tên đăng nhập không tồn tại.");
     } else if (userArray[indexItem].password !== password) {
-      // Wrong password
-      Alert.alert("Thông báo", "Mật khẩu không chính xác. Vui lòng nhập lại.", [
-        {
-          text: "Nhập lại",
-          style: "cancel",
-        },
-      ]);
+      setErrorPassword("* Mật khẩu không chính xác.");
     } else {
       navigation.navigate(nameList.mainScreen);
     }
   };
 
-  // const onChangeText = (text) => {
-  //   let message = "";
-  //   if (text === "") {
-  //     message = "This field is mandatory";
-  //   }
-  //   if (text === "Zzz") {
-  //     message = "Please enter a valid text";
-  //   }
-  //   setError(message);
-  // };
+  const onChangeUsername = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Vui lòng nhập tên đăng nhập.";
+    } else {
+      message = "";
+    }
+    setErrorUsername(message);
+    setUsername(text);
+  };
+
+  const onChangePassword = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Vui lòng nhập mật khẩu.";
+    } else {
+      message = "";
+    }
+    setErrorPassword(message);
+    setPassword(text);
+  };
 
   return (
     <ScrollView>
@@ -89,6 +87,7 @@ const FirstScreen = ({ navigation }) => {
         </View>
 
         <View>
+          {/* Username */}
           <TextField
             text65
             // label="Username"
@@ -100,7 +99,6 @@ const FirstScreen = ({ navigation }) => {
             //   disabled: Colors.$textDisabled,
             // }}
             placeholder="Tên đăng nhập"
-            grey10
             floatingPlaceholder
             floatOnFocus
             floatingPlaceholderColor={{
@@ -109,40 +107,48 @@ const FirstScreen = ({ navigation }) => {
             }}
             containerStyle={{ marginBottom: 10 }}
             value={username}
-            onChangeText={setUsername}
+            onChangeText={onChangeUsername}
+            // onChangeText={setUsername}
             maxLength={30}
-            validate="required"
+            // validate="required"
             // validate="number" / "email"
             // errorMessage="Vui lòng nhập Tên đăng nhập"
-            validationMessage="This field is required"
-            validateOnChange
-            errorColor={color.redColor}
+            // validationMessage="This field is required"
+            // validateOnChange
+            // errorColor={color.redColor}
             // autoCapitalize="words"
             // underlineColor={{ focus: Colors.purple50, error: Colors.orange60 }}
             style={styles.textField}
             // hint="Tên dùng để đăng nhập vào hệ thống"
             // editable={!shouldDisable}
+            marginT-10
           />
+          <Text red style={styles.errorMessage}>
+            {errorUsername}
+          </Text>
+
+          {/* Password */}
           <TextField
             secureTextEntry
             text65
             placeholder="Mật khẩu"
-            grey10
             floatingPlaceholder
             floatOnFocus
-            floatingPlaceholderColor={color.greenColor}
+            floatingPlaceholderColor={{
+              focus: color.greenColor,
+              default: color.lightGreyColor,
+            }}
             containerStyle={{ marginBottom: 10 }}
-            maxLength={20}
-            showCharacterCounter
-            validate="required"
             value={password}
-            onChangeText={setPassword}
-            errorMessage="Vui lòng nhập Mật khẩu"
-            errorColor={color.redColor}
+            onChangeText={onChangePassword}
+            maxLength={20}
+            showCharCounter
             style={styles.textField}
             marginT-10
-            validateOnChange
           />
+          <Text red style={styles.errorMessage}>
+            {errorPassword}
+          </Text>
         </View>
 
         <View>
@@ -169,7 +175,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.riceFields)}
+              onPress={() => navigation.navigate(nameList.addRiceSeason)}
             />
           </View>
         </View>
@@ -189,4 +195,5 @@ const styles = StyleSheet.create({
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
   },
+  errorMessage: {},
 });

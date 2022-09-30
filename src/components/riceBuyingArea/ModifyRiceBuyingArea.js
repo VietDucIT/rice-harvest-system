@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Text, TextField, Picker, View } from "react-native-ui-lib";
+import { Incubator, Text, Picker, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
@@ -18,6 +18,8 @@ import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
+const { TextField } = Incubator;
+
 const ModifyRiceBuyingArea = ({ navigation }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -27,6 +29,72 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
   const [province, setProvince] = useState("");
   const [description, setDescription] = useState("");
 
+  const [errorName, setErrorName] = useState("");
+  const [errorVillage, setErrorVillage] = useState("");
+  const [errorCommune, setErrorCommune] = useState("");
+  const [errorTown, setErrorTown] = useState("");
+  const [errorProvince, setErrorProvince] = useState("");
+
+  const onChangeName = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Vui lòng nhập tên khu vực.";
+    } else {
+      message = "";
+    }
+    setErrorName(message);
+    setName(text);
+  };
+
+  const onChangeVillage = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorVillage(message);
+    setVillage(text);
+  };
+
+  const onChangeCommune = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorCommune(message);
+    setCommune(text);
+  };
+
+  const onChangeTown = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorTown(message);
+    setTown(text);
+  };
+
+  const onChangeProvince = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorProvince(message);
+    setProvince(text);
+  };
+
   const reset = () => {
     setName("");
     setAddress("");
@@ -35,10 +103,15 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
     setTown("");
     setProvince("");
     setDescription("");
+    setErrorName("");
+    setErrorVillage("");
+    setErrorCommune("");
+    setErrorTown("");
+    setErrorProvince("");
     console.log("Reset completed.");
   };
 
-  const showAlert = () => {
+  const handleModify = () => {
     Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
       {
         text: "Đóng",
@@ -75,16 +148,20 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                validate={"required"}
+                // validate={"required"}
                 value={name}
-                onChangeText={setName}
+                onChangeText={onChangeName}
                 errorMessage={"Vui lòng nhập Tên"}
                 errorColor={color.redColor}
+                style={styles.textField}
               />
+              <Text red style={styles.errorMessage}>
+                {errorName}
+              </Text>
             </View>
 
             {/* Address */}
-            <View>
+            <View marginT-10>
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
@@ -92,11 +169,8 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
               {/* <TextField
                   text70
                   grey10
-                  validate={"required"}
                   value={address}
                   onChangeText={setAddress}
-                  errorMessage={"Vui lòng nhập Địa chỉ"}
-                  errorColor={color.redColor}
                   // title="Địa chỉ:"
                   // titleStyle={{ fontSize: Typography.text70.fontSize }}
                 /> */}
@@ -106,79 +180,97 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setVillage}
+                    // validate={"required"}
+                    onChangeText={onChangeVillage}
                     value={village}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    // errorMessage={"Bắt buộc"}
+                    // errorColor={color.redColor}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorVillage}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setCommune}
+                    onChangeText={onChangeCommune}
                     value={commune}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
-                    marginL-20
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorCommune}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setTown}
+                    onChangeText={onChangeTown}
                     value={town}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorTown}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setProvince}
+                    onChangeText={onChangeProvince}
                     value={province}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorProvince}
+                  </Text>
                 </View>
               </View>
             </View>
 
             {/* Description */}
-            <View>
+            <View marginT-10>
               <TextR text70 style={styles.label}>
                 Mô tả:
               </TextR>
@@ -189,13 +281,14 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                 numberOfLines={3}
                 value={description}
                 onChangeText={setDescription}
+                style={styles.textField}
               />
             </View>
           </View>
 
-          <View flex marginT-30 center style={styles.btnContainer}>
+          <View flex marginT-50 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Lưu" onPress={showAlert} />
+            <CustomButton label="Lưu" onPress={handleModify} />
           </View>
         </View>
       </View>
@@ -213,6 +306,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
   },
+  textField: {
+    borderBottomWidth: 0.5,
+    borderColor: color.lightGreyColor,
+    paddingBottom: 5,
+  },
+  errorMessage: {},
   addressContainer: {
     flexWrap: "wrap",
     flexDirection: "row",

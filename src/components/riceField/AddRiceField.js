@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Text, TextField, Picker, View } from "react-native-ui-lib";
+import { Incubator, Text, Picker, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
@@ -18,13 +18,14 @@ import { StyleInit } from "../../config/StyleInit";
 
 StyleInit();
 
+const { TextField } = Incubator;
+
 const AddRiceField = ({ navigation }) => {
   let d1 = {};
   let d2 = {};
   let d3 = {};
   let d4 = {};
   const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
   const [village, setVillage] = useState("");
   const [commune, setCommune] = useState("");
   const [town, setTown] = useState("");
@@ -38,6 +39,19 @@ const AddRiceField = ({ navigation }) => {
   const [x4, setX4] = useState(0);
   const [y4, setY4] = useState(0);
   // const [coordinate, setCoordinate] = useState({});
+  const [errorVillage, setErrorVillage] = useState("");
+  const [errorCommune, setErrorCommune] = useState("");
+  const [errorTown, setErrorTown] = useState("");
+  const [errorProvince, setErrorProvince] = useState("");
+  const [errorX1, setErrorX1] = useState("");
+  const [errorY1, setErrorY1] = useState("");
+  const [errorX2, setErrorX2] = useState("");
+  const [errorY2, setErrorY2] = useState("");
+  const [errorX3, setErrorX3] = useState("");
+  const [errorY3, setErrorY3] = useState("");
+  const [errorX4, setErrorX4] = useState("");
+  const [errorY4, setErrorY4] = useState("");
+  const [description, setDescription] = useState("");
 
   const reset = () => {
     setAddress("");
@@ -54,6 +68,18 @@ const AddRiceField = ({ navigation }) => {
     setX4(0);
     setY4(0);
     // setCoordinate({});
+    setErrorVillage("");
+    setErrorCommune("");
+    setErrorTown("");
+    setErrorProvince("");
+    setErrorX1("");
+    setErrorY1("");
+    setErrorX2("");
+    setErrorY2("");
+    setErrorX3("");
+    setErrorY3("");
+    setErrorX4("");
+    setErrorY4("");
     setDescription("");
     console.log("Reset completed.");
   };
@@ -74,14 +100,158 @@ const AddRiceField = ({ navigation }) => {
     d4 = Object.assign({ lat: x4, lon: y4 });
   }, [x4, y4]);
 
-  const showAlert = () => {
+  const onChangeVillage = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorVillage(message);
+    setVillage(text);
+  };
+
+  const onChangeCommune = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorCommune(message);
+    setCommune(text);
+  };
+
+  const onChangeTown = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorTown(message);
+    setTown(text);
+  };
+
+  const onChangeProvince = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorProvince(message);
+    setProvince(text);
+  };
+
+  const onChangeX1 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorX1(message);
+    setX1(text);
+  };
+
+  const onChangeY1 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorY1(message);
+    setY1(text);
+  };
+
+  const onChangeX2 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorX2(message);
+    setX2(text);
+  };
+
+  const onChangeY2 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorY2(message);
+    setY2(text);
+  };
+
+  const onChangeX3 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorX3(message);
+    setX3(text);
+  };
+
+  const onChangeY3 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorY3(message);
+    setY3(text);
+  };
+
+  const onChangeX4 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorX4(message);
+    setX4(text);
+  };
+
+  const onChangeY4 = (text) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setErrorY4(message);
+    setY4(text);
+  };
+
+  const handleAdd = () => {
     Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
       {
         text: "Đóng",
         style: "cancel",
       },
     ]);
-    navigation.navigate(nameList.riceFieldInfo);
+    navigation.navigate(nameList.riceFields);
   };
 
   return (
@@ -97,102 +267,117 @@ const AddRiceField = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Đăng ký thông tin
+                Thêm ruộng lúa
               </Text>
             </View>
           </View>
 
           <View marginH-25 marginT-20>
             {/* Address */}
-            <View>
+            <View marginT-10>
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
 
               {/* <TextField
-                text70
-                grey10
-                validate={"required"}
-                value={address}
-                onChangeText={setAddress}
-                errorMessage={"Vui lòng nhập Địa chỉ"}
-                errorColor={color.redColor}
-                // title="Địa chỉ:"
-                // titleStyle={{ fontSize: Typography.text70.fontSize }}
-              /> */}
+                  text70
+                  grey10
+                  value={address}
+                  onChangeText={setAddress}
+                  // title="Địa chỉ:"
+                  // titleStyle={{ fontSize: Typography.text70.fontSize }}
+                /> */}
 
               <View flex style={styles.addressContainer}>
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setVillage}
+                    // validate={"required"}
+                    onChangeText={onChangeVillage}
                     value={village}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    // errorMessage={"Bắt buộc"}
+                    // errorColor={color.redColor}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorVillage}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setCommune}
+                    onChangeText={onChangeCommune}
                     value={commune}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
-                    marginL-20
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorCommune}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setTown}
+                    onChangeText={onChangeTown}
                     value={town}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorTown}
+                  </Text>
                 </View>
 
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    validate={"required"}
-                    onChangeText={setProvince}
+                    onChangeText={onChangeProvince}
                     value={province}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
-                    errorMessage={"Bắt buộc"}
-                    errorColor={color.redColor}
-                    style={styles.addressItem}
+                    style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
+                  <Text red style={styles.errorMessage}>
+                    {errorProvince}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -208,38 +393,41 @@ const AddRiceField = ({ navigation }) => {
                 <TextR text70 style={styles.label}>
                   Điểm 1:
                 </TextR>
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setX1}
-                  value={x1}
-                  placeholder="X"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setY1}
-                  value={y1}
-                  placeholder="Y"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeX1}
+                    value={x1}
+                    placeholder="X"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorX1}
+                  </Text>
+                </View>
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeY1}
+                    value={y1}
+                    placeholder="Y"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorY1}
+                  </Text>
+                </View>
                 {/* <TextField
                   text70
                   grey10
-                  validate={"required"}
                   onChangeText={setD1}
                   value={d1}
                   placeholder="Điểm 1"
@@ -251,34 +439,38 @@ const AddRiceField = ({ navigation }) => {
                 <TextR text70 style={styles.label}>
                   Điểm 2:
                 </TextR>
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setX2}
-                  value={x2}
-                  placeholder="X"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setY2}
-                  value={y2}
-                  placeholder="Y"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeX2}
+                    value={x2}
+                    placeholder="X"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorX2}
+                  </Text>
+                </View>
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeY2}
+                    value={y2}
+                    placeholder="Y"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorY2}
+                  </Text>
+                </View>
               </View>
 
               {/* D3 */}
@@ -286,34 +478,38 @@ const AddRiceField = ({ navigation }) => {
                 <TextR text70 style={styles.label}>
                   Điểm 3:
                 </TextR>
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setX3}
-                  value={x3}
-                  placeholder="X"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setY3}
-                  value={y3}
-                  placeholder="Y"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeX3}
+                    value={x3}
+                    placeholder="X"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorX3}
+                  </Text>
+                </View>
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeY3}
+                    value={y3}
+                    placeholder="Y"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorY3}
+                  </Text>
+                </View>
               </View>
 
               {/* D4 */}
@@ -321,34 +517,38 @@ const AddRiceField = ({ navigation }) => {
                 <TextR text70 style={styles.label}>
                   Điểm 4:
                 </TextR>
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setX4}
-                  value={x4}
-                  placeholder="X"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
-                <TextField
-                  text70
-                  grey10
-                  validate={"required"}
-                  onChangeText={setY4}
-                  value={y4}
-                  placeholder="Y"
-                  floatingPlaceholder
-                  floatOnFocus
-                  containerStyle={{ marginBottom: 10 }}
-                  errorMessage={"Bắt buộc"}
-                  errorColor={color.redColor}
-                  style={styles.coorItem}
-                />
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeX4}
+                    value={x4}
+                    placeholder="X"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorX4}
+                  </Text>
+                </View>
+                <View>
+                  <TextField
+                    text70
+                    grey10
+                    onChangeText={onChangeY4}
+                    value={y4}
+                    placeholder="Y"
+                    floatingPlaceholder
+                    floatOnFocus
+                    containerStyle={{ marginBottom: 10 }}
+                    style={[styles.coorItem, styles.textField]}
+                  />
+                  <Text red style={styles.errorMessage}>
+                    {errorY4}
+                  </Text>
+                </View>
               </View>
             </View>
 
@@ -364,13 +564,14 @@ const AddRiceField = ({ navigation }) => {
                 numberOfLines={3}
                 value={description}
                 onChangeText={setDescription}
+                style={styles.textField}
               />
             </View>
           </View>
 
           <View flex marginT-30 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Tạo" onPress={showAlert} />
+            <CustomButton label="Thêm" onPress={handleAdd} />
           </View>
         </View>
       </View>
@@ -388,6 +589,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
   },
+  textField: {
+    borderBottomWidth: 0.5,
+    borderColor: color.lightGreyColor,
+    paddingBottom: 5,
+  },
+  errorMessage: {},
   addressContainer: {
     flexWrap: "wrap",
     flexDirection: "row",
