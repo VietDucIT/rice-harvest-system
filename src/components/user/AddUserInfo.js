@@ -189,10 +189,11 @@ const AddUserInfo = ({ navigation }) => {
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}
             />
-            <View marginV-10>
+            <View center marginV-10>
               <Text text50 green>
                 Đăng ký thông tin
               </Text>
+              {/* <TextR style={styles.require}>* Bắt buộc nhập</TextR> */}
             </View>
           </View>
 
@@ -239,8 +240,22 @@ const AddUserInfo = ({ navigation }) => {
                 flex
                 style={styles.ratioContainer}
               >
-                <RadioButton value={1} label={"Nam"} marginL-10 marginV-10 />
-                <RadioButton value={0} label={"Nữ"} marginL-20 marginV-10 />
+                <RadioButton
+                  value={1}
+                  label={"Nam"}
+                  marginL-10
+                  marginV-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
+                />
+                <RadioButton
+                  value={0}
+                  label={"Nữ"}
+                  marginL-20
+                  marginV-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
+                />
               </RadioGroup>
             </View>
 
@@ -411,12 +426,16 @@ const AddUserInfo = ({ navigation }) => {
                   label={"Nông dân"}
                   marginV-10
                   marginL-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
                 />
                 <RadioButton
                   value={1}
                   label={"Thương lái"}
                   marginV-10
                   marginL-20
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
                 />
               </RadioGroup>
             </View>
@@ -437,6 +456,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
+  },
+  require: {
+    marginTop: 10,
+    color: color.redColor,
+    fontSize: 14,
+    fontStyle: "italic",
   },
   label: {
     fontSize: 18,

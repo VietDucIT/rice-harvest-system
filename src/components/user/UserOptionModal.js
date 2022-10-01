@@ -47,7 +47,7 @@ const UserOptionModal = ({ navigation }) => {
               style: "cancel",
             },
           ]);
-          navigation.navigate(nameList.SignUp);
+          navigation.navigate(nameList.signUp);
         },
       },
       {
@@ -71,7 +71,7 @@ const UserOptionModal = ({ navigation }) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Đóng tùy chọn.");
+          // Alert.alert("Đóng tùy chọn.");
           setModalVisible(!modalVisible);
         }}
       >

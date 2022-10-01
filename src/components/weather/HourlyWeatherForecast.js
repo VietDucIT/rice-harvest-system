@@ -1,24 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
+import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/getDayTime";
+import getWeatherByCoord from "../../services/getApiByCoord";
 
 import initWeatherData from "../../json/initWeatherData";
 
 StyleInit();
 
 const HourlyWeatherForecast = ({ navigation }) => {
+  const [isLoading, setLoading] = useState(false);
+
+  const [lat, setLat] = useState(10.8);
+  const [lon, setLon] = useState(106.67);
+
   const [weatherData, setWeatherData] = useState(initWeatherData);
   // const date = new Date((weatherData.hourly.dt + weatherData.timezone_offset - 7*3600) * 1000);
   // const hour = getDateTimeString(date);
   const { getDateTimeString } = getDayTime();
+
+  // Get full data
+  const getAPI = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await getWeatherByCoord(lon, lat);
+      // console.log("From CurrentWeather: ", data);
+      setWeatherData(data);
+      setLoading(false);
+    } catch (err) {
+      console.log("Can not call API");
+    }
+  }, [lon, lat]);
+
+  useEffect(() => {
+    getAPI();
+  }, [getAPI]);
 
   const list = () => {
     return weatherData.hourly.map((hourItem, index) => {
@@ -55,10 +79,11 @@ const HourlyWeatherForecast = ({ navigation }) => {
                 <FontAwesome5 name="cloud-rain" size={50} color="green" />
                 <Text text80>Lượng mưa</Text>
                 <Text text60>
-                  {hourItem.rain ? hourItem.rain : 0}{" "}
+                  {hourItem.rain ? hourItem.rain["1h"] : 0}{" "}
                   <TextR style={styles.unit}>mm/s</TextR>
                 </Text>
               </View>
+
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="temperature-high" size={50} color="green" />
                 <Text text80>Nhiệt độ</Text>
@@ -67,6 +92,7 @@ const HourlyWeatherForecast = ({ navigation }) => {
                   <TextR style={styles.unit}>&#8451;</TextR>
                 </Text>
               </View>
+
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="wind" size={50} color="green" />
                 <Text text80>Sức gió</Text>
@@ -74,6 +100,7 @@ const HourlyWeatherForecast = ({ navigation }) => {
                   {hourItem.wind_speed} <TextR style={styles.unit}>m/s</TextR>
                 </Text>
               </View>
+
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="air-freshener" size={50} color="green" />
                 <Text text80>Độ ẩm</Text>
@@ -81,11 +108,13 @@ const HourlyWeatherForecast = ({ navigation }) => {
                   {hourItem.humidity} <TextR style={styles.unit}>%</TextR>
                 </Text>
               </View>
+
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="sun" size={50} color="green" />
                 <Text text80>Chỉ số UV</Text>
                 <Text text60>{hourItem.uvi}</Text>
               </View>
+
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="cloud" size={50} color="green" />
                 <Text text80>Mây che phủ</Text>
@@ -200,7 +229,7 @@ const HourlyWeatherForecast = ({ navigation }) => {
           </View>
         </View>
 
-        <View>{list()}</View>
+        {isLoading ? <Loader /> : <View>{list()}</View>}
       </View>
     </ScrollView>
   );

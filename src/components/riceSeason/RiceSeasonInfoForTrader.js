@@ -10,6 +10,7 @@ import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
 import { StyleInit } from "../../config/StyleInit";
+import color from "../../config/color";
 
 StyleInit();
 
@@ -56,7 +57,9 @@ const RiceSeasonInfoForTrader = ({ navigation }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{riceSeasonData.rice}</Text>
+              <Text text70 style={styles.important}>
+                {riceSeasonData.rice}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -71,7 +74,9 @@ const RiceSeasonInfoForTrader = ({ navigation }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian gặt (dự kiến): </TextR>
-              <Text text70>{riceSeasonData.timeEnd}</Text>
+              <Text text70 style={styles.important}>
+                {riceSeasonData.timeEnd}
+              </Text>
             </View>
 
             <View flex style={styles.mapContainer}>
@@ -109,6 +114,10 @@ const styles = StyleSheet.create({
   itemLabel: {
     fontSize: 17,
     fontWeight: "500",
+  },
+  important: {
+    color: color.redColor,
+    fontWeight: "600",
   },
   mapContainer: {
     width: "100%",

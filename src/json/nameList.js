@@ -32,6 +32,7 @@ const nameList = {
   currentWeather: "Thời tiết hiện tại",
   findFarmers: "Tìm kiếm nông dân",
   userOptionModal: "Tùy chọn người dùng",
+
   test: "Test",
 };
 

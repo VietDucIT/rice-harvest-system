@@ -10,8 +10,6 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import Map from "../Map/Map";
-
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
@@ -46,6 +44,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
         {
           text: "Đồng ý",
           onPress: () => {
+            // set status for this suggest
             Alert.alert(
               "Thông báo",
               "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
@@ -61,6 +60,27 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
         },
       ]
     );
+  };
+
+  const handleReject = () => {
+    Alert.alert("Xác nhận", "Bạn có chắc chắn từ chối đề xuất thu mua này?", [
+      {
+        text: "Quay lại",
+        style: "cancel",
+      },
+      {
+        text: "Từ chối",
+        onPress: () => {
+          Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
+            {
+              text: "Đóng",
+              style: "cancel",
+            },
+          ]);
+          navigation.navigate(nameList.riceSeasonInfo);
+        },
+      },
+    ]);
   };
 
   return (
@@ -84,7 +104,9 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
           <View flex style={styles.contentWrapper} marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thương lái: </TextR>
-              <Text text70>{suggestData.traderName}</Text>
+              <Text text70>
+                <TextR style={styles.important}>{suggestData.traderName}</TextR>
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -114,12 +136,21 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giá lúa đề xuất: </TextR>
-              <Text text70>{suggestData.suggestedPrice} đồng/kg</Text>
+              <Text text70>
+                <TextR style={styles.important}>
+                  {suggestData.suggestedPrice}
+                </TextR>{" "}
+                đồng/kg
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày đề xuất thu hoạch: </TextR>
-              <Text text70>{suggestData.suggestedTimeEnd}</Text>
+              <Text text70>
+                <TextR style={styles.important}>
+                  {suggestData.suggestedTimeEnd}
+                </TextR>
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -128,7 +159,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
             </View>
           </View>
 
-          <View flex marginT-30 center style={styles.btnContainer}>
+          <View flex marginT-40 center style={styles.btnContainer}>
             <CustomButton label="Từ chối" onPress={handleReject} />
             <CustomButton label="Chấp nhận" onPress={handleAccept} />
           </View>
@@ -156,12 +187,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "500",
   },
-  mapContainer: {
-    width: "100%",
-    height: 400,
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: "green",
+  important: {
+    color: color.redColor,
+    fontWeight: "600",
   },
   btnContainer: {
     flexDirection: "row",

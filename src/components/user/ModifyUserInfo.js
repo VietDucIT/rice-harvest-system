@@ -239,8 +239,22 @@ const ModifyUserInfo = ({ navigation }) => {
                 flex
                 style={styles.ratioContainer}
               >
-                <RadioButton value={1} label={"Nam"} marginL-10 marginV-10 />
-                <RadioButton value={0} label={"Nữ"} marginL-20 marginV-10 />
+                <RadioButton
+                  value={1}
+                  label={"Nam"}
+                  marginL-10
+                  marginV-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
+                />
+                <RadioButton
+                  value={0}
+                  label={"Nữ"}
+                  marginL-20
+                  marginV-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
+                />
               </RadioGroup>
             </View>
 
@@ -399,12 +413,16 @@ const ModifyUserInfo = ({ navigation }) => {
                   label={"Nông dân"}
                   marginV-10
                   marginL-10
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
                 />
                 <RadioButton
                   value={1}
                   label={"Thương lái"}
                   marginV-10
                   marginL-20
+                  color={color.greenColor}
+                  labelStyle={{ fontSize: 16 }}
                 />
               </RadioGroup>
             </View>

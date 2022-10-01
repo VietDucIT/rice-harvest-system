@@ -20,7 +20,7 @@ const RiceSeasonInfo = ({ navigation }) => {
     name: "Thu Đông 2022",
     riceField: "Mẫu ruộng số 1",
     rice: "OM 18",
-    currentState: "Đã thu hoạch",
+    currentState: "Lúa chín",
     timeStart: "19/9/2022",
     timeEnd: "19/12/2022",
     totalRice: 900,
@@ -29,50 +29,65 @@ const RiceSeasonInfo = ({ navigation }) => {
   const suggestList = [
     {
       id: 1,
-      farmerName: "Nguyễn Văn A",
+      traderName: "Nguyễn Văn A",
       riceField: "Mẫu ruộng số 1",
+      suggestedPrice: 6000,
+      suggestedTimeEnd: "31/12/2022",
+      status: 1,
     },
     {
       id: 2,
-      farmerName: "Nguyễn Văn A",
+      traderName: "Nguyễn Văn A",
       riceField: "Mẫu ruộng số 2",
+      suggestedPrice: 5940,
+      suggestedTimeEnd: "31/12/2022",
+      status: 1,
     },
     {
       id: 3,
-      farmerName: "Nguyễn Văn A",
+      traderName: "Nguyễn Văn A",
       riceField: "Mẫu ruộng số 3",
+      suggestedPrice: 6100,
+      suggestedTimeEnd: "31/12/2022",
+      status: 0,
     },
     {
       id: 4,
-      farmerName: "Cao Thanh B",
+      traderName: "Cao Thanh B",
       riceField: "Mẫu ruộng số 1",
+      suggestedPrice: 5990,
+      suggestedTimeEnd: "31/12/2022",
+      status: 1,
     },
     {
       id: 5,
-      farmerName: "Lâm C",
+      traderName: "Lâm C",
       riceField: "Mẫu ruộng số 2",
+      suggestedPrice: 6040,
+      suggestedTimeEnd: "31/12/2022",
+      status: 0,
     },
   ];
 
-  const renderItem = ({ item }) => (
-    <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
-      <TextR style={styles.farmerName}>{item.farmerName}</TextR>
-      <View flex style={styles.subContainer}>
-        <Text text80>
-          {item.riceField.length <= 40
-            ? `${item.riceField}`
-            : `${item.riceField.substring(0, 39)}...`}
-        </Text>
-        <Text
-          green
-          text70
-          onPress={() => navigation.navigate(nameList.suggestToBuyInfo)}
-        >
-          Xem
-        </Text>
-      </View>
-    </View>
-  );
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
+  //     <TextR style={styles.farmerName}>{item.farmerName}</TextR>
+  //     <View flex style={styles.subContainer}>
+  //       <Text text80>
+  //         {item.riceField.length <= 40
+  //           ? `${item.riceField}`
+  //           : `${item.riceField.substring(0, 39)}...`}
+  //       </Text>
+  //       <Text
+  //         green
+  //         text70
+  //         onPress={() => navigation.navigate(nameList.suggestToBuyInfo)}
+  //       >
+  //         Xem
+  //       </Text>
+  //     </View>
+  //   </View>
+  // );
 
   return (
     <ScrollView>
@@ -123,7 +138,7 @@ const RiceSeasonInfo = ({ navigation }) => {
               <Text text70>{riceSeasonData.timeEnd}</Text>
             </View>
 
-            {styles.itemLabel === "Đã thu hoạch" && (
+            {riceSeasonData.currentState === "Đã thu hoạch" && (
               <View flex style={styles.itemContainer} marginT-5>
                 <TextR style={styles.itemLabel}>Sản lượng: </TextR>
                 <Text text70>{riceSeasonData.totalRice} kg</Text>
@@ -138,51 +153,64 @@ const RiceSeasonInfo = ({ navigation }) => {
             />
           </View>
 
-          <View marginT-40>
-            <Button link onPress={() => setIsShowMenu(!isShowMenu)} left>
-              <Text green style={styles.link}>
-                Xem đề xuất thu mua
-              </Text>
-            </Button>
-            {isShowMenu && (
-              <View marginT-20>
-                {/* <FlatList
+          {riceSeasonData.currentState !== "Đã thu hoạch" && (
+            <View marginT-40>
+              <Button link onPress={() => setIsShowMenu(!isShowMenu)} left>
+                <Text green style={styles.link}>
+                  Xem đề xuất thu mua
+                </Text>
+              </Button>
+              {isShowMenu && (
+                <View marginT-20>
+                  {/* <FlatList
                 data={suggestList}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
               /> */}
-                {suggestList.map((item) => {
-                  return (
-                    <View
-                      style={styles.riceSeasonItem}
-                      padding-5
-                      marginV-8
-                      marginH-16
-                      key={item.id}
-                    >
-                      <TextR style={styles.farmerName}>{item.farmerName}</TextR>
-                      <View style={styles.subContainer}>
-                        <Text text80>
-                          {item.riceField.length <= 40
-                            ? `${item.riceField}`
-                            : `${item.riceField.substring(0, 39)}...`}
-                        </Text>
-                        <Text
-                          green
-                          text70
-                          onPress={() =>
-                            navigation.navigate(nameList.suggestToBuyInfo)
-                          }
-                        >
-                          Xem
-                        </Text>
+                  {suggestList.map((item) => {
+                    return (
+                      <View
+                        style={styles.riceSeasonItem}
+                        padding-5
+                        marginV-8
+                        marginH-16
+                        key={item.id}
+                      >
+                        <TextR>
+                          <TextR style={styles.traderName}>
+                            {item.traderName}{" "}
+                          </TextR>
+                          <TextR
+                            style={
+                              item.status === 1
+                                ? styles.acceptStatus
+                                : styles.rejectStatus
+                            }
+                          >
+                            ({item.status === 1 ? "Đồng ý" : "Từ chối"})
+                          </TextR>
+                        </TextR>
+                        <View style={styles.subContainer}>
+                          <Text text80>Giá: {item.suggestedPrice} đồng/kg</Text>
+                          <Text
+                            green
+                            text70
+                            onPress={() =>
+                              navigation.navigate(
+                                nameList.suggestToBuyInfoForFarmer
+                              )
+                            }
+                          >
+                            Xem
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  );
-                })}
-              </View>
-            )}
-          </View>
+                    );
+                  })}
+                </View>
+              )}
+            </View>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -216,9 +244,17 @@ const styles = StyleSheet.create({
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
-  farmerName: {
+  traderName: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  acceptStatus: {
+    fontStyle: "italic",
+    color: color.blueColor,
+  },
+  rejectStatus: {
+    fontStyle: "italic",
+    color: color.redColor,
   },
   subContainer: {
     flexDirection: "row",
