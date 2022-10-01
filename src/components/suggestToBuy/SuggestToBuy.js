@@ -110,15 +110,23 @@ const SuggestToBuy = ({ navigation }) => {
 
   const handleSuggest = () => {
     let hasErr = true;
+    if (suggestedPrice == "") {
+      setErrorSuggestedPrice("* Vui lòng nhập giá đề xuất.");
+      hasErr = true;
+    } else {
+      setErrorSuggestedPrice("");
+    }
     if (!suggestedTimeEnd) {
       setErrorSuggestedTimeEnd("* Vui lòng nhập ngày đề xuất thu hoạch.");
       hasErr = true;
     } else {
       setErrorSuggestedTimeEnd("");
-      hasErr = false;
     }
+    // if (errorSuggestedPrice === "" && errorSuggestedTimeEnd === "") {
+    //   hasErr = false;
+    // }
 
-    if (!hasErr) {
+    if (hasErr === false) {
       Alert.alert("Thông báo", "Đã gửi đề xuất thu mua.", [
         {
           text: "Đóng",
@@ -376,7 +384,7 @@ const SuggestToBuy = ({ navigation }) => {
                 text70
                 grey10
                 multiline
-                numberOfLines={3}
+                numberOfLines={2}
                 value={description}
                 onChangeText={setDescription}
                 style={styles.textField}

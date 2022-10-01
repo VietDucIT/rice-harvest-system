@@ -30,10 +30,11 @@ import RiceSeasonInfo from "./components/riceSeason/RiceSeasonInfo";
 import RiceSeasonInfoForTrader from "./components/riceSeason/RiceSeasonInfoForTrader";
 import RiceSeasons from "./components/riceSeason/RiceSeasons";
 
-import ModifySuggestToBuy from "./components/trader/ModifySuggestToBuy";
-import SuggestToBuy from "./components/trader/SuggestToBuy";
-import SuggestToBuyInfo from "./components/trader/SuggestToBuyInfo";
-import SuggestToBuys from "./components/trader/SuggestToBuys";
+import ModifySuggestToBuy from "./components/suggestToBuy/ModifySuggestToBuy";
+import SuggestToBuy from "./components/suggestToBuy/SuggestToBuy";
+import SuggestToBuyInfo from "./components/suggestToBuy/SuggestToBuyInfo";
+import SuggestToBuyInfoForFarmer from "./components/suggestToBuy/SuggestToBuyInfoForFarmer";
+import SuggestToBuys from "./components/suggestToBuy/SuggestToBuys";
 
 import AddUserInfo from "./components/user/AddUserInfo";
 import ModifyUserInfo from "./components/user/ModifyUserInfo";
@@ -108,6 +109,10 @@ export default function App() {
         <Stack.Screen
           name={nameList.suggestToBuyInfo}
           component={SuggestToBuyInfo}
+        />
+        <Stack.Screen
+          name={nameList.suggestToBuyInfoForFarmer}
+          component={SuggestToBuyInfoForFarmer}
         />
         <Stack.Screen name={nameList.suggestToBuys} component={SuggestToBuys} />
         <Stack.Screen name={nameList.addUserInfo} component={AddUserInfo} />

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import ApiKey from "./apiKey";
+
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
-const APP_ID = "bb9bbd0e67532f3f8e965fe6fba10ece";
+const APP_ID = ApiKey;
 
 const getWeatherByName = (city) => {
   // console.log("From getApiByName.js: city = ", city)

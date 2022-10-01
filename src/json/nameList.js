@@ -22,6 +22,7 @@ const nameList = {
   addRiceField: "Thêm ruộng lúa",
   addRiceSeason: "Thêm vụ mùa",
   suggestToBuyInfo: "Thông tin đề xuất thu mua",
+  suggestToBuyInfoForFarmer: "Thông tin về đề xuất thu mua",
   riceBuyingAreaInfo: "Thông tin khu vực thu mua",
   userInfo: "Thông tin người dùng",
   farmerInfo: "Thông tin nông dân",

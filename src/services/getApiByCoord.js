@@ -2,8 +2,10 @@ import axios from "axios";
 
 import city from "../json/city";
 
+import ApiKey from "./apiKey";
+
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
-const APP_ID = "bb9bbd0e67532f3f8e965fe6fba10ece";
+const APP_ID = ApiKey;
 
 const getWeatherByCoord = (lon, lat) => {
   return new Promise(async (resolve, reject) => {

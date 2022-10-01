@@ -8,13 +8,13 @@ import {
 } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
+import nameList from "../../json/nameList";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
-
-import nameList from "../../json/nameList";
 
 StyleInit();
 
@@ -66,7 +66,7 @@ const FarmerInfo = ({ navigation }) => {
       totalRice: 900,
     },
     {
-      id: 3,
+      id: 2,
       name: "Đông Xuân 2023",
       riceField: "Mẫu ruộng số 2",
       rice: "OM 18",
@@ -74,83 +74,169 @@ const FarmerInfo = ({ navigation }) => {
       timeEnd: "19/12/2022",
       totalRice: 900,
     },
+    {
+      id: 3,
+      name: "Đông Xuân 2023",
+      riceField: "Mẫu ruộng số 3",
+      rice: "OM 18",
+      timeStart: "19/9/2022",
+      timeEnd: "19/12/2022",
+      totalRice: 900,
+    },
+    {
+      id: 4,
+      name: "Đông Xuân 2023",
+      riceField: "Mẫu ruộng số 4",
+      rice: "OM 18",
+      timeStart: "19/9/2022",
+      timeEnd: "19/12/2022",
+      totalRice: 900,
+    },
+    {
+      id: 5,
+      name: "Đông Xuân 2023",
+      riceField: "Mẫu ruộng số 5",
+      rice: "OM 18",
+      timeStart: "19/9/2022",
+      timeEnd: "19/12/2022",
+      totalRice: 900,
+    },
+    // {
+    //   id: 6,
+    //   name: "Đông Xuân 2023",
+    //   riceField: "Mẫu ruộng số 2",
+    //   rice: "OM 18",
+    //   timeStart: "19/9/2022",
+    //   timeEnd: "19/12/2022",
+    //   totalRice: 900,
+    // },
+    // {
+    //   id: 7,
+    //   name: "Đông Xuân 2023",
+    //   riceField: "Mẫu ruộng số 2",
+    //   rice: "OM 18",
+    //   timeStart: "19/9/2022",
+    //   timeEnd: "19/12/2022",
+    //   totalRice: 900,
+    // },
+    // {
+    //   id: 8,
+    //   name: "Đông Xuân 2023",
+    //   riceField: "Mẫu ruộng số 2",
+    //   rice: "OM 18",
+    //   timeStart: "19/9/2022",
+    //   timeEnd: "19/12/2022",
+    //   totalRice: 900,
+    // },
   ];
 
-  const renderItem = ({ item }) => (
-    <View style={styles.riceFieldItem} padding-5 marginV-8 marginH-16>
-      <View flex style={styles.subContainer}>
-        <Text text80 style={styles.riceFieldName}>
-          {item.riceField.length <= 40
-            ? `${item.riceField}`
-            : `${item.riceField.substring(0, 39)}...`}
-        </Text>
-        <Text
-          green
-          text70
-          onPress={() => navigation.navigate(nameList.riceSeasonInfoForTrader)}
-        >
-          Xem
-        </Text>
-      </View>
-    </View>
-  );
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.riceFieldItem} padding-5 marginV-8 marginH-16>
+  //     <View flex style={styles.subContainer}>
+  //       <Text text80 style={styles.riceFieldName}>
+  //         {item.riceField.length <= 40
+  //           ? `${item.riceField}`
+  //           : `${item.riceField.substring(0, 39)}...`}
+  //       </Text>
+  //       <Text
+  //         green
+  //         text70
+  //         onPress={() => navigation.navigate(nameList.riceSeasonInfoForTrader)}
+  //       >
+  //         Xem
+  //       </Text>
+  //     </View>
+  //   </View>
+  // );
 
   return (
-    <View flex marginB-50>
-      <UserOptionModal />
+    <ScrollView>
+      <View flex marginB-50>
+        <UserOptionModal />
 
-      <View>
-        <View center>
-          <Image
-            style={styles.avatar}
-            source={
-              userData.gender === 0
-                ? require("../../assets/images/woman-green.png")
-                : require("../../assets/images/man-green.png")
-            }
-          />
-          <View marginV-10 center>
-            <Text text50 green>
-              {userData.name}
-            </Text>
-            <Text text60 green>
-              ({userData.nickname})
-            </Text>
-          </View>
-        </View>
-
-        <ScrollView style={styles.contentWrapper}>
-          <View flex style={styles.itemContainer} marginT-5>
-            <TextR style={styles.itemLabel}>Giới tính: </TextR>
-            <Text text70>{userData.gender === 0 ? "Nữ" : "Nam"}</Text>
+        <View>
+          <View center>
+            <Image
+              style={styles.avatar}
+              source={
+                userData.gender === 0
+                  ? require("../../assets/images/woman-green.png")
+                  : require("../../assets/images/man-green.png")
+              }
+            />
+            <View marginV-10 center>
+              <Text text50 green>
+                {userData.name}
+              </Text>
+              <Text text60 green>
+                ({userData.nickname})
+              </Text>
+            </View>
           </View>
 
-          <View flex style={styles.itemContainer} marginT-5>
-            <TextR style={styles.itemLabel}>Năm sinh: </TextR>
-            <Text text70>{userData.birthYear}</Text>
+          <View style={styles.contentWrapper}>
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Giới tính: </TextR>
+              <Text text70>{userData.gender === 0 ? "Nữ" : "Nam"}</Text>
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Năm sinh: </TextR>
+              <Text text70>{userData.birthYear}</Text>
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
+              <Text text70>{userData.address}</Text>
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Số điện thoại: </TextR>
+              <Text text70>{userData.phone}</Text>
+            </View>
           </View>
 
-          <View flex style={styles.itemContainer} marginT-5>
-            <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-            <Text text70>{userData.address}</Text>
-          </View>
-
-          <View flex style={styles.itemContainer} marginT-5>
-            <TextR style={styles.itemLabel}>Số điện thoại: </TextR>
-            <Text text70>{userData.phone}</Text>
-          </View>
-        </ScrollView>
-
-        <View marginT-20>
-          <TextR style={styles.listLabel}>Danh sách ruộng đất:</TextR>
-          <FlatList
+          <View marginT-30>
+            <TextR style={styles.listLabel}>Danh sách ruộng đất:</TextR>
+            <View>
+              {riceSeasons.map((item) => {
+                return (
+                  <View
+                    style={styles.riceFieldItem}
+                    padding-5
+                    marginV-8
+                    marginH-16
+                    key={item.id}
+                  >
+                    <View flex style={styles.subContainer}>
+                      <Text text80 style={styles.riceFieldName}>
+                        {item.riceField.length <= 40
+                          ? `${item.riceField}`
+                          : `${item.riceField.substring(0, 39)}...`}
+                      </Text>
+                      <Text
+                        green
+                        text70
+                        onPress={() =>
+                          navigation.navigate(nameList.riceSeasonInfoForTrader)
+                        }
+                      >
+                        Xem
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+            {/* <FlatList
             data={riceSeasons}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-          />
+          /> */}
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default FarmerInfo;

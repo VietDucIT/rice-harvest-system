@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
+
+import nameList from "../../json/nameList";
 
 import Map from "../Map/Map";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
-
-import nameList from "../../json/nameList";
 
 StyleInit();
 
-const SuggestToBuyInfo = ({ navigation }) => {
+const SuggestToBuyInfoForFarmer = ({ navigation }) => {
   const suggestData = {
     id: 1,
-    farmerName: "Nguyễn Văn A",
+    traderName: "Nguyễn Văn A",
     riceField: "Mẫu ruộng số 1",
     rice: "OM 18",
     currentState: "Lúa chín",
@@ -25,6 +32,35 @@ const SuggestToBuyInfo = ({ navigation }) => {
     suggestedPrice: 6000,
     suggestedTimeEnd: "20/9/2022",
     description: "Thu mua bằng giá thị trường",
+  };
+
+  const handleAccept = () => {
+    Alert.alert(
+      "Xác nhận",
+      "Bạn có chắc chắn đồng ý với đề xuất thu mua này?",
+      [
+        {
+          text: "Quay lại",
+          style: "cancel",
+        },
+        {
+          text: "Đồng ý",
+          onPress: () => {
+            Alert.alert(
+              "Thông báo",
+              "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
+              [
+                {
+                  text: "Đóng",
+                  style: "cancel",
+                },
+              ]
+            );
+            navigation.navigate(nameList.riceSeasonInfo);
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -47,8 +83,8 @@ const SuggestToBuyInfo = ({ navigation }) => {
 
           <View flex style={styles.contentWrapper} marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Nông dân: </TextR>
-              <Text text70>{suggestData.farmerName}</Text>
+              <TextR style={styles.itemLabel}>Thương lái: </TextR>
+              <Text text70>{suggestData.traderName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -87,23 +123,21 @@ const SuggestToBuyInfo = ({ navigation }) => {
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Ghi chú: </TextR>
+              <TextR style={styles.itemLabel}>Ghi chú từ thương lái: </TextR>
               <Text text70>{suggestData.description}</Text>
             </View>
           </View>
 
-          <View flex marginT-20 center>
-            <CustomButton
-              label="Sửa"
-              onPress={() => navigation.navigate(nameList.modifySuggestToBuy)}
-            />
+          <View flex marginT-30 center style={styles.btnContainer}>
+            <CustomButton label="Từ chối" onPress={handleReject} />
+            <CustomButton label="Chấp nhận" onPress={handleAccept} />
           </View>
         </View>
       </View>
     </ScrollView>
   );
 };
-export default SuggestToBuyInfo;
+export default SuggestToBuyInfoForFarmer;
 
 const styles = StyleSheet.create({
   logo: {
@@ -121,5 +155,16 @@ const styles = StyleSheet.create({
   itemLabel: {
     fontSize: 17,
     fontWeight: "500",
+  },
+  mapContainer: {
+    width: "100%",
+    height: 400,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: "green",
+  },
+  btnContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
