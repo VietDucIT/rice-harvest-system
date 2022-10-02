@@ -19,8 +19,8 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getDayTime from "../../services/getDayTime";
-import getWeatherByCoord from "../../services/getApiByCoord";
+import getDayTime from "../../services/time/getDayTime";
+import getWeatherByCoord from "../../services/weather/getApiByCoord";
 
 import initWeatherData from "../../json/initWeatherData";
 

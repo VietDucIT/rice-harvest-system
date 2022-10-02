@@ -8,7 +8,7 @@ import UserOptionModal from "../user/UserOptionModal";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getDayTime from "../../services/getDayTime";
+import getDayTime from "../../services/time/getDayTime";
 
 StyleInit();
 
