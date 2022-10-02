@@ -1,56 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/getDayTime";
-import getWeatherByCoord from "../../services/getApiByCoord";
-
-import initWeatherData from "../../json/initWeatherData";
 
 StyleInit();
 
-const HourlyWeatherForecast = ({ navigation }) => {
-  const [isLoading, setLoading] = useState(false);
-
-  const [lat, setLat] = useState(10.8);
-  const [lon, setLon] = useState(106.67);
-
-  const [weatherData, setWeatherData] = useState(initWeatherData);
-  // const date = new Date((weatherData.hourly.dt + weatherData.timezone_offset - 7*3600) * 1000);
-  // const hour = getDateTimeString(date);
+const HourlyWeatherForecast = ({ navigation, route }) => {
+  const { hourlyWeatherData, timezone_offset } = route.params;
+  // console.log("From HourlyWeatherForecast 1: ", hourlyWeatherData);
+  // console.log("From HourlyWeatherForecast 2: ", timezone_offset);
   const { getDateTimeString } = getDayTime();
 
-  // Get full data
-  const getAPI = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await getWeatherByCoord(lon, lat);
-      // console.log("From CurrentWeather: ", data);
-      setWeatherData(data);
-      setLoading(false);
-    } catch (err) {
-      console.log("Can not call API");
-    }
-  }, [lon, lat]);
-
-  useEffect(() => {
-    getAPI();
-  }, [getAPI]);
-
   const list = () => {
-    return weatherData.hourly.map((hourItem, index) => {
+    return hourlyWeatherData.map((hourItem, index) => {
       const [isShow, setIsShow] = useState(false);
 
-      const date = new Date(
-        (hourItem.dt + weatherData.timezone_offset - 7 * 3600) * 1000
-      );
+      const date = new Date((hourItem.dt + timezone_offset - 7 * 3600) * 1000);
       const hour = getDateTimeString(date);
 
       return (
@@ -229,7 +201,7 @@ const HourlyWeatherForecast = ({ navigation }) => {
           </View>
         </View>
 
-        {isLoading ? <Loader /> : <View>{list()}</View>}
+        <View>{list()}</View>
       </View>
     </ScrollView>
   );

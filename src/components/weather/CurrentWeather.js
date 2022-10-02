@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Geolocation from "react-native-geolocation-service";
+import * as Location from "expo-location";
 
 import nameList from "../../json/nameList";
 
@@ -28,8 +34,33 @@ const CurrentWeather = ({ navigation }) => {
 
   const [isLoading, setLoading] = useState(false);
 
-  const [lat, setLat] = useState(10.8);
-  const [lon, setLon] = useState(106.67);
+  const [location, setLocation] = useState();
+  const [errorLocation, setErrorLocation] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorLocation("Không thể truy cập thông tin vị trí của bạn.");
+        return;
+      }
+      let { coords } = await Location.getCurrentPositionAsync({});
+      setLocation(coords);
+    })();
+  }, []);
+
+  // Không hiển thị
+  if (errorLocation) {
+    Alert.alert("Lỗi", { errorLocation }, [
+      {
+        text: "Quay lại",
+        onPress: () => navigation.goBack(),
+      },
+    ]);
+  }
+  // else if (location) {
+  //   text = JSON.stringify(location);
+  // }
 
   const [weatherData, setWeatherData] = useState(initWeatherData);
 
@@ -37,26 +68,21 @@ const CurrentWeather = ({ navigation }) => {
   const getAPI = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getWeatherByCoord(lon, lat);
+      const data = await getWeatherByCoord(
+        location.longitude,
+        location.latitude
+      );
       // console.log("From CurrentWeather: ", data);
       setWeatherData(data);
       setLoading(false);
     } catch (err) {
       console.log("Can not call API");
     }
-  }, [lon, lat]);
+  }, [location]);
 
   useEffect(() => {
     getAPI();
   }, [getAPI]);
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     setLat(position.coords.latitude);
-  //     setLon(position.coords.longitude);
-  //     console.log(position);
-  //   });
-  // }, []);
 
   useEffect(() => {
     setInterval(() => {
@@ -153,7 +179,10 @@ const CurrentWeather = ({ navigation }) => {
                 text55
                 style={styles.btn}
                 onPress={() =>
-                  navigation.navigate(nameList.hourlyWeatherForecast)
+                  navigation.navigate(nameList.hourlyWeatherForecast, {
+                    hourlyWeatherData: weatherData.hourly,
+                    timezone_offset: weatherData.timezone_offset,
+                  })
                 }
               />
             </View>
@@ -164,7 +193,10 @@ const CurrentWeather = ({ navigation }) => {
                 text55
                 style={styles.btn}
                 onPress={() =>
-                  navigation.navigate(nameList.dailyWeatherForecast)
+                  navigation.navigate(nameList.dailyWeatherForecast, {
+                    dailyWeatherData: weatherData.daily,
+                    timezone_offset: weatherData.timezone_offset,
+                  })
                 }
               />
             </View>

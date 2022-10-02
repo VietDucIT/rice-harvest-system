@@ -39,7 +39,8 @@
     "react-native-web": "~0.18.7",
     "react-native-webview": "^11.23.1",
     "react-router": "^6.4.0",
-    "react-router-native": "^6.4.0"
+    "react-router-native": "^6.4.0",
+    "expo-location": "~14.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

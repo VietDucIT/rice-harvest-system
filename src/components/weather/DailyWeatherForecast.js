@@ -11,55 +11,29 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/getDayTime";
-import getWeatherByCoord from "../../services/getApiByCoord";
 
 import initWeatherData from "../../json/initWeatherData";
 
 StyleInit();
 
-const DailyWeatherForecast = ({ navigation }) => {
-  const [isLoading, setLoading] = useState(false);
-
-  const [lat, setLat] = useState(10.8);
-  const [lon, setLon] = useState(106.67);
-
-  const [weatherData, setWeatherData] = useState(initWeatherData);
+const DailyWeatherForecast = ({ navigation, route }) => {
+  const { dailyWeatherData, timezone_offset } = route.params;
+  // const [isLoading, setLoading] = useState(false);
 
   const { getDateString, getShortTime } = getDayTime();
 
-  // Get full data
-  const getAPI = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await getWeatherByCoord(lon, lat);
-      // console.log("From CurrentWeather: ", data);
-      setWeatherData(data);
-      setLoading(false);
-    } catch (err) {
-      console.log("Can not call API");
-    }
-  }, [lon, lat]);
-
-  useEffect(() => {
-    getAPI();
-  }, [getAPI]);
-
   const list = () => {
-    return weatherData.daily.map((dayItem, index) => {
+    return dailyWeatherData.map((dayItem, index) => {
       const [isShow, setIsShow] = useState(false);
 
       const date = getDateString(
-        new Date((dayItem.dt + weatherData.timezone_offset - 7 * 3600) * 1000)
+        new Date((dayItem.dt + timezone_offset - 7 * 3600) * 1000)
       );
       const sunriseTime = getShortTime(
-        new Date(
-          (dayItem.sunrise + weatherData.timezone_offset - 7 * 3600) * 1000
-        )
+        new Date((dayItem.sunrise + timezone_offset - 7 * 3600) * 1000)
       );
       const sunsetTime = getShortTime(
-        new Date(
-          (dayItem.sunset + weatherData.timezone_offset - 7 * 3600) * 1000
-        )
+        new Date((dayItem.sunset + timezone_offset - 7 * 3600) * 1000)
       );
 
       return (
@@ -194,7 +168,8 @@ const DailyWeatherForecast = ({ navigation }) => {
           </View>
         </View>
 
-        {isLoading ? <Loader /> : <View>{list()}</View>}
+        <View>{list()}</View>
+        {/* {isLoading ? <Loader /> : <View>{list()}</View>} */}
       </View>
     </ScrollView>
   );
