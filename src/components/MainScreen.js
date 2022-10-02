@@ -26,7 +26,7 @@ const MainScreen = ({ navigation }) => {
               source={require("../assets/images/Logo.png")}
             />
           </View>
-          <View center marginV-20>
+          <View center marginV-15>
             <Text text50 green>
               {role === 0 ? "Nông dân" : "Thương lái"}
             </Text>
@@ -34,7 +34,7 @@ const MainScreen = ({ navigation }) => {
         </View>
 
         <View>
-          <View marginV-20 center>
+          <View marginV-15 center>
             <CustomButton
               label="Thông tin thời tiết"
               text60
@@ -43,7 +43,7 @@ const MainScreen = ({ navigation }) => {
             />
           </View>
 
-          <View marginV-20 center>
+          <View marginV-15 center>
             <CustomButton
               label="Cập nhật giá lúa"
               text60
@@ -53,7 +53,7 @@ const MainScreen = ({ navigation }) => {
           </View>
 
           {role === 0 && (
-            <View marginV-20 center>
+            <View marginV-15 center>
               <CustomButton
                 label="Quản lý ruộng lúa"
                 text60
@@ -64,7 +64,7 @@ const MainScreen = ({ navigation }) => {
           )}
 
           {role === 0 && (
-            <View marginV-20 center>
+            <View marginV-15 center>
               <CustomButton
                 label="Quản lý vụ mùa"
                 text60
@@ -75,7 +75,7 @@ const MainScreen = ({ navigation }) => {
           )}
 
           {role === 1 && (
-            <View marginV-20 center>
+            <View marginV-15 center>
               <CustomButton
                 label="Quản lý khu vực thu mua"
                 text60
@@ -86,7 +86,7 @@ const MainScreen = ({ navigation }) => {
           )}
 
           {role === 1 && (
-            <View marginV-20 center>
+            <View marginV-15 center>
               <CustomButton
                 label="Tìm kiếm nông dân"
                 text60
@@ -96,7 +96,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
-          <View marginV-20 center>
+          <View marginV-15 center>
             <CustomButton
               label="Xem bản đồ ruộng đất"
               text60
@@ -105,7 +105,7 @@ const MainScreen = ({ navigation }) => {
             />
           </View>
 
-          <View marginV-20 center>
+          <View marginV-15 center>
             <CustomButton
               label="Máy tính"
               text60

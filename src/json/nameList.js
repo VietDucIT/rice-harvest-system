@@ -1,17 +1,18 @@
 const nameList = {
-  map: "Bản đồ",
+  firstScreen: " ", // 1 space
+  mainScreen: "  ", // 2 spaces
+  userOptionModal: "   ", // 3 spaces
+  map: "Bản đồ ruộng lúa",
   modifyUserInfo: "Chỉnh sửa người dùng",
   riceBuyingAreas: "Danh sách khu vực thu mua",
   riceFields: "Danh sách ruộng lúa",
   riceSeasons: "Danh sách vụ mùa",
   hourlyWeatherForecast: "Dự báo thời tiết theo giờ",
   dailyWeatherForecast: "Dự báo thời tiết theo ngày",
-  signUp: "Đăng ký",
+  signUp: "Đăng ký tài khoản",
   addUserInfo: "Đăng ký thông tin",
   suggestToBuy: "Đề xuất thu mua",
-  firstScreen: "Đăng nhập",
   ricePrice: "Giá lúa",
-  mainScreen: "Màn hình chính",
   calculator: "Máy tính",
   suggestToBuys: "Quản lý đề xuất thu mua",
   modifySuggestToBuy: "Sửa đề xuất thu mua",
@@ -31,7 +32,6 @@ const nameList = {
   riceSeasonInfo: "Thông tin vụ mùa",
   currentWeather: "Thời tiết hiện tại",
   findFarmers: "Tìm kiếm nông dân",
-  userOptionModal: "Tùy chọn người dùng",
 
   test: "Test",
 };
