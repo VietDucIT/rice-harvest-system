@@ -1,20 +1,21 @@
+// Get Account data to modify if there is Modify Account feature.
 import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-// Need a parameter such as date or url ???
-const getRicePrice = () => {
+// id or username ???
+const getAccount = (id) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(`${REQUEST_URL}/rice-price`);
+    const { data, status } = await axios.get(`${REQUEST_URL}/account/${id}`);
     // console.log('Data', data);
     // console.log('Status', status);
 
     if (status === 200) {
       resolve(data);
     } else {
-      reject("Can't get Rice Price.");
+      reject("Can't get Account data.");
     }
   });
 };
 
-export default getRicePrice;
+export default getAccount;

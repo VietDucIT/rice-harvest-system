@@ -2,19 +2,20 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-// Need a parameter such as date or url ???
-const getRicePrice = () => {
+const deleteSuggestToBuy = (id) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(`${REQUEST_URL}/rice-price`);
+    const { data, status } = await axios.post(
+      `${REQUEST_URL}/suggest-to-buy/${id}/delete`
+    );
     // console.log('Data', data);
     // console.log('Status', status);
 
     if (status === 200) {
       resolve(data);
     } else {
-      reject("Can't get Rice Price.");
+      reject("Can't delete Suggest To Buy.");
     }
   });
 };
 
-export default getRicePrice;
+export default deleteSuggestToBuy;
