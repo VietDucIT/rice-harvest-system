@@ -8,8 +8,8 @@ const modifySuggestToBuy = (id, suggestToBuyData) => {
       `${REQUEST_URL}/suggest-to-buy/${id}/modify`,
       suggestToBuyData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data modifySuggestToBuy: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

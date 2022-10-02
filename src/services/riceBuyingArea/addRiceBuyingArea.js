@@ -9,8 +9,8 @@ const addRiceBuyingArea = (riceBuyingAreaData) => {
       `${REQUEST_URL}/rice-buying-area/`,
       riceBuyingAreaData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data addRiceBuyingArea: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

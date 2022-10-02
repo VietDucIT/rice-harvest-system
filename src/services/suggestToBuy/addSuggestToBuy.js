@@ -8,8 +8,8 @@ const addSuggestToBuy = (suggestToBuyData) => {
       `${REQUEST_URL}/suggest-to-buy/`,
       suggestToBuyData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data addSuggestToBuy: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

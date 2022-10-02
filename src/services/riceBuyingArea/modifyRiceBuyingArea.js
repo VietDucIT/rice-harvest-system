@@ -8,8 +8,8 @@ const modifyRiceBuyingArea = (id, riceBuyingAreaData) => {
       `${REQUEST_URL}/rice-buying-area/${id}/modify`,
       riceBuyingAreaData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data modifyRiceBuyingArea: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

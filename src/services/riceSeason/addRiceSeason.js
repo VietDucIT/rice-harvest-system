@@ -9,8 +9,8 @@ const addRiceSeason = (riceSeasonData) => {
       `${REQUEST_URL}/rice-season/`,
       riceSeasonData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data addRiceSeason: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

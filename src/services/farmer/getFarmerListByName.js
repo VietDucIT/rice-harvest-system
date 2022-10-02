@@ -5,10 +5,11 @@ import REQUEST_URL from "../urlToBackend";
 const getFarmerListByName = (name) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(
-      `${REQUEST_URL}/farmer/${name}/list-by-name`
+      `${REQUEST_URL}/farmer/list-by-name`,
+      { params: name }
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getFarmerListByName: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

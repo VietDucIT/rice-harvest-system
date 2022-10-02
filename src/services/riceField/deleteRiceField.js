@@ -7,8 +7,8 @@ const deleteRiceField = (id) => {
     const { data, status } = await axios.post(
       `${REQUEST_URL}/rice-field/${id}/delete`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data deleteRiceField: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

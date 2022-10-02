@@ -5,8 +5,8 @@ const getAddressData = () => {
     const { data, status } = await axios.get(
       "https://provinces.open-api.vn/api/?depth=3"
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getAddressData: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

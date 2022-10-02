@@ -7,8 +7,8 @@ const deleteSuggestToBuy = (id) => {
     const { data, status } = await axios.post(
       `${REQUEST_URL}/suggest-to-buy/${id}/delete`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data deleteSuggestToBuy: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

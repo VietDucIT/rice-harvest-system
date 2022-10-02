@@ -7,8 +7,8 @@ const getRiceSeason = (id) => {
     const { data, status } = await axios.get(
       `${REQUEST_URL}/rice-season/${id}`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getRiceSeason: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

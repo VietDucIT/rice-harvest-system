@@ -8,8 +8,8 @@ const modifyRiceSeason = (id, riceSeasonData) => {
       `${REQUEST_URL}/rice-season/${id}/modify`,
       riceSeasonData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data modifyRiceSeason: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

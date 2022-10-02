@@ -7,8 +7,8 @@ const deleteRiceBuyingArea = (id) => {
     const { data, status } = await axios.post(
       `${REQUEST_URL}/rice-buying-area/${id}/delete`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data deleteRiceBuyingArea: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

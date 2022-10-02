@@ -7,8 +7,8 @@ const getSuggestToBuyListForRiceSeason = (idRiceSeason) => {
     const { data, status } = await axios.get(
       `${REQUEST_URL}/suggest-to-buy/${idRiceSeason}/list-for-rice-season`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getSuggestToBuyListForRiceSeason: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

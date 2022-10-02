@@ -8,8 +8,8 @@ const modifyRiceField = (id, riceFieldData) => {
       `${REQUEST_URL}/rice-field/${id}/modify`,
       riceFieldData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data modifyRiceField: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

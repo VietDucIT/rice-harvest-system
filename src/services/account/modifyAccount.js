@@ -9,8 +9,8 @@ const modifyAccount = (id, accountData) => {
       `${REQUEST_URL}/account/${id}/modify`,
       accountData
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data modifyAccount: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

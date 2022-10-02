@@ -6,10 +6,11 @@ import REQUEST_URL from "../urlToBackend";
 const getFarmerListByAddress = (address) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(
-      `${REQUEST_URL}/farmer/${address}/list-by-address`
+      `${REQUEST_URL}/farmer/list-by-address`,
+      { params: address }
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getFarmerListByAddress: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

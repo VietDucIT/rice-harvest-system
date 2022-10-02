@@ -7,8 +7,8 @@ const getRiceBuyingArea = (id) => {
     const { data, status } = await axios.get(
       `${REQUEST_URL}/rice-buying-area/${id}`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getRiceBuyingArea: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

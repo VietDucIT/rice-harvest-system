@@ -7,8 +7,8 @@ const deleteAccount = (id) => {
     const { data, status } = await axios.post(
       `${REQUEST_URL}/account/${id}/delete`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data deleteAccount: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

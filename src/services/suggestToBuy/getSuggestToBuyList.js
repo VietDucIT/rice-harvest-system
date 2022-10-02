@@ -7,8 +7,8 @@ const getSuggestToBuyList = (idTrader) => {
     const { data, status } = await axios.get(
       `${REQUEST_URL}/suggest-to-buy/${idTrader}/list`
     );
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getSuggestToBuyList: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);

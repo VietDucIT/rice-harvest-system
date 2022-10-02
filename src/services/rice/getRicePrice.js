@@ -6,8 +6,8 @@ import REQUEST_URL from "../urlToBackend";
 const getRicePrice = () => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(`${REQUEST_URL}/rice-price`);
-    // console.log('Data', data);
-    // console.log('Status', status);
+    // console.log('Data getRicePrice: ', data);
+    // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);
