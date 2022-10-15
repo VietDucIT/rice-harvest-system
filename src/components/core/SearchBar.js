@@ -7,10 +7,8 @@ import color from "../../config/color";
 
 const { TextField } = Incubator;
 
-const SearchBar = (props) => {
+const SearchBar = (handleSearch, ...props) => {
   const [name, setName] = useState("");
-
-  const handleSearch = () => {};
 
   return (
     <View flex style={styles.container} center marginT-30 marginB-20 {...props}>
@@ -23,7 +21,8 @@ const SearchBar = (props) => {
           onChangeText={setName}
         />
       </View>
-      <Button style={styles.searchBtn} onPress={handleSearch}>
+
+      <Button style={styles.searchBtn} onPress={() => handleSearch(name)}>
         <FontAwesome5 name="search" size={15} color="white" />
       </Button>
     </View>

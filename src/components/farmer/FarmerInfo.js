@@ -1,34 +1,61 @@
-import React from "react";
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text as TextR,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
-import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getFarmer from "../../services/user/getUser";
+
 StyleInit();
 
-const FarmerInfo = ({ navigation }) => {
-  const userData = {
+const FarmerInfo = ({ navigation, route }) => {
+  const [farmerData, setFarmerData] = useState({
     id: 1,
     name: "Nguyễn Văn A",
     nickname: "Hai A",
     gender: 1,
-    birthYear: 1960,
+    birthYear: 1900,
     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
     phone: "0123 456 789",
     role: 0,
-  };
+  });
+  // const [isLoading, setLoading] = useState(false);
+
+  const { idFarmer } = route.params;
+
+  // gọi API lấy dữ liệu
+  const getFarmerData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getFarmer(idFarmer);
+      // console.log("Farmer data: ", data);
+      setFarmerData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Farmer data.");
+    }
+  }, [idFarmer]);
+
+  useEffect(() => {
+    getFarmerData();
+  }, [getFarmerData]);
+
+  // const farmerData = {
+  //   id: 1,
+  //   name: "Nguyễn Văn A",
+  //   nickname: "Hai A",
+  //   gender: 1,
+  //   birthYear: 1960,
+  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+  //   phone: "0123 456 789",
+  //   role: 0,
+  // };
+
   const riceFields = [
     {
       id: "1",
@@ -55,6 +82,7 @@ const FarmerInfo = ({ navigation }) => {
       name: "Mẫu ruộng số 6",
     },
   ];
+
   const riceSeasons = [
     {
       id: 1,
@@ -159,17 +187,17 @@ const FarmerInfo = ({ navigation }) => {
             <Image
               style={styles.avatar}
               source={
-                userData.gender === 0
+                farmerData.gender === 0
                   ? require("../../assets/images/woman-green.png")
                   : require("../../assets/images/man-green.png")
               }
             />
             <View marginV-10 center>
               <Text text50 green>
-                {userData.name}
+                {farmerData.name}
               </Text>
               <Text text60 green>
-                ({userData.nickname})
+                ({farmerData.nickname})
               </Text>
             </View>
           </View>
@@ -177,22 +205,22 @@ const FarmerInfo = ({ navigation }) => {
           <View style={styles.contentWrapper}>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giới tính: </TextR>
-              <Text text70>{userData.gender === 0 ? "Nữ" : "Nam"}</Text>
+              <Text text70>{farmerData.gender === 0 ? "Nữ" : "Nam"}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Năm sinh: </TextR>
-              <Text text70>{userData.birthYear}</Text>
+              <Text text70>{farmerData.birthYear}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text text70>{userData.address}</Text>
+              <Text text70>{farmerData.address}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Số điện thoại: </TextR>
-              <Text text70>{userData.phone}</Text>
+              <Text text70>{farmerData.phone}</Text>
             </View>
           </View>
 

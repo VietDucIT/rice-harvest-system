@@ -2,22 +2,21 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-// For which trader ???
-const addRiceBuyingArea = (riceBuyingAreaData) => {
+const logIn = (user) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.post(
-      `${REQUEST_URL}/rice-buying-area/`,
-      riceBuyingAreaData
+      `${REQUEST_URL}/user/login`,
+      user
     );
-    // console.log("Data addRiceBuyingArea: ", data);
+    // console.log('Data logIn: ', data);
     // console.log('Status: ', status);
 
     if (status === 200) {
       resolve(data);
     } else {
-      reject("Can't add Rice Buying Area.");
+      reject("Can't Log in.");
     }
   });
 };
 
-export default addRiceBuyingArea;
+export default logIn;

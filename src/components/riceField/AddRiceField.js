@@ -16,20 +16,23 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import addRiceField from "../../services/riceField/addRiceField";
+
 StyleInit();
 
 const { TextField } = Incubator;
 
 const AddRiceField = ({ navigation }) => {
+  const [riceField, setRiceField] = useState({});
   let d1 = {};
   let d2 = {};
   let d3 = {};
   let d4 = {};
-  const [address, setAddress] = useState("");
-  const [village, setVillage] = useState("");
-  const [commune, setCommune] = useState("");
-  const [town, setTown] = useState("");
-  const [province, setProvince] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [village, setVillage] = useState("");
+  // const [commune, setCommune] = useState("");
+  // const [town, setTown] = useState("");
+  // const [province, setProvince] = useState("");
   const [x1, setX1] = useState(0);
   const [y1, setY1] = useState(0);
   const [x2, setX2] = useState(0);
@@ -39,6 +42,7 @@ const AddRiceField = ({ navigation }) => {
   const [x4, setX4] = useState(0);
   const [y4, setY4] = useState(0);
   // const [coordinate, setCoordinate] = useState({});
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
   const [errorVillage, setErrorVillage] = useState("");
   const [errorCommune, setErrorCommune] = useState("");
   const [errorTown, setErrorTown] = useState("");
@@ -51,38 +55,7 @@ const AddRiceField = ({ navigation }) => {
   const [errorY3, setErrorY3] = useState("");
   const [errorX4, setErrorX4] = useState("");
   const [errorY4, setErrorY4] = useState("");
-  const [description, setDescription] = useState("");
-
-  const reset = () => {
-    setAddress("");
-    setVillage("");
-    setCommune("");
-    setTown("");
-    setProvince("");
-    setX1(0);
-    setY1(0);
-    setX2(0);
-    setY2(0);
-    setX3(0);
-    setY3(0);
-    setX4(0);
-    setY4(0);
-    // setCoordinate({});
-    setErrorVillage("");
-    setErrorCommune("");
-    setErrorTown("");
-    setErrorProvince("");
-    setErrorX1("");
-    setErrorY1("");
-    setErrorX2("");
-    setErrorY2("");
-    setErrorX3("");
-    setErrorY3("");
-    setErrorX4("");
-    setErrorY4("");
-    setDescription("");
-    console.log("Reset completed.");
-  };
+  // const [description, setDescription] = useState("");
 
   useEffect(() => {
     d1 = Object.assign({ lat: x1, lon: y1 });
@@ -109,7 +82,11 @@ const AddRiceField = ({ navigation }) => {
       message = "";
     }
     setErrorVillage(message);
-    setVillage(text);
+    // setVillage(text);
+    setRiceField({
+      ...riceField,
+      village: text,
+    });
   };
 
   const onChangeCommune = (text) => {
@@ -121,7 +98,11 @@ const AddRiceField = ({ navigation }) => {
       message = "";
     }
     setErrorCommune(message);
-    setCommune(text);
+    // setCommune(text);
+    setRiceField({
+      ...riceField,
+      commune: text,
+    });
   };
 
   const onChangeTown = (text) => {
@@ -133,7 +114,11 @@ const AddRiceField = ({ navigation }) => {
       message = "";
     }
     setErrorTown(message);
-    setTown(text);
+    // setTown(text);
+    setRiceField({
+      ...riceField,
+      town: text,
+    });
   };
 
   const onChangeProvince = (text) => {
@@ -145,7 +130,11 @@ const AddRiceField = ({ navigation }) => {
       message = "";
     }
     setErrorProvince(message);
-    setProvince(text);
+    // setProvince(text);
+    setRiceField({
+      ...riceField,
+      province: text,
+    });
   };
 
   const onChangeX1 = (text) => {
@@ -244,14 +233,77 @@ const AddRiceField = ({ navigation }) => {
     setY4(text);
   };
 
-  const handleAdd = () => {
-    Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
-      {
-        text: "Đóng",
-        style: "cancel",
-      },
-    ]);
-    navigation.navigate(nameList.riceFields);
+  const onChangeDescription = (text) => {
+    setRiceField({
+      ...riceField,
+      description: text,
+    });
+  };
+
+  const reset = () => {
+    setRiceField({});
+    // setAddress("");
+    // setVillage("");
+    // setCommune("");
+    // setTown("");
+    // setProvince("");
+    setX1(0);
+    setY1(0);
+    setX2(0);
+    setY2(0);
+    setX3(0);
+    setY3(0);
+    setX4(0);
+    setY4(0);
+    // setCoordinate({});
+    setErrorVillage("");
+    setErrorCommune("");
+    setErrorTown("");
+    setErrorProvince("");
+    setErrorX1("");
+    setErrorY1("");
+    setErrorX2("");
+    setErrorY2("");
+    setErrorX3("");
+    setErrorY3("");
+    setErrorX4("");
+    setErrorY4("");
+    // setDescription("");
+    console.log("Reset completed.");
+  };
+
+  // handle disable submit btn
+  useEffect(() => {
+    if (
+      riceField.village &&
+      riceField.commune &&
+      riceField.town &&
+      riceField.province
+    ) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [riceField]);
+
+  // gọi API
+  const handleAdd = async () => {
+    try {
+      // setLoading(true);
+
+      let dataAPI = await addRiceField(riceField);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.riceFields);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while adding Rice Buying Area.");
+    }
   };
 
   return (
@@ -282,7 +334,7 @@ const AddRiceField = ({ navigation }) => {
               {/* <TextField
                   text70
                   grey10
-                  value={address}
+                  value={riceField.address}
                   onChangeText={setAddress}
                   // title="Địa chỉ:"
                   // titleStyle={{ fontSize: Typography.text70.fontSize }}
@@ -295,7 +347,7 @@ const AddRiceField = ({ navigation }) => {
                     grey10
                     // validate={"required"}
                     onChangeText={onChangeVillage}
-                    value={village}
+                    value={riceField.village}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -304,7 +356,7 @@ const AddRiceField = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc"}
+                    // errorMessage={"Bắt buộc."}
                     // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
@@ -319,7 +371,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeCommune}
-                    value={commune}
+                    value={riceField.commune}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -341,7 +393,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeTown}
-                    value={town}
+                    value={riceField.town}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -363,7 +415,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeProvince}
-                    value={province}
+                    value={riceField.province}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -398,7 +450,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeX1}
-                    value={x1}
+                    value={riceField.x1}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -414,7 +466,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeY1}
-                    value={y1}
+                    value={riceField.y1}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -429,7 +481,7 @@ const AddRiceField = ({ navigation }) => {
                   text70
                   grey10
                   onChangeText={setD1}
-                  value={d1}
+                  value={riceField.d1}
                   placeholder="Điểm 1"
                 /> */}
               </View>
@@ -444,7 +496,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeX2}
-                    value={x2}
+                    value={riceField.x2}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -460,7 +512,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeY2}
-                    value={y2}
+                    value={riceField.y2}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -483,7 +535,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeX3}
-                    value={x3}
+                    value={riceField.x3}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -499,7 +551,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeY3}
-                    value={y3}
+                    value={riceField.y3}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -522,7 +574,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeX4}
-                    value={x4}
+                    value={riceField.x4}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -538,7 +590,7 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeY4}
-                    value={y4}
+                    value={riceField.y4}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -562,8 +614,8 @@ const AddRiceField = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={3}
-                value={description}
-                onChangeText={setDescription}
+                value={riceField.description}
+                onChangeText={onChangeDescription}
                 style={styles.textField}
               />
             </View>
@@ -571,7 +623,11 @@ const AddRiceField = ({ navigation }) => {
 
           <View flex marginT-30 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Thêm" onPress={handleAdd} />
+            <CustomButton
+              label="Thêm"
+              onPress={handleAdd}
+              disabled={isDisableBtn}
+            />
           </View>
         </View>
       </View>

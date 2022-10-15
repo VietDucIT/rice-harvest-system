@@ -160,7 +160,7 @@ const AddUserInfo = ({ navigation }) => {
   const handleAdd = () => {
     let err = false;
     if (!birthYear) {
-      setErrorBirthYear("* Bắt buộc");
+      setErrorBirthYear("* Bắt buộc.");
       err = false;
     } else {
       setErrorBirthYear("");
@@ -315,7 +315,7 @@ const AddUserInfo = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc"}
+                    // errorMessage={"Bắt buộc."}
                     // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"

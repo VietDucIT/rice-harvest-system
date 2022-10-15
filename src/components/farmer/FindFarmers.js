@@ -1,5 +1,5 @@
-import React from "react";
-import { Image, StyleSheet, FlatList, Text as TextR } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -10,10 +10,17 @@ import SearchBar from "../core/SearchBar";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getFarmerListByName from "../../services/farmer/getFarmerListByName";
+// import getFarmerListByAddress from "../../services/farmer/getFarmerListByAddress";
+
 StyleInit();
 
 const FindFarmers = ({ navigation }) => {
-  const farmerArray = [
+  const [farmerName, setFarmerName] = useState("");
+  const [farmerArray, setFarmerArray] = useState(initFarmerArray);
+  // const [isLoading, setLoading] = useState(false);
+
+  const initFarmerArray = [
     {
       id: 1,
       name: "Nguyễn Văn A",
@@ -66,27 +73,45 @@ const FindFarmers = ({ navigation }) => {
     },
   ];
 
-  const renderItem = ({ item }) => (
-    <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
-      <TextR style={styles.riceSeasonName}>
-        {item.name} ({item.nickname})
-      </TextR>
-      <View flex style={styles.subContainer}>
-        <Text text80>
-          {item.address.length <= 40
-            ? `${item.address}`
-            : `${item.address.substring(0, 39)}...`}
-        </Text>
-        <Text
-          green
-          text70
-          onPress={() => navigation.navigate(nameList.farmerInfo)}
-        >
-          Xem
-        </Text>
-      </View>
-    </View>
-  );
+  // gọi API lấy dữ liệu
+  const getFarmerArray = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getFarmerListByName(farmerName);
+      // const data2 = await getFarmerListByAddress(address);
+      // console.log("Farmer data: ", data);
+      setFarmerArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Farmer list.");
+    }
+  }, [farmerName]);
+
+  useEffect(() => {
+    getFarmerArray();
+  }, [getFarmerArray]);
+
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.farmerItem} padding-5 marginV-8 marginH-16>
+  //     <TextR style={styles.farmerName}>
+  //       {item.name} ({item.nickname})
+  //     </TextR>
+  //     <View flex style={styles.subContainer}>
+  //       <Text text80>
+  //         {item.address.length <= 40
+  //           ? `${item.address}`
+  //           : `${item.address.substring(0, 39)}...`}
+  //       </Text>
+  //       <Text
+  //         green
+  //         text70
+  //         onPress={() => navigation.navigate(nameList.farmerInfo)}
+  //       >
+  //         Xem
+  //       </Text>
+  //     </View>
+  //   </View>
+  // );
 
   return (
     <View flex marginB-60>
@@ -105,16 +130,47 @@ const FindFarmers = ({ navigation }) => {
           </View>
         </View>
 
-        <SearchBar placeholder="Nhập tên nông dân..." />
+        <SearchBar
+          placeholder="Nhập tên nông dân..."
+          handleSearch={(name) => setFarmerName(name)}
+        />
 
         {/* <View>Lọc</View> */}
 
         <View marginT-20>
-          <FlatList
+          {farmerArray.map((item) => (
+            <View
+              style={styles.farmerItem}
+              padding-5
+              marginV-8
+              marginH-16
+              key={item.id}
+            >
+              <TextR style={styles.farmerName}>
+                {item.name} ({item.nickname})
+              </TextR>
+              <View flex style={styles.subContainer}>
+                <Text text80>
+                  {item.address.length <= 40
+                    ? `${item.address}`
+                    : `${item.address.substring(0, 39)}...`}
+                </Text>
+                <Text
+                  green
+                  text70
+                  onPress={() => navigation.navigate(nameList.farmerInfo)}
+                >
+                  Xem
+                </Text>
+              </View>
+            </View>
+          ))}
+
+          {/* <FlatList
             data={farmerArray}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-          />
+          /> */}
         </View>
 
         {/* <View marginT-30 center>
@@ -135,14 +191,14 @@ const styles = StyleSheet.create({
     height: 50,
   },
 
-  riceSeasonItem: {
+  farmerItem: {
     // flexDirection: "row",
     // flexWrap: "wrap",
     // justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
-  riceSeasonName: {
+  farmerName: {
     fontSize: 16,
     fontWeight: "600",
   },

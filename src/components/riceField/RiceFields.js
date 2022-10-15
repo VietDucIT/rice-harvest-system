@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image, FlatList, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
@@ -10,6 +10,9 @@ import SearchBar from "../core/SearchBar";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
+
+import getRiceFieldList from "../../services/riceField/getRiceFieldList";
+import deleteRiceField from "../../services/riceField/deleteRiceField";
 
 StyleInit();
 

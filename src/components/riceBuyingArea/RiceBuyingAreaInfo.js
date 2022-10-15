@@ -11,15 +11,37 @@ import CustomButton from "../core/CustomButton";
 
 import { StyleInit } from "../../config/StyleInit";
 
+import getRiceBuyingArea from "../../services/riceBuyingArea/getRiceBuyingArea";
+
 StyleInit();
 
-const RiceBuyingAreaInfo = ({ navigation }) => {
-  const buyingAreaData = {
-    id: 1,
-    name: "Khu vực 1",
-    address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-    description: "Bờ đông kênh Cầu Tre",
-  };
+const RiceBuyingAreaInfo = ({ navigation, route }) => {
+  const { idRiceBuyingArea } = route.params;
+  const [buyingAreaData, setBuyingAreaData] = useState({});
+
+  // gọi API lấy dữ liệu
+  const getRiceBuyingAreaData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceBuyingArea(idRiceBuyingArea);
+      // console.log("Rice Buying Area data: ", data);
+      setBuyingAreaData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Buying Area data.");
+    }
+  }, [idRiceBuyingArea]);
+
+  useEffect(() => {
+    getRiceBuyingAreaData();
+  }, [getRiceBuyingAreaData]);
+
+  // const buyingAreaData = {
+  //   id: 1,
+  //   name: "Khu vực 1",
+  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+  //   description: "Bờ đông kênh Cầu Tre",
+  // };
 
   return (
     <ScrollView>

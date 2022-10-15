@@ -160,7 +160,7 @@ const ModifyUserInfo = ({ navigation }) => {
   const handleModify = () => {
     let err = false;
     if (!birthYear) {
-      setErrorBirthYear("* Bắt buộc");
+      setErrorBirthYear("* Bắt buộc.");
       err = false;
     } else {
       setErrorBirthYear("");

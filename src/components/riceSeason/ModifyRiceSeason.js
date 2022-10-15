@@ -113,7 +113,7 @@ const ModifyRiceSeason = ({ navigation }) => {
   const handleModify = () => {
     let err = false;
     if (!seasonName) {
-      setErrorSeasonName("* Bắt buộc");
+      setErrorSeasonName("* Bắt buộc.");
       err = false;
     } else {
       setErrorSeasonName("");
@@ -121,7 +121,7 @@ const ModifyRiceSeason = ({ navigation }) => {
     }
 
     if (!seasonYear) {
-      setErrorSeasonYear("* Bắt buộc");
+      setErrorSeasonYear("* Bắt buộc.");
       err = false;
     } else {
       setErrorSeasonYear("");
@@ -129,7 +129,7 @@ const ModifyRiceSeason = ({ navigation }) => {
     }
 
     if (!riceField) {
-      setErrorRiceField("* Bắt buộc");
+      setErrorRiceField("* Bắt buộc.");
       err = false;
     } else {
       setErrorRiceField("");
@@ -137,7 +137,7 @@ const ModifyRiceSeason = ({ navigation }) => {
     }
 
     if (!rice) {
-      setErrorRice("* Bắt buộc");
+      setErrorRice("* Bắt buộc.");
       err = false;
     } else {
       setErrorRice("");
@@ -145,7 +145,7 @@ const ModifyRiceSeason = ({ navigation }) => {
     }
 
     if (!currentState) {
-      setErrorCurrentState("* Bắt buộc");
+      setErrorCurrentState("* Bắt buộc.");
       err = false;
     } else {
       setErrorCurrentState("");
@@ -153,7 +153,7 @@ const ModifyRiceSeason = ({ navigation }) => {
     }
 
     if (!timeStart) {
-      setErrorTimeStart("* Bắt buộc");
+      setErrorTimeStart("* Bắt buộc.");
       err = false;
     } else {
       setErrorTimeStart("");

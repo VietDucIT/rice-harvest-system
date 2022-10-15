@@ -16,6 +16,8 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import modifyRiceField from "../../services/riceField/modifyRiceField";
+
 StyleInit();
 
 const { TextField } = Incubator;
@@ -304,7 +306,7 @@ const ModifyRiceField = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc"}
+                    // errorMessage={"Bắt buộc."}
                     // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"

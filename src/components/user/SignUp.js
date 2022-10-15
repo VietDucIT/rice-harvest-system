@@ -215,7 +215,7 @@ const SignUp = ({ navigation }) => {
               validate={"required"}
               value={username}
               onChangeText={setUsername}
-              errorMessage={"Vui lòng nhập Tên đăng nhập"}
+              errorMessage={"Vui lòng nhập Tên đăng nhập."}
               errorColor={color.redColor}
             />
 
@@ -233,7 +233,7 @@ const SignUp = ({ navigation }) => {
               validate={"required"}
               value={password}
               onChangeText={setPassword}
-              errorMessage={"Vui lòng nhập Mật khẩu"}
+              errorMessage={"Vui lòng nhập Mật khẩu."}
               errorColor={color.redColor}
             />
 
@@ -251,7 +251,7 @@ const SignUp = ({ navigation }) => {
               validate={"required"}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              errorMessage={"Vui lòng nhập lại Mật khẩu"}
+              errorMessage={"Vui lòng nhập lại Mật khẩu."}
               errorColor={color.redColor}
             /> */}
           </View>

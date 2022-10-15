@@ -12,7 +12,7 @@ import { StyleInit } from "../config/StyleInit";
 StyleInit();
 
 const MainScreen = ({ navigation }) => {
-  const role = 0;
+  const role = 1;
 
   return (
     <ScrollView>

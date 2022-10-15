@@ -11,6 +11,8 @@ import CustomButton from "../core/CustomButton";
 
 import { StyleInit } from "../../config/StyleInit";
 
+import getRiceField from "../../services/riceField/getRiceField";
+
 StyleInit();
 
 const RiceFieldInfo = ({ navigation }) => {

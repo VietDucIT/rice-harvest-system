@@ -1,32 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image, Linking, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionModal from "../user/UserOptionModal";
+
 import { StyleInit } from "../../config/StyleInit";
 
-StyleInit();
+import getDayTime from "../../services/time/getDayTime";
+import getRicePrice from "../../services/rice/getRicePrice";
 
-const url =
-  "https://congthuong.vn/gia-lua-gao-hom-nay-199-soi-dong-phien-dau-tuan-220431.html";
+StyleInit();
+const { getDateString } = getDayTime();
+
+const url = "https://congthuong.vn/chu-de/gia-lua-gao-hom-nay.topic";
 
 const RicePrice = ({ navigation }) => {
-  const date = "19/09/2022";
+  const [ricePriceData, setRicePriceData] = useState([]);
+
+  const date = getDateString(new Date()); // "19/09/2022"
   const state = {
     tableHead: ["Giống lúa", "Giá (đồng/kg)"],
-    tableData: [
-      ["OM 18", "5.700 – 5.900"],
-      ["OM 5451", "5.500 – 5.600"],
-      ["ST 24", "7.000 - 7.500"],
-      ["IR 504", "5.400 – 5.500"],
-      ["Đài thơm 8", "5.600 – 5.800"],
-      ["Nàng hoa 9", "5.600 – 5.800"],
-      ["Nếp An Giang", "5.900 – 6.100"],
-      ["Nếp Long An", "6.200 – 6.500"],
-      ["...", "..."],
-    ],
+    // tableData: [
+    //   ["OM 18", "5.700 – 5.900"],
+    //   ["OM 5451", "5.500 – 5.600"],
+    //   ["ST 24", "7.000 - 7.500"],
+    //   ["IR 504", "5.400 – 5.500"],
+    //   ["Đài thơm 8", "5.600 – 5.800"],
+    //   ["Nàng hoa 9", "5.600 – 5.800"],
+    //   ["Nếp An Giang", "5.900 – 6.100"],
+    //   ["Nếp Long An", "6.200 – 6.500"],
+    //   ["...", "..."],
+    // ],
+    tableData: [],
   };
+
+  // gọi API lấy dữ liệu
+  const getRicePriceData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRicePrice();
+      // console.log("Rice Price data: ", data);
+      setRicePriceData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Price data.");
+    }
+  }, []);
+
+  useEffect(() => {
+    getRicePriceData();
+  }, [getRicePriceData]);
+
+  for (let i = 0; i < ricePriceData.length; i++) {
+    const rowData = [];
+    rowData.push(ricePriceData[i].rice, ricePriceData[i].price);
+    tableData.push(rowData);
+  }
 
   return (
     <ScrollView>

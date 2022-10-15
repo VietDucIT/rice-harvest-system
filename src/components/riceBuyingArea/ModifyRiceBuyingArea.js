@@ -16,19 +16,23 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import modifyRiceBuyingArea from "../../services/riceBuyingArea/modifyRiceBuyingArea";
+
 StyleInit();
 
 const { TextField } = Incubator;
 
 const ModifyRiceBuyingArea = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [village, setVillage] = useState("");
-  const [commune, setCommune] = useState("");
-  const [town, setTown] = useState("");
-  const [province, setProvince] = useState("");
-  const [description, setDescription] = useState("");
+  const [riceBuyingArea, setRiceBuyingArea] = useState({});
+  // const [name, setName] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [village, setVillage] = useState("");
+  // const [commune, setCommune] = useState("");
+  // const [town, setTown] = useState("");
+  // const [province, setProvince] = useState("");
+  // const [description, setDescription] = useState("");
 
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
   const [errorName, setErrorName] = useState("");
   const [errorVillage, setErrorVillage] = useState("");
   const [errorCommune, setErrorCommune] = useState("");
@@ -44,7 +48,11 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
       message = "";
     }
     setErrorName(message);
-    setName(text);
+    // setName(text);
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      name: text,
+    });
   };
 
   const onChangeVillage = (text) => {
@@ -56,7 +64,11 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
       message = "";
     }
     setErrorVillage(message);
-    setVillage(text);
+    // setVillage(text);
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      village: text,
+    });
   };
 
   const onChangeCommune = (text) => {
@@ -68,7 +80,11 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
       message = "";
     }
     setErrorCommune(message);
-    setCommune(text);
+    // setCommune(text);
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      commune: text,
+    });
   };
 
   const onChangeTown = (text) => {
@@ -80,7 +96,11 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
       message = "";
     }
     setErrorTown(message);
-    setTown(text);
+    // setTown(text);
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      town: text,
+    });
   };
 
   const onChangeProvince = (text) => {
@@ -92,17 +112,29 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
       message = "";
     }
     setErrorProvince(message);
-    setProvince(text);
+    // setProvince(text);
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      province: text,
+    });
+  };
+
+  const onChangeDescription = (text) => {
+    setRiceBuyingArea({
+      ...riceBuyingArea,
+      description: text,
+    });
   };
 
   const reset = () => {
-    setName("");
-    setAddress("");
-    setVillage("");
-    setCommune("");
-    setTown("");
-    setProvince("");
-    setDescription("");
+    setRiceBuyingArea({});
+    // setName("");
+    // setAddress("");
+    // setVillage("");
+    // setCommune("");
+    // setTown("");
+    // setProvince("");
+    // setDescription("");
     setErrorName("");
     setErrorVillage("");
     setErrorCommune("");
@@ -111,14 +143,39 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
     console.log("Reset completed.");
   };
 
-  const handleModify = () => {
-    Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
-      {
-        text: "Đóng",
-        style: "cancel",
-      },
-    ]);
-    navigation.navigate(nameList.riceBuyingAreaInfo);
+  // handle disable submit btn
+  useEffect(() => {
+    if (
+      riceBuyingArea.name &&
+      riceBuyingArea.village &&
+      riceBuyingArea.commune &&
+      riceBuyingArea.town &&
+      riceBuyingArea.province
+    ) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [riceBuyingArea]);
+
+  // gọi API
+  const handleModify = async () => {
+    try {
+      // setLoading(true);
+
+      let dataAPI = await addRiceBuyingArea(riceBuyingArea);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.riceBuyingAreaInfo);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while modifying Rice Buying Area.");
+    }
   };
 
   return (
@@ -149,9 +206,9 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                 text70
                 grey10
                 // validate={"required"}
-                value={name}
+                value={riceBuyingArea.name}
                 onChangeText={onChangeName}
-                errorMessage={"Vui lòng nhập Tên"}
+                errorMessage={"Vui lòng nhập Tên."}
                 errorColor={color.redColor}
                 style={styles.textField}
               />
@@ -169,7 +226,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
               {/* <TextField
                   text70
                   grey10
-                  value={address}
+                  value={riceBuyingArea.address}
                   onChangeText={setAddress}
                   // title="Địa chỉ:"
                   // titleStyle={{ fontSize: Typography.text70.fontSize }}
@@ -182,7 +239,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                     grey10
                     // validate={"required"}
                     onChangeText={onChangeVillage}
-                    value={village}
+                    value={riceBuyingArea.village}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -191,7 +248,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc"}
+                    // errorMessage={"Bắt buộc."}
                     // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
@@ -206,7 +263,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeCommune}
-                    value={commune}
+                    value={riceBuyingArea.commune}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -228,7 +285,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeTown}
-                    value={town}
+                    value={riceBuyingArea.town}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -250,7 +307,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                     text70
                     grey10
                     onChangeText={onChangeProvince}
-                    value={province}
+                    value={riceBuyingArea.province}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -279,8 +336,8 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={3}
-                value={description}
-                onChangeText={setDescription}
+                value={riceBuyingArea.description}
+                onChangeText={onChangeDescription}
                 style={styles.textField}
               />
             </View>
@@ -288,7 +345,11 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
 
           <View flex marginT-50 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Lưu" onPress={handleModify} />
+            <CustomButton
+              label="Lưu"
+              onPress={handleModify}
+              disabled={isDisableBtn}
+            />
           </View>
         </View>
       </View>
