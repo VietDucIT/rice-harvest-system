@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Image, FlatList, StyleSheet } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -17,81 +17,137 @@ import deleteRiceField from "../../services/riceField/deleteRiceField";
 StyleInit();
 
 const RiceFields = ({ navigation }) => {
-  const riceFields = [
-    {
-      id: "1",
-      name: "Mẫu ruộng số 1",
-    },
-    {
-      id: "2",
-      name: "Mẫu ruộng số 2",
-    },
-    {
-      id: "3",
-      name: "Mẫu ruộng số 3",
-    },
-    {
-      id: "4",
-      name: "Mẫu ruộng số 4",
-    },
-    {
-      id: "5",
-      name: "Mẫu ruộng số 5",
-    },
-    {
-      id: "6",
-      name: "Mẫu ruộng số 6",
-    },
-  ];
+  const [fieldName, setFieldName] = useState("");
 
-  const renderItem = ({ item }) => (
-    <View flex style={styles.fieldItem} padding-5 marginV-8 marginH-16>
-      <Text text70>{item.name}</Text>
-      <Text
-        green
-        text70
-        onPress={() => navigation.navigate(nameList.riceFieldInfo)}
-      >
-        Xem
-      </Text>
-    </View>
-  );
+  const [riceFieldArray, setRiceFieldArray] = useState([
+    {
+      id: 1,
+      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+      coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
+      description: "Ruộng sau nhà bác 4",
+    },
+  ]);
+
+  // get Rice Field list
+  const getRiceFieldArray = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceFieldList();
+      // console.log("Rice Fields data: ", data);
+      setRiceFieldArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Field list.");
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   getRiceFieldArray();
+  // }, [getRiceFieldArray]);
+
+  // delete a Rice Field
+  const handleDelete = async (id) => {
+    try {
+      // setLoading(true);
+      let dataAPI = await deleteRiceField(id);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+        {
+          text: "Quay lại",
+          style: "cancel",
+        },
+        {
+          text: "Đồng ý",
+          onPress: () => {
+            // set status for this suggest
+            Alert.alert("Thông báo", "Đã xóa mẫu ruộng này.", [
+              {
+                text: "Đóng",
+                style: "cancel",
+              },
+            ]);
+            navigation.navigate(nameList.riceFields);
+          },
+        },
+      ]);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while deleting Rice Field.");
+    }
+  };
 
   return (
-    <View flex marginB-60>
-      <UserOptionModal />
+    <ScrollView>
+      <View flex marginB-60>
+        <UserOptionModal />
 
-      <View>
-        <View center marginT-30>
-          <Image
-            style={styles.logo}
-            source={require("../../assets/images/Logo.png")}
+        <View>
+          <View center marginT-30>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/images/Logo.png")}
+            />
+            <View marginV-10>
+              <Text text50 green>
+                Quản lý ruộng lúa
+              </Text>
+            </View>
+          </View>
+
+          {/* ??? */}
+          <SearchBar
+            placeholder="Nhập tên ruộng lúa"
+            handleSearch={(name) => setFieldName(name)}
           />
-          <View marginV-10>
-            <Text text50 green>
-              Quản lý ruộng lúa
-            </Text>
+
+          <View marginT-20>
+            {riceFieldArray.map((item) => (
+              <View
+                flex
+                style={styles.fieldItem}
+                padding-5
+                marginV-8
+                marginH-16
+                key={item.id}
+              >
+                <Text text70>Mẫu ruộng số {item.id}</Text>
+                <View flex right style={styles.controllContainer}>
+                  <Text
+                    green
+                    text70
+                    onPress={() =>
+                      navigation.navigate(nameList.riceFieldInfo, {
+                        idRiceField: item.id,
+                      })
+                    }
+                  >
+                    Xem
+                  </Text>
+                  <Text
+                    text70
+                    onPress={() =>
+                      navigation.navigate(nameList.riceFieldInfo, {
+                        idRiceField: item.id,
+                      })
+                    }
+                    style={styles.deleteBtn}
+                  >
+                    Xóa
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+
+          <View marginT-30 center>
+            <CustomButton
+              label="Thêm"
+              onPress={() => navigation.navigate(nameList.addRiceField)}
+            />
           </View>
         </View>
-
-        <SearchBar placeholder="Nhập tên ruộng lúa" />
-
-        <View marginT-20>
-          <FlatList
-            data={riceFields}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-
-        <View marginT-30 center>
-          <CustomButton
-            label="Thêm"
-            onPress={() => navigation.navigate(nameList.addRiceField)}
-          />
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default RiceFields;
@@ -107,5 +163,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
+  },
+  deleteBtn: {
+    color: color.redColor,
+    opacity: 0.6,
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
@@ -15,13 +15,33 @@ import getRiceField from "../../services/riceField/getRiceField";
 
 StyleInit();
 
-const RiceFieldInfo = ({ navigation }) => {
-  const fieldData = {
-    id: 1,
-    address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-    coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
-    description: "Ruộng sau nhà bác 4",
-  };
+const RiceFieldInfo = ({ navigation, route }) => {
+  const { idRiceField } = route.params;
+  const [fieldData, setFieldData] = useState({});
+
+  // gọi API lấy dữ liệu
+  const getRiceFieldData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceField(idRiceField);
+      // console.log("Rice Field data: ", data);
+      setFieldData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Field data.");
+    }
+  }, [idRiceField]);
+
+  useEffect(() => {
+    getRiceFieldData();
+  }, [getRiceFieldData]);
+
+  // const fieldData = {
+  //   id: 1,
+  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+  //   coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
+  //   description: "Ruộng sau nhà bác 4",
+  // };
 
   return (
     <ScrollView>
@@ -49,12 +69,20 @@ const RiceFieldInfo = ({ navigation }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>{fieldData.address}</Text>
+              {/* <Text>{fieldData.address}</Text> */}
+              <Text>
+                {fieldData.village}, {fieldData.commune}, {fieldData.town},{" "}
+                {fieldData.province}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tọa độ các điểm: </TextR>
-              <Text>{fieldData.coord}</Text>
+              <Text>
+                ({fieldData.x1};{fieldData.y1}), ({fieldData.x2};{fieldData.y2}
+                ), ({fieldData.x3};{fieldData.y3}), ({fieldData.x4};
+                {fieldData.y4})
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -70,7 +98,11 @@ const RiceFieldInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate(nameList.modifyRiceField)}
+              onPress={() =>
+                navigation.navigate(nameList.modifyRiceField, {
+                  idRiceField: fieldData.id,
+                })
+              }
             />
           </View>
         </View>

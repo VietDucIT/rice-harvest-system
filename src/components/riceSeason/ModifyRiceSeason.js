@@ -23,6 +23,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/time/getDayTime";
+import modifyRiceSeason from "../../services/riceSeason/modifyRiceSeason";
 
 StyleInit();
 

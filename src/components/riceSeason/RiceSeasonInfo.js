@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 
@@ -10,21 +10,43 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getRiceSeason from "../../services/riceSeason/getRiceSeason";
+
 StyleInit();
 
-const RiceSeasonInfo = ({ navigation }) => {
+const RiceSeasonInfo = ({ navigation, route }) => {
   const [isShowMenu, setIsShowMenu] = useState(false);
 
-  const riceSeasonData = {
-    id: 1,
-    name: "Thu Đông 2022",
-    riceField: "Mẫu ruộng số 1",
-    rice: "OM 18",
-    currentState: "Lúa chín",
-    timeStart: "19/9/2022",
-    timeEnd: "19/12/2022",
-    totalRice: 900,
-  };
+  const { idRiceSeason } = route.params;
+  const [seasonData, setSeasonData] = useState({});
+
+  // gọi API lấy dữ liệu
+  const getRiceSeasonData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceSeason(idRiceSeason);
+      // console.log("Rice Season data: ", data);
+      setSeasonData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Season data.");
+    }
+  }, [idRiceSeason]);
+
+  useEffect(() => {
+    getRiceSeasonData();
+  }, [getRiceSeasonData]);
+
+  // const initData = {
+  //   id: 1,
+  //   name: "Thu Đông 2022",
+  //   riceField: "Mẫu ruộng số 1",
+  //   rice: "OM 18",
+  //   currentState: "Lúa chín",
+  //   timeStart: "19/9/2022",
+  //   timeEnd: "19/12/2022",
+  //   totalRice: 900,
+  // };
 
   const suggestList = [
     {
@@ -110,38 +132,38 @@ const RiceSeasonInfo = ({ navigation }) => {
           <View style={styles.contentWrapper}>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Vụ mùa: </TextR>
-              <Text text70>{riceSeasonData.name}</Text>
+              <Text text70>{seasonData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{riceSeasonData.riceField}</Text>
+              <Text text70>{seasonData.riceField}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{riceSeasonData.rice}</Text>
+              <Text text70>{seasonData.rice}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tình trạng: </TextR>
-              <Text text70>{riceSeasonData.currentState}</Text>
+              <Text text70>{seasonData.currentState}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian sạ: </TextR>
-              <Text text70>{riceSeasonData.timeStart}</Text>
+              <Text text70>{seasonData.timeStart}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian gặt: </TextR>
-              <Text text70>{riceSeasonData.timeEnd}</Text>
+              <Text text70>{seasonData.timeEnd}</Text>
             </View>
 
-            {riceSeasonData.currentState === "Đã thu hoạch" && (
+            {seasonData.currentState === "Đã thu hoạch" && (
               <View flex style={styles.itemContainer} marginT-5>
                 <TextR style={styles.itemLabel}>Sản lượng: </TextR>
-                <Text text70>{riceSeasonData.totalRice} kg</Text>
+                <Text text70>{seasonData.totalRice} kg</Text>
               </View>
             )}
           </View>
@@ -149,11 +171,15 @@ const RiceSeasonInfo = ({ navigation }) => {
           <View marginT-30 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate(nameList.modifyRiceSeason)}
+              onPress={() =>
+                navigation.navigate(nameList.modifyRiceSeason, {
+                  idRiceSeason: seasonData.id,
+                })
+              }
             />
           </View>
 
-          {riceSeasonData.currentState !== "Đã thu hoạch" && (
+          {seasonData.currentState !== "Đã thu hoạch" && (
             <View marginT-40>
               <Button link onPress={() => setIsShowMenu(!isShowMenu)} left>
                 <Text green style={styles.link}>

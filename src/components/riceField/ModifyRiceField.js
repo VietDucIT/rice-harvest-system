@@ -23,237 +23,90 @@ StyleInit();
 const { TextField } = Incubator;
 
 const ModifyRiceField = ({ navigation }) => {
-  let d1 = {};
-  let d2 = {};
-  let d3 = {};
-  let d4 = {};
-  const [address, setAddress] = useState("");
-  const [village, setVillage] = useState("");
-  const [commune, setCommune] = useState("");
-  const [town, setTown] = useState("");
-  const [province, setProvince] = useState("");
-  const [x1, setX1] = useState(0);
-  const [y1, setY1] = useState(0);
-  const [x2, setX2] = useState(0);
-  const [y2, setY2] = useState(0);
-  const [x3, setX3] = useState(0);
-  const [y3, setY3] = useState(0);
-  const [x4, setX4] = useState(0);
-  const [y4, setY4] = useState(0);
-  // const [coordinate, setCoordinate] = useState({});
-  const [errorVillage, setErrorVillage] = useState("");
-  const [errorCommune, setErrorCommune] = useState("");
-  const [errorTown, setErrorTown] = useState("");
-  const [errorProvince, setErrorProvince] = useState("");
-  const [errorX1, setErrorX1] = useState("");
-  const [errorY1, setErrorY1] = useState("");
-  const [errorX2, setErrorX2] = useState("");
-  const [errorY2, setErrorY2] = useState("");
-  const [errorX3, setErrorX3] = useState("");
-  const [errorY3, setErrorY3] = useState("");
-  const [errorX4, setErrorX4] = useState("");
-  const [errorY4, setErrorY4] = useState("");
-  const [description, setDescription] = useState("");
+  const initState = {
+    village: "",
+    commune: "",
+    town: "",
+    province: "",
+    x1: "",
+    y1: "",
+    x2: "",
+    y2: "",
+    x3: "",
+    y3: "",
+    x4: "",
+    y4: "",
+    description: "",
+  };
+  const [riceField, setRiceField] = useState(initState);
+  const [error, setError] = useState(initState);
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
+
+  const onChange = (text, field) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else {
+      message = "";
+    }
+    setError({
+      ...error,
+      [field]: message,
+    });
+    setRiceField({
+      ...riceField,
+      [field]: text,
+    });
+  };
 
   const reset = () => {
-    setAddress("");
-    setVillage("");
-    setCommune("");
-    setTown("");
-    setProvince("");
-    setX1(0);
-    setY1(0);
-    setX2(0);
-    setY2(0);
-    setX3(0);
-    setY3(0);
-    setX4(0);
-    setY4(0);
-    // setCoordinate({});
-    setErrorVillage("");
-    setErrorCommune("");
-    setErrorTown("");
-    setErrorProvince("");
-    setErrorX1("");
-    setErrorY1("");
-    setErrorX2("");
-    setErrorY2("");
-    setErrorX3("");
-    setErrorY3("");
-    setErrorX4("");
-    setErrorY4("");
-    setDescription("");
+    setRiceField(initState);
+    setError(initState);
     console.log("Reset completed.");
   };
 
+  // handle disable submit btn
   useEffect(() => {
-    d1 = Object.assign({ lat: x1, lon: y1 });
-  }, [x1, y1]);
-
-  useEffect(() => {
-    d2 = Object.assign({ lat: x2, lon: y2 });
-  }, [x2, y2]);
-
-  useEffect(() => {
-    d3 = Object.assign({ lat: x3, lon: y3 });
-  }, [x3, y3]);
-
-  useEffect(() => {
-    d4 = Object.assign({ lat: x4, lon: y4 });
-  }, [x4, y4]);
-
-  const onChangeVillage = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
+    if (
+      riceField.village &&
+      riceField.commune &&
+      riceField.town &&
+      riceField.province &&
+      riceField.x1 &&
+      riceField.y1 &&
+      riceField.x2 &&
+      riceField.y2 &&
+      riceField.x3 &&
+      riceField.y3 &&
+      riceField.x4 &&
+      riceField.y4
+    ) {
+      setIsDisableBtn(false);
     } else {
-      message = "";
+      setIsDisableBtn(true);
     }
-    setErrorVillage(message);
-    setVillage(text);
-  };
+  }, [riceField]);
 
-  const onChangeCommune = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
+  // gọi API
+  const handleModify = async () => {
+    try {
+      // setLoading(true);
+
+      // console.log("Data: ", riceField);
+      let dataAPI = await modifyRiceField(riceField);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.riceFields);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while modifying Rice Field.");
     }
-    setErrorCommune(message);
-    setCommune(text);
-  };
-
-  const onChangeTown = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorTown(message);
-    setTown(text);
-  };
-
-  const onChangeProvince = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorProvince(message);
-    setProvince(text);
-  };
-
-  const onChangeX1 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorX1(message);
-    setX1(text);
-  };
-
-  const onChangeY1 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorY1(message);
-    setY1(text);
-  };
-
-  const onChangeX2 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorX2(message);
-    setX2(text);
-  };
-
-  const onChangeY2 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorY2(message);
-    setY2(text);
-  };
-
-  const onChangeX3 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorX3(message);
-    setX3(text);
-  };
-
-  const onChangeY3 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorY3(message);
-    setY3(text);
-  };
-
-  const onChangeX4 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorX4(message);
-    setX4(text);
-  };
-
-  const onChangeY4 = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorY4(message);
-    setY4(text);
-  };
-
-  const handleModify = () => {
-    Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
-      {
-        text: "Đóng",
-        style: "cancel",
-      },
-    ]);
-    navigation.navigate(nameList.riceFields);
   };
 
   return (
@@ -281,23 +134,14 @@ const ModifyRiceField = ({ navigation }) => {
                 Địa chỉ:
               </TextR>
 
-              {/* <TextField
-                  text70
-                  grey10
-                  value={address}
-                  onChangeText={setAddress}
-                  // title="Địa chỉ:"
-                  // titleStyle={{ fontSize: Typography.text70.fontSize }}
-                /> */}
-
+              {/* Village */}
               <View flex style={styles.addressContainer}>
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    // validate={"required"}
-                    onChangeText={onChangeVillage}
-                    value={village}
+                    onChangeText={(text) => onChange(text, "village")}
+                    value={riceField.village}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -306,22 +150,21 @@ const ModifyRiceField = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc."}
-                    // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorVillage}
+                    {error.village}
                   </Text>
                 </View>
 
+                {/* Commune */}
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeCommune}
-                    value={commune}
+                    onChangeText={(text) => onChange(text, "commune")}
+                    value={riceField.commune}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -334,16 +177,17 @@ const ModifyRiceField = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorCommune}
+                    {error.commune}
                   </Text>
                 </View>
 
+                {/* Town */}
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeTown}
-                    value={town}
+                    onChangeText={(text) => onChange(text, "town")}
+                    value={riceField.town}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -356,16 +200,17 @@ const ModifyRiceField = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorTown}
+                    {error.town}
                   </Text>
                 </View>
 
+                {/* Province */}
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeProvince}
-                    value={province}
+                    onChangeText={(text) => onChange(text, "province")}
+                    value={riceField.province}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -378,7 +223,7 @@ const ModifyRiceField = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorProvince}
+                    {error.province}
                   </Text>
                 </View>
               </View>
@@ -399,41 +244,45 @@ const ModifyRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeX1}
-                    value={x1}
+                    onChangeText={(text) => onChange(text, "x1")}
+                    value={riceField.x1}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorX1}
+                    {error.x1}
                   </Text>
                 </View>
+
                 <View>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeY1}
-                    value={y1}
+                    onChangeText={(text) => onChange(text, "y1")}
+                    value={riceField.y1}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorY1}
+                    {error.y1}
                   </Text>
                 </View>
-                {/* <TextField
-                  text70
-                  grey10
-                  onChangeText={setD1}
-                  value={d1}
-                  placeholder="Điểm 1"
-                /> */}
               </View>
 
               {/* D2 */}
@@ -445,32 +294,43 @@ const ModifyRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeX2}
-                    value={x2}
+                    onChangeText={(text) => onChange(text, "x2")}
+                    value={riceField.x2}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorX2}
+                    {error.x2}
                   </Text>
                 </View>
+
                 <View>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeY2}
-                    value={y2}
+                    onChangeText={(text) => onChange(text, "y2")}
+                    value={riceField.y2}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorY2}
+                    {error.y2}
                   </Text>
                 </View>
               </View>
@@ -484,32 +344,43 @@ const ModifyRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeX3}
-                    value={x3}
+                    onChangeText={(text) => onChange(text, "x3")}
+                    value={riceField.x3}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorX3}
+                    {error.x3}
                   </Text>
                 </View>
+
                 <View>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeY3}
-                    value={y3}
+                    onChangeText={(text) => onChange(text, "y3")}
+                    value={riceField.y3}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorY3}
+                    {error.y3}
                   </Text>
                 </View>
               </View>
@@ -523,32 +394,43 @@ const ModifyRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeX4}
-                    value={x4}
+                    onChangeText={(text) => onChange(text, "x4")}
+                    value={riceField.x4}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorX4}
+                    {error.x4}
                   </Text>
                 </View>
+
                 <View>
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeY4}
-                    value={y4}
+                    onChangeText={(text) => onChange(text, "y4")}
+                    value={riceField.y4}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
+                    floatingPlaceholderColor={{
+                      focus: color.greenColor,
+                      default: color.lightGreyColor,
+                    }}
                     containerStyle={{ marginBottom: 10 }}
                     style={[styles.coorItem, styles.textField]}
+                    keyboardType="numeric"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorY4}
+                    {error.y4}
                   </Text>
                 </View>
               </View>
@@ -564,16 +446,25 @@ const ModifyRiceField = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={3}
-                value={description}
-                onChangeText={setDescription}
+                value={riceField.description}
+                onChangeText={(text) => {
+                  setRiceField({
+                    ...riceField,
+                    description: text,
+                  });
+                }}
                 style={styles.textField}
               />
             </View>
           </View>
 
-          <View flex marginT-30 center style={styles.btnContainer}>
+          <View flex marginT-40 center style={styles.btnContainer}>
             <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Lưu" onPress={handleModify} />
+            <CustomButton
+              label="Lưu"
+              onPress={handleModify}
+              disabled={isDisableBtn}
+            />
           </View>
         </View>
       </View>
