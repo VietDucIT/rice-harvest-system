@@ -175,7 +175,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.riceFields)}
+              onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
             />
           </View>
         </View>

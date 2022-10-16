@@ -35,7 +35,7 @@ const RicePrice = ({ navigation }) => {
     tableData: [],
   };
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRicePriceData = useCallback(async () => {
     try {
       // setLoading(true);
@@ -79,7 +79,7 @@ const RicePrice = ({ navigation }) => {
             </View>
           </View>
 
-          <View flex style={styles.container} padding-16 paddingT-30>
+          <View flex padding-16 paddingT-30>
             <Table borderStyle={{ borderWidth: 1 }}>
               <Row
                 data={state.tableHead}
@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
-  },
-  container: {
-    //   flex: 1,
-    //   padding: 16,
-    //   paddingTop: 30
   },
   head: {
     height: 40,

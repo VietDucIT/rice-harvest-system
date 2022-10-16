@@ -19,7 +19,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
   const { idRiceBuyingArea } = route.params;
   const [buyingAreaData, setBuyingAreaData] = useState({});
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRiceBuyingAreaData = useCallback(async () => {
     try {
       // setLoading(true);
@@ -61,7 +61,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
             </View>
           </View>
 
-          <View flex style={styles.contentWrapper} marginH-25 marginV-20>
+          <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên: </TextR>
               <Text>{buyingAreaData.name}</Text>
@@ -69,7 +69,10 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>{buyingAreaData.address}</Text>
+              <Text>
+                {buyingAreaData.village}, {buyingAreaData.commune},{" "}
+                {buyingAreaData.town}, {buyingAreaData.province}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -85,7 +88,11 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate(nameList.modifyRiceBuyingArea)}
+              onPress={() =>
+                navigation.navigate(nameList.modifyRiceBuyingArea, {
+                  idRiceBuyingArea: buyingAreaData.id,
+                })
+              }
             />
           </View>
         </View>
@@ -99,10 +106,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
-  },
-  contentWrapper: {
-    // flexDirection: "column",
-    // flexWrap: "wrap",
   },
   itemContainer: {
     flexDirection: "row",

@@ -23,123 +23,41 @@ StyleInit();
 const { TextField } = Incubator;
 
 const AddRiceBuyingArea = ({ navigation }) => {
-  const [riceBuyingArea, setRiceBuyingArea] = useState({});
-  // const [name, setName] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [village, setVillage] = useState("");
-  // const [commune, setCommune] = useState("");
-  // const [town, setTown] = useState("");
-  // const [province, setProvince] = useState("");
-  // const [description, setDescription] = useState("");
-
+  const initState = {
+    name: "",
+    village: "",
+    commune: "",
+    town: "",
+    province: "",
+    description: "",
+  };
+  const [riceBuyingArea, setRiceBuyingArea] = useState(initState);
+  const [error, setError] = useState(initState);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
-  const [errorName, setErrorName] = useState("");
-  const [errorVillage, setErrorVillage] = useState("");
-  const [errorCommune, setErrorCommune] = useState("");
-  const [errorTown, setErrorTown] = useState("");
-  const [errorProvince, setErrorProvince] = useState("");
 
-  const onChangeName = (text) => {
+  const onChange = (text, field) => {
     text = text.trim();
     let message = "";
-    if (text === "") {
+    if (text === "" && field === "name") {
       message = "* Vui lòng nhập tên khu vực.";
-    } else {
-      message = "";
-    }
-    setErrorName(message);
-    // setName(text);
-    setRiceBuyingArea({
-      ...riceBuyingArea,
-      name: text,
-    });
-  };
-
-  const onChangeVillage = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
+    } else if (text === "") {
       message = "* Bắt buộc.";
     } else {
       message = "";
     }
-    setErrorVillage(message);
-    // setVillage(text);
-    setRiceBuyingArea({
-      ...riceBuyingArea,
-      village: text,
+    setError({
+      ...error,
+      [field]: message,
     });
-  };
-
-  const onChangeCommune = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorCommune(message);
-    // setCommune(text);
     setRiceBuyingArea({
       ...riceBuyingArea,
-      commune: text,
-    });
-  };
-
-  const onChangeTown = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorTown(message);
-    // setTown(text);
-    setRiceBuyingArea({
-      ...riceBuyingArea,
-      town: text,
-    });
-  };
-
-  const onChangeProvince = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorProvince(message);
-    // setProvince(text);
-    setRiceBuyingArea({
-      ...riceBuyingArea,
-      province: text,
-    });
-  };
-
-  const onChangeDescription = (text) => {
-    setRiceBuyingArea({
-      ...riceBuyingArea,
-      description: text,
+      [field]: text,
     });
   };
 
   const reset = () => {
-    setRiceBuyingArea({});
-    // setName("");
-    // setAddress("");
-    // setVillage("");
-    // setCommune("");
-    // setTown("");
-    // setProvince("");
-    // setDescription("");
-    setErrorName("");
-    setErrorVillage("");
-    setErrorCommune("");
-    setErrorTown("");
-    setErrorProvince("");
+    setRiceBuyingArea(initState);
+    setError(initState);
     console.log("Reset completed.");
   };
 
@@ -158,7 +76,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
     }
   }, [riceBuyingArea]);
 
-  // gọi API
+  // call API
   const handleAdd = async () => {
     try {
       // setLoading(true);
@@ -205,15 +123,14 @@ const AddRiceBuyingArea = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                // validate={"required"}
                 value={riceBuyingArea.name}
-                onChangeText={onChangeName}
+                onChangeText={(text) => onChange(text, "name")}
                 errorMessage={"Vui lòng nhập Tên."}
                 errorColor={color.redColor}
                 style={styles.textField}
               />
               <Text red style={styles.errorMessage}>
-                {errorName}
+                {error.name}
               </Text>
             </View>
 
@@ -223,23 +140,13 @@ const AddRiceBuyingArea = ({ navigation }) => {
                 Địa chỉ:
               </TextR>
 
-              {/* <TextField
-                  text70
-                  grey10
-                  value={riceBuyingArea.address}
-                  onChangeText={setAddress}
-                  // title="Địa chỉ:"
-                  // titleStyle={{ fontSize: Typography.text70.fontSize }}
-                /> */}
-
               <View flex style={styles.addressContainer}>
                 <View marginH-20>
                   <TextField
                     text70
                     grey10
-                    // validate={"required"}
-                    onChangeText={onChangeVillage}
                     value={riceBuyingArea.village}
+                    onChangeText={(text) => onChange(text, "village")}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -248,13 +155,11 @@ const AddRiceBuyingArea = ({ navigation }) => {
                       default: color.lightGreyColor,
                     }}
                     containerStyle={{ marginBottom: 10 }}
-                    // errorMessage={"Bắt buộc."}
-                    // errorColor={color.redColor}
                     style={[styles.addressItem, styles.textField]}
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorVillage}
+                    {error.village}
                   </Text>
                 </View>
 
@@ -262,8 +167,8 @@ const AddRiceBuyingArea = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeCommune}
                     value={riceBuyingArea.commune}
+                    onChangeText={(text) => onChange(text, "commune")}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -276,7 +181,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorCommune}
+                    {error.commune}
                   </Text>
                 </View>
 
@@ -284,8 +189,8 @@ const AddRiceBuyingArea = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeTown}
                     value={riceBuyingArea.town}
+                    onChangeText={(text) => onChange(text, "town")}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -298,7 +203,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorTown}
+                    {error.town}
                   </Text>
                 </View>
 
@@ -306,8 +211,8 @@ const AddRiceBuyingArea = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeProvince}
                     value={riceBuyingArea.province}
+                    onChangeText={(text) => onChange(text, "province")}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -320,7 +225,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorProvince}
+                    {error.province}
                   </Text>
                 </View>
               </View>
@@ -337,7 +242,12 @@ const AddRiceBuyingArea = ({ navigation }) => {
                 multiline
                 numberOfLines={3}
                 value={riceBuyingArea.description}
-                onChangeText={onChangeDescription}
+                onChangeText={(text) => {
+                  setRiceBuyingArea({
+                    ...riceBuyingArea,
+                    description: text,
+                  });
+                }}
                 style={styles.textField}
               />
             </View>

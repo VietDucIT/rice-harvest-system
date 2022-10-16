@@ -20,7 +20,7 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRiceSeasonData = useCallback(async () => {
     try {
       // setLoading(true);

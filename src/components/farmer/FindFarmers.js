@@ -73,13 +73,13 @@ const FindFarmers = ({ navigation }) => {
     },
   ];
 
-  // gọi API lấy dữ liệu
+  // call API
   const getFarmerArray = useCallback(async () => {
     try {
       // setLoading(true);
       const data = await getFarmerListByName(farmerName);
       // const data2 = await getFarmerListByAddress(address);
-      // console.log("Farmer data: ", data);
+      // console.log("Farmer list: ", data);
       setFarmerArray(data);
       // setLoading(false);
     } catch (err) {
@@ -90,28 +90,6 @@ const FindFarmers = ({ navigation }) => {
   useEffect(() => {
     getFarmerArray();
   }, [getFarmerArray]);
-
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.farmerItem} padding-5 marginV-8 marginH-16>
-  //     <TextR style={styles.farmerName}>
-  //       {item.name} ({item.nickname})
-  //     </TextR>
-  //     <View flex style={styles.subContainer}>
-  //       <Text text80>
-  //         {item.address.length <= 40
-  //           ? `${item.address}`
-  //           : `${item.address.substring(0, 39)}...`}
-  //       </Text>
-  //       <Text
-  //         green
-  //         text70
-  //         onPress={() => navigation.navigate(nameList.farmerInfo)}
-  //       >
-  //         Xem
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
 
   return (
     <View flex marginB-60>
@@ -165,20 +143,7 @@ const FindFarmers = ({ navigation }) => {
               </View>
             </View>
           ))}
-
-          {/* <FlatList
-            data={farmerArray}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          /> */}
         </View>
-
-        {/* <View marginT-30 center>
-          <CustomButton
-            label="Thêm"
-            onPress={() => navigation.navigate(nameList.addRiceSeason)}
-          />
-        </View> */}
       </View>
     </View>
   );
@@ -192,9 +157,6 @@ const styles = StyleSheet.create({
   },
 
   farmerItem: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
-    // justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },

@@ -20,15 +20,19 @@ const FarmerInfo = ({ navigation, route }) => {
     nickname: "Hai A",
     gender: 1,
     birthYear: 1900,
-    address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-    phone: "0123 456 789",
+    village: "Mỹ Đức",
+    commune: "Thiện Mỹ",
+    town: "Châu Thành",
+    province: "Sóc Trăng",
+    phone: "0123456789",
+    password: "********",
     role: 0,
   });
   // const [isLoading, setLoading] = useState(false);
 
   const { idFarmer } = route.params;
 
-  // gọi API lấy dữ liệu
+  //call API
   const getFarmerData = useCallback(async () => {
     try {
       // setLoading(true);
@@ -44,17 +48,6 @@ const FarmerInfo = ({ navigation, route }) => {
   useEffect(() => {
     getFarmerData();
   }, [getFarmerData]);
-
-  // const farmerData = {
-  //   id: 1,
-  //   name: "Nguyễn Văn A",
-  //   nickname: "Hai A",
-  //   gender: 1,
-  //   birthYear: 1960,
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   phone: "0123 456 789",
-  //   role: 0,
-  // };
 
   const riceFields = [
     {
@@ -158,25 +151,6 @@ const FarmerInfo = ({ navigation, route }) => {
     // },
   ];
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.riceFieldItem} padding-5 marginV-8 marginH-16>
-  //     <View flex style={styles.subContainer}>
-  //       <Text text80 style={styles.riceFieldName}>
-  //         {item.riceField.length <= 40
-  //           ? `${item.riceField}`
-  //           : `${item.riceField.substring(0, 39)}...`}
-  //       </Text>
-  //       <Text
-  //         green
-  //         text70
-  //         onPress={() => navigation.navigate(nameList.riceSeasonInfoForTrader)}
-  //       >
-  //         Xem
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
-
   return (
     <ScrollView>
       <View flex marginB-50>
@@ -215,7 +189,10 @@ const FarmerInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text text70>{farmerData.address}</Text>
+              <Text text70>
+                {farmerData.village}, {farmerData.commune}, {farmerData.town},{" "}
+                {farmerData.province}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -256,11 +233,6 @@ const FarmerInfo = ({ navigation, route }) => {
                 );
               })}
             </View>
-            {/* <FlatList
-            data={riceSeasons}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          /> */}
           </View>
         </View>
       </View>

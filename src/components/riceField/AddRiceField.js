@@ -148,8 +148,8 @@ const AddRiceField = ({ navigation }) => {
                     text70
                     grey10
                     // validate={"required"}
-                    onChangeText={(text) => onChange(text, "village")}
                     value={riceField.village}
+                    onChangeText={(text) => onChange(text, "village")}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -173,8 +173,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "commune")}
                     value={riceField.commune}
+                    onChangeText={(text) => onChange(text, "commune")}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -196,8 +196,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "town")}
                     value={riceField.town}
+                    onChangeText={(text) => onChange(text, "town")}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -219,8 +219,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "province")}
                     value={riceField.province}
+                    onChangeText={(text) => onChange(text, "province")}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -254,8 +254,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "x1")}
                     value={riceField.x1}
+                    onChangeText={(text) => onChange(text, "x1")}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -276,8 +276,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "y1")}
                     value={riceField.y1}
+                    onChangeText={(text) => onChange(text, "y1")}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -311,8 +311,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "x2")}
                     value={riceField.x2}
+                    onChangeText={(text) => onChange(text, "x2")}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -333,8 +333,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "y2")}
                     value={riceField.y2}
+                    onChangeText={(text) => onChange(text, "y2")}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -361,8 +361,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "x3")}
                     value={riceField.x3}
+                    onChangeText={(text) => onChange(text, "x3")}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -383,8 +383,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "y3")}
                     value={riceField.y3}
+                    onChangeText={(text) => onChange(text, "y3")}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus
@@ -411,8 +411,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "x4")}
                     value={riceField.x4}
+                    onChangeText={(text) => onChange(text, "x4")}
                     placeholder="X"
                     floatingPlaceholder
                     floatOnFocus
@@ -433,8 +433,8 @@ const AddRiceField = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={(text) => onChange(text, "y4")}
                     value={riceField.y4}
+                    onChangeText={(text) => onChange(text, "y4")}
                     placeholder="Y"
                     floatingPlaceholder
                     floatOnFocus

@@ -21,7 +21,7 @@ const RiceSeasons = ({ navigation }) => {
 
   const [riceSeasonArray, setRiceSeasonArray] = useState([]);
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRiceSeasonArray = useCallback(async () => {
     try {
       // setLoading(true);

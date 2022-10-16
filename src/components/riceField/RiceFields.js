@@ -19,14 +19,14 @@ StyleInit();
 const RiceFields = ({ navigation }) => {
   const [fieldName, setFieldName] = useState("");
 
-  const [riceFieldArray, setRiceFieldArray] = useState([
-    {
-      id: 1,
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
-      description: "Ruộng sau nhà bác 4",
-    },
-  ]);
+  // {
+  //   id: 1,
+  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+  //   coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
+  //   description: "Ruộng sau nhà bác 4",
+  // },
+
+  const [riceFieldArray, setRiceFieldArray] = useState([]);
 
   // get Rice Field list
   const getRiceFieldArray = useCallback(async () => {
@@ -41,9 +41,9 @@ const RiceFields = ({ navigation }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   getRiceFieldArray();
-  // }, [getRiceFieldArray]);
+  useEffect(() => {
+    getRiceFieldArray();
+  }, [getRiceFieldArray]);
 
   // delete a Rice Field
   const handleDelete = async (id) => {
@@ -123,15 +123,7 @@ const RiceFields = ({ navigation }) => {
                   >
                     Xem
                   </Text>
-                  <Text
-                    text70
-                    onPress={() =>
-                      navigation.navigate(nameList.riceFieldInfo, {
-                        idRiceField: item.id,
-                      })
-                    }
-                    style={styles.deleteBtn}
-                  >
+                  <Text text70 onPress={handleDelete} style={styles.deleteBtn}>
                     Xóa
                   </Text>
                 </View>

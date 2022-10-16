@@ -11,6 +11,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
+import getSuggestToBuyListForRiceSeason from "../../services/suggestToBuy/getSuggestToBuyListForRiceSeason";
 
 StyleInit();
 
@@ -20,7 +21,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRiceSeasonData = useCallback(async () => {
     try {
       // setLoading(true);

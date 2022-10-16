@@ -22,7 +22,6 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getDayTime from "../../services/time/getDayTime";
 import seasonNameArray from "../../json/seasonName";
 import seasonStateArray from "../../json/seasonState";
 import getRiceFieldList from "../../services/riceField/getRiceFieldList";
@@ -34,17 +33,15 @@ StyleInit();
 const { TextField } = Incubator;
 
 const AddRiceSeason = ({ navigation }) => {
-  const [riceSeason, setRiceSeason] = useState({});
-  const seasonYearArray = ["2020", "2021", "2022", "2023", "2024", "2025"];
-
-  // gọi API lấy danh sách ruộng lúa
+  // HOW TO KNOW WHICH FIELDS A FARMER HAS ???
+  // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);
 
   const getRiceFieldArray = useCallback(async () => {
     try {
       // setLoading(true);
       const data = await getRiceFieldList();
-      // console.log("Rice Fields data: ", data);
+      // console.log("Rice Field list: ", data);
       setRiceFieldArray(data);
       // setLoading(false);
     } catch (err) {
@@ -55,6 +52,7 @@ const AddRiceSeason = ({ navigation }) => {
   useEffect(() => {
     getRiceFieldArray();
   }, [getRiceFieldArray]);
+
   // const riceFieldArray = [
   //   "Mẫu ruộng số 1",
   //   "Mẫu ruộng số 2",
@@ -62,14 +60,14 @@ const AddRiceSeason = ({ navigation }) => {
   //   "Mẫu ruộng số 4",
   // ];
 
-  // gọi API lấy danh sách giống lúa
+  // call API to get Rice list
   const [riceArray, setRiceArray] = useState([]);
 
   const getRiceArray = useCallback(async () => {
     try {
       // setLoading(true);
       const data = await getRiceList();
-      // console.log("Rices data: ", data);
+      // console.log("Rice list: ", data);
       setRiceArray(data);
       // setLoading(false);
     } catch (err) {
@@ -80,6 +78,7 @@ const AddRiceSeason = ({ navigation }) => {
   useEffect(() => {
     getRiceArray();
   }, [getRiceArray]);
+
   // const riceArray = [
   //   "OM 18",
   //   "OM 5451",
@@ -99,34 +98,25 @@ const AddRiceSeason = ({ navigation }) => {
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
-  const { getDateString } = getDayTime();
-  const currentDate = getDateString(currentTime);
+  const seasonYearArray = [];
+  for (let i = currentYear + 1; i >= currentYear - 10; i--) {
+    seasonYearArray.push(i.toString);
+  }
 
-  const [seasonName, setSeasonName] = useState("");
-  const [seasonYear, setSeasonYear] = useState(""); //useState(currentYear);
-  // const [riceField, setRiceField] = useState("");
-  // const [rice, setRice] = useState("");
-  // const [currentState, setCurrentState] = useState("");
-  // const [timeStart, setTimeStart] = useState();
-  // const [timeEnd, setTimeEnd] = useState();
-  // const [totalRice, setTotalRice] = useState();
-  // const [description, setDescription] = useState("");
-
+  const initState = {
+    seasonName: "",
+    seasonYear: "",
+    riceField: "",
+    rice: "",
+    currentState: "",
+    timeStart: "",
+    timeEnd: "",
+    totalRice: "",
+    description: "",
+  };
+  const [riceSeason, setRiceSeason] = useState(initState);
+  const [error, setError] = useState(initState);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
-  const [errorSeasonName, setErrorSeasonName] = useState("");
-  const [errorSeasonYear, setErrorSeasonYear] = useState("");
-  const [errorRiceField, setErrorRiceField] = useState("");
-  const [errorRice, setErrorRice] = useState("");
-  const [errorCurrentState, setErrorCurrentState] = useState("");
-  const [errorTimeStart, setErrorTimeStart] = useState("");
-  const [errorTotalRice, setErrorTotalRice] = useState("");
-
-  useEffect(() => {
-    setRiceSeason({
-      ...riceSeason,
-      fullName: seasonName + " " + seasonYear,
-    });
-  }, [seasonName, seasonYear]);
 
   const onChangeTotalRice = (text) => {
     text = text.trim();
@@ -144,84 +134,94 @@ const AddRiceSeason = ({ navigation }) => {
   };
 
   const reset = () => {
-    setRiceSeason({});
-    setSeasonName("");
-    setSeasonYear("");
-    // setRiceField("");
-    // setRice("");
-    // setCurrentState("");
-    // setTimeStart();
-    // setTimeEnd();
-    // setTotalRice();
-    setErrorSeasonName("");
-    setErrorSeasonYear("");
-    setErrorRiceField("");
-    setErrorRice("");
-    setErrorCurrentState("");
-    setErrorTimeStart("");
-    setErrorTotalRice("");
-    setDescription("");
+    setRiceSeason(initState);
+    setError(initState);
     console.log("Reset completed.");
   };
 
-  const handleAdd = () => {
+  // handle disable submit btn
+  useEffect(() => {
+    if (
+      riceSeason.seasonName &&
+      riceSeason.seasonYear &&
+      riceSeason.riceField &&
+      riceSeason.rice &&
+      riceSeason.currentState &&
+      riceSeason.timeStart
+    ) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [riceField]);
+
+  const handleAdd = async () => {
     let err = false;
     if (!seasonName) {
-      setErrorSeasonName("* Bắt buộc.");
+      setError({ ...error, seasonName: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorSeasonName("");
+      setError({ ...error, seasonName: "" });
       err = true;
     }
 
     if (!seasonYear) {
-      setErrorSeasonYear("* Bắt buộc.");
+      setError({ ...error, seasonYear: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorSeasonYear("");
+      setError({ ...error, seasonYear: "" });
       err = true;
     }
 
-    if (!riceField) {
-      setErrorRiceField("* Bắt buộc.");
+    if (!riceSeason.riceField) {
+      setError({ ...error, riceField: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorRiceField("");
+      setError({ ...error, riceField: "" });
       err = true;
     }
 
-    if (!rice) {
-      setErrorRice("* Bắt buộc.");
+    if (!riceSeason.rice) {
+      setError({ ...error, rice: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorRice("");
+      setError({ ...error, rice: "" });
       err = true;
     }
 
-    if (!currentState) {
-      setErrorCurrentState("* Bắt buộc.");
+    if (!riceSeason.currentState) {
+      setError({ ...error, currentState: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorCurrentState("");
+      setError({ ...error, currentState: "" });
       err = true;
     }
 
-    if (!timeStart) {
-      setErrorTimeStart("* Bắt buộc.");
+    if (!riceSeason.timeStart) {
+      setError({ ...error, timeStart: "* Bắt buộc." });
       err = false;
     } else {
-      setErrorTimeStart("");
+      setError({ ...error, timeStart: "" });
       err = true;
     }
 
     if (err) {
-      Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
-      navigation.navigate(nameList.riceSeasons);
+      try {
+        // setLoading(true);
+
+        let dataAPI = await addRiceSeason(riceSeason);
+        // console.log("Data API: ", dataAPI);
+        Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
+          {
+            text: "Đóng",
+            style: "cancel",
+          },
+        ]);
+        navigation.navigate(nameList.riceSeasons);
+        // setLoading(false);
+      } catch (err) {
+        console.log("Error while adding Rice Season.");
+      }
     }
   };
 
@@ -244,7 +244,7 @@ const AddRiceSeason = ({ navigation }) => {
           </View>
 
           <View marginH-25 marginT-20>
-            {/* Season Full Name */}
+            {/* Season Name */}
             <View>
               <TextR style={styles.label}>Vụ mùa:</TextR>
               <View flex style={styles.seasonNameContainer}>
@@ -252,10 +252,10 @@ const AddRiceSeason = ({ navigation }) => {
                   <Picker
                     migrateTextField
                     text70
-                    value={seasonName}
+                    value={riceSeason.seasonName}
                     placeholder={"Chọn vụ mùa"}
                     onChange={(name) => {
-                      setSeasonName(name.value);
+                      setRiceSeason({ ...riceSeason, seasonName: name.value });
                     }}
                     style={[styles.seasonName, styles.textField]}
                   >
@@ -268,7 +268,7 @@ const AddRiceSeason = ({ navigation }) => {
                     ))}
                   </Picker>
                   <Text red style={styles.errorMessage}>
-                    {errorSeasonName}
+                    {error.seasonName}
                   </Text>
                 </View>
 
@@ -276,10 +276,10 @@ const AddRiceSeason = ({ navigation }) => {
                   <Picker
                     migrateTextField
                     text70
-                    value={seasonYear}
+                    value={riceSeason.seasonYear}
                     placeholder={"Chọn năm"}
                     onChange={(year) => {
-                      setSeasonYear(year.value);
+                      setRiceSeason({ ...riceSeason, seasonYear: year.value });
                     }}
                     style={[styles.seasonYear, styles.textField]}
                   >
@@ -288,7 +288,7 @@ const AddRiceSeason = ({ navigation }) => {
                     ))}
                   </Picker>
                   <Text red style={styles.errorMessage}>
-                    {errorSeasonYear}
+                    {error.seasonYear}
                   </Text>
                 </View>
               </View>
@@ -316,7 +316,7 @@ const AddRiceSeason = ({ navigation }) => {
                 ))}
               </Picker>
               <Text red style={styles.errorMessage}>
-                {errorRiceField}
+                {error.riceField}
               </Text>
             </View>
 
@@ -338,7 +338,7 @@ const AddRiceSeason = ({ navigation }) => {
                 ))}
               </Picker>
               <Text red style={styles.errorMessage}>
-                {errorRice}
+                {error.rice}
               </Text>
             </View>
 
@@ -364,7 +364,7 @@ const AddRiceSeason = ({ navigation }) => {
                 ))}
               </Picker>
               <Text red style={styles.errorMessage}>
-                {errorCurrentState}
+                {error.currentState}
               </Text>
             </View>
 
@@ -374,7 +374,7 @@ const AddRiceSeason = ({ navigation }) => {
               <DateTimePicker
                 migrateTextField
                 containerStyle={{ marginVertical: 20 }}
-                label={"Date"}
+                // label={"Date"}
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
                 // value={new Date('September 19, 2022')}
@@ -384,7 +384,7 @@ const AddRiceSeason = ({ navigation }) => {
                 }}
               />
               <Text red style={styles.errorMessage}>
-                {errorTimeStart}
+                {error.timeStart}
               </Text>
             </View>
 
@@ -418,7 +418,7 @@ const AddRiceSeason = ({ navigation }) => {
                   style={styles.textField}
                 />
                 <Text red style={styles.errorMessage}>
-                  {errorTotalRice}
+                  {error.totalRice}
                 </Text>
               </View>
             )}
@@ -444,7 +444,11 @@ const AddRiceSeason = ({ navigation }) => {
 
             <View flex marginT-30 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Thêm" onPress={handleAdd} />
+              <CustomButton
+                label="Thêm"
+                onPress={handleAdd}
+                disabled={isDisableBtn}
+              />
             </View>
           </View>
         </View>

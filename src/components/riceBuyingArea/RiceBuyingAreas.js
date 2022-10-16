@@ -50,14 +50,15 @@ const RiceBuyingAreas = ({ navigation }) => {
   //   },
   // ];
 
+  const [riceBuyingAreaName, setRiceBuyingAreaName] = useState("");
   const [riceBuyingAreaArray, setRiceBuyingAreaArray] = useState([]);
 
-  // gọi API lấy dữ liệu
+  // call API
   const getRiceBuyingAreaArray = useCallback(async () => {
     try {
       // setLoading(true);
       const data = await getRiceBuyingAreaList();
-      // console.log("Rice Buying Area data: ", data);
+      // console.log("Rice Buying Area list: ", data);
       setRiceBuyingAreaArray(data);
       // setLoading(false);
     } catch (err) {
@@ -69,25 +70,36 @@ const RiceBuyingAreas = ({ navigation }) => {
     getRiceBuyingAreaArray();
   }, [getRiceBuyingAreaArray]);
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.riceBuyingAreaItem} padding-5 marginV-8 marginH-16>
-  //     <TextR style={styles.riceBuyingAreaName}>{item.name}</TextR>
-  //     <View flex style={styles.subContainer}>
-  //       <Text text80>
-  //         {item.address.length <= 40
-  //           ? `${item.address}`
-  //           : `${item.address.substring(0, 39)}...`}
-  //       </Text>
-  //       <Text
-  //         green
-  //         text70
-  //         onPress={() => navigation.navigate(nameList.riceBuyingAreaInfo)}
-  //       >
-  //         Xem
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
+  // delete a Rice Field
+  const handleDelete = async (id) => {
+    try {
+      // setLoading(true);
+      let dataAPI = await deleteRiceField(id);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+        {
+          text: "Quay lại",
+          style: "cancel",
+        },
+        {
+          text: "Đồng ý",
+          onPress: () => {
+            // set status for this suggest
+            Alert.alert("Thông báo", "Đã xóa mẫu ruộng này.", [
+              {
+                text: "Đóng",
+                style: "cancel",
+              },
+            ]);
+            navigation.navigate(nameList.riceFields);
+          },
+        },
+      ]);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while deleting Rice Field.");
+    }
+  };
 
   return (
     <View flex marginB-60>
@@ -106,7 +118,11 @@ const RiceBuyingAreas = ({ navigation }) => {
           </View>
         </View>
 
-        <SearchBar placeholder="Nhập tên khu vực" />
+        {/* ??? */}
+        <SearchBar
+          placeholder="Nhập tên khu vực"
+          handleSearch={(name) => setRiceBuyingAreaName(name)}
+        />
 
         <View marginT-20>
           {riceBuyingAreaArray.map((item, index) => (
@@ -124,23 +140,23 @@ const RiceBuyingAreas = ({ navigation }) => {
                     ? `${item.address}`
                     : `${item.address.substring(0, 39)}...`}
                 </Text>
-                <Text
-                  green
-                  text70
-                  onPress={() =>
-                    navigation.navigate(nameList.riceBuyingAreaInfo)
-                  }
-                >
-                  Xem
-                </Text>
+                <View flex right style={styles.controllContainer}>
+                  <Text
+                    green
+                    text70
+                    onPress={() =>
+                      navigation.navigate(nameList.riceBuyingAreaInfo)
+                    }
+                  >
+                    Xem
+                  </Text>
+                  <Text text70 onPress={handleDelete} style={styles.deleteBtn}>
+                    Xóa
+                  </Text>
+                </View>
               </View>
             </View>
           ))}
-          {/* <FlatList
-            data={riceBuyingAreas}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          /> */}
         </View>
 
         <View marginT-30 center>
@@ -162,9 +178,6 @@ const styles = StyleSheet.create({
   },
 
   riceBuyingAreaItem: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
-    // justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
@@ -176,5 +189,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+  },
+  deleteBtn: {
+    color: color.redColor,
+    opacity: 0.6,
   },
 });
