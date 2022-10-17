@@ -12,7 +12,7 @@ import * as Location from "expo-location";
 
 import nameList from "../../json/nameList";
 
-import Loader from "../core/Loader";
+// import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
@@ -32,7 +32,7 @@ const CurrentWeather = ({ navigation }) => {
     getTime(new Date()) + " ngày " + getDateString(new Date())
   );
 
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
   const [location, setLocation] = useState();
   const [errorLocation, setErrorLocation] = useState(null);
@@ -49,7 +49,7 @@ const CurrentWeather = ({ navigation }) => {
     })();
   }, []);
 
-  // Không hiển thị
+  // Không hiển thị ???
   if (errorLocation) {
     Alert.alert("Lỗi", { errorLocation }, [
       {
@@ -118,7 +118,11 @@ const CurrentWeather = ({ navigation }) => {
 
           <View flex center style={styles.weatherContainer}>
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="cloud-rain" size={50} color="green" />
+              <FontAwesome5
+                name="cloud-rain"
+                size={50}
+                color={color.greenColor}
+              />
               <Text text80>Lượng mưa</Text>
               <Text text60>
                 {weatherData.current.rain ? weatherData.current.rain["1h"] : 0}{" "}
@@ -127,7 +131,11 @@ const CurrentWeather = ({ navigation }) => {
             </View>
 
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="temperature-high" size={50} color="green" />
+              <FontAwesome5
+                name="temperature-high"
+                size={50}
+                color={color.greenColor}
+              />
               <Text text80>Nhiệt độ</Text>
               <Text text60>
                 {Math.round(weatherData.current.temp - 273.15)}{" "}
@@ -136,7 +144,7 @@ const CurrentWeather = ({ navigation }) => {
             </View>
 
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="wind" size={50} color="green" />
+              <FontAwesome5 name="wind" size={50} color={color.greenColor} />
               <Text text80>Sức gió</Text>
               <Text text60>
                 {" "}
@@ -146,7 +154,11 @@ const CurrentWeather = ({ navigation }) => {
             </View>
 
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="air-freshener" size={50} color="green" />
+              <FontAwesome5
+                name="air-freshener"
+                size={50}
+                color={color.greenColor}
+              />
               <Text text80>Độ ẩm</Text>
               <Text text60>
                 {" "}
@@ -156,13 +168,13 @@ const CurrentWeather = ({ navigation }) => {
             </View>
 
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="sun" size={50} color="green" />
+              <FontAwesome5 name="sun" size={50} color={color.greenColor} />
               <Text text80>Chỉ số UV</Text>
               <Text text60> {weatherData.current.uvi}</Text>
             </View>
 
             <View centerH padding-20 style={styles.weatherItem}>
-              <FontAwesome5 name="cloud" size={50} color="green" />
+              <FontAwesome5 name="cloud" size={50} color={color.greenColor} />
               <Text text80>Mây che phủ</Text>
               <Text text60>
                 {" "}

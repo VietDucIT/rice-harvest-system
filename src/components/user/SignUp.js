@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
 
@@ -9,96 +9,82 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+// ???
+import addUser from "../../services/user/addUser";
+
 StyleInit();
 
 const { TextField } = Incubator;
 
 const SignUp = ({ navigation }) => {
-  // Just for test, then move logic to BE
-  const usernameArray = ["Duc"];
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [errorUsername, setErrorUsername] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
-
-  const checkSignUp = () => {
-    // Alert
-    if (usernameArray.includes(username)) {
-      setErrorUsername("* Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
-      // Alert.alert(
-      //   "Thông báo",
-      //   "Tên đăng nhập đã tồn tại. Nếu bạn đã có tài khoản, chọn Đăng nhập. Nếu đó không phải bạn, chọn Nhập lại.",
-      //   [
-      //     {
-      //       text: "Đăng nhập",
-      //       onPress: () => navigation.navigate(nameList.firstScreen),
-      //     },
-      //     {
-      //       text: "Nhập lại",
-      //       style: "cancel",
-      //     },
-      //   ]
-      // );
-    } else {
-      // Alert.alert("Thông báo", "Đăng ký thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
-      navigation.navigate(nameList.addUserInfo);
-    }
+  const initState = {
+    phone: "",
+    password: "",
+    confirmPassword: "",
   };
+  const [user, setUser] = useState(initState);
+  const [error, setError] = useState(initState);
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
 
-  const onChangeUsername = (text) => {
+  const onChange = (text, field) => {
     text = text.trim();
     let message = "";
-    if (text === "") {
-      message = "* Vui lòng nhập tên đăng nhập.";
-    } else {
-      message = "";
-    }
-    setErrorUsername(message);
-    setUsername(text);
-  };
-
-  const onChangePassword = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
+    if (text === "" && field === "phone") {
+      message = "* Vui lòng nhập số điện thoại.";
+    } else if (text === "" && field === "password") {
       message = "* Vui lòng nhập mật khẩu.";
-    } else {
-      message = "";
-    }
-    setErrorPassword(message);
-    setPassword(text);
-  };
-
-  const onChangeConfirmPassword = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
+    } else if (text === "" && field === "confirmPassword") {
       message = "* Vui lòng nhập lại mật khẩu.";
-    } else if (text !== password) {
-      message = "* Mật khẩu nhật lại không khớp.";
+    } else if (field === "confirmPassword" && text !== user.password) {
+      message = "* Mật khẩu nhập lại không khớp.";
     } else {
       message = "";
     }
-    setErrorConfirmPassword(message);
-    setConfirmPassword(text);
+    setError({
+      ...error,
+      [field]: message,
+    });
+    setUser({
+      ...user,
+      [field]: text,
+    });
   };
 
   const reset = () => {
-    setUsername("");
-    setPassword("");
-    setConfirmPassword("");
-    setErrorUsername("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
+    setUser(initState);
+    setError(initState);
+    console.log("Reset completed.");
+  };
+
+  // handle disable submit btn
+  useEffect(() => {
+    if (user.phone && user.password && user.confirmPassword) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [user]);
+
+  // call API
+  // HANDLE IF USERNAME IS EXISTING
+  const handleSignUp = async () => {
+    try {
+      // setLoading(true);
+
+      // console.log("Data: ", user);
+      let dataAPI = await addUser(user);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.userInfo);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while Signing Up.");
+    }
   };
 
   return (
@@ -118,18 +104,12 @@ const SignUp = ({ navigation }) => {
 
         <View marginT-20 marginH-25>
           <View>
-            {/* Username */}
+            {/* Username - Phone */}
             <TextField
               text65
-              // label="Username"
-              // labelStyle={{ alignSelf: "center" }}
-              // labelColor={{
-              //   default: Colors.$textDefault,
-              //   focus: Colors.$textGeneral,
-              //   error: Colors.$textDangerLight,
-              //   disabled: Colors.$textDisabled,
-              // }}
-              placeholder="Tên đăng nhập"
+              value={user.phone}
+              onChangeText={(text) => onChange(text, "phone")}
+              placeholder="Tên đăng nhập (Số điện thoại)"
               floatingPlaceholder
               floatOnFocus
               floatingPlaceholderColor={{
@@ -137,31 +117,20 @@ const SignUp = ({ navigation }) => {
                 default: color.lightGreyColor,
               }}
               containerStyle={{ marginBottom: 10 }}
-              value={username}
-              onChangeText={onChangeUsername}
-              // onChangeText={setUsername}
-              maxLength={30}
-              // validate="required"
-              // validate="number" / "email"
-              // errorMessage="Vui lòng nhập Tên đăng nhập"
-              // validationMessage="This field is required"
-              // validateOnChange
-              // errorColor={color.redColor}
-              // autoCapitalize="words"
-              // underlineColor={{ focus: Colors.purple50, error: Colors.orange60 }}
+              keyboardType="numeric"
               style={styles.textField}
-              // hint="Tên dùng để đăng nhập vào hệ thống"
-              // editable={!shouldDisable}
               marginT-10
             />
             <Text red style={styles.errorMessage}>
-              {errorUsername}
+              {error.phone}
             </Text>
 
             {/* Password */}
             <TextField
               secureTextEntry
               text65
+              value={user.password}
+              onChangeText={(text) => onChange(text, "password")}
               placeholder="Mật khẩu"
               floatingPlaceholder
               floatOnFocus
@@ -170,21 +139,21 @@ const SignUp = ({ navigation }) => {
                 default: color.lightGreyColor,
               }}
               containerStyle={{ marginBottom: 10 }}
-              value={password}
-              onChangeText={onChangePassword}
               maxLength={20}
               showCharCounter
               style={styles.textField}
               marginT-10
             />
             <Text red style={styles.errorMessage}>
-              {errorPassword}
+              {error.password}
             </Text>
 
             {/* Confirm Password */}
             <TextField
               secureTextEntry
               text65
+              value={user.confirmPassword}
+              onChangeText={(text) => onChange(text, "confirmPassword")}
               placeholder="Nhập lại mật khẩu"
               floatingPlaceholder
               floatOnFocus
@@ -193,73 +162,25 @@ const SignUp = ({ navigation }) => {
                 default: color.lightGreyColor,
               }}
               containerStyle={{ marginBottom: 10 }}
-              value={confirmPassword}
-              onChangeText={onChangeConfirmPassword}
               maxLength={20}
               showCharCounter
               style={styles.textField}
               marginT-10
             />
             <Text red style={styles.errorMessage}>
-              {errorConfirmPassword}
+              {error.confirmPassword}
             </Text>
-            {/* <TextField
-              text70
-              placeholder="Tên đăng nhập"
-              grey10
-              floatingPlaceholder
-              floatOnFocus
-              floatingPlaceholderColor={color.greenColor}
-              containerStyle={{ marginBottom: 10 }}
-              maxLength={30}
-              validate={"required"}
-              value={username}
-              onChangeText={setUsername}
-              errorMessage={"Vui lòng nhập Tên đăng nhập."}
-              errorColor={color.redColor}
-            />
-
-            <TextField
-              secureTextEntry
-              text65
-              placeholder="Mật khẩu"
-              grey10
-              floatingPlaceholder
-              floatOnFocus
-              floatingPlaceholderColor={color.greenColor}
-              containerStyle={{ marginBottom: 10 }}
-              maxLength={20}
-              showCharacterCounter
-              validate={"required"}
-              value={password}
-              onChangeText={setPassword}
-              errorMessage={"Vui lòng nhập Mật khẩu."}
-              errorColor={color.redColor}
-            />
-
-            <TextField
-              secureTextEntry
-              text65
-              placeholder="Nhập lại mật khẩu"
-              grey10
-              floatingPlaceholder
-              floatOnFocus
-              floatingPlaceholderColor={color.greenColor}
-              containerStyle={{ marginBottom: 10 }}
-              maxLength={20}
-              showCharacterCounter
-              validate={"required"}
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              errorMessage={"Vui lòng nhập lại Mật khẩu."}
-              errorColor={color.redColor}
-            /> */}
           </View>
 
           <View flex marginT-50 center>
             <View flex marginT-30 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Đăng ký" marginL-20 onPress={checkSignUp} />
+              <CustomButton
+                label="Đăng ký"
+                marginL-20
+                onPress={handleSignUp}
+                disabled={isDisableBtn}
+              />
             </View>
 
             <Text text90 marginT-30>

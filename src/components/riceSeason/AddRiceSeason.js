@@ -98,7 +98,7 @@ const AddRiceSeason = ({ navigation }) => {
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
-  const seasonYearArray = [];
+  let seasonYearArray = [];
   for (let i = currentYear + 1; i >= currentYear - 10; i--) {
     seasonYearArray.push(i.toString);
   }

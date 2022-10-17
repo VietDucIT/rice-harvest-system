@@ -2,26 +2,48 @@ import React, { useState, useEffect } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
+import nameList from "../../json/nameList";
+
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
 import { StyleInit } from "../../config/StyleInit";
 
-import nameList from "../../json/nameList";
+import getUser from "../../services/user/getUser";
 
 StyleInit();
 
-const UserInfo = ({ navigation }) => {
-  const userData = {
-    id: 1,
-    name: "Nguyễn Văn A",
-    nickname: "Hai A",
-    gender: 1,
-    birthYear: 1960,
-    address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-    phone: "0123 456 789",
-    role: 0,
-  };
+const UserInfo = ({ navigation, route }) => {
+  // const userData = {
+  //   id: 1,
+  //   name: "Nguyễn Văn A",
+  //   nickname: "Hai A",
+  //   gender: 1,
+  //   birthYear: 1960,
+  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
+  //   phone: "0123 456 789",
+  //   role: 0,
+  // };
+
+  const { idUser } = route.params;
+  const [userData, setUserData] = useState({});
+
+  // call API to get User data
+  const getUserData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getUser(idUser);
+      // console.log("User data: ", data);
+      setUserData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting User data.");
+    }
+  }, [idUser]);
+
+  useEffect(() => {
+    getUserData();
+  }, [getUserData]);
 
   return (
     <ScrollView>
@@ -45,14 +67,14 @@ const UserInfo = ({ navigation }) => {
             </View>
           </View>
 
-          <View flex style={styles.contentWrapper} marginH-25 marginV-20>
+          <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Họ tên: </TextR>
               <Text green>{userData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Tên thường gọi: </TextR>
+              <TextR style={styles.itemLabel}>Tên thường dùng: </TextR>
               <Text green>{userData.nickname}</Text>
             </View>
 
@@ -68,7 +90,15 @@ const UserInfo = ({ navigation }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>{userData.address}</Text>
+              <Text>
+                {userData.village +
+                  ", " +
+                  userData.commune +
+                  ", " +
+                  userData.town +
+                  ", " +
+                  userData.province}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -85,7 +115,11 @@ const UserInfo = ({ navigation }) => {
           <View flex marginT-20 center>
             <CustomButton
               label="Sửa"
-              onPress={() => navigation.navigate(nameList.modifyUserInfo)}
+              onPress={() =>
+                navigation.navigate(nameList.modifyUserInfo, {
+                  idUser: userData.id,
+                })
+              }
               style={{ width: 100 }}
             />
           </View>
@@ -100,10 +134,6 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
-  },
-  contentWrapper: {
-    // flexDirection: "column",
-    // flexWrap: "wrap",
   },
   itemContainer: {
     flexDirection: "row",

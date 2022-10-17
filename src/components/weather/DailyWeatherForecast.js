@@ -4,7 +4,7 @@ import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Feather from "react-native-vector-icons/Feather";
 
-import Loader from "../core/Loader";
+// import Loader from "../core/Loader";
 import UserOptionModal from "../user/UserOptionModal";
 
 import color from "../../config/color";
@@ -16,6 +16,7 @@ StyleInit();
 
 const DailyWeatherForecast = ({ navigation, route }) => {
   const { dailyWeatherData, timezone_offset } = route.params;
+
   // const [isLoading, setLoading] = useState(false);
 
   const { getDateString, getShortTime } = getDayTime();
@@ -48,16 +49,28 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               {date}
             </Text>
             {isShow ? (
-              <FontAwesome5 name="chevron-up" size={20} color="green" />
+              <FontAwesome5
+                name="chevron-up"
+                size={20}
+                color={color.greenColor}
+              />
             ) : (
-              <FontAwesome5 name="chevron-down" size={20} color="green" />
+              <FontAwesome5
+                name="chevron-down"
+                size={20}
+                color={color.greenColor}
+              />
             )}
           </Button>
 
           {isShow && (
             <View flex center style={styles.weatherContainer}>
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="cloud-rain" size={50} color="green" />
+                <FontAwesome5
+                  name="cloud-rain"
+                  size={50}
+                  color={color.greenColor}
+                />
                 {/* <View centerV style={styles.weatherLabel}> */}
                 <Text text80>Lượng mưa</Text>
                 {/* </View> */}
@@ -68,7 +81,11 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="infinity" size={50} color="green" />
+                <FontAwesome5
+                  name="infinity"
+                  size={50}
+                  color={color.greenColor}
+                />
                 {/* <View centerV style={styles.weatherLabel}> */}
                 <Text text80>Nhiệt độ</Text>
                 <Text text80>trung bình</Text>
@@ -80,7 +97,11 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="temperature-high" size={50} color="green" />
+                <FontAwesome5
+                  name="temperature-high"
+                  size={50}
+                  color={color.greenColor}
+                />
                 <Text text80>Nhiệt độ</Text>
                 <Text text80>cao nhất</Text>
                 <Text text60>
@@ -90,7 +111,11 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="temperature-low" size={50} color="green" />
+                <FontAwesome5
+                  name="temperature-low"
+                  size={50}
+                  color={color.greenColor}
+                />
                 <Text text80>Nhiệt độ</Text>
                 <Text text80>thấp nhất</Text>
                 <Text text60>
@@ -100,7 +125,7 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="wind" size={50} color="green" />
+                <FontAwesome5 name="wind" size={50} color={color.greenColor} />
                 <Text text80>Sức gió</Text>
                 <Text text60>
                   {dayItem.wind_speed} <TextR style={styles.unit}>m/s</TextR>
@@ -108,7 +133,11 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="air-freshener" size={50} color="green" />
+                <FontAwesome5
+                  name="air-freshener"
+                  size={50}
+                  color={color.greenColor}
+                />
                 <Text text80>Độ ẩm</Text>
                 <Text text60>
                   {dayItem.humidity} <TextR style={styles.unit}>%</TextR>
@@ -116,13 +145,13 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="sun" size={50} color="green" />
+                <FontAwesome5 name="sun" size={50} color={color.greenColor} />
                 <Text text80>Chỉ số UV</Text>
                 <Text text60>{dayItem.uvi}</Text>
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <FontAwesome5 name="cloud" size={50} color="green" />
+                <FontAwesome5 name="cloud" size={50} color={color.greenColor} />
                 <Text text80>Mây che phủ</Text>
                 <Text text60>
                   {dayItem.clouds} <TextR style={styles.unit}>%</TextR>
@@ -130,13 +159,13 @@ const DailyWeatherForecast = ({ navigation, route }) => {
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <Feather name="sunrise" size={50} color="green" />
+                <Feather name="sunrise" size={50} color={color.greenColor} />
                 <Text text80>Mặt trời mọc</Text>
                 <Text text60>{sunriseTime}</Text>
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
-                <Feather name="sunset" size={50} color="green" />
+                <Feather name="sunset" size={50} color={color.greenColor} />
                 <Text text80>Mặt trời lặn</Text>
                 <Text text60>{sunsetTime}</Text>
               </View>
@@ -180,7 +209,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   dayItem: {
-    // backgroundColor: Color.green,
+    // backgroundColor: color.greenColor,
     // borderWith: 10,
     width: "100%",
     justifyContent: "space-between",

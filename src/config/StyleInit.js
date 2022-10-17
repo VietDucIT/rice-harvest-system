@@ -1,4 +1,4 @@
-import { Typography, Colors, Spacings } from "react-native-ui-lib";
+import { Typography, Colors } from "react-native-ui-lib";
 
 const StyleInit = () => {
   Colors.loadColors({

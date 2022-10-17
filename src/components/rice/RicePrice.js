@@ -5,6 +5,7 @@ import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionModal from "../user/UserOptionModal";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/time/getDayTime";
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
   heading: {
     margin: 8,
     textAlign: "center",
-    color: "green",
+    color: color.greenColor,
   },
   text: {
     margin: 6,

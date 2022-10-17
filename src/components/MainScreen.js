@@ -12,6 +12,7 @@ import { StyleInit } from "../config/StyleInit";
 StyleInit();
 
 const MainScreen = ({ navigation }) => {
+  // HANDLE TO GET ROLE
   const role = 1;
 
   return (
@@ -53,48 +54,53 @@ const MainScreen = ({ navigation }) => {
           </View>
 
           {role === 0 && (
-            <View marginV-15 center>
-              <CustomButton
-                label="Quản lý ruộng lúa"
-                text60
-                style={styles.btn}
-                onPress={() => navigation.navigate(nameList.riceFields)}
-              />
-            </View>
-          )}
-
-          {role === 0 && (
-            <View marginV-15 center>
-              <CustomButton
-                label="Quản lý vụ mùa"
-                text60
-                style={styles.btn}
-                onPress={() => navigation.navigate(nameList.riceSeasons)}
-              />
-            </View>
-          )}
+              <View marginV-15 center>
+                <CustomButton
+                  label="Quản lý ruộng lúa"
+                  text60
+                  style={styles.btn}
+                  onPress={() => navigation.navigate(nameList.riceFields)}
+                />
+              </View>
+            ) && (
+              <View marginV-15 center>
+                <CustomButton
+                  label="Quản lý vụ mùa"
+                  text60
+                  style={styles.btn}
+                  onPress={() => navigation.navigate(nameList.riceSeasons)}
+                />
+              </View>
+            )}
 
           {role === 1 && (
-            <View marginV-15 center>
-              <CustomButton
-                label="Quản lý khu vực thu mua"
-                text60
-                style={styles.btn}
-                onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
-              />
-            </View>
-          )}
-
-          {role === 1 && (
-            <View marginV-15 center>
-              <CustomButton
-                label="Tìm kiếm nông dân"
-                text60
-                style={styles.btn}
-                onPress={() => navigation.navigate(nameList.findUsers)}
-              />
-            </View>
-          )}
+              <View marginV-15 center>
+                <CustomButton
+                  label="Quản lý khu vực thu mua"
+                  text60
+                  style={styles.btn}
+                  onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
+                />
+              </View>
+            ) && (
+              <View marginV-15 center>
+                <CustomButton
+                  label="Quản lý đề xuất thu mua"
+                  text60
+                  style={styles.btn}
+                  onPress={() => navigation.navigate(nameList.suggestToBuys)}
+                />
+              </View>
+            ) && (
+              <View marginV-15 center>
+                <CustomButton
+                  label="Tìm kiếm nông dân"
+                  text60
+                  style={styles.btn}
+                  onPress={() => navigation.navigate(nameList.findUsers)}
+                />
+              </View>
+            )}
 
           <View marginV-15 center>
             <CustomButton

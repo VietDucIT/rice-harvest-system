@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Image,
@@ -23,158 +23,138 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getUser from "../../services/user/getUser";
+import modifyUser from "../../services/user/modifyUser";
+
 StyleInit();
 
 const { TextField } = Incubator;
 
-const ModifyUserInfo = ({ navigation }) => {
+const ModifyUserInfo = ({ navigation, route }) => {
+  // call API to get User data to fill the form
+  const { idUser } = route.params;
+  const [userData, setUserData] = useState({});
+  const getUserData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getUser(idUser);
+      // console.log("User data: ", data);
+      setUserData(data);
+      setUser(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting User data.");
+    }
+  }, [idUser]);
+  useEffect(() => {
+    getUserData();
+  }, [getUserData]);
+
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
+  let yearArray = [];
+  for (let year = currentYear; year >= 1922; year--) {
+    yearArray.push(year.toString());
+  }
 
-  const getYearList = () => {
-    let years = [];
-    for (let year = currentYear; year >= 1900; year--) {
-      years.push(year);
+  const initState = {
+    name: "",
+    nickname: "",
+    gender: 1,
+    birthYear: "",
+    village: "",
+    commune: "",
+    town: "",
+    province: "",
+    phone: "",
+    role: 0,
+    password: "",
+    confirmPassword: "",
+  };
+  const [user, setUser] = useState(initState);
+  const [error, setError] = useState(initState);
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
+
+  const onChange = (text, field) => {
+    text = text.trim();
+    let message = "";
+    if (text === "") {
+      message = "* Bắt buộc.";
+    } else if (field === "confirmPassword" && text !== user.password) {
+      message = "* Mật khẩu nhập lại không khớp.";
+    } else {
+      message = "";
     }
-    return years;
+    setError({
+      ...error,
+      [field]: message,
+    });
+    setUser({
+      ...user,
+      [field]: text,
+    });
   };
 
-  const yearArray = getYearList();
-
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [gender, setGender] = useState(1);
-  const [birthYear, setBirthYear] = useState(currentYear);
-  const [address, setAddress] = useState("");
-  const [village, setVillage] = useState("");
-  const [commune, setCommune] = useState("");
-  const [town, setTown] = useState("");
-  const [province, setProvince] = useState("");
-  const [phone, setPhone] = useState("");
-  const [role, setRole] = useState(0);
-
-  const [errorName, setErrorName] = useState("");
-  const [errorBirthYear, setErrorBirthYear] = useState("");
-  // const [errorAddress, setErrorAddress] = useState("");
-  const [errorVillage, setErrorVillage] = useState("");
-  const [errorCommune, setErrorCommune] = useState("");
-  const [errorTown, setErrorTown] = useState("");
-  const [errorProvince, setErrorProvince] = useState("");
-  const [errorPhone, setErrorPhone] = useState("");
-
   const reset = () => {
-    setName("");
-    setNickname("");
-    setGender(1);
-    setBirthYear(currentYear);
-    setAddress("");
-    setVillage("");
-    setCommune("");
-    setTown("");
-    setProvince("");
-    setPhone("");
-    setRole(0);
-    setErrorName("");
-    setErrorBirthYear("");
-    // setErrorAddress("");
-    setErrorVillage("");
-    setErrorCommune("");
-    setErrorTown("");
-    setErrorProvince("");
-    setErrorPhone("");
+    setUser(userData);
+    setError(initState);
     console.log("Reset completed.");
   };
 
-  const onChangeName = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
+  // handle disable submit btn
+  useEffect(() => {
+    if (
+      user.name &&
+      user.birthYear &&
+      user.village &&
+      user.commune &&
+      user.town &&
+      user.province &&
+      user.phone &&
+      user.password &&
+      user.confirmPassword
+    ) {
+      setIsDisableBtn(false);
     } else {
-      message = "";
+      setIsDisableBtn(true);
     }
-    setErrorName(message);
-    setName(text);
-  };
+  }, [user]);
 
-  const onChangeVillage = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorVillage(message);
-    setVillage(text);
-  };
-
-  const onChangeCommune = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorCommune(message);
-    setCommune(text);
-  };
-
-  const onChangeTown = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorTown(message);
-    setTown(text);
-  };
-
-  const onChangeProvince = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorProvince(message);
-    setProvince(text);
-  };
-
-  const onChangePhone = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setErrorPhone(message);
-    setPhone(text);
-  };
-
-  const handleModify = () => {
+  // call API
+  const handleModify = async () => {
     let err = false;
-    if (!birthYear) {
-      setErrorBirthYear("* Bắt buộc.");
+    if (!error.birthYear) {
+      setError({
+        ...error,
+        birthYear: "* Bắt buộc.",
+      });
       err = false;
     } else {
-      setErrorBirthYear("");
+      setError({
+        ...error,
+        birthYear: "",
+      });
       err = true;
     }
 
     if (err) {
-      Alert.alert("Thông báo", "Đã lưu thông tin tài khoản.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
-      navigation.navigate(nameList.mainScreen);
+      try {
+        // setLoading(true);
+
+        // console.log("Data: ", user);
+        let dataAPI = await modifyUser(user);
+        // console.log("Data API: ", dataAPI);
+        Alert.alert("Thông báo", "Sửa thông tin người dùng thành công.", [
+          {
+            text: "Đóng",
+            style: "cancel",
+          },
+        ]);
+        navigation.navigate(nameList.userInfo);
+        // setLoading(false);
+      } catch (err) {
+        console.log("Error while modifying User.");
+      }
     }
   };
 
@@ -205,25 +185,25 @@ const ModifyUserInfo = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                value={name}
-                onChangeText={onChangeName}
+                value={user.name}
+                onChangeText={(text) => onChange(text, "name")}
                 style={styles.textField}
               />
               <Text red style={styles.errorMessage}>
-                {errorName}
+                {error.name}
               </Text>
             </View>
 
             {/* Nickname */}
             <View marginT-10>
               <TextR text70 style={styles.label}>
-                Tên thường gọi:
+                Tên thường dùng:
               </TextR>
               <TextField
                 text70
                 grey10
-                value={nickname}
-                onChangeText={setNickname}
+                value={user.nickname}
+                onChangeText={(text) => setUser({ ...user, nickname: text })}
                 style={styles.textField}
               />
             </View>
@@ -234,8 +214,8 @@ const ModifyUserInfo = ({ navigation }) => {
                 Giới tính:
               </TextR>
               <RadioGroup
-                initialValue={gender}
-                onValueChange={setGender}
+                initialValue={user.gender}
+                onValueChange={(value) => setUser({ ...user, gender: value })}
                 flex
                 style={styles.ratioContainer}
               >
@@ -267,19 +247,16 @@ const ModifyUserInfo = ({ navigation }) => {
                 migrateTextField
                 text70
                 placeholder={"Chọn năm"}
-                value={birthYear}
-                onChange={(year) => {
-                  setBirthYear(year.value);
-                  // console.log(year);
-                }}
+                value={user.birthYear}
+                onChange={(year) => setUser({ ...user, birthYear: year })}
                 style={styles.textField}
               >
                 {yearArray.map((item, index) => (
-                  <Picker.Item key={index} value={item} label={item} />
+                  <Picker.Item key={index} value={user.item} label={item} />
                 ))}
               </Picker>
               <Text red style={styles.errorMessage}>
-                {errorBirthYear}
+                {error.birthYear}
               </Text>
             </View>
 
@@ -294,8 +271,8 @@ const ModifyUserInfo = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeVillage}
-                    value={village}
+                    value={user.village}
+                    onChangeText={(text) => onChange(text, "village")}
                     placeholder="Ấp"
                     floatingPlaceholder
                     floatOnFocus
@@ -308,7 +285,7 @@ const ModifyUserInfo = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorVillage}
+                    {error.village}
                   </Text>
                 </View>
 
@@ -316,8 +293,8 @@ const ModifyUserInfo = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeCommune}
-                    value={commune}
+                    value={user.commune}
+                    onChangeText={(text) => onChange(text, "commune")}
                     placeholder="Xã"
                     floatingPlaceholder
                     floatOnFocus
@@ -330,7 +307,7 @@ const ModifyUserInfo = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorCommune}
+                    {error.commune}
                   </Text>
                 </View>
 
@@ -338,8 +315,8 @@ const ModifyUserInfo = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeTown}
-                    value={town}
+                    value={user.town}
+                    onChangeText={(text) => onChange(text, "town")}
                     placeholder="Huyện"
                     floatingPlaceholder
                     floatOnFocus
@@ -352,7 +329,7 @@ const ModifyUserInfo = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorTown}
+                    {error.town}
                   </Text>
                 </View>
 
@@ -360,8 +337,8 @@ const ModifyUserInfo = ({ navigation }) => {
                   <TextField
                     text70
                     grey10
-                    onChangeText={onChangeProvince}
-                    value={province}
+                    value={user.province}
+                    onChangeText={(text) => onChange(text, "province")}
                     placeholder="Tỉnh"
                     floatingPlaceholder
                     floatOnFocus
@@ -374,7 +351,7 @@ const ModifyUserInfo = ({ navigation }) => {
                     autoCapitalize="words"
                   />
                   <Text red style={styles.errorMessage}>
-                    {errorProvince}
+                    {error.province}
                   </Text>
                 </View>
               </View>
@@ -388,23 +365,24 @@ const ModifyUserInfo = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                value={phone}
-                onChangeText={onChangePhone}
+                value={user.phone}
+                onChangeText={(text) => onChange(text, "phone")}
+                keyboardType="numeric"
                 style={styles.textField}
               />
               <Text red style={styles.errorMessage}>
-                {errorPhone}
+                {error.phone}
               </Text>
             </View>
 
             {/* Role */}
-            <View marginT-10>
+            {/* <View marginT-10>
               <TextR text70 style={styles.label}>
                 Vai trò:
               </TextR>
               <RadioGroup
-                initialValue={role}
-                onValueChange={setRole}
+                initialValue={user.role}
+                onValueChange={(value) => setUser({ ...user, role: value })}
                 flex
                 style={styles.ratioContainer}
               >
@@ -425,11 +403,65 @@ const ModifyUserInfo = ({ navigation }) => {
                   labelStyle={{ fontSize: 16 }}
                 />
               </RadioGroup>
+            </View> */}
+
+            {/* Password */}
+            <View marginT-10>
+              <TextField
+                secureTextEntry
+                text65
+                value={user.password}
+                onChangeText={(text) => onChange(text, "password")}
+                placeholder="Mật khẩu"
+                floatingPlaceholder
+                floatOnFocus
+                floatingPlaceholderColor={{
+                  focus: color.greenColor,
+                  default: color.lightGreyColor,
+                }}
+                containerStyle={{ marginBottom: 10 }}
+                maxLength={20}
+                showCharCounter
+                style={styles.textField}
+                marginT-10
+              />
+              <Text red style={styles.errorMessage}>
+                {error.password}
+              </Text>
+            </View>
+
+            {/* Confirm Password */}
+            <View marginT-10>
+              <TextField
+                secureTextEntry
+                text65
+                value={user.confirmPassword}
+                onChangeText={(text) => onChange(text, "confirmPassword")}
+                placeholder="Nhập lại mật khẩu"
+                floatingPlaceholder
+                floatOnFocus
+                floatingPlaceholderColor={{
+                  focus: color.greenColor,
+                  default: color.lightGreyColor,
+                }}
+                containerStyle={{ marginBottom: 10 }}
+                maxLength={20}
+                showCharCounter
+                style={styles.textField}
+                marginT-10
+              />
+              <Text red style={styles.errorMessage}>
+                {error.confirmPassword}
+              </Text>
             </View>
 
             <View flex marginT-50 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Lưu" onPress={handleModify} />
+              <CustomButton
+                label="Lưu"
+                onPress={handleModify}
+                disabled={isDisableBtn}
+              />
             </View>
           </View>
         </View>

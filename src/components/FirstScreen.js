@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../json/nameList";
@@ -9,64 +9,95 @@ import CustomButton from "./core/CustomButton";
 import color from "../config/color";
 import { StyleInit } from "../config/StyleInit";
 
+import logIn from "../../services/user/logIn";
+
 StyleInit();
 
 const { TextField } = Incubator;
 
 const FirstScreen = ({ navigation }) => {
-  // Just for test, then move logic to BE
-  const userArray = [
-    {
-      username: "Duc",
-      password: "123",
-    },
-  ];
-  const findUsername = (name, array) => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].username === name) return i;
-    }
-    return -1;
+  // HANDLE LOG IN
+  // const userArray = [
+  //   {
+  //     username: "Duc",
+  //     password: "123",
+  //   },
+  // ];
+  // const findUsername = (name, array) => {
+  //   for (let i = 0; i < array.length; i++) {
+  //     if (array[i].username === name) return i;
+  //   }
+  //   return -1;
+  // };
+  // const indexItem = findUsername(username, userArray);
+
+  // const checkLogIn = () => {
+  //   if (indexItem < 0) {
+  //     setErrorUsername("* Tên đăng nhập không tồn tại.");
+  //   } else if (userArray[indexItem].password !== password) {
+  //     setErrorPassword("* Mật khẩu không chính xác.");
+  //   } else {
+  //     navigation.navigate(nameList.mainScreen);
+  //   }
+  // };
+
+  const initState = {
+    phone: "",
+    password: "",
   };
-  const indexItem = findUsername(username, userArray);
+  const [user, setUser] = useState(initState);
+  const [error, setError] = useState(initState);
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
 
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState("");
-
-  const [errorUsername, setErrorUsername] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-
-  const checkLogIn = () => {
-    if (indexItem < 0) {
-      setErrorUsername("* Tên đăng nhập không tồn tại.");
-    } else if (userArray[indexItem].password !== password) {
-      setErrorPassword("* Mật khẩu không chính xác.");
-    } else {
-      navigation.navigate(nameList.mainScreen);
-    }
-  };
-
-  const onChangeUsername = (text) => {
+  const onChange = (text, field) => {
     text = text.trim();
     let message = "";
-    if (text === "") {
-      message = "* Vui lòng nhập tên đăng nhập.";
-    } else {
-      message = "";
-    }
-    setErrorUsername(message);
-    setUsername(text);
-  };
-
-  const onChangePassword = (text) => {
-    text = text.trim();
-    let message = "";
-    if (text === "") {
+    if (text === "" && field === "phone") {
+      message = "* Vui lòng nhập số điện thoại.";
+    } else if (text === "" && field === "password") {
       message = "* Vui lòng nhập mật khẩu.";
     } else {
       message = "";
     }
-    setErrorPassword(message);
-    setPassword(text);
+    setError({
+      ...error,
+      [field]: message,
+    });
+    setUser({
+      ...user,
+      [field]: text,
+    });
+  };
+
+  // handle disable submit btn
+  useEffect(() => {
+    if (user.phone && user.password) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [user]);
+
+  // call API
+  const handleLogIn = async () => {
+    try {
+      // setLoading(true);
+
+      // console.log("Data: ", user);
+      let dataAPI = await logIn(user);
+      // console.log("Data API: ", dataAPI);
+      // HANDLE IF DATA API SEND ERROR (CODE 500)
+      Alert.alert("Thông báo", "Đăng nhập thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.mainScreen);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while Logging In.");
+    }
   };
 
   return (
@@ -90,15 +121,9 @@ const FirstScreen = ({ navigation }) => {
           {/* Username */}
           <TextField
             text65
-            // label="Username"
-            // labelStyle={{ alignSelf: "center" }}
-            // labelColor={{
-            //   default: Colors.$textDefault,
-            //   focus: Colors.$textGeneral,
-            //   error: Colors.$textDangerLight,
-            //   disabled: Colors.$textDisabled,
-            // }}
-            placeholder="Tên đăng nhập"
+            value={user.phone}
+            onChangeText={(text) => onChange(text, "phone")}
+            placeholder="Tên đăng nhập (Số điện thoại)"
             floatingPlaceholder
             floatOnFocus
             floatingPlaceholderColor={{
@@ -106,31 +131,20 @@ const FirstScreen = ({ navigation }) => {
               default: color.lightGreyColor,
             }}
             containerStyle={{ marginBottom: 10 }}
-            value={username}
-            onChangeText={onChangeUsername}
-            // onChangeText={setUsername}
-            maxLength={30}
-            // validate="required"
-            // validate="number" / "email"
-            // errorMessage="Vui lòng nhập Tên đăng nhập"
-            // validationMessage="This field is required"
-            // validateOnChange
-            // errorColor={color.redColor}
-            // autoCapitalize="words"
-            // underlineColor={{ focus: Colors.purple50, error: Colors.orange60 }}
+            keyboardType="numeric"
             style={styles.textField}
-            // hint="Tên dùng để đăng nhập vào hệ thống"
-            // editable={!shouldDisable}
             marginT-10
           />
           <Text red style={styles.errorMessage}>
-            {errorUsername}
+            {error.phone}
           </Text>
 
           {/* Password */}
           <TextField
             secureTextEntry
             text65
+            value={user.password}
+            onChangeText={(text) => onChange(text, "password")}
             placeholder="Mật khẩu"
             floatingPlaceholder
             floatOnFocus
@@ -139,21 +153,22 @@ const FirstScreen = ({ navigation }) => {
               default: color.lightGreyColor,
             }}
             containerStyle={{ marginBottom: 10 }}
-            value={password}
-            onChangeText={onChangePassword}
-            maxLength={20}
             showCharCounter
             style={styles.textField}
             marginT-10
           />
           <Text red style={styles.errorMessage}>
-            {errorPassword}
+            {error.password}
           </Text>
         </View>
 
         <View>
           <View marginT-50 center>
-            <CustomButton label="Đăng nhập" onPress={checkLogIn} />
+            <CustomButton
+              label="Đăng nhập"
+              onPress={handleLogIn}
+              disabled={isDisableBtn}
+            />
 
             <Text text90 marginT-30>
               Bạn chưa có tài khoản?
@@ -195,5 +210,4 @@ const styles = StyleSheet.create({
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
   },
-  errorMessage: {},
 });
