@@ -55,8 +55,8 @@ const SuggestToBuy = ({ navigation, route }) => {
   // };
 
   const initState = {
-    price: "",
-    timeEnd: "",
+    suggestedPrice: "",
+    suggestedTimeEnd: "",
     description: "",
   };
   const [suggestToBuy, setSuggestToBuy] = useState(initState);
@@ -66,12 +66,12 @@ const SuggestToBuy = ({ navigation, route }) => {
   const onChange = (text, field) => {
     text = text.trim();
     let message = "";
-    if (text === "" && field === "price") {
+    if (text === "" && field === "suggestedPrice") {
       message = "* Vui lòng nhập giá đề xuất.";
-    } else if (Number(text) <= 0 && field === "price") {
+    } else if (Number(text) <= 0 && field === "suggestedPrice") {
       message = "* Giá đề xuất phải lớn hơn 0.";
     } else if (
-      field === "timeEnd" &&
+      field === "suggestedTimeEnd" &&
       Date.parse(text) <= Date.parse(seasonData.timeStart)
     ) {
       message = "* Ngày đề xuất thu hoạch không hợp lệ.";
@@ -96,7 +96,7 @@ const SuggestToBuy = ({ navigation, route }) => {
 
   // handle disable submit btn
   useEffect(() => {
-    if (suggestToBuy.price && suggestToBuy.timeEnd) {
+    if (suggestToBuy.suggestedPrice && suggestToBuy.suggestedTimeEnd) {
       setIsDisableBtn(false);
     } else {
       setIsDisableBtn(true);
@@ -105,31 +105,31 @@ const SuggestToBuy = ({ navigation, route }) => {
 
   const handleSuggest = async () => {
     let hasErr = true;
-    if (!suggestToBuy.price) {
+    if (!suggestToBuy.suggestedPrice) {
       setError({
         ...error,
-        price: "* Vui lòng nhập giá đề xuất.",
+        suggestedPrice: "* Vui lòng nhập giá đề xuất.",
       });
       hasErr = true;
     } else {
       setError({
         ...error,
-        price: "",
+        suggestedPrice: "",
       });
     }
-    if (!suggestToBuy.timeEnd) {
+    if (!suggestToBuy.suggestedTimeEnd) {
       setError({
         ...error,
-        timeEnd: "* Vui lòng nhập ngày đề xuất thu hoạch.",
+        suggestedTimeEnd: "* Vui lòng nhập ngày đề xuất thu hoạch.",
       });
       hasErr = true;
     } else {
       setError({
         ...error,
-        timeEnd: "",
+        suggestedTimeEnd: "",
       });
     }
-    // if (!error.price && !error.timeEnd) {
+    // if (!error.suggestedPrice && !error.suggestedTimeEnd) {
     //   hasErr = false;
     // }
 
@@ -138,7 +138,7 @@ const SuggestToBuy = ({ navigation, route }) => {
         // setLoading(true);
 
         let merge = { suggestToBuy, seasonData };
-        let dataAPI = await suggestToBuy(merge);
+        let dataAPI = await addSuggestToBuy(merge);
         // console.log("Data API: ", dataAPI);
         Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
           {
@@ -179,8 +179,10 @@ const SuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={seasonData.seasonName + seasonData.seasonYear}
-                value={seasonData.seasonName + seasonData.seasonYear}
+                placeholder={
+                  seasonData.seasonName + " " + seasonData.seasonYear
+                }
+                value={seasonData.seasonName + " " + seasonData.seasonYear}
                 style={styles.textField}
                 editable={false}
               />
@@ -267,13 +269,13 @@ const SuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey10
-                value={suggestToBuy.price}
-                onChangeText={(text) => onChange(text, "price")}
+                value={suggestToBuy.suggestedPrice}
+                onChangeText={(text) => onChange(text, "suggestedPrice")}
                 style={styles.textField}
                 keyboardType="numeric"
               />
               <Text red style={styles.errorMessage}>
-                {error.price}
+                {error.suggestedPrice}
               </Text>
             </View>
 
@@ -284,11 +286,11 @@ const SuggestToBuy = ({ navigation, route }) => {
                 migrateTextField
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                value={suggestToBuy.timeEnd}
-                onChange={(text) => onChange(text, "timeEnd")}
+                value={suggestToBuy.suggestedTimeEnd}
+                onChange={(text) => onChange(text, "suggestedTimeEnd")}
               />
               <Text red style={styles.errorMessage}>
-                {error.timeEnd}
+                {error.suggestedTimeEnd}
               </Text>
             </View>
 

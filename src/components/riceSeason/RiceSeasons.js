@@ -91,20 +91,21 @@ const RiceSeasons = ({ navigation }) => {
   }, [getRiceSeasonArray]);
 
   // delete a Rice Season
-  const handleDelete = async (id) => {
-    try {
-      // setLoading(true);
-      let dataAPI = await deleteRiceSeason(id);
-      // console.log("Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa vụ mùa này?", [
-        {
-          text: "Quay lại",
-          style: "cancel",
-        },
-        {
-          text: "Đồng ý",
-          onPress: () => {
-            // set status for this suggest
+  const handleDelete = (id) => {
+    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa vụ mùa này?", [
+      {
+        text: "Quay lại",
+        style: "cancel",
+      },
+      {
+        text: "Đồng ý",
+        onPress: async () => {
+          try {
+            // setLoading(true);
+            let dataAPI = await deleteRiceSeason(id);
+            // console.log("Data API: ", dataAPI);
+
+            // SET STATUS FOR THIS
             Alert.alert("Thông báo", "Đã xóa vụ mùa này.", [
               {
                 text: "Đóng",
@@ -112,13 +113,13 @@ const RiceSeasons = ({ navigation }) => {
               },
             ]);
             navigation.navigate(nameList.riceSeasons);
-          },
+            // setLoading(false);
+          } catch (err) {
+            console.log("Error while deleting Rice Season.");
+          }
         },
-      ]);
-      // setLoading(false);
-    } catch (err) {
-      console.log("Error while deleting Rice Season.");
-    }
+      },
+    ]);
   };
 
   return (

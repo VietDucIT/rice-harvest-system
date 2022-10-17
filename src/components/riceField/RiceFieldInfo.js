@@ -9,6 +9,7 @@ import Map from "../Map/Map";
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 
+import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getRiceField from "../../services/riceField/getRiceField";
@@ -128,6 +129,6 @@ const styles = StyleSheet.create({
     height: 400,
     marginTop: 20,
     borderWidth: 2,
-    borderColor: "green",
+    borderColor: color.greenColor,
   },
 });

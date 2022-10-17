@@ -16,21 +16,43 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getSuggestToBuy from "../../services/suggestToBuy/getSuggestToBuy";
+
 StyleInit();
 
-const SuggestToBuyInfoForFarmer = ({ navigation }) => {
-  const suggestData = {
-    id: 1,
-    traderName: "Nguyễn Văn A",
-    riceField: "Mẫu ruộng số 1",
-    rice: "OM 18",
-    currentState: "Lúa chín",
-    timeStart: "19/9/2022",
-    timeEnd: "19/12/2022",
-    suggestedPrice: 6000,
-    suggestedTimeEnd: "20/9/2022",
-    description: "Thu mua bằng giá thị trường",
-  };
+const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
+  // const suggestData = {
+  //   id: 1,
+  //   traderName: "Nguyễn Văn A",
+  //   riceField: "Mẫu ruộng số 1",
+  //   rice: "OM 18",
+  //   currentState: "Lúa chín",
+  //   timeStart: "19/9/2022",
+  //   timeEnd: "19/12/2022",
+  //   suggestedPrice: 6000,
+  //   suggestedTimeEnd: "20/9/2022",
+  //   description: "Thu mua bằng giá thị trường",
+  // };
+
+  const { idSuggestToBuy } = route.params;
+  const [suggestToBuyData, setSuggestToBuyData] = useState({});
+
+  // call API to get Suggest To Buy data
+  const getSuggestToBuyData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getSuggestToBuy(idSuggestToBuy);
+      // console.log("Suggest To Buy data: ", data);
+      setSuggestToBuyData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Suggest To Buy data.");
+    }
+  }, [idSuggestToBuy]);
+
+  useEffect(() => {
+    getSuggestToBuyData();
+  }, [getSuggestToBuyData]);
 
   const handleAccept = () => {
     Alert.alert(
@@ -44,7 +66,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
         {
           text: "Đồng ý",
           onPress: () => {
-            // set status for this suggest
+            setSuggestToBuyData({ ...suggestToBuyData, status: "Đồng ý" });
             Alert.alert(
               "Thông báo",
               "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
@@ -55,7 +77,8 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
                 },
               ]
             );
-            navigation.navigate(nameList.riceSeasonInfo);
+            navigation.goBack();
+            // navigation.navigate(nameList.riceSeasonInfo);
           },
         },
       ]
@@ -71,13 +94,15 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
       {
         text: "Từ chối",
         onPress: () => {
+          setSuggestToBuyData({ ...suggestToBuyData, status: "Từ chối" });
           Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
             {
               text: "Đóng",
               style: "cancel",
             },
           ]);
-          navigation.navigate(nameList.riceSeasonInfo);
+          navigation.goBack();
+          // navigation.navigate(nameList.riceSeasonInfo);
         },
       },
     ]);
@@ -101,44 +126,46 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
             </View>
           </View>
 
-          <View flex style={styles.contentWrapper} marginH-25 marginT-20>
+          <View flex marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thương lái: </TextR>
               <Text text70>
-                <TextR style={styles.important}>{suggestData.traderName}</TextR>
+                <TextR style={styles.important}>
+                  {suggestToBuyData.traderName}
+                </TextR>
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{suggestData.riceField}</Text>
+              <Text text70>{suggestToBuyData.riceField}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{suggestData.rice}</Text>
+              <Text text70>{suggestToBuyData.rice}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tình trạng: </TextR>
-              <Text text70>{suggestData.currentState}</Text>
+              <Text text70>{suggestToBuyData.currentState}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian sạ: </TextR>
-              <Text text70>{suggestData.timeStart}</Text>
+              <Text text70>{suggestToBuyData.timeStart}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian gặt (dự kiến): </TextR>
-              <Text text70>{suggestData.timeEnd}</Text>
+              <Text text70>{suggestToBuyData.timeEnd}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giá lúa đề xuất: </TextR>
               <Text text70>
                 <TextR style={styles.important}>
-                  {suggestData.suggestedPrice}
+                  {suggestToBuyData.suggestedPrice}
                 </TextR>{" "}
                 đồng/kg
               </Text>
@@ -148,14 +175,14 @@ const SuggestToBuyInfoForFarmer = ({ navigation }) => {
               <TextR style={styles.itemLabel}>Ngày đề xuất thu hoạch: </TextR>
               <Text text70>
                 <TextR style={styles.important}>
-                  {suggestData.suggestedTimeEnd}
+                  {suggestToBuyData.suggestedTimeEnd}
                 </TextR>
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ghi chú từ thương lái: </TextR>
-              <Text text70>{suggestData.description}</Text>
+              <Text text70>{suggestToBuyData.description}</Text>
             </View>
           </View>
 
@@ -174,10 +201,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
-  },
-  contentWrapper: {
-    // flexDirection: "column",
-    // flexWrap: "wrap",
   },
   itemContainer: {
     flexDirection: "row",

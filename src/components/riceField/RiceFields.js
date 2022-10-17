@@ -46,20 +46,21 @@ const RiceFields = ({ navigation }) => {
   }, [getRiceFieldArray]);
 
   // delete a Rice Field
-  const handleDelete = async (id) => {
-    try {
-      // setLoading(true);
-      let dataAPI = await deleteRiceField(id);
-      // console.log("Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
-        {
-          text: "Quay lại",
-          style: "cancel",
-        },
-        {
-          text: "Đồng ý",
-          onPress: () => {
-            // set status for this suggest
+  const handleDelete = (id) => {
+    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+      {
+        text: "Quay lại",
+        style: "cancel",
+      },
+      {
+        text: "Đồng ý",
+        onPress: async () => {
+          try {
+            // setLoading(true);
+            let dataAPI = await deleteRiceField(id);
+            // console.log("Data API: ", dataAPI);
+
+            // SET STATUS FOR THIS ???
             Alert.alert("Thông báo", "Đã xóa mẫu ruộng này.", [
               {
                 text: "Đóng",
@@ -67,13 +68,13 @@ const RiceFields = ({ navigation }) => {
               },
             ]);
             navigation.navigate(nameList.riceFields);
-          },
+            // setLoading(false);
+          } catch (err) {
+            console.log("Error while deleting Rice Field.");
+          }
         },
-      ]);
-      // setLoading(false);
-    } catch (err) {
-      console.log("Error while deleting Rice Field.");
-    }
+      },
+    ]);
   };
 
   return (
