@@ -17,26 +17,11 @@ import deleteRiceSeason from "../../services/riceSeason/deleteRiceSeason";
 StyleInit();
 
 const RiceSeasons = ({ navigation }) => {
+  // TÌM KIẾM VỤ MÙA THEO TÊN
   const [seasonName, setSeasonName] = useState("");
+  let hasResult = true;
 
-  const [riceSeasonArray, setRiceSeasonArray] = useState([]);
-
-  // call API
-  const getRiceSeasonArray = useCallback(async () => {
-    try {
-      // setLoading(true);
-      const data = await getRiceSeasonList();
-      // console.log("Rice Seasons data: ", data);
-      setRiceSeasonArray(data);
-      // setLoading(false);
-    } catch (err) {
-      console.log("Error while getting Rice Season list.");
-    }
-  }, []);
-
-  useEffect(() => {
-    getRiceSeasonArray();
-  }, [getRiceSeasonArray]);
+  // LỌC
 
   // const initArray = [
   //   {
@@ -86,25 +71,55 @@ const RiceSeasons = ({ navigation }) => {
   //   },
   // ];
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
-  //     <TextR style={styles.riceSeasonName}>{item.name}</TextR>
-  //     <View flex style={styles.subContainer}>
-  //       <Text text80>
-  //         {item.riceField.length <= 40
-  //           ? `${item.riceField}`
-  //           : `${item.riceField.substring(0, 39)}...`}
-  //       </Text>
-  //       <Text
-  //         green
-  //         text70
-  //         onPress={() => navigation.navigate(nameList.riceSeasonInfo)}
-  //       >
-  //         Xem
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
+  const [riceSeasonArray, setRiceSeasonArray] = useState([]);
+
+  // call API
+  const getRiceSeasonArray = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceSeasonList();
+      // console.log("Rice Season list: ", data);
+      setRiceSeasonArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Season list.");
+    }
+  }, []);
+
+  useEffect(() => {
+    getRiceSeasonArray();
+  }, [getRiceSeasonArray]);
+
+  // delete a Rice Season
+  const handleDelete = async (id) => {
+    try {
+      // setLoading(true);
+      let dataAPI = await deleteRiceSeason(id);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa vụ mùa này?", [
+        {
+          text: "Quay lại",
+          style: "cancel",
+        },
+        {
+          text: "Đồng ý",
+          onPress: () => {
+            // set status for this suggest
+            Alert.alert("Thông báo", "Đã xóa vụ mùa này.", [
+              {
+                text: "Đóng",
+                style: "cancel",
+              },
+            ]);
+            navigation.navigate(nameList.riceSeasons);
+          },
+        },
+      ]);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while deleting Rice Season.");
+    }
+  };
 
   return (
     <ScrollView>
@@ -130,40 +145,59 @@ const RiceSeasons = ({ navigation }) => {
           />
 
           <View marginT-20>
-            {riceSeasonArray.map((item) => (
-              <View
-                style={styles.riceSeasonItem}
-                padding-5
-                marginV-8
-                marginH-16
-                key={item.id}
-              >
-                <TextR style={styles.riceSeasonName}>{item.name}</TextR>
-                <View flex style={styles.subContainer}>
-                  <Text text80>
-                    {item.riceField.length <= 40
-                      ? `${item.riceField}`
-                      : `${item.riceField.substring(0, 39)}...`}
-                  </Text>
-                  <Text
-                    green
-                    text70
-                    onPress={() =>
-                      navigation.navigate(nameList.riceSeasonInfo, {
-                        idRiceSeason: item.id,
-                      })
-                    }
+            {riceSeasonArray.map((item) => {
+              const fullName = item.seasonName + " " + item.seasonYear;
+              const searchString = seasonName.trim();
+              if (fullName.includes(searchString)) {
+                hasResult = true;
+                return (
+                  <View
+                    style={styles.riceSeasonItem}
+                    padding-5
+                    marginV-8
+                    marginH-16
+                    key={item.id}
                   >
-                    Xem
-                  </Text>
-                </View>
+                    <TextR style={styles.riceSeasonName}>
+                      {item.seasonName} {item.seasonYear}
+                    </TextR>
+                    <View flex style={styles.subContainer}>
+                      <Text text80>
+                        {item.riceField.length <= 40
+                          ? `${item.riceField}`
+                          : `${item.riceField.substring(0, 39)}...`}
+                      </Text>
+                      <View flex right style={styles.controllContainer}>
+                        <Text
+                          green
+                          text70
+                          onPress={() =>
+                            navigation.navigate(nameList.riceSeasonInfo, {
+                              idRiceSeason: item.id,
+                            })
+                          }
+                        >
+                          Xem
+                        </Text>
+                        <Text
+                          text70
+                          onPress={handleDelete}
+                          style={styles.deleteBtn}
+                        >
+                          Xóa
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                );
+              }
+            })}
+
+            {seasonName && !hasResult && (
+              <View center>
+                Không có vụ mùa nào có tên này. Vui lòng nhập lại.
               </View>
-            ))}
-            {/* <FlatList
-            data={riceSeasons}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          /> */}
+            )}
           </View>
 
           <View marginT-30 center>
@@ -185,9 +219,6 @@ const styles = StyleSheet.create({
     height: 50,
   },
   riceSeasonItem: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
-    // justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
@@ -199,5 +230,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+  },
+  deleteBtn: {
+    color: color.redColor,
+    opacity: 0.6,
   },
 });

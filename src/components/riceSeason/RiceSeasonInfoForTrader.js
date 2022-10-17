@@ -66,10 +66,12 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
             </View>
           </View>
 
-          <View flex style={styles.contentWrapper} marginH-25 marginT-20>
+          <View flex marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Vụ mùa: </TextR>
-              <Text text70>{seasonData.name}</Text>
+              <Text text70>
+                {seasonData.seasonName} {seasonData.seasonYear}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -128,10 +130,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
-  },
-  contentWrapper: {
-    // flexDirection: "column",
-    // flexWrap: "wrap",
   },
   itemContainer: {
     flexDirection: "row",

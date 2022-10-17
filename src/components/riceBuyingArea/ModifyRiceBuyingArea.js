@@ -16,13 +16,33 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getRiceBuyingArea from "../../services/riceBuyingArea/getRiceBuyingArea";
 import modifyRiceBuyingArea from "../../services/riceBuyingArea/modifyRiceBuyingArea";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
-const ModifyRiceBuyingArea = ({ navigation }) => {
+const ModifyRiceBuyingArea = ({ navigation, route }) => {
+  // call API to get Rice Buying Area data to fill the form
+  const { idRiceBuyingArea } = route.params;
+  const [buyingAreaData, setBuyingAreaData] = useState({}); // to get data from backend, refill after reset
+  const getRiceBuyingAreaData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceBuyingArea(idRiceBuyingArea);
+      // console.log("Rice Buying Area data: ", data);
+      setBuyingAreaData(data);
+      setRiceBuyingArea(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Buying Area data.");
+    }
+  }, [idRiceBuyingArea]);
+  useEffect(() => {
+    getRiceBuyingAreaData();
+  }, [getRiceBuyingAreaData]);
+
   const initState = {
     name: "",
     village: "",
@@ -31,7 +51,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
     province: "",
     description: "",
   };
-  const [riceBuyingArea, setRiceBuyingArea] = useState(initState);
+  const [riceBuyingArea, setRiceBuyingArea] = useState(initState); // to send data to backend
   const [error, setError] = useState(initState);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
@@ -56,7 +76,7 @@ const ModifyRiceBuyingArea = ({ navigation }) => {
   };
 
   const reset = () => {
-    setRiceBuyingArea(initState);
+    setRiceBuyingArea(buyingAreaData);
     setError(initState);
     console.log("Reset completed.");
   };

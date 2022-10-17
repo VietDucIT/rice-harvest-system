@@ -6,13 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import {
-  DateTimePicker,
-  Incubator,
-  Picker,
-  Text,
-  View,
-} from "react-native-ui-lib";
+import { DateTimePicker, Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
@@ -22,118 +16,141 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getDayTime from "../../services/time/getDayTime";
+import getRiceSeason from "../../services/riceSeason/getRiceSeason";
+import addSuggestToBuy from "../../services/suggestToBuy/addSuggestToBuy";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
-const SuggestToBuy = ({ navigation }) => {
-  // const seasonNameArray = ["Đông Xuân", "Hè Thu", "Thu Đông"];
-  // const seasonYearArray = ["2020", "2021", "2022", "2023"];
-  // const riceFieldArray = [
-  //   "Mẫu ruộng số 1",
-  //   "Mẫu ruộng số 2",
-  //   "Mẫu ruộng số 3",
-  //   "Mẫu ruộng số 4",
-  // ];
-  // const riceArray = [
-  //   "OM 18",
-  //   "OM 5451",
-  //   "ST 24",
-  //   "ST 25",
-  //   "IR 504",
-  //   "Nếp Long An",
-  // ];
-  // const stateArray = [
-  //   "Chưa gieo xạ",
-  //   "Đang phát triển",
-  //   "Lúa trổ",
-  //   "Lúa chín",
-  //   "Đã thu hoạch",
-  // ];
+const SuggestToBuy = ({ navigation, route }) => {
+  const { idRiceSeason } = route.params;
+  const [seasonData, setSeasonData] = useState({});
 
-  const riceSeasonData = {
-    id: 1,
-    name: "Thu Đông 2022",
-    riceField: "Mẫu ruộng số 1",
-    rice: "OM 18",
-    currentState: "Lúa chín",
-    timeStart: "19/9/2022",
-    timeEnd: "19/12/2022",
+  // call API to get Rice Season data
+  const getRiceSeasonData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceSeason(idRiceSeason);
+      // console.log("Rice Season data: ", data);
+      setSeasonData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Season data.");
+    }
+  }, [idRiceSeason]);
+
+  useEffect(() => {
+    getRiceSeasonData();
+  }, [getRiceSeasonData]);
+
+  // const seasonData = {
+  //   id: 1,
+  //   name: "Thu Đông 2022",
+  //   riceField: "Mẫu ruộng số 1",
+  //   rice: "OM 18",
+  //   currentState: "Lúa chín",
+  //   timeStart: "19/9/2022",
+  //   timeEnd: "19/12/2022",
+  // };
+
+  const initState = {
+    price: "",
+    timeEnd: "",
+    description: "",
   };
+  const [suggestToBuy, setSuggestToBuy] = useState(initState);
+  const [error, setError] = useState(initState);
+  const [isDisableBtn, setIsDisableBtn] = useState(true);
 
-  const currentTime = new Date();
-  const currentYear = currentTime.getFullYear();
-  const { getDateString } = getDayTime();
-  const currentDate = getDateString(currentTime);
-
-  const [suggestedPrice, setSuggestedPrice] = useState("");
-  const [suggestedTimeEnd, setSuggestedTimeEnd] = useState();
-  const [description, setDescription] = useState("");
-  const [errorSuggestedPrice, setErrorSuggestedPrice] = useState("");
-  const [errorSuggestedTimeEnd, setErrorSuggestedTimeEnd] = useState("");
-
-  const onChangeSuggestedPrice = (text) => {
+  const onChange = (text, field) => {
     text = text.trim();
     let message = "";
-    if (text === "") {
+    if (text === "" && field === "price") {
       message = "* Vui lòng nhập giá đề xuất.";
-    } else if (Number(text) <= 0) {
+    } else if (Number(text) <= 0 && field === "price") {
       message = "* Giá đề xuất phải lớn hơn 0.";
-    } else {
-      message = "";
-    }
-    setErrorSuggestedPrice(message);
-    setSuggestedPrice(text);
-  };
-
-  const onChangeSuggestedTimeEnd = (text) => {
-    let message = "";
-    if (Date.parse(text) <= Date.parse(riceSeasonData.timeStart)) {
+    } else if (
+      field === "timeEnd" &&
+      Date.parse(text) <= Date.parse(seasonData.timeStart)
+    ) {
       message = "* Ngày đề xuất thu hoạch không hợp lệ.";
     } else {
       message = "";
     }
-    setErrorSuggestedTimeEnd(message);
-    setSuggestedTimeEnd(text);
+    setError({
+      ...error,
+      [field]: message,
+    });
+    setSuggestToBuy({
+      ...suggestToBuy,
+      [field]: text,
+    });
   };
 
   const reset = () => {
-    setSuggestedPrice("");
-    setSuggestedTimeEnd();
-    setErrorSuggestedPrice("");
-    setErrorSuggestedTimeEnd("");
-    setDescription("");
+    setSuggestToBuy(initState);
+    setError(initState);
     console.log("Reset completed.");
   };
 
-  const handleSuggest = () => {
+  // handle disable submit btn
+  useEffect(() => {
+    if (suggestToBuy.price && suggestToBuy.timeEnd) {
+      setIsDisableBtn(false);
+    } else {
+      setIsDisableBtn(true);
+    }
+  }, [suggestToBuy]);
+
+  const handleSuggest = async () => {
     let hasErr = true;
-    if (suggestedPrice == "") {
-      setErrorSuggestedPrice("* Vui lòng nhập giá đề xuất.");
+    if (!suggestToBuy.price) {
+      setError({
+        ...error,
+        price: "* Vui lòng nhập giá đề xuất.",
+      });
       hasErr = true;
     } else {
-      setErrorSuggestedPrice("");
+      setError({
+        ...error,
+        price: "",
+      });
     }
-    if (!suggestedTimeEnd) {
-      setErrorSuggestedTimeEnd("* Vui lòng nhập ngày đề xuất thu hoạch.");
+    if (!suggestToBuy.timeEnd) {
+      setError({
+        ...error,
+        timeEnd: "* Vui lòng nhập ngày đề xuất thu hoạch.",
+      });
       hasErr = true;
     } else {
-      setErrorSuggestedTimeEnd("");
+      setError({
+        ...error,
+        timeEnd: "",
+      });
     }
-    // if (errorSuggestedPrice === "" && errorSuggestedTimeEnd === "") {
+    // if (!error.price && !error.timeEnd) {
     //   hasErr = false;
     // }
 
-    if (hasErr === false) {
-      Alert.alert("Thông báo", "Đã gửi đề xuất thu mua.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
-      navigation.navigate(nameList.suggestToBuys);
+    if (!hasErr) {
+      try {
+        // setLoading(true);
+
+        let merge = { suggestToBuy, seasonData };
+        let dataAPI = await suggestToBuy(merge);
+        // console.log("Data API: ", dataAPI);
+        Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
+          {
+            text: "Đóng",
+            style: "cancel",
+          },
+        ]);
+        navigation.navigate(nameList.suggestToBuys);
+        // setLoading(false);
+      } catch (err) {
+        console.log("Error while adding Suggest To Buy.");
+      }
     }
   };
 
@@ -156,49 +173,14 @@ const SuggestToBuy = ({ navigation }) => {
           </View>
 
           <View marginH-25 marginT-20>
-            {/* Season Name */}
+            {/* Season Full Name */}
             <View>
               <TextR style={[styles.label, styles.disableLabel]}>Vụ mùa:</TextR>
-              {/* <View flex style={styles.seasonNameContainer}>
-                <View>
-                  <Picker
-                    migrateTextField
-                    text70
-                    value={seasonName}
-                    placeholder={"Chọn vụ mùa"}
-                    onChange={(name) => {
-                      setSeasonName(name.value);
-                    }}
-                    style={[styles.seasonName, styles.textField]}
-                  >
-                    {seasonNameArray.map((item, index) => (
-                      <Picker.Item key={index} value={item} label={item} />
-                    ))}
-                  </Picker>
-                </View>
-
-                <View marginL-20>
-                  <Picker
-                    migrateTextField
-                    text70
-                    value={seasonYear}
-                    placeholder={"Chọn năm"}
-                    onChange={(year) => {
-                      setSeasonYear(year.value);
-                    }}
-                    style={[styles.seasonYear, styles.textField]}
-                  >
-                    {seasonYearArray.map((item, index) => (
-                      <Picker.Item key={index} value={item} label={item} />
-                    ))}
-                  </Picker>
-                </View>
-              </View> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.name}
-                value={riceSeasonData.name}
+                placeholder={seasonData.seasonName + seasonData.seasonYear}
+                value={seasonData.seasonName + seasonData.seasonYear}
                 style={styles.textField}
                 editable={false}
               />
@@ -209,25 +191,11 @@ const SuggestToBuy = ({ navigation }) => {
               <TextR style={[styles.label, styles.disableLabel]}>
                 Ruộng lúa:
               </TextR>
-              {/* <Picker
-                migrateTextField
-                text70
-                value={riceField}
-                placeholder={"Chọn ruộng lúa"}
-                onChange={(field) => {
-                  setRiceField(field.value);
-                }}
-                style={styles.textField}
-              >
-                {riceFieldArray.map((item, index) => (
-                  <Picker.Item key={index} value={item} label={item} />
-                ))}
-              </Picker> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.riceField}
-                value={riceSeasonData.riceField}
+                placeholder={seasonData.riceField}
+                value={seasonData.riceField}
                 style={styles.textField}
                 editable={false}
               />
@@ -238,25 +206,11 @@ const SuggestToBuy = ({ navigation }) => {
               <TextR style={[styles.label, styles.disableLabel]}>
                 Giống lúa:
               </TextR>
-              {/* <Picker
-                migrateTextField
-                text70
-                value={rice}
-                placeholder={"Chọn giống lúa"}
-                onChange={(rice) => {
-                  setRice(rice.value);
-                }}
-                style={styles.textField}
-              >
-                {riceArray.map((item, index) => (
-                  <Picker.Item key={index} value={item} label={item} />
-                ))}
-              </Picker> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.rice}
-                value={riceSeasonData.rice}
+                placeholder={seasonData.rice}
+                value={seasonData.rice}
                 style={styles.textField}
                 editable={false}
               />
@@ -267,25 +221,11 @@ const SuggestToBuy = ({ navigation }) => {
               <TextR style={[styles.label, styles.disableLabel]}>
                 Tình trạng hiện tại:
               </TextR>
-              {/* <Picker
-                migrateTextField
-                text70
-                value={currentState}
-                placeholder={"Chọn tình trạng"}
-                onChange={(currentState) => {
-                  setCurrentState(currentState.value);
-                }}
-                style={styles.textField}
-              >
-                {stateArray.map((item, index) => (
-                  <Picker.Item key={index} value={item} label={item} />
-                ))}
-              </Picker> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.currentState}
-                value={riceSeasonData.currentState}
+                placeholder={seasonData.currentState}
+                value={seasonData.currentState}
                 style={styles.textField}
                 editable={false}
               />
@@ -296,23 +236,11 @@ const SuggestToBuy = ({ navigation }) => {
               <TextR style={[styles.label, styles.disableLabel]}>
                 Thời gian sạ:
               </TextR>
-              {/* <DateTimePicker
-                migrateTextField
-                containerStyle={{ marginVertical: 20 }}
-                label={"Date"}
-                dateFormat={"DD/MM/YYYY"}
-                placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
-                value={timeStart}
-                onChange={(time) => {
-                  setTimeStart(time);
-                }}
-              /> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.timeStart}
-                value={riceSeasonData.timeStart}
+                placeholder={seasonData.timeStart}
+                value={seasonData.timeStart}
                 style={styles.textField}
                 editable={false}
               />
@@ -323,23 +251,11 @@ const SuggestToBuy = ({ navigation }) => {
               <TextR style={[styles.label, styles.disableLabel]}>
                 Thời gian gặt (dự kiến):
               </TextR>
-              {/* <DateTimePicker
-                migrateTextField
-                containerStyle={{ marginVertical: 20 }}
-                label={"Date"}
-                dateFormat={"DD/MM/YYYY"}
-                placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
-                value={timeEnd}
-                onChange={(time) => {
-                  setTimeEnd(time);
-                }}
-              /> */}
               <TextField
                 text70
                 grey30
-                placeholder={riceSeasonData.timeEnd}
-                value={riceSeasonData.timeEnd}
+                placeholder={seasonData.timeEnd}
+                value={seasonData.timeEnd}
                 style={styles.textField}
                 editable={false}
               />
@@ -351,14 +267,13 @@ const SuggestToBuy = ({ navigation }) => {
               <TextField
                 text70
                 grey10
-                // placeholder="0"
-                value={suggestedPrice}
-                onChangeText={onChangeSuggestedPrice}
+                value={suggestToBuy.price}
+                onChangeText={(text) => onChange(text, "price")}
                 style={styles.textField}
                 keyboardType="numeric"
               />
               <Text red style={styles.errorMessage}>
-                {errorSuggestedPrice}
+                {error.price}
               </Text>
             </View>
 
@@ -369,11 +284,11 @@ const SuggestToBuy = ({ navigation }) => {
                 migrateTextField
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                value={suggestedTimeEnd}
-                onChange={onChangeSuggestedTimeEnd}
+                value={suggestToBuy.timeEnd}
+                onChange={(text) => onChange(text, "timeEnd")}
               />
               <Text red style={styles.errorMessage}>
-                {errorSuggestedTimeEnd}
+                {error.timeEnd}
               </Text>
             </View>
 
@@ -385,15 +300,21 @@ const SuggestToBuy = ({ navigation }) => {
                 grey10
                 multiline
                 numberOfLines={2}
-                value={description}
-                onChangeText={setDescription}
+                value={suggestToBuy.description}
+                onChangeText={(text) => {
+                  setSuggestToBuy({ ...suggestToBuy, description: text });
+                }}
                 style={styles.textField}
               />
             </View>
 
             <View flex marginT-30 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
-              <CustomButton label="Gửi" onPress={handleSuggest} />
+              <CustomButton
+                label="Gửi"
+                onPress={handleSuggest}
+                disabled={isDisableBtn}
+              />
             </View>
           </View>
         </View>
@@ -429,7 +350,6 @@ const styles = StyleSheet.create({
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
   },
-  errorMessage: {},
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",

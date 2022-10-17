@@ -34,6 +34,25 @@ StyleInit();
 const { TextField } = Incubator;
 
 const ModifyRiceSeason = ({ navigation, route }) => {
+  // call API to get Rice Season data to fill the form
+  const { idRiceSeason } = route.params;
+  const [seasonData, setSeasonData] = useState({});
+  const getRiceSeasonData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceSeason(idRiceSeason);
+      // console.log("Rice Season data: ", data);
+      setSeasonData(data);
+      setRiceSeason(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Season data.");
+    }
+  }, [idRiceSeason]);
+  useEffect(() => {
+    getRiceSeasonData();
+  }, [getRiceSeasonData]);
+
   // HOW TO KNOW WHICH FIELDS A FARMER HAS ???
   // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);
@@ -68,25 +87,6 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   useEffect(() => {
     getRiceArray();
   }, [getRiceArray]);
-
-  // call API to get Rice Season data to fill the form
-  const { idRiceSeason } = route.params;
-  const [seasonData, setSeasonData] = useState({});
-  const getRiceSeasonData = useCallback(async () => {
-    try {
-      // setLoading(true);
-      const data = await getRiceSeason(idRiceSeason);
-      // console.log("Rice Season data: ", data);
-      setSeasonData(data);
-      setRiceSeason(data);
-      // setLoading(false);
-    } catch (err) {
-      console.log("Error while getting Rice Season data.");
-    }
-  }, [idRiceSeason]);
-  useEffect(() => {
-    getRiceSeasonData();
-  }, [getRiceSeasonData]);
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();

@@ -18,10 +18,64 @@ StyleInit();
 const RiceSeasonInfo = ({ navigation, route }) => {
   const [isShowMenu, setIsShowMenu] = useState(false);
 
+  // const initData = {
+  //   id: 1,
+  //   name: "Thu Đông 2022",
+  //   riceField: "Mẫu ruộng số 1",
+  //   rice: "OM 18",
+  //   currentState: "Lúa chín",
+  //   timeStart: "19/9/2022",
+  //   timeEnd: "19/12/2022",
+  //   totalRice: 900,
+  // };
+  // const suggestList = [
+  //   {
+  //     id: 1,
+  //     traderName: "Nguyễn Văn A",
+  //     riceField: "Mẫu ruộng số 1",
+  //     suggestedPrice: 6000,
+  //     suggestedTimeEnd: "31/12/2022",
+  //     status: 1,
+  //   },
+  //   {
+  //     id: 2,
+  //     traderName: "Nguyễn Văn A",
+  //     riceField: "Mẫu ruộng số 2",
+  //     suggestedPrice: 5940,
+  //     suggestedTimeEnd: "31/12/2022",
+  //     status: 1,
+  //   },
+  //   {
+  //     id: 3,
+  //     traderName: "Nguyễn Văn A",
+  //     riceField: "Mẫu ruộng số 3",
+  //     suggestedPrice: 6100,
+  //     suggestedTimeEnd: "31/12/2022",
+  //     status: 0,
+  //   },
+  //   {
+  //     id: 4,
+  //     traderName: "Cao Thanh B",
+  //     riceField: "Mẫu ruộng số 1",
+  //     suggestedPrice: 5990,
+  //     suggestedTimeEnd: "31/12/2022",
+  //     status: 1,
+  //   },
+  //   {
+  //     id: 5,
+  //     traderName: "Lâm C",
+  //     riceField: "Mẫu ruộng số 2",
+  //     suggestedPrice: 6040,
+  //     suggestedTimeEnd: "31/12/2022",
+  //     status: 0,
+  //   },
+  // ];
+
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
+  const [suggestList, setSuggestList] = useState({});
 
-  // call API
+  // call API to get Rice Season data
   const getRiceSeasonData = useCallback(async () => {
     try {
       // setLoading(true);
@@ -38,79 +92,22 @@ const RiceSeasonInfo = ({ navigation, route }) => {
     getRiceSeasonData();
   }, [getRiceSeasonData]);
 
-  // const initData = {
-  //   id: 1,
-  //   name: "Thu Đông 2022",
-  //   riceField: "Mẫu ruộng số 1",
-  //   rice: "OM 18",
-  //   currentState: "Lúa chín",
-  //   timeStart: "19/9/2022",
-  //   timeEnd: "19/12/2022",
-  //   totalRice: 900,
-  // };
+  // call API to get Suggest To Buy list
+  const getSuggestToBuyListData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getSuggestToBuyListForRiceSeason(seasonData.id);
+      // console.log("Suggest To Buy list: ", data);
+      setSuggestList(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Suggest To Buy list.");
+    }
+  }, [seasonData.id]);
 
-  const suggestList = [
-    {
-      id: 1,
-      traderName: "Nguyễn Văn A",
-      riceField: "Mẫu ruộng số 1",
-      suggestedPrice: 6000,
-      suggestedTimeEnd: "31/12/2022",
-      status: 1,
-    },
-    {
-      id: 2,
-      traderName: "Nguyễn Văn A",
-      riceField: "Mẫu ruộng số 2",
-      suggestedPrice: 5940,
-      suggestedTimeEnd: "31/12/2022",
-      status: 1,
-    },
-    {
-      id: 3,
-      traderName: "Nguyễn Văn A",
-      riceField: "Mẫu ruộng số 3",
-      suggestedPrice: 6100,
-      suggestedTimeEnd: "31/12/2022",
-      status: 0,
-    },
-    {
-      id: 4,
-      traderName: "Cao Thanh B",
-      riceField: "Mẫu ruộng số 1",
-      suggestedPrice: 5990,
-      suggestedTimeEnd: "31/12/2022",
-      status: 1,
-    },
-    {
-      id: 5,
-      traderName: "Lâm C",
-      riceField: "Mẫu ruộng số 2",
-      suggestedPrice: 6040,
-      suggestedTimeEnd: "31/12/2022",
-      status: 0,
-    },
-  ];
-
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.riceSeasonItem} padding-5 marginV-8 marginH-16>
-  //     <TextR style={styles.farmerName}>{item.farmerName}</TextR>
-  //     <View flex style={styles.subContainer}>
-  //       <Text text80>
-  //         {item.riceField.length <= 40
-  //           ? `${item.riceField}`
-  //           : `${item.riceField.substring(0, 39)}...`}
-  //       </Text>
-  //       <Text
-  //         green
-  //         text70
-  //         onPress={() => navigation.navigate(nameList.suggestToBuyInfo)}
-  //       >
-  //         Xem
-  //       </Text>
-  //     </View>
-  //   </View>
-  // );
+  useEffect(() => {
+    getSuggestToBuyListData();
+  }, [getSuggestToBuyListData]);
 
   return (
     <ScrollView>
@@ -133,7 +130,9 @@ const RiceSeasonInfo = ({ navigation, route }) => {
           <View style={styles.contentWrapper}>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Vụ mùa: </TextR>
-              <Text text70>{seasonData.name}</Text>
+              <Text text70>
+                {seasonData.seasonName} {seasonData.seasonYear}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -163,7 +162,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
 
             {seasonData.currentState === "Đã thu hoạch" && (
               <View flex style={styles.itemContainer} marginT-5>
-                <TextR style={styles.itemLabel}>Sản lượng: </TextR>
+                <TextR style={styles.itemLabel}>Sản lượng mỗi công: </TextR>
                 <Text text70>{seasonData.totalRice} kg</Text>
               </View>
             )}
@@ -189,11 +188,6 @@ const RiceSeasonInfo = ({ navigation, route }) => {
               </Button>
               {isShowMenu && (
                 <View marginT-20>
-                  {/* <FlatList
-                data={suggestList}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-              /> */}
                   {suggestList.map((item) => {
                     return (
                       <View

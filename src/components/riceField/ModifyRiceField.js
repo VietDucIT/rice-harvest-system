@@ -16,13 +16,33 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getRiceField from "../../services/riceField/getRiceField";
 import modifyRiceField from "../../services/riceField/modifyRiceField";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
-const ModifyRiceField = ({ navigation }) => {
+const ModifyRiceField = ({ navigation, route }) => {
+  // call API to get Rice Field data to fill the form
+  const { idRiceField } = route.params;
+  const [fieldData, setFieldData] = useState({});
+  const getRiceFieldData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceField(idRiceField);
+      // console.log("Rice Field data: ", data);
+      setFieldData(data);
+      setRiceField(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Rice Field data.");
+    }
+  }, [idRiceField]);
+  useEffect(() => {
+    getRiceFieldData();
+  }, [getRiceFieldData]);
+
   const initState = {
     village: "",
     commune: "",
@@ -61,7 +81,7 @@ const ModifyRiceField = ({ navigation }) => {
   };
 
   const reset = () => {
-    setRiceField(initState);
+    setRiceField(fieldData);
     setError(initState);
     console.log("Reset completed.");
   };
