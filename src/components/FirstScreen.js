@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
 
@@ -9,7 +9,7 @@ import CustomButton from "./core/CustomButton";
 import color from "../config/color";
 import { StyleInit } from "../config/StyleInit";
 
-import logIn from "../../services/user/logIn";
+import logIn from "../services/user/logIn";
 
 StyleInit();
 
@@ -180,7 +180,7 @@ const FirstScreen = ({ navigation }) => {
               label="Đăng ký"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.signUp)}
+              onPress={() => navigation.navigate(nameList.addUserInfo)} // signUp
             />
             {/* Test screen */}
             <Button

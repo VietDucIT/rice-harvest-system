@@ -37,7 +37,6 @@ const AddUserInfo = ({ navigation }) => {
     yearArray.push(year.toString());
   }
 
-  // PASSWORD ???
   const initState = {
     name: "",
     nickname: "",
@@ -57,7 +56,7 @@ const AddUserInfo = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    text = text.trim();
+    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -124,14 +123,14 @@ const AddUserInfo = ({ navigation }) => {
 
         // console.log("Data: ", user);
         let dataAPI = await addUser(user);
-        // console.log("Data API: ", dataAPI);
+        console.log("Data API: ", dataAPI);
         Alert.alert("Thông báo", "Thêm người dùng thành công.", [
           {
             text: "Đóng",
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.userInfo);
+        navigation.navigate(nameList.userInfo, { idUser: dataAPI._id });
         // setLoading(false);
       } catch (err) {
         console.log("Error while adding User.");
@@ -230,7 +229,9 @@ const AddUserInfo = ({ navigation }) => {
                 text70
                 placeholder={"Chọn năm"}
                 value={user.birthYear}
-                onChange={(year) => setUser({ ...user, birthYear: year })}
+                onChange={(year) =>
+                  setUser({ ...user, birthYear: Number(year.label) })
+                }
                 style={styles.textField}
               >
                 {yearArray.map((item, index) => (
@@ -388,24 +389,19 @@ const AddUserInfo = ({ navigation }) => {
             </View>
 
             {/* Password */}
-            <View marginT-10>
+            <View marginT-20>
+              <TextR text70 style={styles.label}>
+                Mật khẩu:
+              </TextR>
               <TextField
                 secureTextEntry
-                text65
+                text70
+                grey10
                 value={user.password}
                 onChangeText={(text) => onChange(text, "password")}
-                placeholder="Mật khẩu"
-                floatingPlaceholder
-                floatOnFocus
-                floatingPlaceholderColor={{
-                  focus: color.greenColor,
-                  default: color.lightGreyColor,
-                }}
-                containerStyle={{ marginBottom: 10 }}
+                style={styles.textField}
                 maxLength={20}
                 showCharCounter
-                style={styles.textField}
-                marginT-10
               />
               <Text red style={styles.errorMessage}>
                 {error.password}
@@ -413,24 +409,19 @@ const AddUserInfo = ({ navigation }) => {
             </View>
 
             {/* Confirm Password */}
-            <View marginT-10>
+            <View marginT-20>
+              <TextR text70 style={styles.label}>
+                Nhập lại mật khẩu:
+              </TextR>
               <TextField
                 secureTextEntry
-                text65
+                text70
+                grey10
                 value={user.confirmPassword}
                 onChangeText={(text) => onChange(text, "confirmPassword")}
-                placeholder="Nhập lại mật khẩu"
-                floatingPlaceholder
-                floatOnFocus
-                floatingPlaceholderColor={{
-                  focus: color.greenColor,
-                  default: color.lightGreyColor,
-                }}
-                containerStyle={{ marginBottom: 10 }}
+                style={styles.textField}
                 maxLength={20}
                 showCharCounter
-                style={styles.textField}
-                marginT-10
               />
               <Text red style={styles.errorMessage}>
                 {error.confirmPassword}
@@ -473,6 +464,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textField: {
+    marginTop: 10,
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,

@@ -71,16 +71,16 @@ const SignUp = ({ navigation }) => {
     try {
       // setLoading(true);
 
-      // console.log("Data: ", user);
+      // console.log("Data: ", user); // OK
       let dataAPI = await addUser(user);
-      // console.log("Data API: ", dataAPI);
+      console.log("Data API: ", dataAPI);
       Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
         {
           text: "Đóng",
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.userInfo);
+      navigation.navigate(nameList.addUserInfo);
       // setLoading(false);
     } catch (err) {
       console.log("Error while Signing Up.");
@@ -173,7 +173,7 @@ const SignUp = ({ navigation }) => {
           </View>
 
           <View flex marginT-50 center>
-            <View flex marginT-30 center style={styles.btnContainer}>
+            <View flex center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
                 label="Đăng ký"
