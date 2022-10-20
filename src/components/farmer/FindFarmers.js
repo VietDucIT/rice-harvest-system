@@ -136,7 +136,11 @@ const FindFarmers = ({ navigation }) => {
                 <Text
                   green
                   text70
-                  onPress={() => navigation.navigate(nameList.farmerInfo)}
+                  onPress={() =>
+                    navigation.navigate(nameList.farmerInfo, {
+                      idFarmer: item.id,
+                    })
+                  }
                 >
                   Xem
                 </Text>

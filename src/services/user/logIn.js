@@ -8,7 +8,7 @@ const logIn = (user) => {
       `${REQUEST_URL}/user/login`,
       user
     );
-    // console.log('Data logIn: ', data);
+    // console.log("Data logIn: ", data);
     // console.log('Status: ', status);
 
     if (status === 200) {

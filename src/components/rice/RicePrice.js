@@ -22,17 +22,6 @@ const RicePrice = ({ navigation }) => {
   const date = getDateString(new Date()); // "19/09/2022"
   const state = {
     tableHead: ["Giống lúa", "Giá (đồng/kg)"],
-    // tableData: [
-    //   ["OM 18", "5.700 – 5.900"],
-    //   ["OM 5451", "5.500 – 5.600"],
-    //   ["ST 24", "7.000 - 7.500"],
-    //   ["IR 504", "5.400 – 5.500"],
-    //   ["Đài thơm 8", "5.600 – 5.800"],
-    //   ["Nàng hoa 9", "5.600 – 5.800"],
-    //   ["Nếp An Giang", "5.900 – 6.100"],
-    //   ["Nếp Long An", "6.200 – 6.500"],
-    //   ["...", "..."],
-    // ],
     tableData: [],
   };
 
@@ -42,6 +31,7 @@ const RicePrice = ({ navigation }) => {
       // setLoading(true);
       const data = await getRicePrice();
       // console.log("Rice Price data: ", data);
+      await data.sort((a, b) => a.rice.localeCompare(b.rice));
       setRicePriceData(data);
       // setLoading(false);
     } catch (err) {
@@ -56,7 +46,7 @@ const RicePrice = ({ navigation }) => {
   for (let i = 0; i < ricePriceData.length; i++) {
     const rowData = [];
     rowData.push(ricePriceData[i].rice, ricePriceData[i].price);
-    tableData.push(rowData);
+    state.tableData.push(rowData);
   }
 
   return (

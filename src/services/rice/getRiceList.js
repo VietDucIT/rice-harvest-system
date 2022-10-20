@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const getRiceList = () => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(`${REQUEST_URL}/rice/rice-list`);
+    const { data, status } = await axios.get(`${REQUEST_URL}/rice/list`);
     // console.log('Data getRiceList: ', data);
     // console.log('Status: ', status);
 

@@ -67,14 +67,14 @@ const CurrentWeather = ({ navigation }) => {
   // Get full data
   const getAPI = useCallback(async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const data = await getWeatherByCoord(
         location.longitude,
         location.latitude
       );
       // console.log("From CurrentWeather: ", data);
       setWeatherData(data);
-      setLoading(false);
+      // setLoading(false);
     } catch (err) {
       console.log("Can not call API");
     }

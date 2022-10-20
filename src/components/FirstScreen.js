@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../json/nameList";
@@ -85,17 +85,26 @@ const FirstScreen = ({ navigation }) => {
 
       // console.log("Data: ", user);
       let dataAPI = await logIn(user);
-      // console.log("Data API: ", dataAPI);
-      // HANDLE IF DATA API SEND ERROR (CODE 500)
-      Alert.alert("Thông báo", "Đăng nhập thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      // console.log("Data from BE: ", dataAPI);
+      Alert.alert(
+        `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
+        "Bạn đã đăng nhập thành công.",
+        [
+          {
+            text: "Tiếp tục",
+            style: "cancel",
+          },
+        ]
+      );
       navigation.navigate(nameList.mainScreen);
       // setLoading(false);
     } catch (err) {
+      Alert.alert(`Thông báo`, "Không tìm thấy tài khoản, vui lòng nhập lại.", [
+        {
+          text: "Nhập lại",
+          style: "cancel",
+        },
+      ]);
       console.log("Error while Logging In.");
     }
   };
@@ -190,7 +199,7 @@ const FirstScreen = ({ navigation }) => {
               label="Click me"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.riceBuyingAreas)}
+              onPress={() => navigation.navigate(nameList.mainScreen)}
             />
           </View>
         </View>

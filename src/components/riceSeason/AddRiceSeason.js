@@ -153,7 +153,7 @@ const AddRiceSeason = ({ navigation }) => {
     } else {
       setIsDisableBtn(true);
     }
-  }, [riceField]);
+  }, [riceSeason]);
 
   const handleAdd = async () => {
     let err = false;

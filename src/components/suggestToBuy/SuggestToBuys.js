@@ -117,7 +117,7 @@ const SuggestToBuys = ({ navigation }) => {
           <SearchBar placeholder="Nhập tên nông dân" />
 
           <View marginT-20>
-            {suggestList.map((item) => (
+            {suggestArray.map((item) => (
               <View
                 style={styles.riceSeasonItem}
                 padding-5
