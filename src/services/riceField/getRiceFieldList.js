@@ -7,7 +7,7 @@ const getRiceFieldList = (idFarmer) => {
     const { data, status } = await axios.get(
       `${REQUEST_URL}/rice-field/${idFarmer}/list`
     );
-    // console.log('Data getRiceFieldList: ', data);
+    // console.log("Data getRiceFieldList: ", data);
     // console.log('Status: ', status);
 
     if (status === 200) {

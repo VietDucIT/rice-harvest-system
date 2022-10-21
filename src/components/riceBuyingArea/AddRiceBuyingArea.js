@@ -6,9 +6,9 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Incubator, Text, View } from "react-native-ui-lib";
+import { Incubator, Picker, Text, View } from "react-native-ui-lib";
 
-import nameList from "../../json/nameList";
+// import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
@@ -17,12 +17,30 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addRiceBuyingArea from "../../services/riceBuyingArea/addRiceBuyingArea";
+import getAddressData from "../../services/address/getAddressData";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
 const AddRiceBuyingArea = ({ navigation }) => {
+  // call API to get Address data
+  const [address, setAddress] = useState([]);
+  const getAddress = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getAddressData();
+      // console.log("Address data: ", data);
+      setAddress(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Address data.");
+    }
+  }, []);
+  useEffect(() => {
+    getAddress();
+  }, [getAddress]);
+
   const initState = {
     name: "",
     village: "",
@@ -36,7 +54,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    text = text.trim();
+    // text = text.trim();
     let message = "";
     if (text === "" && field === "name") {
       message = "* Vui lòng nhập tên khu vực.";
@@ -89,7 +107,8 @@ const AddRiceBuyingArea = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.riceBuyingAreas);
+      navigation.goBack();
+      // navigation.navigate(nameList.riceBuyingAreas);
       // setLoading(false);
     } catch (err) {
       console.log("Error while adding Rice Buying Area.");
@@ -136,6 +155,140 @@ const AddRiceBuyingArea = ({ navigation }) => {
 
             {/* Address */}
             <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Địa chỉ:
+              </TextR>
+
+              <View flex style={styles.addressContainer}>
+                {/* Province */}
+                <View marginH-20 style={styles.addressItem}>
+                  <Picker
+                    migrateTextField
+                    text70
+                    placeholder={"Chọn tỉnh"}
+                    value={riceBuyingArea.province}
+                    onChange={(text) => {
+                      console.log(text.value);
+                      setRiceBuyingArea({
+                        ...riceBuyingArea,
+                        province: text.value,
+                        town: "",
+                        commune: "",
+                        village: "",
+                      });
+                    }}
+                    style={styles.textField}
+                  >
+                    {address.map((item, index) => (
+                      <Picker.Item
+                        key={index}
+                        value={item.name}
+                        label={item.name}
+                      />
+                    ))}
+                  </Picker>
+                  <Text red style={styles.errorMessage}>
+                    {error.province}
+                  </Text>
+                </View>
+
+                {/* Town */}
+                {riceBuyingArea.province && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn huyện"}
+                      value={riceBuyingArea.town}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setRiceBuyingArea({
+                          ...riceBuyingArea,
+                          town: text.value,
+                          commune: "",
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find(
+                          (element) => element.name === riceBuyingArea.province
+                        )
+                        .districts.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.town}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Commune */}
+                {riceBuyingArea.town && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn xã"}
+                      value={riceBuyingArea.commune}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setRiceBuyingArea({
+                          ...riceBuyingArea,
+                          commune: text.value,
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find(
+                          (element) => element.name === riceBuyingArea.province
+                        )
+                        .districts.find(
+                          (element2) => element2.name === riceBuyingArea.town
+                        )
+                        .wards.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.commune}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Village */}
+                {riceBuyingArea.commune && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <TextField
+                      text70
+                      grey10
+                      value={riceBuyingArea.village}
+                      onChangeText={(text) => onChange(text, "village")}
+                      placeholder="Ấp"
+                      containerStyle={{ marginBottom: 10 }}
+                      style={[styles.addressItem, styles.textField]}
+                      autoCapitalize="words"
+                    />
+                    <Text red style={styles.errorMessage}>
+                      {error.village}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
+            {/* <View marginT-10>
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
@@ -229,7 +382,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
-            </View>
+            </View> */}
 
             {/* Description */}
             <View marginT-10>

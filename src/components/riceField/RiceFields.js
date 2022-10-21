@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -47,7 +47,7 @@ const RiceFields = ({ navigation }) => {
 
   // delete a Rice Field
   const handleDelete = (id) => {
-    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+    Alert.alert("Xác nhận", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
       {
         text: "Quay lại",
         style: "cancel",
@@ -67,7 +67,7 @@ const RiceFields = ({ navigation }) => {
                 style: "cancel",
               },
             ]);
-            navigation.navigate(nameList.riceFields);
+            navigation.goBack();
             // setLoading(false);
           } catch (err) {
             console.log("Error while deleting Rice Field.");
@@ -109,22 +109,28 @@ const RiceFields = ({ navigation }) => {
                 padding-5
                 marginV-8
                 marginH-16
-                key={item.id}
+                key={item._id}
               >
-                <Text text70>Mẫu ruộng số {item.id}</Text>
+                <Text text70>
+                  Mẫu ruộng số {`${item._id.substring(0, 15)}...`}
+                </Text>
                 <View flex right style={styles.controllContainer}>
                   <Text
                     green
                     text70
                     onPress={() =>
                       navigation.navigate(nameList.riceFieldInfo, {
-                        idRiceField: item.id,
+                        idRiceField: item._id,
                       })
                     }
                   >
                     Xem
                   </Text>
-                  <Text text70 onPress={handleDelete} style={styles.deleteBtn}>
+                  <Text
+                    text70
+                    onPress={() => handleDelete(item._id)}
+                    style={styles.deleteBtn}
+                  >
                     Xóa
                   </Text>
                 </View>

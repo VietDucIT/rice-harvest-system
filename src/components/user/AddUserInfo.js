@@ -24,6 +24,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addUser from "../../services/user/addUser";
+import getAddressData from "../../services/address/getAddressData";
 
 StyleInit();
 
@@ -36,6 +37,23 @@ const AddUserInfo = ({ navigation }) => {
   for (let year = currentYear; year >= 1922; year--) {
     yearArray.push(year.toString());
   }
+
+  // call API to get Address data
+  const [address, setAddress] = useState([]);
+  const getAddress = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getAddressData();
+      // console.log("Address data: ", data);
+      setAddress(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Address data.");
+    }
+  }, []);
+  useEffect(() => {
+    getAddress();
+  }, [getAddress]);
 
   const initState = {
     name: "",
@@ -234,8 +252,9 @@ const AddUserInfo = ({ navigation }) => {
                 }
                 style={styles.textField}
               >
+                {/* value={user.item} ??? */}
                 {yearArray.map((item, index) => (
-                  <Picker.Item key={index} value={user.item} label={item} />
+                  <Picker.Item key={index} value={item} label={item} />
                 ))}
               </Picker>
               <Text red style={styles.errorMessage}>
@@ -245,6 +264,136 @@ const AddUserInfo = ({ navigation }) => {
 
             {/* Address */}
             <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Địa chỉ:
+              </TextR>
+
+              <View flex style={styles.addressContainer}>
+                {/* Province */}
+                <View marginH-20 style={styles.addressItem}>
+                  <Picker
+                    migrateTextField
+                    text70
+                    placeholder={"Chọn tỉnh"}
+                    value={user.province}
+                    onChange={(text) => {
+                      console.log(text.value);
+                      setUser({
+                        ...user,
+                        province: text.value,
+                        town: "",
+                        commune: "",
+                        village: "",
+                      });
+                    }}
+                    style={styles.textField}
+                  >
+                    {address.map((item, index) => (
+                      <Picker.Item
+                        key={index}
+                        value={item.name}
+                        label={item.name}
+                      />
+                    ))}
+                  </Picker>
+                  <Text red style={styles.errorMessage}>
+                    {error.province}
+                  </Text>
+                </View>
+
+                {/* Town */}
+                {user.province && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn huyện"}
+                      value={user.town}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setUser({
+                          ...user,
+                          town: text.value,
+                          commune: "",
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find((element) => element.name === user.province)
+                        .districts.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.town}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Commune */}
+                {user.town && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn xã"}
+                      value={user.commune}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setUser({
+                          ...user,
+                          commune: text.value,
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find((element) => element.name === user.province)
+                        .districts.find(
+                          (element2) => element2.name === user.town
+                        )
+                        .wards.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.commune}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Village */}
+                {user.commune && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <TextField
+                      text70
+                      grey10
+                      value={user.village}
+                      onChangeText={(text) => onChange(text, "village")}
+                      placeholder="Ấp"
+                      containerStyle={{ marginBottom: 10 }}
+                      style={[styles.addressItem, styles.textField]}
+                      autoCapitalize="words"
+                    />
+                    <Text red style={styles.errorMessage}>
+                      {error.village}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
+            {/* <View marginT-10>
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
@@ -338,7 +487,7 @@ const AddUserInfo = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
-            </View>
+            </View> */}
 
             {/* Phone */}
             <View marginT-10>

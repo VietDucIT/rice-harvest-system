@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Incubator, Text, View } from "react-native-ui-lib";
+import { Incubator, Picker, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
@@ -18,6 +18,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceField from "../../services/riceField/getRiceField";
 import modifyRiceField from "../../services/riceField/modifyRiceField";
+import getAddressData from "../../services/address/getAddressData";
 
 StyleInit();
 
@@ -43,6 +44,23 @@ const ModifyRiceField = ({ navigation, route }) => {
     getRiceFieldData();
   }, [getRiceFieldData]);
 
+  // call API to get Address data
+  const [address, setAddress] = useState([]);
+  const getAddress = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getAddressData();
+      // console.log("Address data: ", data);
+      setAddress(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting Address data.");
+    }
+  }, []);
+  useEffect(() => {
+    getAddress();
+  }, [getAddress]);
+
   const initState = {
     village: "",
     commune: "",
@@ -63,7 +81,7 @@ const ModifyRiceField = ({ navigation, route }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    text = text.trim();
+    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -154,98 +172,135 @@ const ModifyRiceField = ({ navigation, route }) => {
                 Địa chỉ:
               </TextR>
 
-              {/* Village */}
               <View flex style={styles.addressContainer}>
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceField.village}
-                    onChangeText={(text) => onChange(text, "village")}
-                    placeholder="Ấp"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.village}
-                  </Text>
-                </View>
-
-                {/* Commune */}
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceField.commune}
-                    onChangeText={(text) => onChange(text, "commune")}
-                    placeholder="Xã"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.commune}
-                  </Text>
-                </View>
-
-                {/* Town */}
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceField.town}
-                    onChangeText={(text) => onChange(text, "town")}
-                    placeholder="Huyện"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.town}
-                  </Text>
-                </View>
-
                 {/* Province */}
-                <View marginH-20>
-                  <TextField
+                <View marginH-20 style={styles.addressItem}>
+                  <Picker
+                    migrateTextField
                     text70
-                    grey10
+                    placeholder={"Chọn tỉnh"}
                     value={riceField.province}
-                    onChangeText={(text) => onChange(text, "province")}
-                    placeholder="Tỉnh"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
+                    onChange={(text) => {
+                      console.log(text.value);
+                      setRiceField({
+                        ...riceField,
+                        province: text.value,
+                        town: "",
+                        commune: "",
+                        village: "",
+                      });
                     }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
+                    style={styles.textField}
+                  >
+                    {address.map((item, index) => (
+                      <Picker.Item
+                        key={index}
+                        value={item.name}
+                        label={item.name}
+                      />
+                    ))}
+                  </Picker>
                   <Text red style={styles.errorMessage}>
                     {error.province}
                   </Text>
                 </View>
+
+                {/* Town */}
+                {riceField.province && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn huyện"}
+                      value={riceField.town}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setRiceField({
+                          ...riceField,
+                          town: text.value,
+                          commune: "",
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find((element) => element.name === riceField.province)
+                        .districts.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.town}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Commune */}
+                {riceField.town && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <Picker
+                      migrateTextField
+                      text70
+                      placeholder={"Chọn xã"}
+                      value={riceField.commune}
+                      onChange={(text) => {
+                        console.log(text.value);
+                        setRiceField({
+                          ...riceField,
+                          commune: text.value,
+                          village: "",
+                        });
+                      }}
+                      style={styles.textField}
+                    >
+                      {address
+                        .find((element) => element.name === riceField.province)
+                        .districts.find(
+                          (element2) => element2.name === riceField.town
+                        )
+                        .wards.map((item, index) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.name}
+                            label={item.name}
+                          />
+                        ))}
+                    </Picker>
+                    <Text red style={styles.errorMessage}>
+                      {error.commune}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Village */}
+                {riceField.commune && (
+                  <View marginH-20 style={styles.addressItem}>
+                    <TextField
+                      text70
+                      grey10
+                      value={riceField.village}
+                      onChangeText={(text) => onChange(text, "village")}
+                      placeholder="Ấp"
+                      // floatingPlaceholder
+                      // floatOnFocus
+                      // floatingPlaceholderColor={{
+                      //   focus: color.greenColor,
+                      //   default: color.lightGreyColor,
+                      // }}
+                      containerStyle={{ marginBottom: 10 }}
+                      style={[styles.addressItem, styles.textField]}
+                      autoCapitalize="words"
+                    />
+                    <Text red style={styles.errorMessage}>
+                      {error.village}
+                    </Text>
+                  </View>
+                )}
               </View>
             </View>
 
@@ -509,11 +564,12 @@ const styles = StyleSheet.create({
   },
   errorMessage: {},
   addressContainer: {
+    marginTop: 10,
     flexWrap: "wrap",
     flexDirection: "row",
   },
   addressItem: {
-    width: 120,
+    width: 140,
   },
   coordItemContainer: {
     flexWrap: "wrap",

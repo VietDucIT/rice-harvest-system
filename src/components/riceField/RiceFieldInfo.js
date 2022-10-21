@@ -65,7 +65,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mẫu ruộng số: </TextR>
-              <Text>{fieldData.id}</Text>
+              <Text>{fieldData._id}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -100,7 +100,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
               label="Sửa"
               onPress={() =>
                 navigation.navigate(nameList.modifyRiceField, {
-                  idRiceField: fieldData.id,
+                  idRiceField: fieldData._id,
                 })
               }
             />

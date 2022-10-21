@@ -5,6 +5,7 @@ import REQUEST_URL from "../urlToBackend";
 // For which farmer ???
 const addRiceSeason = (riceSeasonData) => {
   return new Promise(async (resolve, reject) => {
+    console.log("Rice Season: ", riceSeasonData);
     const { data, status } = await axios.post(
       `${REQUEST_URL}/rice-season/`,
       riceSeasonData

@@ -76,7 +76,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    text = text.trim();
+    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";

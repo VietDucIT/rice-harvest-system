@@ -15,6 +15,7 @@ import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
 import deleteRiceSeason from "../../services/riceSeason/deleteRiceSeason";
 
 StyleInit();
+// ID Famer to get Rice season
 
 const RiceSeasons = ({ navigation }) => {
   // TÌM KIẾM VỤ MÙA THEO TÊN
@@ -77,7 +78,7 @@ const RiceSeasons = ({ navigation }) => {
   const getRiceSeasonArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceSeasonList();
+      const data = await getRiceSeasonList(idFarmer);
       // console.log("Rice Season list: ", data);
       setRiceSeasonArray(data);
       // setLoading(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
@@ -9,11 +9,33 @@ import UserOptionModal from "./user/UserOptionModal";
 
 import { StyleInit } from "../config/StyleInit";
 
+import checkNewestRicePrice from "../services/ricePrice/checkNewestRicePrice";
+import updateRicePrice from "../services/ricePrice/updateRicePrice";
+
 StyleInit();
 
 const MainScreen = ({ navigation }) => {
   // HANDLE TO GET ROLE
   const role = 0;
+
+  // call API to update Rice Price
+  const updateRicePriceData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const hasNewPost = await checkNewestRicePrice();
+      // console.log("hasNewPost", hasNewPost);
+      if (hasNewPost) {
+        await updateRicePrice();
+      }
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while handle Rice Price data.");
+    }
+  }, []);
+
+  useEffect(() => {
+    updateRicePriceData();
+  }, [updateRicePriceData]);
 
   return (
     <ScrollView>

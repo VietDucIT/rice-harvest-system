@@ -9,7 +9,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/time/getDayTime";
-import getRicePrice from "../../services/rice/getRicePrice";
+import getRicePrice from "../../services/ricePrice/getRicePrice";
 
 StyleInit();
 const { getDateString } = getDayTime();
@@ -19,7 +19,7 @@ const url = "https://congthuong.vn/chu-de/gia-lua-gao-hom-nay.topic";
 const RicePrice = ({ navigation }) => {
   const [ricePriceData, setRicePriceData] = useState([]);
 
-  const date = getDateString(new Date()); // "19/09/2022"
+  const date = getDateString(new Date()); // "19-09-2022"
   const state = {
     tableHead: ["Giống lúa", "Giá (đồng/kg)"],
     tableData: [],
@@ -83,7 +83,7 @@ const RicePrice = ({ navigation }) => {
 
           <View right marginR-15 marginT-10>
             <Text text80>
-              (theo{" "}
+              (Nguồn:{" "}
               <Text green onPress={() => Linking.openURL(url)}>
                 Báo Công thương
               </Text>

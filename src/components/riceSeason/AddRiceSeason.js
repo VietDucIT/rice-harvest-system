@@ -100,7 +100,8 @@ const AddRiceSeason = ({ navigation }) => {
   const currentYear = currentTime.getFullYear();
   let seasonYearArray = [];
   for (let i = currentYear + 1; i >= currentYear - 10; i--) {
-    seasonYearArray.push(i.toString);
+    seasonYearArray.push(i.toString());
+    console.log(seasonYearArray);
   }
 
   const initState = {
@@ -156,6 +157,8 @@ const AddRiceSeason = ({ navigation }) => {
   }, [riceSeason]);
 
   const handleAdd = async () => {
+    console.log("Handle Add 0");
+
     let err = false;
     if (!seasonName) {
       setError({ ...error, seasonName: "* Bắt buộc." });
@@ -205,24 +208,25 @@ const AddRiceSeason = ({ navigation }) => {
       err = true;
     }
 
-    if (err) {
-      try {
-        // setLoading(true);
+    // if (err) {
+    try {
+      // setLoading(true);
 
-        let dataAPI = await addRiceSeason(riceSeason);
-        // console.log("Data API: ", dataAPI);
-        Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
-          {
-            text: "Đóng",
-            style: "cancel",
-          },
-        ]);
-        navigation.navigate(nameList.riceSeasons);
-        // setLoading(false);
-      } catch (err) {
-        console.log("Error while adding Rice Season.");
-      }
+      console.log("Handle Add");
+      let dataAPI = await addRiceSeason(riceSeason);
+      // console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.riceSeasons);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while adding Rice Season.");
     }
+    // }
   };
 
   return (
@@ -310,8 +314,8 @@ const AddRiceSeason = ({ navigation }) => {
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item
                     key={index}
-                    value={item.id}
-                    label={"Mẫu ruộng số " + item.id}
+                    value={item._id}
+                    label={"Mẫu ruộng số " + item._id}
                   />
                 ))}
               </Picker>
@@ -333,9 +337,14 @@ const AddRiceSeason = ({ navigation }) => {
                 }}
                 style={styles.textField}
               >
-                {riceArray.map((item, index) => (
-                  <Picker.Item key={index} value={item} label={item} />
-                ))}
+                {riceArray &&
+                  riceArray.map((item) => (
+                    <Picker.Item
+                      key={item._id}
+                      value={item.rice}
+                      label={item.rice}
+                    />
+                  ))}
               </Picker>
               <Text red style={styles.errorMessage}>
                 {error.rice}
@@ -446,7 +455,8 @@ const AddRiceSeason = ({ navigation }) => {
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
                 label="Thêm"
-                onPress={handleAdd}
+                onPress={() => console.log("Clicked")}
+                // onPress={handleAdd}
                 disabled={isDisableBtn}
               />
             </View>

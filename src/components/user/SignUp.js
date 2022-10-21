@@ -27,7 +27,7 @@ const SignUp = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    text = text.trim();
+    // text = text.trim();
     let message = "";
     if (text === "" && field === "phone") {
       message = "* Vui lòng nhập số điện thoại.";
