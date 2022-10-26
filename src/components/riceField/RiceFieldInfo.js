@@ -35,7 +35,8 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
   useEffect(() => {
     getRiceFieldData();
-  }, [getRiceFieldData]);
+  });
+  // }, [getRiceFieldData]);
 
   // const fieldData = {
   //   id: 1,

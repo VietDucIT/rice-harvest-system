@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Alert,
   Image,
@@ -19,12 +19,12 @@ import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import AddressInput from "../core/AddressInput";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addUser from "../../services/user/addUser";
-import getAddressData from "../../services/address/getAddressData";
 
 StyleInit();
 
@@ -71,6 +71,7 @@ const AddUserInfo = ({ navigation }) => {
   };
   const [user, setUser] = useState(initState);
   const [error, setError] = useState(initState);
+  const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -95,6 +96,7 @@ const AddUserInfo = ({ navigation }) => {
 
   const reset = () => {
     setUser(initState);
+    setIsReset(!isReset);
     setError(initState);
     console.log("Reset completed.");
   };
@@ -135,25 +137,25 @@ const AddUserInfo = ({ navigation }) => {
       err = true;
     }
 
-    if (err) {
-      try {
-        // setLoading(true);
+    // if (err) {
+    try {
+      // setLoading(true);
 
-        // console.log("Data: ", user);
-        let dataAPI = await addUser(user);
-        console.log("Data API: ", dataAPI);
-        Alert.alert("Thông báo", "Thêm người dùng thành công.", [
-          {
-            text: "Đóng",
-            style: "cancel",
-          },
-        ]);
-        navigation.navigate(nameList.userInfo, { idUser: dataAPI._id });
-        // setLoading(false);
-      } catch (err) {
-        console.log("Error while adding User.");
-      }
+      // console.log("Data: ", user);
+      let dataAPI = await addUser(user);
+      console.log("Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Thêm người dùng thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.userInfo, { idUser: dataAPI._id });
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while adding User.");
     }
+    // }
   };
 
   return (
@@ -267,131 +269,10 @@ const AddUserInfo = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
-
-              <View flex style={styles.addressContainer}>
-                {/* Province */}
-                <View marginH-20 style={styles.addressItem}>
-                  <Picker
-                    migrateTextField
-                    text70
-                    placeholder={"Chọn tỉnh"}
-                    value={user.province}
-                    onChange={(text) => {
-                      console.log(text.value);
-                      setUser({
-                        ...user,
-                        province: text.value,
-                        town: "",
-                        commune: "",
-                        village: "",
-                      });
-                    }}
-                    style={styles.textField}
-                  >
-                    {address.map((item, index) => (
-                      <Picker.Item
-                        key={index}
-                        value={item.name}
-                        label={item.name}
-                      />
-                    ))}
-                  </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.province}
-                  </Text>
-                </View>
-
-                {/* Town */}
-                {user.province && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <Picker
-                      migrateTextField
-                      text70
-                      placeholder={"Chọn huyện"}
-                      value={user.town}
-                      onChange={(text) => {
-                        console.log(text.value);
-                        setUser({
-                          ...user,
-                          town: text.value,
-                          commune: "",
-                          village: "",
-                        });
-                      }}
-                      style={styles.textField}
-                    >
-                      {address
-                        .find((element) => element.name === user.province)
-                        .districts.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            value={item.name}
-                            label={item.name}
-                          />
-                        ))}
-                    </Picker>
-                    <Text red style={styles.errorMessage}>
-                      {error.town}
-                    </Text>
-                  </View>
-                )}
-
-                {/* Commune */}
-                {user.town && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <Picker
-                      migrateTextField
-                      text70
-                      placeholder={"Chọn xã"}
-                      value={user.commune}
-                      onChange={(text) => {
-                        console.log(text.value);
-                        setUser({
-                          ...user,
-                          commune: text.value,
-                          village: "",
-                        });
-                      }}
-                      style={styles.textField}
-                    >
-                      {address
-                        .find((element) => element.name === user.province)
-                        .districts.find(
-                          (element2) => element2.name === user.town
-                        )
-                        .wards.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            value={item.name}
-                            label={item.name}
-                          />
-                        ))}
-                    </Picker>
-                    <Text red style={styles.errorMessage}>
-                      {error.commune}
-                    </Text>
-                  </View>
-                )}
-
-                {/* Village */}
-                {user.commune && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <TextField
-                      text70
-                      grey10
-                      value={user.village}
-                      onChangeText={(text) => onChange(text, "village")}
-                      placeholder="Ấp"
-                      containerStyle={{ marginBottom: 10 }}
-                      style={[styles.addressItem, styles.textField]}
-                      autoCapitalize="words"
-                    />
-                    <Text red style={styles.errorMessage}>
-                      {error.village}
-                    </Text>
-                  </View>
-                )}
-              </View>
+              <AddressInput
+                handleAddress={(user) => setUser({ ...user, ...address })}
+                isReset={isReset}
+              />
             </View>
             {/* <View marginT-10>
               <TextR text70 style={styles.label}>
@@ -617,14 +498,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
-  },
-  errorMessage: {},
-  addressContainer: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
-  addressItem: {
-    width: 120,
   },
   btnContainer: {
     flexDirection: "row",

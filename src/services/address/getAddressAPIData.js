@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const getAddressData = () => {
+const getAddressAPIData = () => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(
       "https://provinces.open-api.vn/api/?depth=3"
     );
-    // console.log('Data getAddressData: ', data);
+    // console.log('Data getAddressAPIData: ', data);
     // console.log('Status: ', status);
 
     if (status === 200) {
@@ -16,4 +16,4 @@ const getAddressData = () => {
   });
 };
 
-export default getAddressData;
+export default getAddressAPIData;

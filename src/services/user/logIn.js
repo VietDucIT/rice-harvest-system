@@ -4,11 +4,12 @@ import REQUEST_URL from "../urlToBackend";
 
 const logIn = (user) => {
   return new Promise(async (resolve, reject) => {
+    console.log("Data logIn: ", user);
     const { data, status } = await axios.post(
       `${REQUEST_URL}/user/login`,
       user
     );
-    // console.log("Data logIn: ", data);
+    console.log("Data logIn: ", data);
     // console.log('Status: ', status);
 
     if (status === 200) {

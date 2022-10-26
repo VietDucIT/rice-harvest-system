@@ -101,7 +101,6 @@ const AddRiceSeason = ({ navigation }) => {
   let seasonYearArray = [];
   for (let i = currentYear + 1; i >= currentYear - 10; i--) {
     seasonYearArray.push(i.toString());
-    console.log(seasonYearArray);
   }
 
   const initState = {
@@ -160,7 +159,7 @@ const AddRiceSeason = ({ navigation }) => {
     console.log("Handle Add 0");
 
     let err = false;
-    if (!seasonName) {
+    if (!riceSeason.seasonName) {
       setError({ ...error, seasonName: "* Bắt buộc." });
       err = false;
     } else {
@@ -168,7 +167,7 @@ const AddRiceSeason = ({ navigation }) => {
       err = true;
     }
 
-    if (!seasonYear) {
+    if (!riceSeason.seasonYear) {
       setError({ ...error, seasonYear: "* Bắt buộc." });
       err = false;
     } else {
@@ -221,7 +220,8 @@ const AddRiceSeason = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.riceSeasons);
+      navigation.goBack();
+      // navigation.navigate(nameList.riceSeasons);
       // setLoading(false);
     } catch (err) {
       console.log("Error while adding Rice Season.");
@@ -315,7 +315,12 @@ const AddRiceSeason = ({ navigation }) => {
                   <Picker.Item
                     key={index}
                     value={item._id}
-                    label={"Mẫu ruộng số " + item._id}
+                    label={
+                      "Mẫu ruộng số " +
+                      (item._id.length < 15
+                        ? item._id.length
+                        : `${item._id.substring(0, 15)}...`)
+                    }
                   />
                 ))}
               </Picker>
@@ -455,8 +460,8 @@ const AddRiceSeason = ({ navigation }) => {
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
                 label="Thêm"
-                onPress={() => console.log("Clicked")}
-                // onPress={handleAdd}
+                // onPress={() => console.log("Clicked")}
+                onPress={handleAdd}
                 disabled={isDisableBtn}
               />
             </View>

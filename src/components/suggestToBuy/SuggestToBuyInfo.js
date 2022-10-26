@@ -124,7 +124,7 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
               label="Sửa"
               onPress={() =>
                 navigation.navigate(nameList.modifySuggestToBuy, {
-                  idSuggestToBuy: suggestToBuyData.id,
+                  idSuggestToBuy: suggestToBuyData._id,
                 })
               }
             />

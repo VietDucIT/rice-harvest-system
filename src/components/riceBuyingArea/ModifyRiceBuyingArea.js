@@ -12,6 +12,7 @@ import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import AddressInput from "../core/AddressInput";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -53,6 +54,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
   };
   const [riceBuyingArea, setRiceBuyingArea] = useState(initState); // to send data to backend
   const [error, setError] = useState(initState);
+  const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -77,6 +79,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
 
   const reset = () => {
     setRiceBuyingArea(buyingAreaData);
+    setIsReset(!isReset);
     setError(initState);
     console.log("Reset completed.");
   };
@@ -109,7 +112,9 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.riceBuyingAreaInfo);
+      navigation.navigate(nameList.riceBuyingAreaInfo, {
+        idRiceBuyingArea: riceBuyingArea._id,
+      });
       // setLoading(false);
     } catch (err) {
       console.log("Error while modifying Rice Buying Area.");
@@ -159,96 +164,13 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
-
-              <View flex style={styles.addressContainer}>
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceBuyingArea.village}
-                    onChangeText={(text) => onChange(text, "village")}
-                    placeholder="Ấp"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.village}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceBuyingArea.commune}
-                    onChangeText={(text) => onChange(text, "commune")}
-                    placeholder="Xã"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.commune}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceBuyingArea.town}
-                    onChangeText={(text) => onChange(text, "town")}
-                    placeholder="Huyện"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.town}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={riceBuyingArea.province}
-                    onChangeText={(text) => onChange(text, "province")}
-                    placeholder="Tỉnh"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.province}
-                  </Text>
-                </View>
-              </View>
+              <AddressInput
+                addressObject={riceBuyingArea}
+                handleAddress={(address) =>
+                  setRiceBuyingArea({ ...riceBuyingArea, ...address })
+                }
+                isReset={isReset}
+              />
             </View>
 
             {/* Description */}
@@ -301,14 +223,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
-  },
-  errorMessage: {},
-  addressContainer: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
-  addressItem: {
-    width: 120,
   },
   btnContainer: {
     flexDirection: "row",

@@ -96,14 +96,14 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   const getSuggestToBuyListData = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getSuggestToBuyListForRiceSeason(seasonData.id);
+      const data = await getSuggestToBuyListForRiceSeason(seasonData._id);
       // console.log("Suggest To Buy list: ", data);
       setSuggestList(data);
       // setLoading(false);
     } catch (err) {
       console.log("Error while getting Suggest To Buy list.");
     }
-  }, [seasonData.id]);
+  }, [seasonData._id]);
 
   useEffect(() => {
     getSuggestToBuyListData();
@@ -173,7 +173,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
               label="Sửa"
               onPress={() =>
                 navigation.navigate(nameList.modifyRiceSeason, {
-                  idRiceSeason: seasonData.id,
+                  idRiceSeason: seasonData._id,
                 })
               }
             />
@@ -195,7 +195,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                         padding-5
                         marginV-8
                         marginH-16
-                        key={item.id}
+                        key={item._id}
                       >
                         <TextR>
                           <TextR style={styles.traderName}>

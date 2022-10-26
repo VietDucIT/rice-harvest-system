@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, StyleSheet, Text as TextR } from "react-native";
+import { Alert, Image, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -19,34 +19,14 @@ StyleInit();
 const RiceBuyingAreas = ({ navigation }) => {
   // const initArray = [
   //   {
-  //     id: 1,
+  //     _id: 1,
   //     name: "Khu vực 1",
+  //     province: "Tỉnh Sóc Trăng",
+  //     town: "Huyện Châu Thành",
+  //     commune: "Xã Thiện Mỹ",
+  //     village: "Ấp Mỹ Đức",
   //     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
   //     description: "Bờ đông kênh Cầu Tre.",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Khu vực 2",
-  //     address: "Mỹ Đức, Mỹ Hương, Mỹ Tú, Sóc Trăng",
-  //     description: "Bờ tây kênh Cầu Tre.",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Khu vực 3",
-  //     address: "An Tập, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //     description: "Khu vực kênh Giao Thông.",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Khu vực 4",
-  //     address: "Mỹ Tân, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //     description: "Khu vực từ nhà thờ Ba Rinh đến cầu 6 Long.",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Khu vực 5",
-  //     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //     description: "Khu vực Ngã 4 Mỹ Đức.",
   //   },
   // ];
 
@@ -68,11 +48,12 @@ const RiceBuyingAreas = ({ navigation }) => {
 
   useEffect(() => {
     getRiceBuyingAreaArray();
-  }, [getRiceBuyingAreaArray]);
+  });
+  // }, [getRiceBuyingAreaArray]);
 
-  // delete a Rice Field
+  // delete a Rice Buying Area
   const handleDelete = (id) => {
-    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa khu vực thu mua này?", [
       {
         text: "Quay lại",
         style: "cancel",
@@ -82,20 +63,19 @@ const RiceBuyingAreas = ({ navigation }) => {
         onPress: async () => {
           try {
             // setLoading(true);
-            let dataAPI = await deleteRiceField(id);
+            let dataAPI = await deleteRiceBuyingArea(id);
             // console.log("Data API: ", dataAPI);
 
-            // SET STATUS FOR THIS ???
-            Alert.alert("Thông báo", "Đã xóa mẫu ruộng này.", [
+            Alert.alert("Thông báo", "Đã xóa khu vực thu mua này.", [
               {
                 text: "Đóng",
                 style: "cancel",
               },
             ]);
-            navigation.navigate(nameList.riceFields);
+            navigation.navigate(nameList.riceBuyingAreas);
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Rice Field.");
+            console.log("Error while deleting Rice Buying Area.");
           }
         },
       },
@@ -135,23 +115,38 @@ const RiceBuyingAreas = ({ navigation }) => {
               key={index}
             >
               <TextR style={styles.riceBuyingAreaName}>{item.name}</TextR>
-              <View flex style={styles.subContainer}>
-                <Text text80>
-                  {item.address.length <= 40
+              <View style={styles.subContainer}>
+                <View style={styles.address}>
+                  <Text text80>
+                    {/* {item.address.length <= 40
                     ? `${item.address}`
-                    : `${item.address.substring(0, 39)}...`}
-                </Text>
+                    : `${item.address.substring(0, 39)}...`} */}
+                    {item.village +
+                      ", " +
+                      item.commune +
+                      ", " +
+                      item.town +
+                      ", " +
+                      item.province}
+                  </Text>
+                </View>
                 <View flex right style={styles.controllContainer}>
                   <Text
                     green
                     text70
                     onPress={() =>
-                      navigation.navigate(nameList.riceBuyingAreaInfo)
+                      navigation.navigate(nameList.riceBuyingAreaInfo, {
+                        idRiceBuyingArea: item._id,
+                      })
                     }
                   >
                     Xem
                   </Text>
-                  <Text text70 onPress={handleDelete} style={styles.deleteBtn}>
+                  <Text
+                    text70
+                    onPress={() => handleDelete(item._id)}
+                    style={styles.deleteBtn}
+                  >
                     Xóa
                   </Text>
                 </View>
@@ -177,7 +172,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-
   riceBuyingAreaItem: {
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
@@ -190,6 +184,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+  },
+  address: {
+    paddingRight: 10,
+    width: "80%",
   },
   deleteBtn: {
     color: color.redColor,

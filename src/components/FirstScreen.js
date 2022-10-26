@@ -83,7 +83,7 @@ const FirstScreen = ({ navigation }) => {
     try {
       // setLoading(true);
 
-      // console.log("Data: ", user);
+      console.log("Data First Screen: ", user);
       let dataAPI = await logIn(user);
       // console.log("Data from BE: ", dataAPI);
       Alert.alert(

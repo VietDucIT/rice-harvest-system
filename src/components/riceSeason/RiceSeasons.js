@@ -158,7 +158,7 @@ const RiceSeasons = ({ navigation }) => {
                     padding-5
                     marginV-8
                     marginH-16
-                    key={item.id}
+                    key={item._id}
                   >
                     <TextR style={styles.riceSeasonName}>
                       {item.seasonName} {item.seasonYear}
@@ -175,7 +175,7 @@ const RiceSeasons = ({ navigation }) => {
                           text70
                           onPress={() =>
                             navigation.navigate(nameList.riceSeasonInfo, {
-                              idRiceSeason: item.id,
+                              idRiceSeason: item._id,
                             })
                           }
                         >

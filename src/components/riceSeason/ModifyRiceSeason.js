@@ -302,8 +302,8 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item
                     key={index}
-                    value={item.id}
-                    label={"Mẫu ruộng số " + item.id}
+                    value={item._id}
+                    label={"Mẫu ruộng số " + item._id}
                   />
                 ))}
               </Picker>

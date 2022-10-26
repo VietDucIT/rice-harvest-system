@@ -35,7 +35,8 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
 
   useEffect(() => {
     getRiceBuyingAreaData();
-  }, [getRiceBuyingAreaData]);
+  });
+  // }, [getRiceBuyingAreaData]);
 
   // const buyingAreaData = {
   //   id: 1,
@@ -65,12 +66,12 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên: </TextR>
-              <Text>{buyingAreaData.name}</Text>
+              <Text style={styles.itemContent}>{buyingAreaData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>
+              <Text style={styles.itemContent}>
                 {buyingAreaData.village}, {buyingAreaData.commune},{" "}
                 {buyingAreaData.town}, {buyingAreaData.province}
               </Text>
@@ -78,7 +79,9 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text>{buyingAreaData.description}</Text>
+              <Text style={styles.itemContent}>
+                {buyingAreaData.description}
+              </Text>
             </View>
 
             <View flex style={styles.mapContainer}>
@@ -91,7 +94,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
               label="Sửa"
               onPress={() =>
                 navigation.navigate(nameList.modifyRiceBuyingArea, {
-                  idRiceBuyingArea: buyingAreaData.id,
+                  idRiceBuyingArea: buyingAreaData._id,
                 })
               }
             />
@@ -109,11 +112,17 @@ const styles = StyleSheet.create({
     height: 50,
   },
   itemContainer: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingRight: 10,
   },
   itemLabel: {
     fontWeight: "500",
+  },
+  itemContent: {
+    width: "90%",
+    paddingRight: 10,
   },
   mapContainer: {
     width: "100%",

@@ -123,7 +123,7 @@ const SuggestToBuys = ({ navigation }) => {
                 padding-5
                 marginV-8
                 marginH-16
-                key={item.id}
+                key={item._id}
               >
                 <TextR style={styles.farmerName}>{item.farmerName}</TextR>
                 <View flex style={styles.subContainer}>
@@ -138,7 +138,7 @@ const SuggestToBuys = ({ navigation }) => {
                       text70
                       onPress={() =>
                         navigation.navigate(nameList.suggestToBuyInfo, {
-                          idSuggestToBuy: item.id,
+                          idSuggestToBuy: item._id,
                         })
                       }
                     >

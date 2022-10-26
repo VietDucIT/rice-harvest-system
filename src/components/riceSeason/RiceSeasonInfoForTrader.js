@@ -113,7 +113,7 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
               label="Đề xuất thu mua"
               onPress={() =>
                 navigation.navigate(nameList.suggestToBuy, {
-                  idRiceSeason: seasonData.id,
+                  idRiceSeason: seasonData._id,
                 })
               }
               style={{ width: 200 }}

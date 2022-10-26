@@ -122,7 +122,7 @@ const FindFarmers = ({ navigation }) => {
               padding-5
               marginV-8
               marginH-16
-              key={item.id}
+              key={item._id}
             >
               <TextR style={styles.farmerName}>
                 {item.name} ({item.nickname})
@@ -138,7 +138,7 @@ const FindFarmers = ({ navigation }) => {
                   text70
                   onPress={() =>
                     navigation.navigate(nameList.farmerInfo, {
-                      idFarmer: item.id,
+                      idFarmer: item._id,
                     })
                   }
                 >

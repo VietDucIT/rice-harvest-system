@@ -6,19 +6,19 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Incubator, Picker, Text, View } from "react-native-ui-lib";
+import { Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import AddressInput from "../core/AddressInput";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getRiceField from "../../services/riceField/getRiceField";
 import modifyRiceField from "../../services/riceField/modifyRiceField";
-import getAddressData from "../../services/address/getAddressData";
 
 StyleInit();
 
@@ -44,23 +44,6 @@ const ModifyRiceField = ({ navigation, route }) => {
     getRiceFieldData();
   }, [getRiceFieldData]);
 
-  // call API to get Address data
-  const [address, setAddress] = useState([]);
-  const getAddress = useCallback(async () => {
-    try {
-      // setLoading(true);
-      const data = await getAddressData();
-      // console.log("Address data: ", data);
-      setAddress(data);
-      // setLoading(false);
-    } catch (err) {
-      console.log("Error while getting Address data.");
-    }
-  }, []);
-  useEffect(() => {
-    getAddress();
-  }, [getAddress]);
-
   const initState = {
     village: "",
     commune: "",
@@ -78,6 +61,7 @@ const ModifyRiceField = ({ navigation, route }) => {
   };
   const [riceField, setRiceField] = useState(initState);
   const [error, setError] = useState(initState);
+  const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -100,6 +84,7 @@ const ModifyRiceField = ({ navigation, route }) => {
 
   const reset = () => {
     setRiceField(fieldData);
+    setIsReset(!isReset);
     setError(initState);
     console.log("Reset completed.");
   };
@@ -141,6 +126,9 @@ const ModifyRiceField = ({ navigation, route }) => {
         },
       ]);
       navigation.navigate(nameList.riceFields);
+      navigation.navigate(nameList.riceFieldInfo, {
+        idRiceField: riceField._id,
+      });
       // setLoading(false);
     } catch (err) {
       console.log("Error while modifying Rice Field.");
@@ -171,137 +159,13 @@ const ModifyRiceField = ({ navigation, route }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
-
-              <View flex style={styles.addressContainer}>
-                {/* Province */}
-                <View marginH-20 style={styles.addressItem}>
-                  <Picker
-                    migrateTextField
-                    text70
-                    placeholder={"Chọn tỉnh"}
-                    value={riceField.province}
-                    onChange={(text) => {
-                      console.log(text.value);
-                      setRiceField({
-                        ...riceField,
-                        province: text.value,
-                        town: "",
-                        commune: "",
-                        village: "",
-                      });
-                    }}
-                    style={styles.textField}
-                  >
-                    {address.map((item, index) => (
-                      <Picker.Item
-                        key={index}
-                        value={item.name}
-                        label={item.name}
-                      />
-                    ))}
-                  </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.province}
-                  </Text>
-                </View>
-
-                {/* Town */}
-                {riceField.province && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <Picker
-                      migrateTextField
-                      text70
-                      placeholder={"Chọn huyện"}
-                      value={riceField.town}
-                      onChange={(text) => {
-                        console.log(text.value);
-                        setRiceField({
-                          ...riceField,
-                          town: text.value,
-                          commune: "",
-                          village: "",
-                        });
-                      }}
-                      style={styles.textField}
-                    >
-                      {address
-                        .find((element) => element.name === riceField.province)
-                        .districts.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            value={item.name}
-                            label={item.name}
-                          />
-                        ))}
-                    </Picker>
-                    <Text red style={styles.errorMessage}>
-                      {error.town}
-                    </Text>
-                  </View>
-                )}
-
-                {/* Commune */}
-                {riceField.town && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <Picker
-                      migrateTextField
-                      text70
-                      placeholder={"Chọn xã"}
-                      value={riceField.commune}
-                      onChange={(text) => {
-                        console.log(text.value);
-                        setRiceField({
-                          ...riceField,
-                          commune: text.value,
-                          village: "",
-                        });
-                      }}
-                      style={styles.textField}
-                    >
-                      {address
-                        .find((element) => element.name === riceField.province)
-                        .districts.find(
-                          (element2) => element2.name === riceField.town
-                        )
-                        .wards.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            value={item.name}
-                            label={item.name}
-                          />
-                        ))}
-                    </Picker>
-                    <Text red style={styles.errorMessage}>
-                      {error.commune}
-                    </Text>
-                  </View>
-                )}
-
-                {/* Village */}
-                {riceField.commune && (
-                  <View marginH-20 style={styles.addressItem}>
-                    <TextField
-                      text70
-                      grey10
-                      value={riceField.village}
-                      onChangeText={(text) => onChange(text, "village")}
-                      placeholder="Ấp"
-                      // floatingPlaceholder
-                      // floatOnFocus
-                      // floatingPlaceholderColor={{
-                      //   focus: color.greenColor,
-                      //   default: color.lightGreyColor,
-                      // }}
-                      containerStyle={{ marginBottom: 10 }}
-                      style={[styles.addressItem, styles.textField]}
-                      autoCapitalize="words"
-                    />
-                    <Text red style={styles.errorMessage}>
-                      {error.village}
-                    </Text>
-                  </View>
-                )}
-              </View>
+              <AddressInput
+                addressObject={riceField}
+                handleAddress={(address) =>
+                  setRiceField({ ...riceField, ...address })
+                }
+                isReset={isReset}
+              />
             </View>
 
             {/* Coordinate */}
@@ -561,15 +425,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
-  },
-  errorMessage: {},
-  addressContainer: {
-    marginTop: 10,
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
-  addressItem: {
-    width: 140,
   },
   coordItemContainer: {
     flexWrap: "wrap",

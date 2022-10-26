@@ -43,7 +43,8 @@ const RiceFields = ({ navigation }) => {
 
   useEffect(() => {
     getRiceFieldArray();
-  }, [getRiceFieldArray]);
+  });
+  // }, [getRiceFieldArray]);
 
   // delete a Rice Field
   const handleDelete = (id) => {
@@ -112,7 +113,10 @@ const RiceFields = ({ navigation }) => {
                 key={item._id}
               >
                 <Text text70>
-                  Mẫu ruộng số {`${item._id.substring(0, 15)}...`}
+                  Mẫu ruộng số{" "}
+                  {item._id.length <= 15
+                    ? `${item._id}`
+                    : `${item._id.substring(0, 15)}...`}
                 </Text>
                 <View flex right style={styles.controllContainer}>
                   <Text

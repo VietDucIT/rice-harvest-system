@@ -211,7 +211,7 @@ const FarmerInfo = ({ navigation, route }) => {
                     padding-5
                     marginV-8
                     marginH-16
-                    key={item.id}
+                    key={item._id}
                   >
                     <View flex style={styles.subContainer}>
                       <Text text80 style={styles.riceFieldName}>

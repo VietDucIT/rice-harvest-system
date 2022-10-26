@@ -117,7 +117,7 @@ const UserInfo = ({ navigation, route }) => {
               label="Sửa"
               onPress={() =>
                 navigation.navigate(nameList.modifyUserInfo, {
-                  idUser: userData.id,
+                  idUser: userData._id,
                 })
               }
               style={{ width: 100 }}

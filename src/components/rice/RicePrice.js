@@ -85,7 +85,7 @@ const RicePrice = ({ navigation }) => {
             <Text text80>
               (Nguồn:{" "}
               <Text green onPress={() => Linking.openURL(url)}>
-                Báo Công thương
+                Báo Công Thương
               </Text>
               )
             </Text>
