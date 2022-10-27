@@ -35,8 +35,8 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
   useEffect(() => {
     getRiceFieldData();
-  });
-  // }, [getRiceFieldData]);
+    // });
+  }, [getRiceFieldData]);
 
   // const fieldData = {
   //   id: 1,
@@ -92,7 +92,18 @@ const RiceFieldInfo = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.mapContainer}>
-              <Map />
+              <Map
+                cordinate={{
+                  x1: fieldData.x1,
+                  y1: fieldData.y1,
+                  x2: fieldData.x2,
+                  y2: fieldData.y2,
+                  x3: fieldData.x3,
+                  y3: fieldData.y3,
+                  x4: fieldData.x4,
+                  y4: fieldData.y4,
+                }}
+              />
             </View>
           </View>
 

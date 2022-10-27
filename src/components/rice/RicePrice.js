@@ -19,6 +19,7 @@ const url = "https://congthuong.vn/chu-de/gia-lua-gao-hom-nay.topic";
 
 const RicePrice = ({ navigation }) => {
   const [ricePriceData, setRicePriceData] = useState([]);
+  const [isShowPredict, setIsShowPredict] = useState(false);
 
   const date = getDateString(new Date()); // "19-09-2022"
   const state = {
@@ -99,11 +100,18 @@ const RicePrice = ({ navigation }) => {
               Xem dự báo giá lúa
             </Text>
           </Button> */}
-          <CustomButton
-            label="Xem dự báo giá lúa"
-            onPress={() => setIsShowPredict(!isShowPredict)}
-          />
-          {isShowPredict && <View marginT-20>Đây là dự báo giá lúa.</View>}
+          <View center>
+            <CustomButton
+              label="Xem dự báo giá lúa"
+              onPress={() => setIsShowPredict(!isShowPredict)}
+              style={styles.predictBtn}
+            />
+          </View>
+          {isShowPredict && (
+            <View marginT-20>
+              <Text>Đây là dự báo giá lúa.</Text>
+            </View>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -127,5 +135,8 @@ const styles = StyleSheet.create({
   text: {
     margin: 6,
     textAlign: "center",
+  },
+  predictBtn: {
+    width: 220,
   },
 });

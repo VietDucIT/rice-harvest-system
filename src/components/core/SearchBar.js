@@ -7,7 +7,7 @@ import color from "../../config/color";
 
 const { TextField } = Incubator;
 
-const SearchBar = (handleSearch, ...props) => {
+const SearchBar = ({ handleSearch, ...props }) => {
   const [name, setName] = useState("");
 
   return (

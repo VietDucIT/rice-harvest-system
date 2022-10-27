@@ -79,23 +79,6 @@ const AddRiceSeason = ({ navigation }) => {
     getRiceArray();
   }, [getRiceArray]);
 
-  // const riceArray = [
-  //   "OM 18",
-  //   "OM 5451",
-  //   "ST 24",
-  //   "ST 25",
-  //   "IR 504",
-  //   "Nếp Long An",
-  // ];
-
-  // const stateArray = [
-  //   "Chưa gieo xạ",
-  //   "Đang phát triển",
-  //   "Lúa trổ",
-  //   "Lúa chín",
-  //   "Đã thu hoạch",
-  // ];
-
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
   let seasonYearArray = [];
@@ -156,8 +139,6 @@ const AddRiceSeason = ({ navigation }) => {
   }, [riceSeason]);
 
   const handleAdd = async () => {
-    console.log("Handle Add 0");
-
     let err = false;
     if (!riceSeason.seasonName) {
       setError({ ...error, seasonName: "* Bắt buộc." });
@@ -211,9 +192,8 @@ const AddRiceSeason = ({ navigation }) => {
     try {
       // setLoading(true);
 
-      console.log("Handle Add");
       let dataAPI = await addRiceSeason(riceSeason);
-      // console.log("Data API: ", dataAPI);
+      console.log("Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
         {
           text: "Đóng",
@@ -263,9 +243,9 @@ const AddRiceSeason = ({ navigation }) => {
                     }}
                     style={[styles.seasonName, styles.textField]}
                   >
-                    {seasonNameArray.map((item, index) => (
+                    {seasonNameArray.map((item) => (
                       <Picker.Item
-                        key={index}
+                        key={item._id}
                         value={item.name}
                         label={item.name}
                       />
@@ -287,8 +267,8 @@ const AddRiceSeason = ({ navigation }) => {
                     }}
                     style={[styles.seasonYear, styles.textField]}
                   >
-                    {seasonYearArray.map((item, index) => (
-                      <Picker.Item key={index} value={item} label={item} />
+                    {seasonYearArray.map((item) => (
+                      <Picker.Item key={item} value={item} label={item} />
                     ))}
                   </Picker>
                   <Text red style={styles.errorMessage}>
@@ -311,9 +291,9 @@ const AddRiceSeason = ({ navigation }) => {
                 }}
                 style={styles.textField}
               >
-                {riceFieldArray.map((item, index) => (
+                {riceFieldArray.map((item) => (
                   <Picker.Item
-                    key={index}
+                    key={item._id}
                     value={item._id}
                     label={
                       "Mẫu ruộng số " +
@@ -369,9 +349,9 @@ const AddRiceSeason = ({ navigation }) => {
                 }}
                 style={styles.textField}
               >
-                {seasonStateArray.map((item, index) => (
+                {seasonStateArray.map((item) => (
                   <Picker.Item
-                    key={index}
+                    key={item._id}
                     value={item.name}
                     label={item.name}
                   />

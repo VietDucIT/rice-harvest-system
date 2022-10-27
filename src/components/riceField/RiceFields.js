@@ -43,8 +43,8 @@ const RiceFields = ({ navigation }) => {
 
   useEffect(() => {
     getRiceFieldArray();
-  });
-  // }, [getRiceFieldArray]);
+    // });
+  }, [getRiceFieldArray]);
 
   // delete a Rice Field
   const handleDelete = (id) => {
@@ -99,7 +99,10 @@ const RiceFields = ({ navigation }) => {
           {/* ??? */}
           <SearchBar
             placeholder="Nhập tên ruộng lúa"
-            handleSearch={(name) => setFieldName(name)}
+            handleSearch={(name) => {
+              setFieldName(name);
+              // console.log("Tested");
+            }}
           />
 
           <View marginT-20>

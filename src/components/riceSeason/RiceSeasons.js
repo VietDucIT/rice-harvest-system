@@ -43,33 +43,6 @@ const RiceSeasons = ({ navigation }) => {
   //     timeEnd: "19/12/2022",
   //     totalRice: 900,
   //   },
-  //   {
-  //     id: 3,
-  //     name: "Đông Xuân 2023",
-  //     riceField: "Mẫu ruộng số 2",
-  //     rice: "OM 18",
-  //     timeStart: "19/9/2022",
-  //     timeEnd: "19/12/2022",
-  //     totalRice: 900,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Hè Thu 2023",
-  //     riceField: "Mẫu ruộng số 1",
-  //     rice: "OM 18",
-  //     timeStart: "19/9/2022",
-  //     timeEnd: "19/12/2022",
-  //     totalRice: 900,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Hè Thu 2023",
-  //     riceField: "Mẫu ruộng số 2",
-  //     rice: "ST 25",
-  //     timeStart: "19/9/2022",
-  //     timeEnd: "19/12/2022",
-  //     totalRice: 900,
-  //   },
   // ];
 
   const [riceSeasonArray, setRiceSeasonArray] = useState([]);
@@ -78,7 +51,8 @@ const RiceSeasons = ({ navigation }) => {
   const getRiceSeasonArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceSeasonList(idFarmer);
+      const data = await getRiceSeasonList();
+      // const data = await getRiceSeasonList(idFarmer);
       // console.log("Rice Season list: ", data);
       setRiceSeasonArray(data);
       // setLoading(false);
@@ -165,9 +139,10 @@ const RiceSeasons = ({ navigation }) => {
                     </TextR>
                     <View flex style={styles.subContainer}>
                       <Text text80>
-                        {item.riceField.length <= 40
+                        {item.riceField}
+                        {/* {item.riceField.length <= 40
                           ? `${item.riceField}`
-                          : `${item.riceField.substring(0, 39)}...`}
+                          : `${item.riceField.substring(0, 39)}...`} */}
                       </Text>
                       <View flex right style={styles.controllContainer}>
                         <Text

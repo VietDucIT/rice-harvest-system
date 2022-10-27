@@ -1,5 +1,9 @@
 const seasonState = [
-  // { name: "Chưa gieo sạ", color: "", description: "" },
+  {
+    name: "Chưa gieo sạ",
+    color: "yellow",
+    description: "Giai đoạn trước thời điểm gieo sạ.",
+  },
   {
     name: "Đang phát triển",
     color: "green",
@@ -16,7 +20,7 @@ const seasonState = [
   {
     name: "Đã thu hoạch",
     color: "yellow",
-    description: "Giai đoạn từ sau khi thu hoạch đến lúc gieo sạ vụ mùa mới.",
+    description: "Giai đoạn từ sau khi thu hoạch.",
   },
 ];
 
