@@ -2,10 +2,10 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifyUser = (id, userData) => {
+const modifyUser = (userData) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.post(
-      `${REQUEST_URL}/user/${id}/modify`,
+      `${REQUEST_URL}/user/${userData._id}/modify`,
       userData
     );
     // console.log('Data modifyUser: ', data);

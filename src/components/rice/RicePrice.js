@@ -4,6 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionModal from "../user/UserOptionModal";
+import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -90,6 +91,19 @@ const RicePrice = ({ navigation }) => {
               )
             </Text>
           </View>
+        </View>
+
+        <View marginT-40>
+          {/* <Button link onPress={() => setIsShowPredict(!isShowPredict)} left>
+            <Text green style={styles.link}>
+              Xem dự báo giá lúa
+            </Text>
+          </Button> */}
+          <CustomButton
+            label="Xem dự báo giá lúa"
+            onPress={() => setIsShowPredict(!isShowPredict)}
+          />
+          {isShowPredict && <View marginT-20>Đây là dự báo giá lúa.</View>}
         </View>
       </View>
     </ScrollView>

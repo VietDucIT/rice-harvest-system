@@ -2,10 +2,10 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifySuggestToBuy = (id, suggestToBuyData) => {
+const modifySuggestToBuy = (suggestToBuyData) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.post(
-      `${REQUEST_URL}/suggest-to-buy/${id}/modify`,
+      `${REQUEST_URL}/suggest-to-buy/${suggestToBuyData._id}/modify`,
       suggestToBuyData
     );
     // console.log('Data modifySuggestToBuy: ', data);

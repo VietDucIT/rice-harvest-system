@@ -25,12 +25,15 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addUser from "../../services/user/addUser";
+import modifyUser from "../../services/user/modifyUser";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
-const AddUserInfo = ({ navigation }) => {
+const AddUserInfo = ({ navigation, route }) => {
+  const { idUser } = route.params;
+
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
   let yearArray = [];
@@ -142,9 +145,10 @@ const AddUserInfo = ({ navigation }) => {
       // setLoading(true);
 
       // console.log("Data: ", user);
-      let dataAPI = await addUser(user);
+      // let dataAPI = await addUser(user);
+      let dataAPI = await modifyUser(user, { idUser });
       console.log("Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Thêm người dùng thành công.", [
+      Alert.alert("Thông báo", "Thêm thông tin người dùng thành công.", [
         {
           text: "Đóng",
           style: "cancel",

@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import {
   Incubator,
-  Picker,
   RadioButton,
   RadioGroup,
   Text,
@@ -19,6 +18,7 @@ import nameList from "../../json/nameList";
 
 import UserOptionModal from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
+import AddressInput from "../core/AddressInput";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -73,6 +73,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
   };
   const [user, setUser] = useState(initState);
   const [error, setError] = useState(initState);
+  const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -97,6 +98,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
 
   const reset = () => {
     setUser(userData);
+    setIsReset(!isReset);
     setError(initState);
     console.log("Reset completed.");
   };
@@ -150,7 +152,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.userInfo);
+        navigation.navigate(nameList.userInfo, { idUser: user._id });
         // setLoading(false);
       } catch (err) {
         console.log("Error while modifying User.");
@@ -265,8 +267,15 @@ const ModifyUserInfo = ({ navigation, route }) => {
               <TextR text70 style={styles.label}>
                 Địa chỉ:
               </TextR>
+              <AddressInput
+                addressObject={user}
+                handleAddress={(address) =>
+                  setRiceField({ ...riceField, ...address })
+                }
+                isReset={isReset}
+              />
 
-              <View flex style={styles.addressContainer}>
+              {/* <View flex style={styles.addressContainer}>
                 <View marginH-20>
                   <TextField
                     text70
@@ -354,7 +363,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                     {error.province}
                   </Text>
                 </View>
-              </View>
+              </View> */}
             </View>
 
             {/* Phone */}
@@ -488,14 +497,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
-  },
-  errorMessage: {},
-  addressContainer: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
-  addressItem: {
-    width: 120,
   },
   btnContainer: {
     flexDirection: "row",

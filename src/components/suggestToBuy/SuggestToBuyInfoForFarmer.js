@@ -78,7 +78,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
               ]
             );
             navigation.goBack();
-            // navigation.navigate(nameList.riceSeasonInfo);
+            // navigation.navigate(nameList.riceSeasonInfo, {idRiceSeason: riceSeason._id});
           },
         },
       ]
@@ -102,7 +102,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
             },
           ]);
           navigation.goBack();
-          // navigation.navigate(nameList.riceSeasonInfo);
+          // navigation.navigate(nameList.riceSeasonInfo, {idRiceSeason: riceSeason._id});
         },
       },
     ]);

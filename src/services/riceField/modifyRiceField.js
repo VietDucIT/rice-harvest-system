@@ -2,10 +2,10 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifyRiceField = (id, riceFieldData) => {
+const modifyRiceField = (riceFieldData) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.post(
-      `${REQUEST_URL}/rice-field/${id}/modify`,
+      `${REQUEST_URL}/rice-field/${riceFieldData._id}/modify`,
       riceFieldData
     );
     // console.log('Data modifyRiceField: ', data);

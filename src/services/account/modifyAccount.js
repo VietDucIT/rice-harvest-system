@@ -3,10 +3,10 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifyAccount = (id, accountData) => {
+const modifyAccount = (accountData) => {
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.post(
-      `${REQUEST_URL}/account/${id}/modify`,
+      `${REQUEST_URL}/account/${accountData._id}/modify`,
       accountData
     );
     // console.log('Data modifyAccount: ', data);

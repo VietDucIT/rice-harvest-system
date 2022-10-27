@@ -11,6 +11,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 // ???
 import addUser from "../../services/user/addUser";
+import checkUniquePhone from "../../services/user/checkUniquePhone";
 
 StyleInit();
 
@@ -72,16 +73,36 @@ const SignUp = ({ navigation }) => {
       // setLoading(true);
 
       // console.log("Data: ", user); // OK
-      let dataAPI = await addUser(user);
-      console.log("Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
-      navigation.navigate(nameList.addUserInfo);
-      // setLoading(false);
+      let isExistingPhone = await checkUniquePhone(user.phone);
+      if (isExistingPhone) {
+        Alert.alert(
+          "Thông báo",
+          "Số điện thoại đã đăng ký tài khoản hệ thống, bạn có muốn đăng nhập?",
+          [
+            {
+              text: "Quay lại",
+              style: "cancel",
+            },
+            {
+              text: "Đăng nhập",
+              onPress: () => {
+                navigation.navigate(nameList.firstScreen);
+              },
+            },
+          ]
+        );
+      } else {
+        let dataAPI = await addUser(user);
+        console.log("Data API: ", dataAPI);
+        Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
+          {
+            text: "Đóng",
+            style: "cancel",
+          },
+        ]);
+        navigation.navigate(nameList.addUserInfo, { idUser: user._id });
+        // setLoading(false);
+      }
     } catch (err) {
       console.log("Error while Signing Up.");
     }
