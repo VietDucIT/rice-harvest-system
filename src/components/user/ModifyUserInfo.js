@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import {
   Incubator,
+  Picker,
   RadioButton,
   RadioGroup,
   Text,
@@ -16,7 +17,7 @@ import {
 
 import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import AddressInput from "../core/AddressInput";
 
@@ -163,7 +164,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-60>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View>
           <View center marginT-30>
@@ -269,9 +270,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
               </TextR>
               <AddressInput
                 addressObject={user}
-                handleAddress={(address) =>
-                  setRiceField({ ...riceField, ...address })
-                }
+                handleAddress={(address) => setUser({ ...user, ...address })}
                 isReset={isReset}
               />
 

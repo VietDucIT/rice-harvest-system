@@ -3,7 +3,7 @@ import { Image, Linking, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
@@ -54,7 +54,7 @@ const RicePrice = ({ navigation }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View paddingT-30>
           <View center>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import ColumnItem from "./ColumnItem";
 
@@ -81,7 +81,7 @@ const Calculator = ({ navigation }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View paddingT-50>
           <View center>

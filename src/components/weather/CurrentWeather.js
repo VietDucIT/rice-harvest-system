@@ -97,7 +97,7 @@ const CurrentWeather = ({ navigation }) => {
       {/* <View flex paddingH-25 paddingT-120> */}
       {weatherData && (
         <View flex marginB-50>
-          <UserOptionModal />
+          <UserOptionButton navigation={navigation} />
 
           <View center paddingT-50>
             <View>

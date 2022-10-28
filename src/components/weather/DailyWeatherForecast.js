@@ -179,7 +179,7 @@ const DailyWeatherForecast = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View paddingT-30 marginB-20>
           <View center>

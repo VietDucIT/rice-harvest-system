@@ -4,7 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -154,7 +154,7 @@ const FarmerInfo = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View>
           <View center>

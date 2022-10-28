@@ -10,7 +10,7 @@ import { DateTimePicker, Incubator, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
@@ -164,7 +164,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-60>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View>
           <View center marginT-30>

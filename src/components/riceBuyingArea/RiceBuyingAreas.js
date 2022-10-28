@@ -4,7 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import SearchBar from "../core/SearchBar";
 
@@ -84,7 +84,7 @@ const RiceBuyingAreas = ({ navigation }) => {
 
   return (
     <View flex marginB-60>
-      <UserOptionModal />
+      <UserOptionButton navigation={navigation} />
 
       <View>
         <View center marginT-30>

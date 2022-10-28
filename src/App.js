@@ -123,10 +123,12 @@ export default function App() {
         <Stack.Screen name={nameList.signUp} component={SignUp} />
         <Stack.Screen name={nameList.userInfo} component={UserInfo} />
         {/* ???? */}
-        <Stack.Screen
-          name={nameList.userOptionModal}
-          component={UserOptionModal}
-        />
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+          <Stack.Screen
+            name={nameList.userOptionModal}
+            component={UserOptionModal}
+          />
+        </Stack.Group>
         <Stack.Screen
           name={nameList.currentWeather}
           component={CurrentWeather}

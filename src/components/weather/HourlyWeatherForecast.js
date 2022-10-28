@@ -3,7 +3,7 @@ import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -124,7 +124,7 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View paddingT-30 marginB-20>
           <View center>

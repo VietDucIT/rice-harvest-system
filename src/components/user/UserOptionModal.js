@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Alert, Modal, StyleSheet } from "react-native";
+import React from "react";
+import { Alert, StyleSheet } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import nameList from "../../json/nameList";
 
@@ -15,8 +14,6 @@ import deleteUser from "../../services/user/deleteUser";
 StyleInit();
 
 const UserOptionModal = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
   const handleSignOut = () => {
     Alert.alert("Xác nhận", "Bạn có chắc chắn muốn đăng xuất?", [
       {
@@ -70,70 +67,51 @@ const UserOptionModal = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <View right marginR-10 marginT-10>
-        <Button link onPress={() => setModalVisible(true)}>
-          {/* or "user" */}
-          <FontAwesome5 name="users-cog" size={25} color={color.greenColor} />
-        </Button>
-      </View>
+    <View style={styles.centeredView} flex>
+      <View style={styles.modalView}>
+        <Text text60 green top center>
+          Tùy chọn
+        </Text>
+        <View center>
+          {/* WHERE IS ID USER TO NAVIGATE TO USER INFO */}
+          <Button
+            link
+            style={styles.modalText}
+            onPress={() =>
+              navigation.navigate(nameList.userInfo, { idUser: "123" })
+            }
+            marginV-5
+          >
+            <Text text65>Thông tin cá nhân</Text>
+          </Button>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          // Close modal
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView} flex>
-          <View style={styles.modalView}>
-            <Text text60 green top center>
-              Tùy chọn
-            </Text>
-            <View center>
-              {/* WHERE IS ID USER TO NAVIGATE TO USER INFO */}
-              <Button
-                link
-                style={styles.modalText}
-                onPress={() =>
-                  navigation.navigate(nameList.userInfo, { idUser: "123" })
-                }
-                marginV-5
-              >
-                <Text text65>Thông tin cá nhân</Text>
-              </Button>
+          <Button
+            link
+            style={styles.modalText}
+            onPress={handleSignOut}
+            marginV-5
+          >
+            <Text text65>Đăng xuất</Text>
+          </Button>
 
-              <Button
-                link
-                style={styles.modalText}
-                onPress={handleSignOut}
-                marginV-5
-              >
-                <Text text65>Đăng xuất</Text>
-              </Button>
-
-              <Button
-                link
-                style={styles.modalText}
-                onPress={handleDeleteAccount}
-                marginV-5
-              >
-                <Text text65>Xóa tài khoản</Text>
-              </Button>
-            </View>
-
-            <View right>
-              <CustomButton
-                label="Đóng"
-                onPress={() => setModalVisible(!modalVisible)}
-                style={{ width: 100 }}
-              />
-            </View>
-          </View>
+          <Button
+            link
+            style={styles.modalText}
+            onPress={handleDeleteAccount}
+            marginV-5
+          >
+            <Text text65>Xóa tài khoản</Text>
+          </Button>
         </View>
-      </Modal>
+
+        <View right>
+          <CustomButton
+            label="Đóng"
+            onPress={() => navigation.goBack()}
+            style={{ width: 100 }}
+          />
+        </View>
+      </View>
     </View>
   );
 };

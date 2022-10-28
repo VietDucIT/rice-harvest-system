@@ -4,7 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
 import { StyleInit } from "../../config/StyleInit";
@@ -48,7 +48,7 @@ const UserInfo = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View>
           <View center>

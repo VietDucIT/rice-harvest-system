@@ -10,7 +10,7 @@ import { Incubator, Text, View } from "react-native-ui-lib";
 
 // import nameList from "../../json/nameList";
 
-import UserOptionModal from "../user/UserOptionModal";
+import UserOptionButton from "../user/UserOptionModal";
 import CustomButton from "../core/CustomButton";
 import AddressInput from "../core/AddressInput";
 
@@ -103,7 +103,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
   return (
     <ScrollView>
       <View flex marginB-50>
-        <UserOptionModal />
+        <UserOptionButton navigation={navigation} />
 
         <View paddingT-30>
           <View center>
