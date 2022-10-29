@@ -1,23 +1,23 @@
 import axios from "axios";
 
-import ApiKey from "./apiKey";
+import API_KEY from "./apiKey";
 
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
-const APP_ID = ApiKey;
 
-const getWeatherByCoord = (lon, lat) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios(`${REQUEST_URL}/onecall`, {
-      params: { lat: lat, lon: lon, appid: `${APP_ID}` },
+const getWeatherByCoord = async (lon, lat) => {
+  try {
+    console.log(`Coordinate: (${lat}, ${lon})`);
+    const response = await axios.get(`${REQUEST_URL}/onecall`, {
+      params: { lat: lat, lon: lon, appid: `${API_KEY}` },
     });
-    // console.log('status', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get weather data by coordinate of this city.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get weather data by coordinate: ", {
+      err: JSON.stringify(err),
+    });
+    throw err;
+  }
 };
 
 export default getWeatherByCoord;

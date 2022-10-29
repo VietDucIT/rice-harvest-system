@@ -2,21 +2,19 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifyRiceField = (riceFieldData) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.put(
+const modifyRiceField = async (riceFieldData) => {
+  try {
+    // console.log("Rice Field: ", riceFieldData);
+    const response = await axios.put(
       `${REQUEST_URL}/rice-field/${riceFieldData._id}`,
       riceFieldData
     );
-    // console.log('Data modifyRiceField: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't modify Rice Field.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't modify Rice Field: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default modifyRiceField;

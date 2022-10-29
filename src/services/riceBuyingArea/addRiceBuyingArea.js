@@ -3,21 +3,19 @@ import axios from "axios";
 import REQUEST_URL from "../urlToBackend";
 
 // For which trader ???
-const addRiceBuyingArea = (riceBuyingAreaData) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
+const addRiceBuyingArea = async (riceBuyingAreaData) => {
+  try {
+    // console.log("Rice Buying Area: ", riceBuyingAreaData);
+    const response = await axios.post(
       `${REQUEST_URL}/rice-buying-area/`,
       riceBuyingAreaData
     );
-    // console.log("Data addRiceBuyingArea: ", data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't add Rice Buying Area.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't add Rice Buying Area: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default addRiceBuyingArea;

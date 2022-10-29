@@ -2,20 +2,16 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const getRiceSeason = (id) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(
-      `${REQUEST_URL}/rice-season/${id}`
-    );
-    // console.log('Data getRiceSeason: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get Rice Season data.");
-    }
-  });
+const getRiceSeason = async (id) => {
+  try {
+    // console.log("ID Rice Season: ", id);
+    const response = await axios.get(`${REQUEST_URL}/rice-season/${id}`);
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get Rice Season: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default getRiceSeason;

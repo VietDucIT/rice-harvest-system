@@ -4,7 +4,7 @@ import MapView, { Polygon } from "react-native-maps";
 
 import color from "../../config/color";
 
-const Map = ({ cordinate, ...props }) => {
+const Map = ({ coordinate, ...props }) => {
   // const x1 = props.x1;
   // const y1 = props.y1;
   // const x2 = props.x2;
@@ -13,7 +13,7 @@ const Map = ({ cordinate, ...props }) => {
   // const y3 = props.y3;
   // const x4 = props.x4;
   // const y4 = props.y4;
-  const { x1, y1, x2, y2, x3, y3, x4, y4 } = cordinate;
+  const { x1, y1, x2, y2, x3, y3, x4, y4 } = coordinate;
 
   const pointList = [
     { latitude: x1, longitude: y1 },

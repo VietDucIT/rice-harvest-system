@@ -3,21 +3,20 @@ import axios from "axios";
 import REQUEST_URL from "../urlToBackend";
 
 // Which is Address type, string or object ???
-const getFarmerListByAddress = (address) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(
-      `${REQUEST_URL}/farmer/list-by-address`,
-      { params: address }
-    );
-    // console.log('Data getFarmerListByAddress: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get Farmer list by address.");
-    }
-  });
+const getFarmerListByAddress = async (address) => {
+  try {
+    // console.log("Address: ", address);
+    const response = await axios.get(`${REQUEST_URL}/farmer/list-by-address`, {
+      params: address,
+    });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get Farmer list by address: ", {
+      err: JSON.stringify(err),
+    });
+    throw err;
+  }
 };
 
 export default getFarmerListByAddress;

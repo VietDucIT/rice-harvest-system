@@ -2,21 +2,20 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const getFarmerListByName = (name) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(
-      `${REQUEST_URL}/farmer/list-by-name`,
-      { params: name }
-    );
-    // console.log('Data getFarmerListByName: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get Farmer list by name.");
-    }
-  });
+const getFarmerListByName = async (name) => {
+  try {
+    // console.log("Farmer name: ", name);
+    const response = await axios.get(`${REQUEST_URL}/farmer/list-by-name`, {
+      params: name,
+    });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get Farmer list by name: ", {
+      err: JSON.stringify(err),
+    });
+    throw err;
+  }
 };
 
 export default getFarmerListByName;

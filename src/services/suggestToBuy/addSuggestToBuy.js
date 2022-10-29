@@ -2,21 +2,19 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const addSuggestToBuy = (suggestToBuyData) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
+const addSuggestToBuy = async (suggestToBuyData) => {
+  try {
+    // console.log("Suggest To Buy: ", suggestToBuyData);
+    const response = await axios.post(
       `${REQUEST_URL}/suggest-to-buy/`,
       suggestToBuyData
     );
-    // console.log('Data addSuggestToBuy: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't add Suggest To Buy.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't add Suggest To Buy: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default addSuggestToBuy;

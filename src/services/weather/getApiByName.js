@@ -1,15 +1,14 @@
 import axios from "axios";
 
-import ApiKey from "./apiKey";
+import API_KEY from "./apiKey";
 
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
-const APP_ID = ApiKey;
 
 const getWeatherByName = (city) => {
   // console.log("From getApiByName.js: city = ", city)
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios(`${REQUEST_URL}/weather`, {
-      params: { q: city, appid: `${APP_ID}` },
+    const { data, status } = await axios.get(`${REQUEST_URL}/weather`, {
+      params: { q: city, appid: `${API_KEY}` },
     });
     // console.log("From getApiByName.js: current = ", data);
 
@@ -18,7 +17,7 @@ const getWeatherByName = (city) => {
       const lon = data.coord.lon;
       const { data: fullData, status: fullStatus } = await axios(
         `${REQUEST_URL}/onecall`,
-        { params: { lat: lat, lon: lon, appid: `${APP_ID}` } }
+        { params: { lat: lat, lon: lon, appid: `${API_KEY}` } }
       );
       // console.log("From getApiByName.js: fullData = ", fullData);
       // console.log('fullStatus', fullStatus);

@@ -2,22 +2,16 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const logIn = (user) => {
-  return new Promise(async (resolve, reject) => {
-    console.log("Data logIn: ", user);
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/user/login`,
-      user
-    );
-    console.log("Data logIn: ", data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't Log in.");
-    }
-  });
+const logIn = async (user) => {
+  try {
+    // console.log("Data Login: ", user);
+    const response = await axios.post(`${REQUEST_URL}/user/login`, user);
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't Log in: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default logIn;

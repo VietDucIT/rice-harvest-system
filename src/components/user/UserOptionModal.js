@@ -43,8 +43,7 @@ const UserOptionModal = ({ navigation }) => {
         text: "Chắc chắn",
         onPress: async () => {
           try {
-            // setLoading(true);
-            let dataAPI = await deleteUser(id);
+            let dataAPI = await deleteUser("635cdbb3473273b19559ec3b");
             // console.log("Data API: ", dataAPI);
             Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
               {
@@ -53,7 +52,6 @@ const UserOptionModal = ({ navigation }) => {
               },
             ]);
             navigation.navigate(nameList.signUp);
-            // setLoading(false);
           } catch (err) {
             console.log("Error while deleting User.");
           }

@@ -2,21 +2,19 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifySuggestToBuy = (suggestToBuyData) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.put(
+const modifySuggestToBuy = async (suggestToBuyData) => {
+  try {
+    // console.log("Suggest To Buy: ", suggestToBuyData);
+    const response = await axios.put(
       `${REQUEST_URL}/suggest-to-buy/${suggestToBuyData._id}`,
       suggestToBuyData
     );
-    // console.log('Data modifySuggestToBuy: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't modify Suggest To Buy.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't modify Suggest To Buy: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default modifySuggestToBuy;

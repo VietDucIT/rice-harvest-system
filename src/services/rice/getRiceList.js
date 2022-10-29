@@ -2,18 +2,15 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const getRiceList = () => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(`${REQUEST_URL}/rice/list`);
-    // console.log('Data getRiceList: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get Rice list.");
-    }
-  });
+const getRiceList = async () => {
+  try {
+    const response = await axios.get(`${REQUEST_URL}/rice/list`);
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get Rice list: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default getRiceList;

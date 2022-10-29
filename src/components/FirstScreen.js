@@ -16,31 +16,6 @@ StyleInit();
 const { TextField } = Incubator;
 
 const FirstScreen = ({ navigation }) => {
-  // HANDLE LOG IN
-  // const userArray = [
-  //   {
-  //     username: "Duc",
-  //     password: "123",
-  //   },
-  // ];
-  // const findUsername = (name, array) => {
-  //   for (let i = 0; i < array.length; i++) {
-  //     if (array[i].username === name) return i;
-  //   }
-  //   return -1;
-  // };
-  // const indexItem = findUsername(username, userArray);
-
-  // const checkLogIn = () => {
-  //   if (indexItem < 0) {
-  //     setErrorUsername("* Tên đăng nhập không tồn tại.");
-  //   } else if (userArray[indexItem].password !== password) {
-  //     setErrorPassword("* Mật khẩu không chính xác.");
-  //   } else {
-  //     navigation.navigate(nameList.mainScreen);
-  //   }
-  // };
-
   const initState = {
     phone: "",
     password: "",
@@ -81,9 +56,6 @@ const FirstScreen = ({ navigation }) => {
   // call API
   const handleLogIn = async () => {
     try {
-      // setLoading(true);
-
-      console.log("Data First Screen: ", user);
       let dataAPI = await logIn(user);
       // console.log("Data from BE: ", dataAPI);
       Alert.alert(
@@ -97,7 +69,6 @@ const FirstScreen = ({ navigation }) => {
         ]
       );
       navigation.navigate(nameList.mainScreen);
-      // setLoading(false);
     } catch (err) {
       Alert.alert(`Thông báo`, "Không tìm thấy tài khoản, vui lòng nhập lại.", [
         {

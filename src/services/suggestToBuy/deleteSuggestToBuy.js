@@ -2,20 +2,16 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const deleteSuggestToBuy = (id) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.delete(
-      `${REQUEST_URL}/suggest-to-buy/${id}`
-    );
-    // console.log('Data deleteSuggestToBuy: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't delete Suggest To Buy.");
-    }
-  });
+const deleteSuggestToBuy = async (id) => {
+  try {
+    // console.log("ID Suggest To Buy: ", id);
+    const response = await axios.delete(`${REQUEST_URL}/suggest-to-buy/${id}`);
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't delete Suggest To Buy: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default deleteSuggestToBuy;

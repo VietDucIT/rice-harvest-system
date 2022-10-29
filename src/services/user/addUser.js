@@ -9,7 +9,7 @@ const addUser = async (userData) => {
     // console.log("Response from server: ", response);
     return response.data;
   } catch (err) {
-    console.log("Error from server: ", { err: JSON.stringify(err) });
+    console.log("Can't add User: ", { err: JSON.stringify(err) });
     throw err;
   }
 };

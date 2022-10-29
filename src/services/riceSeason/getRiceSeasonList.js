@@ -17,18 +17,17 @@ import REQUEST_URL from "../urlToBackend";
 //     }
 //   });
 // };
-const getRiceSeasonList = () => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.get(
-      `${REQUEST_URL}/rice-season/123/list`
-    );
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't get Rice Season list.");
-    }
-  });
+const getRiceSeasonList = async () => {
+  // idFarmer
+  try {
+    // console.log("ID Farmer: ", idFarmer);
+    const response = await axios.get(`${REQUEST_URL}/rice-season/123/list`);
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't get Rice Season list: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default getRiceSeasonList;

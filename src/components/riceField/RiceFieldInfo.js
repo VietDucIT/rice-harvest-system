@@ -93,7 +93,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
             <View flex style={styles.mapContainer}>
               <Map
-                cordinate={{
+                coordinate={{
                   x1: fieldData.x1,
                   y1: fieldData.y1,
                   x2: fieldData.x2,

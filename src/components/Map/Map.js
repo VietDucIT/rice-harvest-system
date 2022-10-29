@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { LatLng, LeafletView } from "react-native-leaflet-view";
 
 import color from "../../config/color";
-const cordinate = {
+const coordinate = {
   lat: 37.78825,
   lng: -122.4324,
 };

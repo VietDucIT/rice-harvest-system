@@ -2,21 +2,19 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const modifyUser = (userData) => {
-  return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.put(
+const modifyUser = async (userData) => {
+  try {
+    // console.log("User: ", userData);
+    const response = await axios.put(
       `${REQUEST_URL}/user/${userData._id}`,
       userData
     );
-    // console.log('Data modifyUser: ', data);
-    // console.log('Status: ', status);
-
-    if (status === 200) {
-      resolve(data);
-    } else {
-      reject("Can't modify User.");
-    }
-  });
+    // console.log("Response from server: ", response);
+    return response.data;
+  } catch (err) {
+    console.log("Can't modify User: ", { err: JSON.stringify(err) });
+    throw err;
+  }
 };
 
 export default modifyUser;
