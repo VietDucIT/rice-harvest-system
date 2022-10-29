@@ -4,9 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const deleteAccount = (id) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/account/${id}/delete`
-    );
+    const { data, status } = await axios.delete(`${REQUEST_URL}/account/${id}`);
     // console.log('Data deleteAccount: ', data);
     // console.log('Status: ', status);
 

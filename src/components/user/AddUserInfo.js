@@ -142,15 +142,15 @@ const AddUserInfo = ({ navigation }) => {
       // setLoading(true);
 
       // console.log("Data: ", user);
-      let dataAPI = await addUser(user);
-      console.log("Data API: ", dataAPI);
+      let dataAPI = await addUser(user); // _id of user recently added
+      console.log("ID User recently added: ", dataAPI);
       Alert.alert("Thông báo", "Thêm người dùng thành công.", [
         {
           text: "Đóng",
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.userInfo, { idUser: dataAPI._id });
+      navigation.navigate(nameList.userInfo, { idUser: dataAPI });
       // setLoading(false);
     } catch (err) {
       console.log("Error while adding User.");

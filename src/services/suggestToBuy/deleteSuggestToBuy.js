@@ -4,8 +4,8 @@ import REQUEST_URL from "../urlToBackend";
 
 const deleteSuggestToBuy = (id) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/suggest-to-buy/${id}/delete`
+    const { data, status } = await axios.delete(
+      `${REQUEST_URL}/suggest-to-buy/${id}`
     );
     // console.log('Data deleteSuggestToBuy: ', data);
     // console.log('Status: ', status);

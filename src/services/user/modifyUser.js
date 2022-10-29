@@ -4,8 +4,8 @@ import REQUEST_URL from "../urlToBackend";
 
 const modifyUser = (userData) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/user/${userData._id}/modify`,
+    const { data, status } = await axios.put(
+      `${REQUEST_URL}/user/${userData._id}`,
       userData
     );
     // console.log('Data modifyUser: ', data);

@@ -103,7 +103,7 @@ export default ColumnItem;
 
 const styles = StyleSheet.create({
   sumContainer: {
-    width: 70,
+    width: 65,
     marginBottom: 40,
   },
   item: {

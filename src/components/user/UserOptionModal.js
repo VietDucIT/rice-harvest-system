@@ -74,6 +74,7 @@ const UserOptionModal = ({ navigation }) => {
         </Text>
         <View center>
           {/* WHERE IS ID USER TO NAVIGATE TO USER INFO */}
+          {/* User Info */}
           <Button
             link
             style={styles.modalText}
@@ -85,6 +86,17 @@ const UserOptionModal = ({ navigation }) => {
             <Text text65>Thông tin cá nhân</Text>
           </Button>
 
+          {/* Notifications */}
+          <Button
+            link
+            style={styles.modalText}
+            onPress={() => navigation.navigate(nameList.notification)}
+            marginV-5
+          >
+            <Text text65>Thông báo</Text>
+          </Button>
+
+          {/* Sign out */}
           <Button
             link
             style={styles.modalText}
@@ -94,13 +106,16 @@ const UserOptionModal = ({ navigation }) => {
             <Text text65>Đăng xuất</Text>
           </Button>
 
+          {/* Delete Account */}
           <Button
             link
             style={styles.modalText}
             onPress={handleDeleteAccount}
             marginV-5
           >
-            <Text text65>Xóa tài khoản</Text>
+            <Text text65 red>
+              Xóa tài khoản
+            </Text>
           </Button>
         </View>
 

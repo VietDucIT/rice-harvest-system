@@ -1,11 +1,11 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import color from "../../config/color";
 
-const App = () => (
-  <View flex center>
+const Loader = () => (
+  <View style={styles.container}>
     <ActivityIndicator size="large" color={color.greenColor} />
 
     <Text text70 marginT-20 green>
@@ -14,4 +14,13 @@ const App = () => (
   </View>
 );
 
-export default App;
+export default Loader;
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 250,
+  },
+});

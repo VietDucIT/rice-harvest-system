@@ -65,6 +65,7 @@ const Calculator = ({ navigation }) => {
       [
         {
           text: "Xoá",
+          color: color.redColor,
           onPress: () => {
             setTotal(0);
             setIsReset(!isReset);
@@ -75,6 +76,7 @@ const Calculator = ({ navigation }) => {
           style: "cancel",
         },
       ]
+      // { cancelable: true }  // close when tapping outside of the alert box
     );
   };
 

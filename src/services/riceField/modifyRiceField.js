@@ -4,8 +4,8 @@ import REQUEST_URL from "../urlToBackend";
 
 const modifyRiceField = (riceFieldData) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/rice-field/${riceFieldData._id}/modify`,
+    const { data, status } = await axios.put(
+      `${REQUEST_URL}/rice-field/${riceFieldData._id}`,
       riceFieldData
     );
     // console.log('Data modifyRiceField: ', data);

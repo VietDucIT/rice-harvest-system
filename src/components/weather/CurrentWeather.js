@@ -12,8 +12,8 @@ import * as Location from "expo-location";
 
 import nameList from "../../json/nameList";
 
-// import Loader from "../core/Loader";
-import UserOptionModal from "../user/UserOptionModal";
+import Loader from "../core/Loader";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
@@ -95,7 +95,9 @@ const CurrentWeather = ({ navigation }) => {
   return (
     <ScrollView>
       {/* <View flex paddingH-25 paddingT-120> */}
-      {weatherData && (
+      {weatherData === initWeatherData ? (
+        <Loader />
+      ) : (
         <View flex marginB-50>
           <UserOptionButton navigation={navigation} />
 
@@ -184,8 +186,8 @@ const CurrentWeather = ({ navigation }) => {
             </View>
           </View>
 
-          <View>
-            <View marginV-10 center>
+          <View marginT-10>
+            <View marginV-15 center>
               <CustomButton
                 label="Dự báo thời tiết theo giờ"
                 text55
@@ -199,7 +201,7 @@ const CurrentWeather = ({ navigation }) => {
               />
             </View>
 
-            <View marginV-10 center>
+            <View marginV-15 center>
               <CustomButton
                 label="Dự báo thời tiết theo ngày"
                 text55
@@ -237,6 +239,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   btn: {
-    width: 300,
+    width: 270,
   },
 });

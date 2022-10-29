@@ -14,8 +14,7 @@ StyleInit();
 
 const HourlyWeatherForecast = ({ navigation, route }) => {
   const { hourlyWeatherData, timezone_offset } = route.params;
-  // console.log("From HourlyWeatherForecast 1: ", hourlyWeatherData);
-  // console.log("From HourlyWeatherForecast 2: ", timezone_offset);
+
   const { getDateTimeString } = getDayTime();
 
   const list = () => {
@@ -61,7 +60,9 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
                   size={50}
                   color={color.greenColor}
                 />
-                <Text text80>Lượng mưa</Text>
+                <Text text80 marginT-5>
+                  Lượng mưa
+                </Text>
                 <Text text60>
                   {hourItem.rain ? hourItem.rain["1h"] : 0}{" "}
                   <TextR style={styles.unit}>mm/s</TextR>
@@ -74,7 +75,9 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
                   size={50}
                   color={color.greenColor}
                 />
-                <Text text80>Nhiệt độ</Text>
+                <Text text80 marginT-5>
+                  Nhiệt độ
+                </Text>
                 <Text text60>
                   {Math.round(hourItem.temp - 273.15)}{" "}
                   <TextR style={styles.unit}>&#8451;</TextR>
@@ -83,7 +86,9 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
 
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="wind" size={50} color={color.greenColor} />
-                <Text text80>Sức gió</Text>
+                <Text text80 marginT-5>
+                  Sức gió
+                </Text>
                 <Text text60>
                   {hourItem.wind_speed} <TextR style={styles.unit}>m/s</TextR>
                 </Text>
@@ -95,7 +100,9 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
                   size={50}
                   color={color.greenColor}
                 />
-                <Text text80>Độ ẩm</Text>
+                <Text text80 marginT-5>
+                  Độ ẩm
+                </Text>
                 <Text text60>
                   {hourItem.humidity} <TextR style={styles.unit}>%</TextR>
                 </Text>
@@ -103,13 +110,17 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
 
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="sun" size={50} color={color.greenColor} />
-                <Text text80>Chỉ số UV</Text>
+                <Text text80 marginT-5>
+                  Chỉ số UV
+                </Text>
                 <Text text60>{hourItem.uvi}</Text>
               </View>
 
               <View centerH padding-20 style={styles.weatherItem}>
                 <FontAwesome5 name="cloud" size={50} color={color.greenColor} />
-                <Text text80>Mây che phủ</Text>
+                <Text text80 marginT-5>
+                  Mây che phủ
+                </Text>
                 <Text text60>
                   {hourItem.clouds} <TextR style={styles.unit}>%</TextR>
                 </Text>

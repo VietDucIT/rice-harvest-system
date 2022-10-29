@@ -4,8 +4,8 @@ import REQUEST_URL from "../urlToBackend";
 
 const modifyRiceSeason = (riceSeasonData) => {
   return new Promise(async (resolve, reject) => {
-    const { data, status } = await axios.post(
-      `${REQUEST_URL}/rice-season/${riceSeasonData._id}/modify`,
+    const { data, status } = await axios.put(
+      `${REQUEST_URL}/rice-season/${riceSeasonData._id}`,
       riceSeasonData
     );
     // console.log('Data modifyRiceSeason: ', data);
