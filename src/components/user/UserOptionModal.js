@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
+import * as SecureStore from "expo-secure-store";
 
 import nameList from "../../json/nameList";
 
@@ -9,17 +10,25 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import getUserIdStored from "../../services/user/getUserIdStored";
 import deleteUser from "../../services/user/deleteUser";
 
 StyleInit();
 
 const UserOptionModal = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   const handleSignOut = () => {
     Alert.alert("Xác nhận", "Bạn có chắc chắn muốn đăng xuất?", [
       {
         text: "Đăng xuất",
         onPress: () => {
-          // DO SOMETHING
+          SecureStore.deleteItemAsync("USER_ID");
           Alert.alert("Thông báo", "Bạn đã đăng xuất thành công.", [
             {
               text: "Đóng",
@@ -36,14 +45,13 @@ const UserOptionModal = ({ navigation }) => {
     ]);
   };
 
-  // WHERE IS ID TO DELETE
   const handleDeleteAccount = () => {
     Alert.alert("Xác nhận", "Bạn có chắc chắn muốn xóa tài khoản này?", [
       {
         text: "Chắc chắn",
         onPress: async () => {
           try {
-            let dataAPI = await deleteUser("635cdbb3473273b19559ec3b");
+            let dataAPI = await deleteUser(userId);
             // console.log("Data API: ", dataAPI);
             Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
               {
@@ -71,13 +79,12 @@ const UserOptionModal = ({ navigation }) => {
           Tùy chọn
         </Text>
         <View center>
-          {/* WHERE IS ID USER TO NAVIGATE TO USER INFO */}
           {/* User Info */}
           <Button
             link
             style={styles.modalText}
             onPress={() =>
-              navigation.navigate(nameList.userInfo, { idUser: "123" })
+              navigation.navigate(nameList.userInfo, { idUser: userId })
             }
             marginV-5
           >

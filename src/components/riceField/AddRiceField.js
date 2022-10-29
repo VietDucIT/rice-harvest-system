@@ -18,12 +18,20 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addRiceField from "../../services/riceField/addRiceField";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
 const AddRiceField = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   const initState = {
     village: "",
     commune: "",
@@ -97,6 +105,10 @@ const AddRiceField = ({ navigation }) => {
       setIsDisableBtn(true);
     }
   }, [riceField]);
+
+  useEffect(() => {
+    setRiceField({ ...riceField, farmerId: userId });
+  }, [userId]);
 
   // call API
   const handleAdd = async () => {

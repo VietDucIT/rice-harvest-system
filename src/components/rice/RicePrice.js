@@ -21,7 +21,7 @@ const RicePrice = ({ navigation }) => {
   const [ricePriceData, setRicePriceData] = useState([]);
   const [isShowPredict, setIsShowPredict] = useState(false);
 
-  const date = getDateString(new Date()); // "19-09-2022"
+  const date = getDateString(new Date());
   const state = {
     tableHead: ["Giống lúa", "Giá (đồng/kg)"],
     tableData: [],

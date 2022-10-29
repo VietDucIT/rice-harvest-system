@@ -13,10 +13,18 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getSuggestToBuyList from "../../services/suggestToBuy/getSuggestToBuyList";
 import deleteSuggestToBuy from "../../services/suggestToBuy/deleteSuggestToBuy";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const SuggestToBuys = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   // const suggestList = [
   //   {
   //     id: 1,
@@ -51,7 +59,7 @@ const SuggestToBuys = ({ navigation }) => {
   const getSuggestToBuyArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getSuggestToBuyList();
+      const data = await getSuggestToBuyList(userId);
       // console.log("Suggest To Buy list: ", data);
       setSuggestArray(data);
       // setLoading(false);

@@ -11,12 +11,30 @@ import { StyleInit } from "../config/StyleInit";
 
 import checkNewestRicePrice from "../services/ricePrice/checkNewestRicePrice";
 import updateRicePrice from "../services/ricePrice/updateRicePrice";
+import getUserIdStored from "../services/user/getUserIdStored";
+import getUser from "../services/user/getUser";
 
 StyleInit();
 
 const MainScreen = ({ navigation }) => {
-  // HANDLE TO GET ROLE
-  const role = 0;
+  // get User Info via ID to get ROLE
+  const [userData, setUserData] = useState({});
+  const getUserData = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const userId = await getUserIdStored();
+      console.log("User ID from SecureStore: ", userId);
+      const data = await getUser(userId);
+      // console.log("User data: ", data);
+      setUserData(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("Error while getting User data.");
+    }
+  }, []);
+  useEffect(() => {
+    getUserData();
+  }, [getUserData]);
 
   // call API to update Rice Price
   const updateRicePriceData = useCallback(async () => {
@@ -51,7 +69,7 @@ const MainScreen = ({ navigation }) => {
           </View>
           <View center marginV-15>
             <Text text50 green>
-              {role === 0 ? "Nông dân" : "Thương lái"}
+              {userData.role === 0 ? "Nông dân" : "Thương lái"}
             </Text>
           </View>
         </View>
@@ -75,7 +93,7 @@ const MainScreen = ({ navigation }) => {
             />
           </View>
 
-          {role === 0 && (
+          {userData.role === 0 && (
             <View marginV-15 center>
               <CustomButton
                 label="Quản lý ruộng lúa"
@@ -86,7 +104,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
-          {role === 0 && (
+          {userData.role === 0 && (
             <View marginV-15 center>
               <CustomButton
                 label="Quản lý vụ mùa"
@@ -97,7 +115,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
-          {role === 1 && (
+          {userData.role === 1 && (
             <View marginV-15 center>
               <CustomButton
                 label="Quản lý khu vực thu mua"
@@ -108,7 +126,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
-          {role === 1 && (
+          {userData.role === 1 && (
             <View marginV-15 center>
               <CustomButton
                 label="Quản lý đề xuất thu mua"
@@ -119,7 +137,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           )}
 
-          {role === 1 && (
+          {userData.role === 1 && (
             <View marginV-15 center>
               <CustomButton
                 label="Tìm kiếm nông dân"

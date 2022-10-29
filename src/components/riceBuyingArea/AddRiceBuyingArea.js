@@ -18,12 +18,20 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addRiceBuyingArea from "../../services/riceBuyingArea/addRiceBuyingArea";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
 const AddRiceBuyingArea = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   const initState = {
     name: "",
     village: "",
@@ -78,6 +86,10 @@ const AddRiceBuyingArea = ({ navigation }) => {
       setIsDisableBtn(true);
     }
   }, [riceBuyingArea]);
+
+  useEffect(() => {
+    setRiceBuyingArea({ ...riceBuyingArea, traderId: userId });
+  }, [userId]);
 
   // call API
   const handleAdd = async () => {

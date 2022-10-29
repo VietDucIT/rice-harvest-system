@@ -18,12 +18,20 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
 import addSuggestToBuy from "../../services/suggestToBuy/addSuggestToBuy";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const { TextField } = Incubator;
 
 const SuggestToBuy = ({ navigation, route }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
 
@@ -102,6 +110,10 @@ const SuggestToBuy = ({ navigation, route }) => {
       setIsDisableBtn(true);
     }
   }, [suggestToBuy]);
+
+  useEffect(() => {
+    setSuggestToBuy({ ...suggestToBuy, traderId: userId });
+  }, [userId]);
 
   const handleSuggest = async () => {
     let hasErr = true;

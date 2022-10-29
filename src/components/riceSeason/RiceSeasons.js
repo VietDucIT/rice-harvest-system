@@ -13,16 +13,23 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
 import deleteRiceSeason from "../../services/riceSeason/deleteRiceSeason";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
-// ID Famer to get Rice season
 
 const RiceSeasons = ({ navigation }) => {
-  // TÌM KIẾM VỤ MÙA THEO TÊN
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
+  // FIND RICE SEASON BY NAME
   const [seasonName, setSeasonName] = useState("");
   let hasResult = true;
 
-  // LỌC
+  // FILTER
 
   // const initArray = [
   //   {
@@ -51,8 +58,7 @@ const RiceSeasons = ({ navigation }) => {
   const getRiceSeasonArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceSeasonList();
-      // const data = await getRiceSeasonList(idFarmer);
+      const data = await getRiceSeasonList(userId);
       // console.log("Rice Season list: ", data);
       setRiceSeasonArray(data);
       // setLoading(false);

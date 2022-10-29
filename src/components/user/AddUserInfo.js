@@ -189,6 +189,7 @@ const AddUserInfo = ({ navigation }) => {
                 value={user.name}
                 onChangeText={(text) => onChange(text, "name")}
                 style={styles.textField}
+                autoCapitalize="words"
               />
               <Text red style={styles.errorMessage}>
                 {error.name}
@@ -206,6 +207,7 @@ const AddUserInfo = ({ navigation }) => {
                 value={user.nickname}
                 onChangeText={(text) => setUser({ ...user, nickname: text })}
                 style={styles.textField}
+                autoCapitalize="words"
               />
             </View>
 

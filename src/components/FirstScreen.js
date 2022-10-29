@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
+import * as SecureStore from "expo-secure-store";
 
 import nameList from "../json/nameList";
 
@@ -57,7 +58,7 @@ const FirstScreen = ({ navigation }) => {
   const handleLogIn = async () => {
     try {
       let dataAPI = await logIn(user);
-      // console.log("Data from BE: ", dataAPI);
+      console.log("Data from BE: ", dataAPI);
       Alert.alert(
         `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
         "Bạn đã đăng nhập thành công.",
@@ -68,6 +69,7 @@ const FirstScreen = ({ navigation }) => {
           },
         ]
       );
+      await SecureStore.setItemAsync("USER_ID", dataAPI._id);
       navigation.navigate(nameList.mainScreen);
     } catch (err) {
       Alert.alert(`Thông báo`, "Không tìm thấy tài khoản, vui lòng nhập lại.", [

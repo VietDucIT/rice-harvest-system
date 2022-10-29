@@ -28,6 +28,7 @@ import getRiceFieldList from "../../services/riceField/getRiceFieldList";
 import getRiceList from "../../services/rice/getRiceList";
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
 import modifyRiceSeason from "../../services/riceSeason/modifyRiceSeason";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
@@ -53,13 +54,19 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     getRiceSeasonData();
   }, [getRiceSeasonData]);
 
-  // HOW TO KNOW WHICH FIELDS A FARMER HAS ???
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);
   const getRiceFieldArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceFieldList();
+      const data = await getRiceFieldList(userId);
       // console.log("Rice Field list: ", data);
       setRiceFieldArray(data);
       // setLoading(false);

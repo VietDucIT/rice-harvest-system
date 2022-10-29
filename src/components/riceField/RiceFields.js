@@ -13,10 +13,18 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceFieldList from "../../services/riceField/getRiceFieldList";
 import deleteRiceField from "../../services/riceField/deleteRiceField";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const RiceFields = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   const [fieldName, setFieldName] = useState("");
 
   // {
@@ -32,7 +40,7 @@ const RiceFields = ({ navigation }) => {
   const getRiceFieldArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceFieldList();
+      const data = await getRiceFieldList(userId);
       // console.log("Rice Fields data: ", data);
       setRiceFieldArray(data);
       // setLoading(false);

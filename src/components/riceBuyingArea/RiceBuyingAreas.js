@@ -13,10 +13,18 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceBuyingAreaList from "../../services/riceBuyingArea/getRiceBuyingAreaList";
 import deleteRiceBuyingArea from "../../services/riceBuyingArea/deleteRiceBuyingArea";
+import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
 const RiceBuyingAreas = ({ navigation }) => {
+  // get UserID from SecureStore
+  let userId = "";
+  getUserIdStored().then((value) => {
+    userId = value;
+    // console.log("User ID from SecureStore: ", value);
+  });
+
   // const initArray = [
   //   {
   //     _id: 1,
@@ -37,7 +45,7 @@ const RiceBuyingAreas = ({ navigation }) => {
   const getRiceBuyingAreaArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceBuyingAreaList();
+      const data = await getRiceBuyingAreaList(userId);
       // console.log("Rice Buying Area list: ", data);
       setRiceBuyingAreaArray(data);
       // setLoading(false);
@@ -48,8 +56,7 @@ const RiceBuyingAreas = ({ navigation }) => {
 
   useEffect(() => {
     getRiceBuyingAreaArray();
-  });
-  // }, [getRiceBuyingAreaArray]);
+  }, [getRiceBuyingAreaArray]);
 
   // delete a Rice Buying Area
   const handleDelete = (id) => {

@@ -17,11 +17,13 @@ import REQUEST_URL from "../urlToBackend";
 //     }
 //   });
 // };
-const getRiceSeasonList = async () => {
+const getRiceSeasonList = async (idFarmer) => {
   // idFarmer
   try {
     // console.log("ID Farmer: ", idFarmer);
-    const response = await axios.get(`${REQUEST_URL}/rice-season/123/list`);
+    const response = await axios.get(
+      `${REQUEST_URL}/rice-season/${idFarmer}/list`
+    );
     // console.log("Response from server: ", response);
     return response.data;
   } catch (err) {
