@@ -59,7 +59,7 @@ const UserOptionModal = ({ navigation }) => {
                 style: "cancel",
               },
             ]);
-            navigation.navigate(nameList.signUp);
+            navigation.navigate(nameList.addUserInfo);
           } catch (err) {
             console.log("Error while deleting User.");
           }

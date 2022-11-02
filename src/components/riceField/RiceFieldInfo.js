@@ -65,8 +65,8 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Mẫu ruộng số: </TextR>
-              <Text>{fieldData._id}</Text>
+              <TextR style={styles.itemLabel}>Mẫu ruộng: </TextR>
+              <Text>{fieldData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>

@@ -272,7 +272,7 @@ const AddUserInfo = ({ navigation }) => {
                 Địa chỉ:
               </TextR>
               <AddressInput
-                handleAddress={(user) => setUser({ ...user, ...address })}
+                handleAddress={(address) => setUser({ ...user, ...address })}
                 isReset={isReset}
               />
             </View>

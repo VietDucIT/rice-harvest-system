@@ -33,6 +33,7 @@ const AddRiceField = ({ navigation }) => {
   });
 
   const initState = {
+    name: "",
     village: "",
     commune: "",
     town: "",
@@ -87,6 +88,7 @@ const AddRiceField = ({ navigation }) => {
   // handle disable submit btn
   useEffect(() => {
     if (
+      riceField.name &&
       riceField.village &&
       riceField.commune &&
       riceField.town &&
@@ -151,6 +153,24 @@ const AddRiceField = ({ navigation }) => {
           </View>
 
           <View marginH-25 marginT-20>
+            {/* Name */}
+            <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Tên gợi nhớ:
+              </TextR>
+              <TextField
+                text70
+                grey10
+                value={riceField.name}
+                onChangeText={(text) => onChange(text, "name")}
+                style={styles.textField}
+                autoCapitalize="words"
+              />
+              <Text red style={styles.errorMessage}>
+                {error.name}
+              </Text>
+            </View>
+
             {/* Address */}
             <View marginT-10>
               <TextR text70 style={styles.label}>

@@ -12,13 +12,14 @@ StyleInit();
 const { TextField } = Incubator;
 
 const AddressInput = ({ addressObject, handleAddress, isReset }) => {
-  const [address, setAddress] = useState({
+  const initState = {
     province: "",
     town: "",
     commune: "",
     village: "",
-  });
-  const [error, setError] = useState({});
+  };
+  const [address, setAddress] = useState(initState);
+  const [error, setError] = useState(initState);
 
   useEffect(() => {
     if (addressObject) setAddress(addressObject);
@@ -28,11 +29,9 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
   const [addressAPI, setAddressAPI] = useState([]);
   const getAddressAPI = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getAddressAPIData();
       // console.log("AddressAPI data: ", data);
       setAddressAPI(data);
-      // setLoading(false);
     } catch (err) {
       console.log("Error while getting AddressAPI data.");
     }
@@ -87,12 +86,7 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
     if (addressObject) {
       setAddress(addressObject);
     } else {
-      setAddress({
-        province: "",
-        town: "",
-        commune: "",
-        village: "",
-      });
+      setAddress(initState);
     }
   }, [isReset]);
 

@@ -162,7 +162,7 @@ const FirstScreen = ({ navigation }) => {
               label="Đăng ký"
               marginT-5
               style={styles.heading}
-              onPress={() => navigation.navigate(nameList.addUserInfo)} // signUp
+              onPress={() => navigation.navigate(nameList.addUserInfo)} // Sign Up
             />
             {/* Test screen */}
             <Button

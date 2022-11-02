@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Text, View } from "react-native-ui-lib";
+import { Picker, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as Location from "expo-location";
 
@@ -21,6 +21,8 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getDayTime from "../../services/time/getDayTime";
 import getWeatherByCoord from "../../services/weather/getApiByCoord";
+import getAddressAPIData from "../../services/address/getAddressAPIData";
+import convertNameToCoord from "../../services/weather/convertNameToCoord";
 
 import initWeatherData from "../../json/initWeatherData";
 
@@ -32,8 +34,9 @@ const CurrentWeather = ({ navigation }) => {
     getTime(new Date()) + " ngày " + getDateString(new Date())
   );
 
-  // const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
+  const [searchedProvince, setSearchedProvince] = useState("");
   const [location, setLocation] = useState();
   const [errorLocation, setErrorLocation] = useState(null);
 
@@ -49,7 +52,7 @@ const CurrentWeather = ({ navigation }) => {
     })();
   }, []);
 
-  // Không hiển thị ???
+  // NOT SHOW ???
   if (errorLocation) {
     Alert.alert("Lỗi", { errorLocation }, [
       {
@@ -64,17 +67,17 @@ const CurrentWeather = ({ navigation }) => {
 
   const [weatherData, setWeatherData] = useState(initWeatherData);
 
-  // Get full data
+  // Get full weather data
   const getAPI = useCallback(async () => {
     try {
-      // setLoading(true);
+      setLoading(true);
       const data = await getWeatherByCoord(
         location.longitude,
         location.latitude
       );
       // console.log("From CurrentWeather: ", data);
       setWeatherData(data);
-      // setLoading(false);
+      setLoading(false);
     } catch (err) {
       console.log("Can not call API");
     }
@@ -83,6 +86,39 @@ const CurrentWeather = ({ navigation }) => {
   useEffect(() => {
     getAPI();
   }, [getAPI]);
+
+  // call API to get Province list for choosing
+  const [addressAPI, setAddressAPI] = useState([]);
+  const getAddressAPI = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await getAddressAPIData();
+      console.log("AddressAPI data: ");
+      setAddressAPI(data);
+      setLoading(false);
+    } catch (err) {
+      console.log("Error while getting AddressAPI data.");
+    }
+  }, []);
+  useEffect(() => {
+    getAddressAPI();
+  }, [getAddressAPI]);
+
+  const onChangeSearchedProvince = async (text) => {
+    let province = await text.value;
+    if (province.include("Tỉnh ")) {
+      province = await province.slice(5);
+    } else if (province.include("Thành phố ")) {
+      province = await province.slice(10);
+    }
+    console.log(province);
+    setSearchedProvince(province);
+  };
+
+  const handleSearch = async () => {
+    const coord = await convertNameToCoord(searchedProvince);
+    setLocation(coord);
+  };
 
   useEffect(() => {
     setInterval(() => {
@@ -95,7 +131,8 @@ const CurrentWeather = ({ navigation }) => {
   return (
     <ScrollView>
       {/* <View flex paddingH-25 paddingT-120> */}
-      {weatherData === initWeatherData ? (
+      {/* {weatherData === initWeatherData ? ( */}
+      {isLoading ? (
         <Loader />
       ) : (
         <View flex marginB-50>
@@ -115,7 +152,41 @@ const CurrentWeather = ({ navigation }) => {
               <Text center marginT-10>
                 {currentTime}
               </Text>
+              {searchedProvince && (
+                <Text center marginT-10>
+                  {searchedProvince}
+                </Text>
+              )}
             </View>
+          </View>
+
+          {/* Search Bar */}
+          <View flex center style={styles.searchContainer}>
+            <View marginH-20 style={styles.searchBox}>
+              <Picker
+                migrateTextField
+                text70
+                placeholder={"Chọn tỉnh cần tìm..."}
+                value={searchedProvince}
+                onChange={onChangeSearchedProvince}
+                style={styles.textField}
+              >
+                {addressAPI.map((item, index) => (
+                  <Picker.Item
+                    key={index}
+                    value={item.name}
+                    label={item.name}
+                  />
+                ))}
+              </Picker>
+            </View>
+
+            <CustomButton
+              label="Tìm"
+              text55
+              onPress={handleSearch}
+              style={{ width: 70 }}
+            />
           </View>
 
           <View flex center style={styles.weatherContainer}>
@@ -227,7 +298,32 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  searchContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  searchBox: {
+    borderWidth: 0.5,
+    borderColor: color.lightGreyColor,
+    borderRadius: 10,
+    paddingTop: 5,
+    paddingLeft: 10,
+    borderRightWidth: 0,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+  },
+  // searchBtn: {
+  //   height: 40,
+  //   borderWidth: 1,
+  //   borderLeftWidth: 0,
+  //   borderColor: color.lightGreyColor,
+  //   borderRadius: 0,
+  //   borderTopRightRadius: 20,
+  //   borderBottomRightRadius: 20,
+  //   backgroundColor: color.greenColor,
+  // },
   weatherContainer: {
+    marginTop: 30,
     flexDirection: "row",
     flexWrap: "wrap",
   },

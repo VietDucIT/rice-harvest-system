@@ -38,7 +38,6 @@ import SuggestToBuys from "./components/suggestToBuy/SuggestToBuys";
 
 import AddUserInfo from "./components/user/AddUserInfo";
 import ModifyUserInfo from "./components/user/ModifyUserInfo";
-import SignUp from "./components/user/SignUp";
 import UserInfo from "./components/user/UserInfo";
 import UserOptionModal from "./components/user/UserOptionModal";
 
@@ -120,7 +119,6 @@ export default function App() {
           name={nameList.modifyUserInfo}
           component={ModifyUserInfo}
         />
-        <Stack.Screen name={nameList.signUp} component={SignUp} />
         <Stack.Screen name={nameList.userInfo} component={UserInfo} />
         {/* ???? */}
         <Stack.Group screenOptions={{ presentation: "modal" }}>

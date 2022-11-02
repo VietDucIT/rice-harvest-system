@@ -121,13 +121,13 @@ const RiceFields = ({ navigation }) => {
                 padding-5
                 marginV-8
                 marginH-16
-                key={item._id}
+                key={item.name}
               >
                 <Text text70>
-                  Mẫu ruộng số{" "}
-                  {item._id.length <= 15
-                    ? `${item._id}`
-                    : `${item._id.substring(0, 15)}...`}
+                  Mẫu ruộng{" "}
+                  {item.name.length <= 15
+                    ? `${item.name}`
+                    : `${item.name.substring(0, 15)}...`}
                 </Text>
                 <View flex right style={styles.controllContainer}>
                   <Text

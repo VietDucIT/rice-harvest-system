@@ -10,7 +10,7 @@ import { Incubator, Text, View } from "react-native-ui-lib";
 
 // import nameList from "../../json/nameList";
 
-import UserOptionButton from "../user/UserOptionModal";
+import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import AddressInput from "../core/AddressInput";
 
