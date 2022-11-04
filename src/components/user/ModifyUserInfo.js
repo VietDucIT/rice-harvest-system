@@ -253,7 +253,11 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 text70
                 placeholder={"Chọn năm"}
                 value={user.birthYear}
-                onChange={(year) => setUser({ ...user, birthYear: year })}
+                // onChange={(year) => setUser({ ...user, birthYear: year })}
+                onChange={(year) => {
+                  console.log("Birth year: ", year.label);
+                  setUser({ ...user, birthYear: Number(year.label) });
+                }}
                 style={styles.textField}
               >
                 {yearArray.map((item, index) => (

@@ -251,9 +251,10 @@ const AddUserInfo = ({ navigation }) => {
                 text70
                 placeholder={"Chọn năm"}
                 value={user.birthYear}
-                onChange={(year) =>
-                  setUser({ ...user, birthYear: Number(year.label) })
-                }
+                onChange={(year) => {
+                  console.log("Birth year: ", year.label);
+                  setUser({ ...user, birthYear: Number(year.label) });
+                }}
                 style={styles.textField}
               >
                 {/* value={user.item} ??? */}

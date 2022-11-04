@@ -79,7 +79,7 @@ const CurrentWeather = ({ navigation }) => {
       setWeatherData(data);
       setLoading(false);
     } catch (err) {
-      console.log("Can not call API");
+      console.log("Can't call weather API.");
     }
   }, [location]);
 
@@ -106,12 +106,12 @@ const CurrentWeather = ({ navigation }) => {
 
   const onChangeSearchedProvince = async (text) => {
     let province = await text.value;
-    if (province.include("Tỉnh ")) {
+    if (province.includes("Tỉnh ")) {
       province = await province.slice(5);
-    } else if (province.include("Thành phố ")) {
+    } else if (province.includes("Thành phố ")) {
       province = await province.slice(10);
     }
-    console.log(province);
+    console.log("Searching: ", province);
     setSearchedProvince(province);
   };
 
@@ -152,11 +152,11 @@ const CurrentWeather = ({ navigation }) => {
               <Text center marginT-10>
                 {currentTime}
               </Text>
-              {searchedProvince && (
+              {/* {searchedProvince && (
                 <Text center marginT-10>
                   {searchedProvince}
                 </Text>
-              )}
+              )} */}
             </View>
           </View>
 
