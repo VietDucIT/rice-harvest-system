@@ -27,7 +27,6 @@ const RicePrice = ({ navigation }) => {
   // table present Rice Price of today
   const table1 = {
     tableHead: ["Giống lúa", "Giá (đồng/kg)"],
-    tableTitle: ["Title", "Title2", "Title3", "Title4"],
     tableData: [],
   };
   // table present Rice Price Prediction

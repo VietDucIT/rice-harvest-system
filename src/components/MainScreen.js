@@ -40,9 +40,9 @@ const MainScreen = ({ navigation }) => {
   const updateRicePriceData = useCallback(async () => {
     try {
       // setLoading(true);
-      const hasNewPost = await checkNewestRicePrice();
-      // console.log("hasNewPost", hasNewPost);
-      if (hasNewPost) {
+      const isNeedToUpdate = await checkNewestRicePrice();
+      console.log("IsNeedToUpdate: ", isNeedToUpdate);
+      if (isNeedToUpdate) {
         await updateRicePrice();
       }
       // setLoading(false);
