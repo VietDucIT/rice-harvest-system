@@ -165,7 +165,7 @@ const FirstScreen = ({ navigation }) => {
               onPress={() => navigation.navigate(nameList.addUserInfo)} // Sign Up
             />
             {/* Test screen */}
-            <Button
+            {/* <Button
               link
               text70
               green20
@@ -173,7 +173,7 @@ const FirstScreen = ({ navigation }) => {
               marginT-5
               style={styles.heading}
               onPress={() => navigation.navigate(nameList.mainScreen)}
-            />
+            /> */}
           </View>
         </View>
       </View>

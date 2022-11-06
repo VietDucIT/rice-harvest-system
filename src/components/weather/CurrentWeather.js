@@ -308,9 +308,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingTop: 5,
     paddingLeft: 10,
-    borderRightWidth: 0,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
+    // borderRightWidth: 0,
+    // borderTopLeftRadius: 20,
+    // borderBottomLeftRadius: 20,
   },
   // searchBtn: {
   //   height: 40,

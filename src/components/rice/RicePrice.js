@@ -5,6 +5,7 @@ import { Table, Row, Rows } from "react-native-table-component";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
+import LoaderPart from "../core/LoaderPart";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -21,6 +22,7 @@ const url = "https://congthuong.vn/chu-de/gia-lua-gao-hom-nay.topic";
 const RicePrice = ({ navigation }) => {
   const [ricePriceData, setRicePriceData] = useState([]);
   const [pricePredictionData, setPricePredictionData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isShowPredict, setIsShowPredict] = useState(false);
 
   const date = getDateString(new Date());
@@ -63,11 +65,11 @@ const RicePrice = ({ navigation }) => {
   // call API to get Price Prediction
   const getPricePredictionData = useCallback(async () => {
     try {
-      // setLoading(true);
+      setIsLoading(true);
       const data = await getPricePrediction();
-      console.log("Price Prediction data: ", data);
+      console.log("Price Prediction data 1: ", data);
       setPricePredictionData(data);
-      // setLoading(false);
+      setIsLoading(false);
     } catch (err) {
       console.log("Error while getting Price Prediction data.");
     }
@@ -141,7 +143,10 @@ const RicePrice = ({ navigation }) => {
               style={styles.predictBtn}
             />
           </View>
-          {isShowPredict && (
+
+          {isShowPredict && isLoading && <LoaderPart />}
+
+          {isShowPredict && !isLoading && (
             <View marginT-20>
               <Text>Đây là dự báo giá lúa.</Text>
 

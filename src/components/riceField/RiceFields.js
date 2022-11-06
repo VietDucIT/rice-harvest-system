@@ -19,11 +19,11 @@ StyleInit();
 
 const RiceFields = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("From Ricefields, User ID: ", userId), [userId]);
 
   const [fieldName, setFieldName] = useState("");
 
@@ -47,7 +47,7 @@ const RiceFields = ({ navigation }) => {
     } catch (err) {
       console.log("Error while getting Rice Field list.");
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getRiceFieldArray();
@@ -114,43 +114,44 @@ const RiceFields = ({ navigation }) => {
           />
 
           <View marginT-20>
-            {riceFieldArray.map((item) => (
-              <View
-                flex
-                style={styles.fieldItem}
-                padding-5
-                marginV-8
-                marginH-16
-                key={item.name}
-              >
-                <Text text70>
-                  Mẫu ruộng{" "}
-                  {item.name.length <= 15
-                    ? `${item.name}`
-                    : `${item.name.substring(0, 15)}...`}
-                </Text>
-                <View flex right style={styles.controllContainer}>
-                  <Text
-                    green
-                    text70
-                    onPress={() =>
-                      navigation.navigate(nameList.riceFieldInfo, {
-                        idRiceField: item._id,
-                      })
-                    }
-                  >
-                    Xem
+            {riceFieldArray &&
+              riceFieldArray.map((item) => (
+                <View
+                  flex
+                  style={styles.fieldItem}
+                  padding-5
+                  marginV-8
+                  marginH-16
+                  key={item._id}
+                >
+                  <Text text70>
+                    Mẫu ruộng{" "}
+                    {item.name?.length <= 15
+                      ? `${item.name}`
+                      : `${item.name?.substring(0, 15)}...`}
                   </Text>
-                  <Text
-                    text70
-                    onPress={() => handleDelete(item._id)}
-                    style={styles.deleteBtn}
-                  >
-                    Xóa
-                  </Text>
+                  <View flex right style={styles.controllContainer}>
+                    <Text
+                      green
+                      text70
+                      onPress={() =>
+                        navigation.navigate(nameList.riceFieldInfo, {
+                          idRiceField: item._id,
+                        })
+                      }
+                    >
+                      Xem
+                    </Text>
+                    <Text
+                      text70
+                      onPress={() => handleDelete(item._id)}
+                      style={styles.deleteBtn}
+                    >
+                      Xóa
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              ))}
           </View>
 
           <View marginT-30 center>

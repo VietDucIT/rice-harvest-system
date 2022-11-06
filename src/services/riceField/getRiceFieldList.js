@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const getRiceFieldList = async (idFarmer) => {
   try {
-    // console.log("ID Farmer: ", idFarmer);
+    // console.log("Farmer: ", idFarmer);
     const response = await axios.get(
       `${REQUEST_URL}/rice-field/${idFarmer}/list`
     );

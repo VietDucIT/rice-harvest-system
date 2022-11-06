@@ -35,11 +35,11 @@ const { TextField } = Incubator;
 
 const AddRiceSeason = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);

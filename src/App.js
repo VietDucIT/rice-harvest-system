@@ -45,8 +45,7 @@ import CurrentWeather from "./components/weather/CurrentWeather";
 import DailyWeatherForecast from "./components/weather/DailyWeatherForecast";
 import HourlyWeatherForecast from "./components/weather/HourlyWeatherForecast";
 
-import Loader from "./components/core/Loader";
-import Test from "./components/Test";
+// import Test from "./components/Test";
 
 import nameList from "./json/nameList";
 
@@ -139,7 +138,7 @@ export default function App() {
           name={nameList.hourlyWeatherForecast}
           component={HourlyWeatherForecast}
         />
-        <Stack.Screen name={nameList.test} component={Test} />
+        {/* <Stack.Screen name={nameList.test} component={Test} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
