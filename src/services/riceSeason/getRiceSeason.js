@@ -6,7 +6,7 @@ const getRiceSeason = async (id) => {
   try {
     // console.log("ID Rice Season: ", id);
     const response = await axios.get(`${REQUEST_URL}/rice-season/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("getRiceSeason - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Rice Season: ", { err: JSON.stringify(err) });

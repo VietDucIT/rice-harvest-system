@@ -9,7 +9,7 @@ const addSuggestToBuy = async (suggestToBuyData) => {
       `${REQUEST_URL}/suggest-to-buy/`,
       suggestToBuyData
     );
-    // console.log("Response from server: ", response);
+    // console.log("addSuggestToBuy - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't add Suggest To Buy: ", { err: JSON.stringify(err) });

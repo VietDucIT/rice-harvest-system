@@ -8,7 +8,7 @@ const getSuggestToBuyList = async (idTrader) => {
     const response = await axios.get(
       `${REQUEST_URL}/suggest-to-buy/${idTrader}/list`
     );
-    // console.log("Response from server: ", response);
+    // console.log("getSuggestToBuyList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Suggest To Buy list: ", {

@@ -6,7 +6,7 @@ const deleteUser = async (id) => {
   try {
     // console.log("ID User: ", id);
     const response = await axios.delete(`${REQUEST_URL}/user/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("deleteUser - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't delete User: ", { err: JSON.stringify(err) });

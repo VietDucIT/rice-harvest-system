@@ -127,7 +127,7 @@ const ModifyRiceField = ({ navigation, route }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.riceFields);
+      // navigation.navigate(nameList.riceFields);
       navigation.navigate(nameList.riceFieldInfo, {
         idRiceField: riceField._id,
       });

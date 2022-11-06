@@ -55,8 +55,8 @@ const RiceFields = ({ navigation }) => {
   }, [getRiceFieldArray]);
 
   // delete a Rice Field
-  const handleDelete = (id) => {
-    Alert.alert("Xác nhận", "Bạn có chắc chắn muốn xóa mẫu ruộng này?", [
+  const handleDelete = (field) => {
+    Alert.alert("Xác nhận", `Bạn có chắc chắn muốn xóa ${field.name}?`, [
       {
         text: "Quay lại",
         style: "cancel",
@@ -66,11 +66,11 @@ const RiceFields = ({ navigation }) => {
         onPress: async () => {
           try {
             // setLoading(true);
-            let dataAPI = await deleteRiceField(id);
+            let dataAPI = await deleteRiceField(field._id);
             // console.log("Data API: ", dataAPI);
 
             // SET STATUS FOR THIS ???
-            Alert.alert("Thông báo", "Đã xóa mẫu ruộng này.", [
+            Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
               {
                 text: "Đóng",
                 style: "cancel",
@@ -125,7 +125,6 @@ const RiceFields = ({ navigation }) => {
                   key={item._id}
                 >
                   <Text text70>
-                    Mẫu ruộng{" "}
                     {item.name?.length <= 15
                       ? `${item.name}`
                       : `${item.name?.substring(0, 15)}...`}
@@ -144,7 +143,7 @@ const RiceFields = ({ navigation }) => {
                     </Text>
                     <Text
                       text70
-                      onPress={() => handleDelete(item._id)}
+                      onPress={() => handleDelete(item)}
                       style={styles.deleteBtn}
                     >
                       Xóa

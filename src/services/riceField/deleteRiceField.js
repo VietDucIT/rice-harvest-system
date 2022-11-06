@@ -6,7 +6,7 @@ const deleteRiceField = async (id) => {
   try {
     // console.log("ID Rice Field: ", id);
     const response = await axios.delete(`${REQUEST_URL}/rice-field/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("deleteRiceField - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't delete Rice Field: ", { err: JSON.stringify(err) });

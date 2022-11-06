@@ -9,7 +9,7 @@ const modifyUser = async (userData) => {
       `${REQUEST_URL}/user/${userData._id}`,
       userData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifyUser - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify User: ", { err: JSON.stringify(err) });

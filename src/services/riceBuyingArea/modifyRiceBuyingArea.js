@@ -9,7 +9,7 @@ const modifyRiceBuyingArea = async (riceBuyingAreaData) => {
       `${REQUEST_URL}/rice-buying-area/${riceBuyingAreaData._id}`,
       riceBuyingAreaData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifyRiceBuyingArea - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify Rice Buying Area: ", {

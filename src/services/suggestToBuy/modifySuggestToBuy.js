@@ -9,7 +9,7 @@ const modifySuggestToBuy = async (suggestToBuyData) => {
       `${REQUEST_URL}/suggest-to-buy/${suggestToBuyData._id}`,
       suggestToBuyData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifySuggestToBuy - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify Suggest To Buy: ", { err: JSON.stringify(err) });

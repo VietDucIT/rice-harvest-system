@@ -9,7 +9,7 @@ const addNotification = async (notificationData) => {
       `${REQUEST_URL}/notification/`,
       notificationData
     );
-    // console.log("Response from server: ", response);
+    // console.log("addNotification - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't add Notification: ", { err: JSON.stringify(err) });

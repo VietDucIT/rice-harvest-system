@@ -8,7 +8,7 @@ const deleteRiceBuyingArea = async (id) => {
     const response = await axios.delete(
       `${REQUEST_URL}/rice-buying-area/${id}`
     );
-    // console.log("Response from server: ", response);
+    // console.log("deleteRiceBuyingArea - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't delete Rice Buying Area: ", {

@@ -9,7 +9,7 @@ const modifyBill = async (billData) => {
       `${REQUEST_URL}/${billData._id}`,
       billData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifyBill - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify Bill: ", { err: JSON.stringify(err) });

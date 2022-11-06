@@ -8,7 +8,7 @@ const getSuggestToBuyListForRiceSeason = async (idRiceSeason) => {
     const response = await axios.get(
       `${REQUEST_URL}/suggest-to-buy/${idRiceSeason}/list-for-rice-season`
     );
-    // console.log("Response from server: ", response);
+    // console.log("getSuggestToBuyListForRiceSeason - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Suggest To Buy list for Rice Season: ", {

@@ -9,7 +9,7 @@ const modifyRiceField = async (riceFieldData) => {
       `${REQUEST_URL}/rice-field/${riceFieldData._id}`,
       riceFieldData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifyRiceField - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify Rice Field: ", { err: JSON.stringify(err) });

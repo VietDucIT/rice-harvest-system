@@ -24,6 +24,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 import seasonNameArray from "../../json/seasonName";
 import seasonStateArray from "../../json/seasonState";
+
 import getRiceFieldList from "../../services/riceField/getRiceFieldList";
 import getRiceList from "../../services/rice/getRiceList";
 import addRiceSeason from "../../services/riceSeason/addRiceSeason";
@@ -43,7 +44,6 @@ const AddRiceSeason = ({ navigation }) => {
 
   // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);
-
   const getRiceFieldArray = useCallback(async () => {
     try {
       // setLoading(true);
@@ -55,21 +55,12 @@ const AddRiceSeason = ({ navigation }) => {
       console.log("Error while getting Rice Field list.");
     }
   }, []);
-
   useEffect(() => {
     getRiceFieldArray();
   }, [getRiceFieldArray]);
 
-  // const riceFieldArray = [
-  //   "Mẫu ruộng số 1",
-  //   "Mẫu ruộng số 2",
-  //   "Mẫu ruộng số 3",
-  //   "Mẫu ruộng số 4",
-  // ];
-
   // call API to get Rice list
   const [riceArray, setRiceArray] = useState([]);
-
   const getRiceArray = useCallback(async () => {
     try {
       // setLoading(true);
@@ -81,7 +72,6 @@ const AddRiceSeason = ({ navigation }) => {
       console.log("Error while getting Rice list.");
     }
   }, []);
-
   useEffect(() => {
     getRiceArray();
   }, [getRiceArray]);

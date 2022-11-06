@@ -10,7 +10,7 @@ const convertNameToCoord = async (name) => {
     const response = await axios.get(`${REQUEST_URL}`, {
       params: { q: name + ",VN", appid: `${API_KEY}` },
     });
-    // console.log("Response from server: ", response);
+    // console.log("convertNameToCoord - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't convert Province's name to Coordinate: ", {

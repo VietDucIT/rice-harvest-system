@@ -18,13 +18,12 @@ import REQUEST_URL from "../urlToBackend";
 //   });
 // };
 const getRiceSeasonList = async (idFarmer) => {
-  // idFarmer
   try {
-    // console.log("ID Farmer: ", idFarmer);
+    // console.log("Farmer: ", idFarmer);
     const response = await axios.get(
       `${REQUEST_URL}/rice-season/${idFarmer}/list`
     );
-    // console.log("Response from server: ", response);
+    // console.log("getRiceSeasonList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Rice Season list: ", { err: JSON.stringify(err) });

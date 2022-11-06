@@ -6,7 +6,7 @@ import REQUEST_URL from "../urlToBackend";
 const getPricePrediction = async () => {
   try {
     const response = await axios.get(`${REQUEST_URL}/rice-price/prediction`);
-    // console.log("Response from server: ", response);
+    // console.log("getPricePrediction - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Price Prediction: ", { err: JSON.stringify(err) });

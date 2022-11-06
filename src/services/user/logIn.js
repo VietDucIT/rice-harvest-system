@@ -6,7 +6,7 @@ const logIn = async (user) => {
   try {
     // console.log("Data Login: ", user);
     const response = await axios.post(`${REQUEST_URL}/user/login`, user);
-    // console.log("Response from server: ", response);
+    // console.log("logIn - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't Log in: ", { err: JSON.stringify(err) });

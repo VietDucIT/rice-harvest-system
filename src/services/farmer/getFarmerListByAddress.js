@@ -9,10 +9,10 @@ const getFarmerListByAddress = async (address) => {
     const response = await axios.get(`${REQUEST_URL}/farmer/list-by-address`, {
       params: address,
     });
-    // console.log("Response from server: ", response);
+    // console.log("getFarmerListByAddress - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Farmer list by address: ", {
+    console.log("Can't get Farmer list by Address: ", {
       err: JSON.stringify(err),
     });
     throw err;

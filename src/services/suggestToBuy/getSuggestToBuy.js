@@ -6,7 +6,7 @@ const getSuggestToBuy = async (id) => {
   try {
     // console.log("ID Suggest To Buy: ", id);
     const response = await axios.get(`${REQUEST_URL}/suggest-to-buy/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("getSuggestToBuy - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Suggest To Buy: ", { err: JSON.stringify(err) });

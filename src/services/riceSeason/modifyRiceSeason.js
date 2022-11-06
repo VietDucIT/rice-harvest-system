@@ -9,7 +9,7 @@ const modifyRiceSeason = async (riceSeasonData) => {
       `${REQUEST_URL}/rice-season/${riceSeasonData._id}`,
       riceSeasonData
     );
-    // console.log("Response from server: ", response);
+    // console.log("modifyRiceSeason - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't modify Rice Season: ", { err: JSON.stringify(err) });

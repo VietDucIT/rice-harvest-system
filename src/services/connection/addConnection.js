@@ -9,7 +9,7 @@ const addConnection = async (connectionData) => {
       `${REQUEST_URL}/connection/`,
       connectionData
     );
-    // console.log("Response from server: ", response);
+    // console.log("addConnection - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't add Connection: ", { err: JSON.stringify(err) });

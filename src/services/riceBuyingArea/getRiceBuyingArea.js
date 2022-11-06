@@ -6,7 +6,7 @@ const getRiceBuyingArea = async (id) => {
   try {
     // console.log("ID Rice Buying Area: ", id);
     const response = await axios.get(`${REQUEST_URL}/rice-buying-area/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("getRiceBuyingArea - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Rice Buying Area: ", { err: JSON.stringify(err) });

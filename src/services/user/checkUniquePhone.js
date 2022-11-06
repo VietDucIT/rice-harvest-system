@@ -5,11 +5,13 @@ import REQUEST_URL from "../urlToBackend";
 const checkUniquePhone = async (phone) => {
   try {
     // console.log("Phone: ", phone);
-    const response = await axios.get(`${REQUEST_URL}/user/checkUniquePhone`);
-    // console.log("Response from server: ", response);
+    const response = await axios.get(`${REQUEST_URL}/user/checkUniquePhone`, {
+      params: { phone: phone },
+    });
+    // console.log("checkUniquePhone - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't Check Unique Phone.", { err: JSON.stringify(err) });
+    console.log("Can't Check Unique Phone: ", { err: JSON.stringify(err) });
     throw err;
   }
 };

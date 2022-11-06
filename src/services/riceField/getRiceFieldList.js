@@ -8,7 +8,7 @@ const getRiceFieldList = async (idFarmer) => {
     const response = await axios.get(
       `${REQUEST_URL}/rice-field/${idFarmer}/list`
     );
-    // console.log("Response from server: ", response);
+    // console.log("getRiceFieldList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get Rice Field list: ", { err: JSON.stringify(err) });

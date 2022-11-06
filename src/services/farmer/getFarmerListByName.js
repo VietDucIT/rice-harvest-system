@@ -8,10 +8,10 @@ const getFarmerListByName = async (name) => {
     const response = await axios.get(`${REQUEST_URL}/farmer/list-by-name`, {
       params: name,
     });
-    // console.log("Response from server: ", response);
+    // console.log("getFarmerListByName - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Farmer list by name: ", {
+    console.log("Can't get Farmer list by Name: ", {
       err: JSON.stringify(err),
     });
     throw err;

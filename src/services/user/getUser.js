@@ -6,7 +6,7 @@ const getUser = async (id) => {
   try {
     // console.log("ID User: ", id);
     const response = await axios.get(`${REQUEST_URL}/user/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("getUser - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't get User data: ", { err: JSON.stringify(err) });

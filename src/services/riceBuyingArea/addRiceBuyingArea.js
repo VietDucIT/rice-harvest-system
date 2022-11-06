@@ -10,7 +10,7 @@ const addRiceBuyingArea = async (riceBuyingAreaData) => {
       `${REQUEST_URL}/rice-buying-area/`,
       riceBuyingAreaData
     );
-    // console.log("Response from server: ", response);
+    // console.log("addRiceBuyingArea - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't add Rice Buying Area: ", { err: JSON.stringify(err) });

@@ -10,7 +10,7 @@ const addRiceField = async (riceFieldData) => {
       `${REQUEST_URL}/rice-field/`,
       riceFieldData
     );
-    // console.log("Response from server: ", response);
+    // console.log("addRiceField - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't add Rice Field: ", { err: JSON.stringify(err) });

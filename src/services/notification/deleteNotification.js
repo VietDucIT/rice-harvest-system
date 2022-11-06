@@ -6,7 +6,7 @@ const deleteNotification = async (id) => {
   try {
     // console.log("ID Notification: ", id);
     const response = await axios.delete(`${REQUEST_URL}/notification/${id}`);
-    // console.log("Response from server: ", response);
+    // console.log("deleteNotification - Response from server: ", response.data);
     return response.data;
   } catch (err) {
     console.log("Can't delete Notification: ", { err: JSON.stringify(err) });
