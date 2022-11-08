@@ -4,45 +4,36 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import Map from "../map/Map";
-
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getRiceBuyingArea from "../../services/riceBuyingArea/getRiceBuyingArea";
+import getBill from "../../services/bill/getBill";
 
 StyleInit();
 
-const RiceBuyingAreaInfo = ({ navigation, route }) => {
-  const { idRiceBuyingArea } = route.params;
-  const [buyingAreaData, setBuyingAreaData] = useState({});
+const BillInfo = ({ navigation, route }) => {
+  const { idBill } = route.params;
+  const [billData, setBillData] = useState({});
 
   // call API
-  const getRiceBuyingAreaData = useCallback(async () => {
+  const getBillData = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getRiceBuyingArea(idRiceBuyingArea);
-      // console.log("Rice Buying Area data: ", data);
-      setBuyingAreaData(data);
+      const data = await getBill(idBill);
+      // console.log("Bill data: ", data);
+      setBillData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Buying Area data.");
+      console.log("Error while getting Bill data.");
     }
-  }, [idRiceBuyingArea]);
+  }, [idBill]);
 
   useEffect(() => {
-    getRiceBuyingAreaData();
-  }, [getRiceBuyingAreaData]);
-
-  // const buyingAreaData = {
-  //   id: 1,
-  //   name: "Khu vực 1",
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   description: "Bờ đông kênh Cầu Tre",
-  // };
+    getBillData();
+  }, [getBillData]);
 
   return (
     <ScrollView>
@@ -57,7 +48,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Thông tin khu vực thu mua
+                Phiếu thu mua
               </Text>
             </View>
           </View>
@@ -65,22 +56,20 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên: </TextR>
-              <Text style={styles.itemContent}>{buyingAreaData.name}</Text>
+              <Text style={styles.itemContent}>{billData.name}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
               <Text style={styles.itemContent}>
-                {buyingAreaData.village}, {buyingAreaData.commune},{" "}
-                {buyingAreaData.town}, {buyingAreaData.province}
+                {billData.village}, {billData.commune}, {billData.town},{" "}
+                {billData.province}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text style={styles.itemContent}>
-                {buyingAreaData.description}
-              </Text>
+              <Text style={styles.itemContent}>{billData.description}</Text>
             </View>
 
             <View flex style={styles.mapContainer}>
@@ -92,8 +81,8 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
             <CustomButton
               label="Sửa"
               onPress={() =>
-                navigation.navigate(nameList.modifyRiceBuyingArea, {
-                  idRiceBuyingArea: buyingAreaData._id,
+                navigation.navigate(nameList.modifyBill, {
+                  idBill: billData._id,
                 })
               }
             />
@@ -103,7 +92,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
     </ScrollView>
   );
 };
-export default RiceBuyingAreaInfo;
+export default BillInfo;
 
 const styles = StyleSheet.create({
   logo: {

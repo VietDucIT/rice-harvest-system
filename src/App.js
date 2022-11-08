@@ -5,13 +5,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FirstScreen from "./components/FirstScreen";
 import MainScreen from "./components/MainScreen";
 
+import BillInfo from "./components/bill/BillInfo";
+import Bills from "./components/bill/Bills";
+
 import Calculator from "./components/calculator/Calculator";
+
+import Connections from "./components/connection/Connections";
 
 import FarmerInfo from "./components/farmer/FarmerInfo";
 import FindFarmers from "./components/farmer/FindFarmers";
 
-import Map from "./components/Map/Map";
-import ChangeCoordIframe from "./components/Map/ChangeCoordIframe";
+import Map from "./components/map/Map";
+import ChangeCoordIframe from "./components/map/ChangeCoordIframe";
+
+import Notifications from "./components/notification/Notifications";
 
 import RicePrice from "./components/rice/RicePrice";
 
@@ -58,7 +65,10 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name={nameList.firstScreen} component={FirstScreen} />
         <Stack.Screen name={nameList.mainScreen} component={MainScreen} />
+        <Stack.Screen name={nameList.billInfo} component={BillInfo} />
+        <Stack.Screen name={nameList.bills} component={Bills} />
         <Stack.Screen name={nameList.calculator} component={Calculator} />
+        <Stack.Screen name={nameList.connections} component={Connections} />
         <Stack.Screen name={nameList.farmerInfo} component={FarmerInfo} />
         <Stack.Screen name={nameList.findFarmers} component={FindFarmers} />
         <Stack.Screen name={nameList.map} component={Map} />
@@ -66,6 +76,7 @@ export default function App() {
           name={nameList.changeCoordIframe}
           component={ChangeCoordIframe}
         />
+        <Stack.Screen name={nameList.notifications} component={Notifications} />
         <Stack.Screen name={nameList.ricePrice} component={RicePrice} />
         <Stack.Screen
           name={nameList.addRiceBuyingArea}
