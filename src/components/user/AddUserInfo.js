@@ -464,7 +464,7 @@ const AddUserInfo = ({ navigation }) => {
             <View flex marginT-50 center style={styles.btnContainer}>
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
-                label="Lưu"
+                label="Đăng ký"
                 onPress={handleAdd}
                 disabled={isDisableBtn}
               />

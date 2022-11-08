@@ -26,11 +26,11 @@ const { TextField } = Incubator;
 
 const AddRiceBuyingArea = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   const initState = {
     name: "",
@@ -144,6 +144,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
                 errorMessage={"Vui lòng nhập Tên."}
                 errorColor={color.redColor}
                 style={styles.textField}
+                autoCapitalize="words"
               />
               <Text red style={styles.errorMessage}>
                 {error.name}

@@ -26,11 +26,11 @@ const { TextField } = Incubator;
 
 const SuggestToBuy = ({ navigation, route }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});

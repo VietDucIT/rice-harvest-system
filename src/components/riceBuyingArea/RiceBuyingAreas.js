@@ -19,11 +19,11 @@ StyleInit();
 
 const RiceBuyingAreas = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   // const initArray = [
   //   {
@@ -52,41 +52,45 @@ const RiceBuyingAreas = ({ navigation }) => {
     } catch (err) {
       console.log("Error while getting Rice Buying Area list.");
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getRiceBuyingAreaArray();
   }, [getRiceBuyingAreaArray]);
 
   // delete a Rice Buying Area
-  const handleDelete = (id) => {
-    Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa khu vực thu mua này?", [
-      {
-        text: "Quay lại",
-        style: "cancel",
-      },
-      {
-        text: "Đồng ý",
-        onPress: async () => {
-          try {
-            // setLoading(true);
-            let dataAPI = await deleteRiceBuyingArea(id);
-            // console.log("Data API: ", dataAPI);
-
-            Alert.alert("Thông báo", "Đã xóa khu vực thu mua này.", [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
-            navigation.navigate(nameList.riceBuyingAreas);
-            // setLoading(false);
-          } catch (err) {
-            console.log("Error while deleting Rice Buying Area.");
-          }
+  const handleDelete = (item) => {
+    Alert.alert(
+      "Thông báo",
+      `Bạn có chắc chắn muốn xóa khu vực ${item.name}?`,
+      [
+        {
+          text: "Quay lại",
+          style: "cancel",
         },
-      },
-    ]);
+        {
+          text: "Đồng ý",
+          onPress: async () => {
+            try {
+              // setLoading(true);
+              let dataAPI = await deleteRiceBuyingArea(item._id);
+              // console.log("Data API: ", dataAPI);
+
+              Alert.alert("Thông báo", "Đã xóa khu vực thu mua.", [
+                {
+                  text: "Đóng",
+                  style: "cancel",
+                },
+              ]);
+              navigation.goBack();
+              // setLoading(false);
+            } catch (err) {
+              console.log("Error while deleting Rice Buying Area.");
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -151,7 +155,7 @@ const RiceBuyingAreas = ({ navigation }) => {
                   </Text>
                   <Text
                     text70
-                    onPress={() => handleDelete(item._id)}
+                    onPress={() => handleDelete(item)}
                     style={styles.deleteBtn}
                   >
                     Xóa

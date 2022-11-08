@@ -23,7 +23,7 @@ const MainScreen = ({ navigation }) => {
     try {
       // setLoading(true);
       const userId = await getUserIdStored();
-      console.log("User ID from SecureStore: ", userId);
+      console.log("MainScreen - User ID from SecureStore: ", userId);
       const data = await getUser(userId);
       // console.log("User data: ", data);
       setUserData(data);
@@ -36,6 +36,7 @@ const MainScreen = ({ navigation }) => {
     getUserData();
   }, [getUserData]);
 
+  // JUST COMMENT FROM 0:00 TO ABOUT 6:00
   // call API to update Rice Price
   const updateRicePriceData = useCallback(async () => {
     try {
@@ -50,7 +51,6 @@ const MainScreen = ({ navigation }) => {
       console.log("Error while handle Rice Price data.");
     }
   }, []);
-
   useEffect(() => {
     updateRicePriceData();
   }, [updateRicePriceData]);
@@ -143,7 +143,7 @@ const MainScreen = ({ navigation }) => {
                 label="Tìm kiếm nông dân"
                 text60
                 style={styles.btn}
-                onPress={() => navigation.navigate(nameList.findUsers)}
+                onPress={() => navigation.navigate(nameList.findFarmers)}
               />
             </View>
           )}

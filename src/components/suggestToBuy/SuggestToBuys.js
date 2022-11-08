@@ -19,11 +19,11 @@ StyleInit();
 
 const SuggestToBuys = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   // const suggestList = [
   //   {
@@ -66,7 +66,7 @@ const SuggestToBuys = ({ navigation }) => {
     } catch (err) {
       console.log("Error while getting Suggest To Buy list.");
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getSuggestToBuyArray();

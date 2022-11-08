@@ -73,7 +73,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     } catch (err) {
       console.log("Error while getting Rice Field list.");
     }
-  }, []);
+  }, [userId]);
   useEffect(() => {
     getRiceFieldArray();
   }, [getRiceFieldArray]);
@@ -105,7 +105,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const initState = {
     seasonName: "",
     seasonYear: "",
-    riceField: "",
+    riceFieldId: "",
     rice: "",
     currentState: "",
     timeStart: "",
@@ -143,7 +143,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     if (
       riceSeason.seasonName &&
       riceSeason.seasonYear &&
-      riceSeason.riceField &&
+      riceSeason.riceFieldId &&
       riceSeason.rice &&
       riceSeason.currentState &&
       riceSeason.timeStart
@@ -152,7 +152,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     } else {
       setIsDisableBtn(true);
     }
-  }, [riceField]);
+  }, [riceSeason]);
 
   const handleModify = async () => {
     let err = false;
@@ -172,11 +172,11 @@ const ModifyRiceSeason = ({ navigation, route }) => {
       err = true;
     }
 
-    if (!riceSeason.riceField) {
-      setError({ ...error, riceField: "* Bắt buộc." });
+    if (!riceSeason.riceFieldId) {
+      setError({ ...error, riceFieldId: "* Bắt buộc." });
       err = false;
     } else {
-      setError({ ...error, riceField: "" });
+      setError({ ...error, riceFieldId: "" });
       err = true;
     }
 

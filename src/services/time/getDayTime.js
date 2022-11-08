@@ -8,6 +8,7 @@ const getDayTime = () => {
   };
 
   const getDateString = (date) => {
+    // console.log("Date: ", date);
     const dayStr = `${date.getDate()}-${
       date.getMonth() + 1
     }-${date.getFullYear()}`;

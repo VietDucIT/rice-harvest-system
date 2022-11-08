@@ -125,9 +125,9 @@ const RiceFields = ({ navigation }) => {
                   key={item._id}
                 >
                   <Text text70>
-                    {item.name?.length <= 15
+                    {item.name?.length <= 40
                       ? `${item.name}`
-                      : `${item.name?.substring(0, 15)}...`}
+                      : `${item.name?.substring(0, 39)}...`}
                   </Text>
                   <View flex right style={styles.controllContainer}>
                     <Text

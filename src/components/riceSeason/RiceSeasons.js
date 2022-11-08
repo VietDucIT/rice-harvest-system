@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -19,11 +25,11 @@ StyleInit();
 
 const RiceSeasons = ({ navigation }) => {
   // get UserID from SecureStore
-  let userId = "";
+  const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
-    userId = value;
-    // console.log("User ID from SecureStore: ", value);
+    setUserId(value);
   });
+  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
 
   // FIND RICE SEASON BY NAME
   const [seasonName, setSeasonName] = useState("");
@@ -65,7 +71,7 @@ const RiceSeasons = ({ navigation }) => {
     } catch (err) {
       console.log("Error while getting Rice Season list.");
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getRiceSeasonArray();
@@ -164,7 +170,7 @@ const RiceSeasons = ({ navigation }) => {
                         </Text>
                         <Text
                           text70
-                          onPress={handleDelete}
+                          onPress={() => handleDelete(item._id)}
                           style={styles.deleteBtn}
                         >
                           Xóa

@@ -4,6 +4,7 @@ const nameList = {
   userOptionModal: "   ", // 3 spaces
   map: "Bản đồ ruộng lúa",
   modifyUserInfo: "Chỉnh sửa người dùng",
+  changeCoordIframe: "Chuyển đổi tọa độ",
   riceBuyingAreas: "Danh sách khu vực thu mua",
   riceFields: "Danh sách ruộng lúa",
   riceSeasons: "Danh sách vụ mùa",

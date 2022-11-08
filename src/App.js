@@ -11,6 +11,7 @@ import FarmerInfo from "./components/farmer/FarmerInfo";
 import FindFarmers from "./components/farmer/FindFarmers";
 
 import Map from "./components/Map/Map";
+import ChangeCoordIframe from "./components/Map/ChangeCoordIframe";
 
 import RicePrice from "./components/rice/RicePrice";
 
@@ -61,6 +62,10 @@ export default function App() {
         <Stack.Screen name={nameList.farmerInfo} component={FarmerInfo} />
         <Stack.Screen name={nameList.findFarmers} component={FindFarmers} />
         <Stack.Screen name={nameList.map} component={Map} />
+        <Stack.Screen
+          name={nameList.changeCoordIframe}
+          component={ChangeCoordIframe}
+        />
         <Stack.Screen name={nameList.ricePrice} component={RicePrice} />
         <Stack.Screen
           name={nameList.addRiceBuyingArea}
@@ -119,7 +124,6 @@ export default function App() {
           component={ModifyUserInfo}
         />
         <Stack.Screen name={nameList.userInfo} component={UserInfo} />
-        {/* ???? */}
         <Stack.Group screenOptions={{ presentation: "modal" }}>
           <Stack.Screen
             name={nameList.userOptionModal}

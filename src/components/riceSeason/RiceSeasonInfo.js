@@ -6,83 +6,40 @@ import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
+import Loader from "../core/Loader";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
 import getSuggestToBuyListForRiceSeason from "../../services/suggestToBuy/getSuggestToBuyListForRiceSeason";
+import getDayTime from "../../services/time/getDayTime";
 
 StyleInit();
+const { getDateString } = getDayTime();
 
 const RiceSeasonInfo = ({ navigation, route }) => {
   const [isShowMenu, setIsShowMenu] = useState(false);
-
-  // const initData = {
-  //   id: 1,
-  //   name: "Thu Đông 2022",
-  //   riceField: "Mẫu ruộng số 1",
-  //   rice: "OM 18",
-  //   currentState: "Lúa chín",
-  //   timeStart: "19/9/2022",
-  //   timeEnd: "19/12/2022",
-  //   totalRice: 900,
-  // };
-  // const suggestList = [
-  //   {
-  //     id: 1,
-  //     traderName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 1",
-  //     suggestedPrice: 6000,
-  //     suggestedTimeEnd: "31/12/2022",
-  //     status: 1,
-  //   },
-  //   {
-  //     id: 2,
-  //     traderName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 2",
-  //     suggestedPrice: 5940,
-  //     suggestedTimeEnd: "31/12/2022",
-  //     status: 1,
-  //   },
-  //   {
-  //     id: 3,
-  //     traderName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 3",
-  //     suggestedPrice: 6100,
-  //     suggestedTimeEnd: "31/12/2022",
-  //     status: 0,
-  //   },
-  //   {
-  //     id: 4,
-  //     traderName: "Cao Thanh B",
-  //     riceField: "Mẫu ruộng số 1",
-  //     suggestedPrice: 5990,
-  //     suggestedTimeEnd: "31/12/2022",
-  //     status: 1,
-  //   },
-  //   {
-  //     id: 5,
-  //     traderName: "Lâm C",
-  //     riceField: "Mẫu ruộng số 2",
-  //     suggestedPrice: 6040,
-  //     suggestedTimeEnd: "31/12/2022",
-  //     status: 0,
-  //   },
-  // ];
+  const [isLoading, setIsLoading] = useState(false);
 
   const { idRiceSeason } = route.params;
+  console.log("ID Rice Season: ", idRiceSeason);
   const [seasonData, setSeasonData] = useState({});
   const [suggestList, setSuggestList] = useState({});
 
   // call API to get Rice Season data
   const getRiceSeasonData = useCallback(async () => {
     try {
-      // setLoading(true);
-      const data = await getRiceSeason(idRiceSeason);
+      setIsLoading(true);
       // console.log("Rice Season data: ", data);
+      const data = await getRiceSeason(idRiceSeason);
       setSeasonData(data);
-      // setLoading(false);
+      // setSeasonData({
+      //   ...data,
+      //   timeStart: getDateString(data.timeStart),
+      //   timeEnd: getDateString(data.timeEnd),
+      // });
+      setIsLoading(false);
     } catch (err) {
       console.log("Error while getting Rice Season data.");
     }
@@ -95,11 +52,11 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   // call API to get Suggest To Buy list
   const getSuggestToBuyListData = useCallback(async () => {
     try {
-      // setLoading(true);
+      setIsLoading(true);
       const data = await getSuggestToBuyListForRiceSeason(seasonData._id);
       // console.log("Suggest To Buy list: ", data);
       setSuggestList(data);
-      // setLoading(false);
+      setIsLoading(false);
     } catch (err) {
       console.log("Error while getting Suggest To Buy list.");
     }
@@ -108,6 +65,13 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   useEffect(() => {
     getSuggestToBuyListData();
   }, [getSuggestToBuyListData]);
+
+  // const timeS = "",
+  //   timeE = "";
+  // useEffect(() => {
+  //   timeS = getDateString(seasonData.timeStart);
+  //   timeE = getDateString(seasonData.timeEnd);
+  // }, [seasonData]);
 
   return (
     <ScrollView>
@@ -158,6 +122,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Thời gian gặt: </TextR>
               <Text text70>{seasonData.timeEnd}</Text>
+              {/* <Text text70>{getDateString(seasonData.timeEnd)}</Text> */}
             </View>
 
             {seasonData.currentState === "Đã thu hoạch" && (

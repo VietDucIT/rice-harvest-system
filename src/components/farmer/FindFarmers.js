@@ -116,7 +116,7 @@ const FindFarmers = ({ navigation }) => {
         {/* <View>Lọc</View> */}
 
         <View marginT-20>
-          {farmerArray.map((item) => (
+          {farmerArray?.map((item) => (
             <View
               style={styles.farmerItem}
               padding-5

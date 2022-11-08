@@ -54,7 +54,7 @@ const AddRiceSeason = ({ navigation }) => {
     } catch (err) {
       console.log("Error while getting Rice Field list.");
     }
-  }, []);
+  }, [userId]);
   useEffect(() => {
     getRiceFieldArray();
   }, [getRiceFieldArray]);
@@ -135,6 +135,11 @@ const AddRiceSeason = ({ navigation }) => {
     }
   }, [riceSeason]);
 
+  // JUST A TEMPORARY SOLUTION, WILL REMOVE IF FINDING A BETTER ONE
+  useEffect(() => {
+    setRiceSeason({ ...riceSeason, farmerId: userId });
+  }, [userId]);
+
   const handleAdd = async () => {
     let err = false;
     if (!riceSeason.seasonName) {
@@ -185,7 +190,6 @@ const AddRiceSeason = ({ navigation }) => {
       err = true;
     }
 
-    // if (err) {
     try {
       // setLoading(true);
 
@@ -203,7 +207,6 @@ const AddRiceSeason = ({ navigation }) => {
     } catch (err) {
       console.log("Error while adding Rice Season.");
     }
-    // }
   };
 
   return (
@@ -293,10 +296,9 @@ const AddRiceSeason = ({ navigation }) => {
                     key={item._id}
                     value={item._id}
                     label={
-                      "Mẫu ruộng số " +
-                      (item._id.length < 15
-                        ? item._id.length
-                        : `${item._id.substring(0, 15)}...`)
+                      item.name.length < 40
+                        ? item.name
+                        : `${item.name.substring(0, 39)}...`
                     }
                   />
                 ))}
@@ -323,8 +325,8 @@ const AddRiceSeason = ({ navigation }) => {
                   riceArray.map((item) => (
                     <Picker.Item
                       key={item._id}
-                      value={item.rice}
-                      label={item.rice}
+                      value={item._id}
+                      label={item.name}
                     />
                   ))}
               </Picker>
