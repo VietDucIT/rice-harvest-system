@@ -6,7 +6,7 @@ const getSuggestToBuyList = async (idTrader) => {
   try {
     // console.log("ID Trader: ", idTrader);
     const response = await axios.get(
-      `${REQUEST_URL}/suggest-to-buy/${idTrader}/list`
+      `${REQUEST_URL}/suggest-to-buy/trader/${idTrader}`
     );
     // console.log("getSuggestToBuyList - Response from server: ", response.data);
     return response.data;

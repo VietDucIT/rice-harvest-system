@@ -6,7 +6,7 @@ const getSuggestToBuyListForRiceSeason = async (idRiceSeason) => {
   try {
     // console.log("ID Rice Season: ", idRiceSeason);
     const response = await axios.get(
-      `${REQUEST_URL}/suggest-to-buy/${idRiceSeason}/list-for-rice-season`
+      `${REQUEST_URL}/suggest-to-buy/season/${idRiceSeason}`
     );
     // console.log("getSuggestToBuyListForRiceSeason - Response from server: ", response.data);
     return response.data;

@@ -15,7 +15,7 @@ import Connections from "./components/connection/Connections";
 import FarmerInfo from "./components/farmer/FarmerInfo";
 import FindFarmers from "./components/farmer/FindFarmers";
 
-import Map from "./components/map/Map";
+import FullMap from "./components/map/FullMap";
 import ChangeCoordIframe from "./components/map/ChangeCoordIframe";
 
 import Notifications from "./components/notification/Notifications";
@@ -71,7 +71,7 @@ export default function App() {
         <Stack.Screen name={nameList.connections} component={Connections} />
         <Stack.Screen name={nameList.farmerInfo} component={FarmerInfo} />
         <Stack.Screen name={nameList.findFarmers} component={FindFarmers} />
-        <Stack.Screen name={nameList.map} component={Map} />
+        <Stack.Screen name={nameList.fullMap} component={FullMap} />
         <Stack.Screen
           name={nameList.changeCoordIframe}
           component={ChangeCoordIframe}

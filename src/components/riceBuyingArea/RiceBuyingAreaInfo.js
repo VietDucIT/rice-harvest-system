@@ -37,13 +37,6 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
     getRiceBuyingAreaData();
   }, [getRiceBuyingAreaData]);
 
-  // const buyingAreaData = {
-  //   id: 1,
-  //   name: "Khu vực 1",
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   description: "Bờ đông kênh Cầu Tre",
-  // };
-
   return (
     <ScrollView>
       <View flex marginB-50>
@@ -83,6 +76,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
               </Text>
             </View>
 
+            {/* How to show Address on Map */}
             <View flex style={styles.mapContainer}>
               <Map />
             </View>

@@ -114,9 +114,9 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
               <Text text70>{suggestToBuyData.description}</Text>
             </View>
 
-            <View flex style={styles.mapContainer}>
+            {/* <View flex style={styles.mapContainer}>
               <Map />
-            </View>
+            </View> */}
           </View>
 
           <View flex marginT-30 center>

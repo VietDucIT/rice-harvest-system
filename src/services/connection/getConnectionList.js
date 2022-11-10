@@ -2,9 +2,11 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const getConnectionList = async () => {
+const getConnectionList = async (idUser) => {
   try {
-    const response = await axios.get(`${REQUEST_URL}/connection/list`);
+    const response = await axios.get(
+      `${REQUEST_URL}/connection/user/${idUser}`
+    );
     // console.log("getConnectionList - Response from server: ", response.data);
     return response.data;
   } catch (err) {

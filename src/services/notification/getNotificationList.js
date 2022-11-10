@@ -2,9 +2,11 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const getNotificationList = async () => {
+const getNotificationList = async (idUser) => {
   try {
-    const response = await axios.get(`${REQUEST_URL}/notification/list`);
+    const response = await axios.get(
+      `${REQUEST_URL}/notification/user/${idUser}`
+    );
     // console.log("getNotificationList - Response from server: ", response.data);
     return response.data;
   } catch (err) {

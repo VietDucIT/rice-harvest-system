@@ -23,6 +23,7 @@
     "expo-location": "~14.3.0",
     "expo-secure-store": "~11.3.0",
     "expo-status-bar": "~1.4.0",
+    "proj4": "^2.8.0",
     "react": "^18.0.0",
     "react-native": "^0.69.5",
     "react-native-leaflet-view": "^0.1.2",
@@ -33,7 +34,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-webview": "^11.23.1",
     "react-router": "^6.4.0",
-    "react-router-native": "^6.4.0"
+    "react-router-native": "^6.4.0",
+    "vn2000-converter": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

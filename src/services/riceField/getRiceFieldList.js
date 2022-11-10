@@ -6,7 +6,7 @@ const getRiceFieldList = async (idFarmer) => {
   try {
     // console.log("Farmer: ", idFarmer);
     const response = await axios.get(
-      `${REQUEST_URL}/rice-field/${idFarmer}/list`
+      `${REQUEST_URL}/rice-field/farmer/${idFarmer}`
     );
     // console.log("getRiceFieldList - Response from server: ", response.data);
     return response.data;

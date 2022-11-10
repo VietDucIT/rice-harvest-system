@@ -5,7 +5,7 @@ import REQUEST_URL from "../urlToBackend";
 const checkUniquePhone = async (phone) => {
   try {
     // console.log("Phone: ", phone);
-    const response = await axios.get(`${REQUEST_URL}/user/checkUniquePhone`, {
+    const response = await axios.get(`${REQUEST_URL}/user/check-unique-phone`, {
       params: { phone: phone },
     });
     // console.log("checkUniquePhone - Response from server: ", response.data);

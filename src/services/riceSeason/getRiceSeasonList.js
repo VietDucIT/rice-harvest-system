@@ -21,7 +21,7 @@ const getRiceSeasonList = async (idFarmer) => {
   try {
     // console.log("Farmer: ", idFarmer);
     const response = await axios.get(
-      `${REQUEST_URL}/rice-season/${idFarmer}/list`
+      `${REQUEST_URL}/rice-season/farmer/${idFarmer}`
     );
     // console.log("getRiceSeasonList - Response from server: ", response.data);
     return response.data;

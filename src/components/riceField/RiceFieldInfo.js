@@ -19,6 +19,7 @@ StyleInit();
 const RiceFieldInfo = ({ navigation, route }) => {
   const { idRiceField } = route.params;
   const [fieldData, setFieldData] = useState({});
+  // let coordinate = {};
 
   // call API
   const getRiceFieldData = useCallback(async () => {
@@ -26,6 +27,16 @@ const RiceFieldInfo = ({ navigation, route }) => {
       // setLoading(true);
       const data = await getRiceField(idRiceField);
       // console.log("Rice Field data: ", data);
+      // coordinate = {
+      //   x1: data.x1,
+      //   y1: data.y1,
+      //   x2: data.x2,
+      //   y2: data.y2,
+      //   x3: data.x3,
+      //   y3: data.y3,
+      //   x4: data.x4,
+      //   y4: data.y4,
+      // };
       setFieldData(data);
       // setLoading(false);
     } catch (err) {
@@ -35,15 +46,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
   useEffect(() => {
     getRiceFieldData();
-    // });
   }, [getRiceFieldData]);
-
-  // const fieldData = {
-  //   id: 1,
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
-  //   description: "Ruộng sau nhà bác 4",
-  // };
 
   return (
     <ScrollView>
@@ -92,18 +95,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.mapContainer}>
-              <Map
-                coordinate={{
-                  x1: fieldData.x1,
-                  y1: fieldData.y1,
-                  x2: fieldData.x2,
-                  y2: fieldData.y2,
-                  x3: fieldData.x3,
-                  y3: fieldData.y3,
-                  x4: fieldData.x4,
-                  y4: fieldData.y4,
-                }}
-              />
+              <Map coordinate={fieldData} />
             </View>
           </View>
 

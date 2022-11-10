@@ -153,7 +153,7 @@ const MainScreen = ({ navigation }) => {
               label="Xem bản đồ ruộng đất"
               text60
               style={styles.btn}
-              onPress={() => navigation.navigate(nameList.map)}
+              onPress={() => navigation.navigate(nameList.fullMap)}
             />
           </View>
 

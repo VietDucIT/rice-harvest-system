@@ -7,6 +7,7 @@ import nameList from "../../json/nameList";
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import SearchBar from "../core/SearchBar";
+import Search from "../core/Search";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -25,14 +26,13 @@ const RiceFields = ({ navigation }) => {
   });
   useEffect(() => console.log("From Ricefields, User ID: ", userId), [userId]);
 
-  const [fieldName, setFieldName] = useState("");
+  const [value, setValue] = useState();
+  function updateSearch(value) {
+    //do your search logic or anything
+    console.log(value);
+  }
 
-  // {
-  //   id: 1,
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   coord: ["(1,1)", "(2,2)", "(3,3)", "(4,4)"],
-  //   description: "Ruộng sau nhà bác 4",
-  // },
+  const [fieldName, setFieldName] = useState("");
 
   const [riceFieldArray, setRiceFieldArray] = useState([]);
 
@@ -105,13 +105,18 @@ const RiceFields = ({ navigation }) => {
           </View>
 
           {/* ??? */}
-          <SearchBar
+          <Search
+            value={value}
+            updateSearch={updateSearch}
+            style={{ marginTop: "8%" }}
+          />
+          {/* <SearchBar
             placeholder="Nhập tên ruộng lúa"
             handleSearch={(name) => {
               setFieldName(name);
               // console.log("Tested");
             }}
-          />
+          /> */}
 
           <View marginT-20>
             {riceFieldArray &&

@@ -2,7 +2,7 @@ const nameList = {
   firstScreen: " ", // 1 space
   mainScreen: "  ", // 2 spaces
   userOptionModal: "   ", // 3 spaces
-  map: "Bản đồ ruộng lúa",
+  fullMap: "Bản đồ ruộng lúa",
   modifyUserInfo: "Chỉnh sửa người dùng",
   changeCoordIframe: "Chuyển đổi tọa độ",
   riceBuyingAreas: "Danh sách khu vực thu mua",
