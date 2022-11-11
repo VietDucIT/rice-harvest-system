@@ -23,20 +23,10 @@ const RiceBuyingAreas = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
-
-  // const initArray = [
-  //   {
-  //     _id: 1,
-  //     name: "Khu vực 1",
-  //     province: "Tỉnh Sóc Trăng",
-  //     town: "Huyện Châu Thành",
-  //     commune: "Xã Thiện Mỹ",
-  //     village: "Ấp Mỹ Đức",
-  //     address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //     description: "Bờ đông kênh Cầu Tre.",
-  //   },
-  // ];
+  useEffect(
+    () => console.log("RiceBuyingAreas - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const [riceBuyingAreaName, setRiceBuyingAreaName] = useState("");
   const [riceBuyingAreaArray, setRiceBuyingAreaArray] = useState([]);
@@ -46,11 +36,13 @@ const RiceBuyingAreas = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRiceBuyingAreaList(userId);
-      // console.log("Rice Buying Area list: ", data);
+      // console.log("RiceBuyingAreas - Rice Buying Area list: ", data);
       setRiceBuyingAreaArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Buying Area list.");
+      console.log(
+        "RiceBuyingAreas - Error while getting Rice Buying Area list."
+      );
     }
   }, [userId]);
 
@@ -74,7 +66,7 @@ const RiceBuyingAreas = ({ navigation }) => {
             try {
               // setLoading(true);
               let dataAPI = await deleteRiceBuyingArea(item._id);
-              // console.log("Data API: ", dataAPI);
+              // console.log("RiceBuyingAreas - Data API: ", dataAPI);
 
               Alert.alert("Thông báo", "Đã xóa khu vực thu mua.", [
                 {
@@ -85,7 +77,9 @@ const RiceBuyingAreas = ({ navigation }) => {
               navigation.goBack();
               // setLoading(false);
             } catch (err) {
-              console.log("Error while deleting Rice Buying Area.");
+              console.log(
+                "RiceBuyingAreas - Error while deleting Rice Buying Area."
+              );
             }
           },
         },

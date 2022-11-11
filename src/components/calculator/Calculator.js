@@ -34,7 +34,7 @@ const Calculator = ({ navigation }) => {
   const [isReset, setIsReset] = useState(true);
 
   // const addColumnItem = () => {
-  //   console.log("Add a column");
+  //   console.log("Calculator - Add a column");
   // };
 
   const calculateTotal = () => {
@@ -175,7 +175,7 @@ const Calculator = ({ navigation }) => {
                 style={styles.plusContainer}
                 margin-10
                 center
-                onPress={() => console.log(123)}
+                onPress={() => console.log("Calculator - Add a column.")}
               >
                 <Button
                   link

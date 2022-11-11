@@ -23,7 +23,10 @@ const Bills = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("Bills - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const [billName, setBillName] = useState("");
   const [billArray, setBillArray] = useState([]);
@@ -33,11 +36,11 @@ const Bills = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getBillList(userId);
-      // console.log("Bill list: ", data);
+      // console.log("Bills - Bill list: ", data);
       setBillArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Bill list.");
+      console.log("Bills - Error while getting Bill list.");
     }
   }, [userId]);
 
@@ -58,7 +61,7 @@ const Bills = ({ navigation }) => {
           try {
             // setLoading(true);
             // let dataAPI = await deleteBill(item._id);
-            // console.log("Data API: ", dataAPI);
+            // console.log("Bills - Data API: ", dataAPI);
 
             Alert.alert("Thông báo", "Đã xóa phiếu thu mua.", [
               {
@@ -69,7 +72,7 @@ const Bills = ({ navigation }) => {
             navigation.goBack();
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Bill.");
+            console.log("Bills - Error while deleting Bill.");
           }
         },
       },

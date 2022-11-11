@@ -30,7 +30,10 @@ const AddRiceBuyingArea = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("AddRiceBuyingArea - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const initState = {
     name: "",
@@ -69,7 +72,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
     setRiceBuyingArea(initState);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("AddRiceBuyingArea - Reset completed.");
   };
 
   // handle disable submit btn
@@ -97,7 +100,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
       // setLoading(true);
 
       let dataAPI = await addRiceBuyingArea(riceBuyingArea);
-      // console.log("Data API: ", dataAPI);
+      // console.log("AddRiceBuyingArea - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm khu vực thu mua thành công.", [
         {
           text: "Đóng",
@@ -108,7 +111,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
       // navigation.navigate(nameList.riceBuyingAreas);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while adding Rice Buying Area.");
+      console.log("AddRiceBuyingArea - Error while adding Rice Buying Area.");
     }
   };
 

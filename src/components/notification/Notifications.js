@@ -23,7 +23,10 @@ const Notifications = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("Notifications - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const [notificationArray, setNotificationArray] = useState([]);
 
@@ -32,11 +35,11 @@ const Notifications = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getNotificationList(userId);
-      // console.log("Notification list: ", data);
+      // console.log("Notifications - Notification list: ", data);
       setNotificationArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Notification list.");
+      console.log("Notifications - Error while getting Notification list.");
     }
   }, [userId]);
 
@@ -57,11 +60,11 @@ const Notifications = ({ navigation }) => {
           try {
             // setLoading(true);
             let dataAPI = await deleteNotification(id);
-            // console.log("Data API: ", dataAPI);
+            // console.log("Notifications - Data API: ", dataAPI);
             navigation.navigate(nameList.notifications);
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Notification.");
+            console.log("Notifications - Error while deleting Notification.");
           }
         },
       },

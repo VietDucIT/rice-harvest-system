@@ -24,12 +24,15 @@ const RiceFields = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("From Ricefields, User ID: ", userId), [userId]);
+  useEffect(
+    () => console.log("RiceFields - RFrom Ricefields, User ID: ", userId),
+    [userId]
+  );
 
   const [value, setValue] = useState();
   function updateSearch(value) {
     //do your search logic or anything
-    console.log(value);
+    console.log("RiceFields - Value: ", value);
   }
 
   const [fieldName, setFieldName] = useState("");
@@ -41,11 +44,11 @@ const RiceFields = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRiceFieldList(userId);
-      // console.log("Rice Fields data: ", data);
+      // console.log("RiceFields - Rice Fields data: ", data);
       setRiceFieldArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Field list.");
+      console.log("RiceFields - Error while getting Rice Field list.");
     }
   }, [userId]);
 
@@ -67,7 +70,7 @@ const RiceFields = ({ navigation }) => {
           try {
             // setLoading(true);
             let dataAPI = await deleteRiceField(field._id);
-            // console.log("Data API: ", dataAPI);
+            // console.log("RiceFields - Data API: ", dataAPI);
 
             // SET STATUS FOR THIS ???
             Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
@@ -79,7 +82,7 @@ const RiceFields = ({ navigation }) => {
             navigation.goBack();
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Rice Field.");
+            console.log("RiceFields - Error while deleting Rice Field.");
           }
         },
       },
@@ -114,7 +117,7 @@ const RiceFields = ({ navigation }) => {
             placeholder="Nhập tên ruộng lúa"
             handleSearch={(name) => {
               setFieldName(name);
-              // console.log("Tested");
+              // console.log("RiceFields - Tested");
             }}
           /> */}
 

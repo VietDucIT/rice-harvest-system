@@ -30,7 +30,10 @@ const AddRiceField = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("AddRiceField - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const initState = {
     name: "",
@@ -82,7 +85,7 @@ const AddRiceField = ({ navigation }) => {
     setRiceField(initState);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("AddRiceField - Reset completed.");
   };
 
   // handle disable submit btn
@@ -117,9 +120,9 @@ const AddRiceField = ({ navigation }) => {
     try {
       // setLoading(true);
 
-      // console.log("Data: ", riceField);
+      // console.log("AddRiceField - Data: ", riceField);
       let dataAPI = await addRiceField(riceField);
-      // console.log("Data API: ", dataAPI);
+      // console.log("AddRiceField - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
         {
           text: "Đóng",
@@ -130,7 +133,7 @@ const AddRiceField = ({ navigation }) => {
       // navigation.navigate(nameList.riceFields);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while adding Rice Field.");
+      console.log("AddRiceField - Error while adding Rice Field.");
     }
   };
 

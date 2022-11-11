@@ -32,12 +32,14 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceBuyingArea(idRiceBuyingArea);
-      // console.log("Rice Buying Area data: ", data);
+      // console.log("ModifyRiceBuyingArea - Rice Buying Area data: ", data);
       setBuyingAreaData(data);
       setRiceBuyingArea(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Buying Area data.");
+      console.log(
+        "ModifyRiceBuyingArea - Error while getting Rice Buying Area data."
+      );
     }
   }, [idRiceBuyingArea]);
   useEffect(() => {
@@ -81,7 +83,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
     setRiceBuyingArea(buyingAreaData);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("ModifyRiceBuyingArea - Reset completed.");
   };
 
   // handle disable submit btn
@@ -105,7 +107,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
       // setLoading(true);
 
       let dataAPI = await modifyRiceBuyingArea(riceBuyingArea);
-      // console.log("Data API: ", dataAPI);
+      // console.log("ModifyRiceBuyingArea - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
         {
           text: "Đóng",
@@ -117,7 +119,9 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
       });
       // setLoading(false);
     } catch (err) {
-      console.log("Error while modifying Rice Buying Area.");
+      console.log(
+        "ModifyRiceBuyingArea - Error while modifying Rice Buying Area."
+      );
     }
   };
 

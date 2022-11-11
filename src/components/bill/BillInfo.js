@@ -23,11 +23,11 @@ const BillInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getBill(idBill);
-      // console.log("Bill data: ", data);
+      // console.log("BillInfo - Bill data: ", data);
       setBillData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Bill data.");
+      console.log("BillInfo - Error while getting Bill data.");
     }
   }, [idBill]);
 

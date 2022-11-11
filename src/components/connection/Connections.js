@@ -23,7 +23,10 @@ const Connections = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("Connections - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const [connectionArray, setConnectionArray] = useState([]);
 
@@ -32,11 +35,11 @@ const Connections = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getConnectionList(userId);
-      // console.log("Connection list: ", data);
+      // console.log("Connections - Connection list: ", data);
       setConnectionArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Connection list.");
+      console.log("Connections - Error while getting Connection list.");
     }
   }, [userId]);
 
@@ -60,11 +63,11 @@ const Connections = ({ navigation }) => {
             try {
               // setLoading(true);
               let dataAPI = await deleteConnection(id);
-              // console.log("Data API: ", dataAPI);
+              // console.log("Connections - Data API: ", dataAPI);
               navigation.navigate(nameList.connections);
               // setLoading(false);
             } catch (err) {
-              console.log("Error while deleting Connection.");
+              console.log("Connections - Error while deleting Connection.");
             }
           },
         },

@@ -117,7 +117,8 @@ const CurrentWeather = ({ navigation }) => {
 
   const handleSearch = async () => {
     const coord = await convertNameToCoord(searchedProvince);
-    setLocation(coord);
+    console.log("Lat: ", coord[0].lat, ", Lon: ", coord[0].lon);
+    setLocation({ latitude: coord[0].lat, longitude: coord[0].lon });
   };
 
   useEffect(() => {

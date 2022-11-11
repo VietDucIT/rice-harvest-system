@@ -20,10 +20,10 @@ const FullMap = (props) => {
     try {
       setIsLoading(true);
       fieldArray = await getAllRiceField();
-      console.log("All Rice Fields: ", data);
+      console.log("FullMap - All Rice Fields: ", data);
       setIsLoading(false);
     } catch (err) {
-      console.log("Error while getting all Rice Fields.");
+      console.log("FullMap - Error while getting all Rice Fields.");
     }
   }, []);
 

@@ -26,7 +26,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceField(idRiceField);
-      // console.log("Rice Field data: ", data);
+      // console.log("RiceFieldInfo - Rice Field data: ", data);
       // coordinate = {
       //   x1: data.x1,
       //   y1: data.y1,
@@ -40,7 +40,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
       setFieldData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Field data.");
+      console.log("RiceFieldInfo - RError while getting Rice Field data.");
     }
   }, [idRiceField]);
 

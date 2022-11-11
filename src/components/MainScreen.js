@@ -25,11 +25,11 @@ const MainScreen = ({ navigation }) => {
       const userId = await getUserIdStored();
       console.log("MainScreen - User ID from SecureStore: ", userId);
       const data = await getUser(userId);
-      // console.log("User data: ", data);
+      // console.log("MainScreen - User data: ", data);
       setUserData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting User data.");
+      console.log("MainScreen - Error while getting User data.");
     }
   }, []);
   useEffect(() => {
@@ -42,13 +42,13 @@ const MainScreen = ({ navigation }) => {
     try {
       // setLoading(true);
       const isNeedToUpdate = await checkNewestRicePrice();
-      console.log("IsNeedToUpdate: ", isNeedToUpdate);
+      console.log("MainScreen - IsNeedToUpdate: ", isNeedToUpdate);
       if (isNeedToUpdate) {
         await updateRicePrice();
       }
       // setLoading(false);
     } catch (err) {
-      console.log("Error while handle Rice Price data.");
+      console.log("MainScreen - Error while handle Rice Price data.");
     }
   }, []);
   useEffect(() => {

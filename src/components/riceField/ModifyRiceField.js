@@ -32,12 +32,12 @@ const ModifyRiceField = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceField(idRiceField);
-      // console.log("Rice Field data: ", data);
+      // console.log("ModifyRiceField - Rice Field data: ", data);
       setFieldData(data);
       setRiceField(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Field data.");
+      console.log("ModifyRiceField - Error while getting Rice Field data.");
     }
   }, [idRiceField]);
   useEffect(() => {
@@ -87,7 +87,7 @@ const ModifyRiceField = ({ navigation, route }) => {
     setRiceField(fieldData);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("ModifyRiceField - Reset completed.");
   };
 
   // handle disable submit btn
@@ -118,9 +118,9 @@ const ModifyRiceField = ({ navigation, route }) => {
     try {
       // setLoading(true);
 
-      // console.log("Data: ", riceField);
+      // console.log("ModifyRiceField - Data: ", riceField);
       let dataAPI = await modifyRiceField(riceField);
-      // console.log("Data API: ", dataAPI);
+      // console.log("ModifyRiceField - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
         {
           text: "Đóng",
@@ -133,7 +133,7 @@ const ModifyRiceField = ({ navigation, route }) => {
       });
       // setLoading(false);
     } catch (err) {
-      console.log("Error while modifying Rice Field.");
+      console.log("ModifyRiceField - Error while modifying Rice Field.");
     }
   };
 

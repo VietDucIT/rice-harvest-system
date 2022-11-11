@@ -30,10 +30,10 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
   const getAddressAPI = useCallback(async () => {
     try {
       const data = await getAddressAPIData();
-      // console.log("AddressAPI data: ", data);
+      // console.log("AddressInput - AddressAPI data: ", data);
       setAddressAPI(data);
     } catch (err) {
-      console.log("Error while getting AddressAPI data.");
+      console.log("AddressInput - Error while getting AddressAPI data.");
     }
   }, []);
   useEffect(() => {

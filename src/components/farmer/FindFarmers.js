@@ -79,11 +79,11 @@ const FindFarmers = ({ navigation }) => {
       // setLoading(true);
       const data = await getFarmerListByName(farmerName);
       // const data2 = await getFarmerListByAddress(address);
-      // console.log("Farmer list: ", data);
+      // console.log("FindFarmner - Farmer list: ", data);
       setFarmerArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Farmer list.");
+      console.log("FindFarmner - Error while getting Farmer list.");
     }
   }, [farmerName]);
 

@@ -25,11 +25,13 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceBuyingArea(idRiceBuyingArea);
-      // console.log("Rice Buying Area data: ", data);
+      // console.log("RiceBuyingAreaInfo - Rice Buying Area data: ", data);
       setBuyingAreaData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Buying Area data.");
+      console.log(
+        "RiceBuyingAreaInfo - Error while getting Rice Buying Area data."
+      );
     }
   }, [idRiceBuyingArea]);
 

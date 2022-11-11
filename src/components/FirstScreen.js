@@ -58,7 +58,7 @@ const FirstScreen = ({ navigation }) => {
   const handleLogIn = async () => {
     try {
       let dataAPI = await logIn(user);
-      console.log("Data from BE: ", dataAPI);
+      console.log("FirstScreen - Data from BE: ", dataAPI);
       Alert.alert(
         `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
         "Bạn đã đăng nhập thành công.",
@@ -78,7 +78,7 @@ const FirstScreen = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      console.log("Error while Logging In.");
+      console.log("FirstScreen - Error while Logging In.");
     }
   };
 

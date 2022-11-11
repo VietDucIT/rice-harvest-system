@@ -43,12 +43,12 @@ const RicePrice = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRicePrice();
-      // console.log("Rice Price data: ", data);
+      // console.log("RicePrice - Rice Price data: ", data);
       await data.sort((a, b) => a.rice.localeCompare(b.rice));
       setRicePriceData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Price data.");
+      console.log("RicePrice - Error while getting Rice Price data.");
     }
   }, []);
 
@@ -67,11 +67,11 @@ const RicePrice = ({ navigation }) => {
     try {
       setIsLoading(true);
       const data = await getPricePrediction();
-      console.log("Price Prediction data 1: ", data);
+      console.log("RicePrice - Price Prediction data: ", data);
       setPricePredictionData(data);
       setIsLoading(false);
     } catch (err) {
-      console.log("Error while getting Price Prediction data.");
+      console.log("RicePrice - Error while getting Price Prediction data.");
     }
   }, []);
 

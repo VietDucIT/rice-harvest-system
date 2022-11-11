@@ -37,11 +37,11 @@ const FarmerInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getFarmer(idFarmer);
-      // console.log("Farmer data: ", data);
+      // console.log("FarmerInfo - Farmer data: ", data);
       setFarmerData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Farmer data.");
+      console.log("FarmerInfo - Error while getting Farmer data.");
     }
   }, [idFarmer]);
 
