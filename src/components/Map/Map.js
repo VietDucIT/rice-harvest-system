@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
@@ -7,39 +8,58 @@ import color from "../../config/color";
 
 import provinceVN2000 from "../../json/provinceVN2000";
 
-const Map = ({ coordinate, ...props }) => {
-  const { x: x1, y: y1 } = vn2000_to_wgs84(
-    coordinate.x1,
-    coordinate.y1,
-    0,
-    "VN2000_SOC_TRANG"
-  );
-  const { x: x2, y: y2 } = vn2000_to_wgs84(
-    coordinate.x2,
-    coordinate.y2,
-    0,
-    "VN2000_SOC_TRANG"
-  );
-  const { x: x3, y: y3 } = vn2000_to_wgs84(
-    coordinate.x3,
-    coordinate.y3,
-    0,
-    "VN2000_SOC_TRANG"
-  );
-  const { x: x4, y: y4 } = vn2000_to_wgs84(
-    coordinate.x4,
-    coordinate.y4,
-    0,
-    "VN2000_SOC_TRANG"
-  );
+const Map = ({ fieldData, ...props }) => {
+  console.log("Map - Field Data: ", fieldData);
 
-  const pointList = [
-    { latitude: x1, longitude: y1 },
-    { latitude: x2, longitude: y2 },
-    { latitude: x3, longitude: y3 },
-    { latitude: x4, longitude: y4 },
-    { latitude: x1, longitude: y1 },
-  ];
+  // let x = vn2000_to_wgs84(
+  //   fieldData.x1,
+  //   fieldData.y1,
+  //   17.94,
+  //   "VN2000_SOC_TRANG"
+  // );
+  // console.log("Map - Hehe: ", Number(x.y) + 4.8);
+  const point1 = vn2000_to_wgs84(
+    fieldData.x1,
+    fieldData.y1,
+    0,
+    "VN2000_SOC_TRANG"
+  );
+  const point2 = vn2000_to_wgs84(
+    fieldData.x2,
+    fieldData.y2,
+    0,
+    "VN2000_SOC_TRANG"
+  );
+  const point3 = vn2000_to_wgs84(
+    fieldData.x3,
+    fieldData.y3,
+    0,
+    "VN2000_SOC_TRANG"
+  );
+  const point4 = vn2000_to_wgs84(
+    fieldData.x4,
+    fieldData.y4,
+    0,
+    "VN2000_SOC_TRANG"
+  );
+  let pointList;
+
+  if (point1 && point2 && point3 && point4) {
+    console.log("Map - Point 1: ", point1);
+    console.log("Map - Point 2: ", point2);
+    console.log("Map - Point 3: ", point3);
+    console.log("Map - Point 4: ", point4);
+    pointList = [
+      { latitude: Number(point1.x) - 4.8, longitude: Number(point1.y) + 4.8 },
+      { latitude: Number(point2.x) - 4.8, longitude: Number(point2.y) + 4.8 },
+      { latitude: Number(point3.x) - 4.8, longitude: Number(point3.y) + 4.8 },
+      { latitude: Number(point4.x) - 4.8, longitude: Number(point4.y) + 4.8 },
+      { latitude: Number(point1.x) - 4.8, longitude: Number(point1.y) + 4.8 },
+    ];
+    console.log(pointList);
+  } else {
+    console.log("Map - Not found");
+  }
 
   return (
     <View style={styles.container}>
@@ -52,12 +72,14 @@ const Map = ({ coordinate, ...props }) => {
           longitudeDelta: 0.04,
         }}
       >
-        <Polygon
-          coordinates={pointList}
-          strokeColor={color.redColor}
-          fillColor={color.lightRedTransparent}
-          // strokeWidth={6}
-        />
+        {pointList && (
+          <Polygon
+            coordinates={pointList}
+            strokeColor={color.redColor}
+            fillColor={color.lightRedTransparent}
+            // strokeWidth={6}
+          />
+        )}
       </MapView>
     </View>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
@@ -20,7 +20,7 @@ const FullMap = (props) => {
     try {
       setIsLoading(true);
       fieldArray = await getAllRiceField();
-      console.log("FullMap - All Rice Fields: ", data);
+      console.log("FullMap - All Rice Fields: ", fieldArray);
       setIsLoading(false);
     } catch (err) {
       console.log("FullMap - Error while getting all Rice Fields.");
@@ -46,25 +46,25 @@ const FullMap = (props) => {
           }}
         >
           {fieldArray.map(async (item, index) => {
-            const { x: x1, y: y1 } = vn2000_to_wgs84(
+            const point1 = vn2000_to_wgs84(
               item.x1,
               item.y1,
               0,
               "VN2000_SOC_TRANG"
             );
-            const { x: x2, y: y2 } = vn2000_to_wgs84(
+            const point2 = vn2000_to_wgs84(
               item.x2,
               item.y2,
               0,
               "VN2000_SOC_TRANG"
             );
-            const { x: x3, y: y3 } = vn2000_to_wgs84(
+            const point3 = vn2000_to_wgs84(
               item.x3,
               item.y3,
               0,
               "VN2000_SOC_TRANG"
             );
-            const { x: x4, y: y4 } = vn2000_to_wgs84(
+            const point4 = vn2000_to_wgs84(
               item.x4,
               item.y4,
               0,
@@ -72,11 +72,26 @@ const FullMap = (props) => {
             );
 
             const pointList = [
-              { latitude: x1, longitude: y1 },
-              { latitude: x2, longitude: y2 },
-              { latitude: x3, longitude: y3 },
-              { latitude: x4, longitude: y4 },
-              { latitude: x1, longitude: y1 },
+              {
+                latitude: Number(point1.x) - 4.8,
+                longitude: Number(point1.y) + 4.8,
+              },
+              {
+                latitude: Number(point2.x) - 4.8,
+                longitude: Number(point2.y) + 4.8,
+              },
+              {
+                latitude: Number(point3.x) - 4.8,
+                longitude: Number(point3.y) + 4.8,
+              },
+              {
+                latitude: Number(point4.x) - 4.8,
+                longitude: Number(point4.y) + 4.8,
+              },
+              {
+                latitude: Number(point1.x) - 4.8,
+                longitude: Number(point1.y) + 4.8,
+              },
             ];
 
             return (

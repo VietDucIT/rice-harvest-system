@@ -29,7 +29,10 @@ const RiceSeasons = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("RiceSeasons - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   // FIND RICE SEASON BY NAME
   const [seasonName, setSeasonName] = useState("");
@@ -65,11 +68,11 @@ const RiceSeasons = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRiceSeasonList(userId);
-      // console.log("Rice Season list: ", data);
+      // console.log("RiceSeasons - Rice Season list: ", data);
       setRiceSeasonArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Season list.");
+      console.log("RiceSeasons - Error while getting Rice Season list.");
     }
   }, [userId]);
 
@@ -90,7 +93,7 @@ const RiceSeasons = ({ navigation }) => {
           try {
             // setLoading(true);
             let dataAPI = await deleteRiceSeason(id);
-            // console.log("Data API: ", dataAPI);
+            // console.log("RiceSeasons - Data API: ", dataAPI);
 
             // SET STATUS FOR THIS
             Alert.alert("Thông báo", "Đã xóa vụ mùa này.", [
@@ -102,7 +105,7 @@ const RiceSeasons = ({ navigation }) => {
             navigation.navigate(nameList.riceSeasons);
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Rice Season.");
+            console.log("RiceSeasons - Error while deleting Rice Season.");
           }
         },
       },

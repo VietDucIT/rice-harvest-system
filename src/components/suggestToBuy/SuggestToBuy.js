@@ -30,7 +30,10 @@ const SuggestToBuy = ({ navigation, route }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("SuggestToBuy - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
@@ -40,11 +43,11 @@ const SuggestToBuy = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceSeason(idRiceSeason);
-      // console.log("Rice Season data: ", data);
+      // console.log("SuggestToBuy - Rice Season data: ", data);
       setSeasonData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Season data.");
+      console.log("SuggestToBuy - Error while getting Rice Season data.");
     }
   }, [idRiceSeason]);
 
@@ -99,7 +102,7 @@ const SuggestToBuy = ({ navigation, route }) => {
   const reset = () => {
     setSuggestToBuy(initState);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("SuggestToBuy - Reset completed.");
   };
 
   // handle disable submit btn
@@ -151,7 +154,7 @@ const SuggestToBuy = ({ navigation, route }) => {
 
         let merge = { suggestToBuy, seasonData };
         let dataAPI = await addSuggestToBuy(merge);
-        // console.log("Data API: ", dataAPI);
+        // console.log("SuggestToBuy - Data API: ", dataAPI);
         Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
           {
             text: "Đóng",
@@ -161,7 +164,7 @@ const SuggestToBuy = ({ navigation, route }) => {
         navigation.navigate(nameList.suggestToBuys);
         // setLoading(false);
       } catch (err) {
-        console.log("Error while adding Suggest To Buy.");
+        console.log("SuggestToBuy - Error while adding Suggest To Buy.");
       }
     }
   };

@@ -8,7 +8,7 @@ const getAllRiceField = async () => {
     // console.log("getAllRiceField - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get all Rice Fields: ", { err: JSON.stringify(err) });
+    console.log("Can't get all Rice Field: ", { err: JSON.stringify(err) });
     throw err;
   }
 };

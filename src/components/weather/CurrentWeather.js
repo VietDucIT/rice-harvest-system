@@ -75,11 +75,11 @@ const CurrentWeather = ({ navigation }) => {
         location.longitude,
         location.latitude
       );
-      // console.log("From CurrentWeather: ", data);
+      // console.log("CurrentWeather - From CurrentWeather: ", data);
       setWeatherData(data);
       setLoading(false);
     } catch (err) {
-      console.log("Can't call weather API.");
+      console.log("CurrentWeather - Can't call weather API.");
     }
   }, [location]);
 
@@ -93,11 +93,11 @@ const CurrentWeather = ({ navigation }) => {
     try {
       setLoading(true);
       const data = await getAddressAPIData();
-      console.log("AddressAPI data: ");
+      console.log("CurrentWeather - AddressAPI data: ");
       setAddressAPI(data);
       setLoading(false);
     } catch (err) {
-      console.log("Error while getting AddressAPI data.");
+      console.log("CurrentWeather - Error while getting AddressAPI data.");
     }
   }, []);
   useEffect(() => {
@@ -111,13 +111,18 @@ const CurrentWeather = ({ navigation }) => {
     } else if (province.includes("Thành phố ")) {
       province = await province.slice(10);
     }
-    console.log("Searching: ", province);
+    console.log("CurrentWeather - Searching: ", province);
     setSearchedProvince(province);
   };
 
   const handleSearch = async () => {
     const coord = await convertNameToCoord(searchedProvince);
-    console.log("Lat: ", coord[0].lat, ", Lon: ", coord[0].lon);
+    console.log(
+      "CurrentWeather - Lat: ",
+      coord[0].lat,
+      ", Lon: ",
+      coord[0].lon
+    );
     setLocation({ latitude: coord[0].lat, longitude: coord[0].lon });
   };
 

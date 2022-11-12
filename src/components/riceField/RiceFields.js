@@ -54,7 +54,6 @@ const RiceFields = ({ navigation }) => {
 
   useEffect(() => {
     getRiceFieldArray();
-    // });
   }, [getRiceFieldArray]);
 
   // delete a Rice Field

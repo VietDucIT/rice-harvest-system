@@ -12,7 +12,7 @@ const findRiceSeason = async (idFarmer, name) => {
     // console.log("findRiceSeason - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Rice Season List by Name: ", {
+    console.log("Can't find Rice Season List by Name: ", {
       err: JSON.stringify(err),
     });
     throw err;

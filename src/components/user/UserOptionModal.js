@@ -21,7 +21,10 @@ const UserOptionModal = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("UserOptionModal - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const handleSignOut = () => {
     Alert.alert("Xác nhận", "Bạn có chắc chắn muốn đăng xuất?", [
@@ -52,7 +55,7 @@ const UserOptionModal = ({ navigation }) => {
         onPress: async () => {
           try {
             let dataAPI = await deleteUser(userId);
-            // console.log("Data API: ", dataAPI);
+            // console.log("UserOptionModal - Data API: ", dataAPI);
             Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
               {
                 text: "Đóng",
@@ -61,7 +64,7 @@ const UserOptionModal = ({ navigation }) => {
             ]);
             navigation.navigate(nameList.addUserInfo);
           } catch (err) {
-            console.log("Error while deleting User.");
+            console.log("UserOptionModal - Error while deleting User.");
           }
         },
       },

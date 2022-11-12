@@ -1,60 +1,60 @@
-// This file is for running in Expo
+// This file is for running in Android Studio
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import FirstScreen from "./components/FirstScreen";
-import MainScreen from "./components/MainScreen";
+import FirstScreen from "./src/components/FirstScreen";
+import MainScreen from "./src/components/MainScreen";
 
-import BillInfo from "./components/bill/BillInfo";
-import Bills from "./components/bill/Bills";
+import BillInfo from "./src/components/bill/BillInfo";
+import Bills from "./src/components/bill/Bills";
 
-import Calculator from "./components/calculator/Calculator";
+import Calculator from "./src/components/calculator/Calculator";
 
-import Connections from "./components/connection/Connections";
+import Connections from "./src/components/connection/Connections";
 
-import FarmerInfo from "./components/farmer/FarmerInfo";
-import FindFarmers from "./components/farmer/FindFarmers";
+import FarmerInfo from "./src/components/farmer/FarmerInfo";
+import FindFarmers from "./src/components/farmer/FindFarmers";
 
-import FullMap from "./components/map/FullMap";
-import ChangeCoordIframe from "./components/map/ChangeCoordIframe";
+import FullMap from "./src/components/map/FullMap";
+import ChangeCoordIframe from "./src/components/map/ChangeCoordIframe";
 
-import Notifications from "./components/notification/Notifications";
+import Notifications from "./src/components/notification/Notifications";
 
-import RicePrice from "./components/rice/RicePrice";
+import RicePrice from "./src/components/rice/RicePrice";
 
-import AddRiceBuyingArea from "./components/riceBuyingArea/AddRiceBuyingArea";
-import ModifyRiceBuyingArea from "./components/riceBuyingArea/ModifyRiceBuyingArea";
-import RiceBuyingAreaInfo from "./components/riceBuyingArea/RiceBuyingAreaInfo";
-import RiceBuyingAreas from "./components/riceBuyingArea/RiceBuyingAreas";
+import AddRiceBuyingArea from "./src/components/riceBuyingArea/AddRiceBuyingArea";
+import ModifyRiceBuyingArea from "./src/components/riceBuyingArea/ModifyRiceBuyingArea";
+import RiceBuyingAreaInfo from "./src/components/riceBuyingArea/RiceBuyingAreaInfo";
+import RiceBuyingAreas from "./src/components/riceBuyingArea/RiceBuyingAreas";
 
-import AddRiceField from "./components/riceField/AddRiceField";
-import ModifyRiceField from "./components/riceField/ModifyRiceField";
-import RiceFieldInfo from "./components/riceField/RiceFieldInfo";
-import RiceFields from "./components/riceField/RiceFields";
+import AddRiceField from "./src/components/riceField/AddRiceField";
+import ModifyRiceField from "./src/components/riceField/ModifyRiceField";
+import RiceFieldInfo from "./src/components/riceField/RiceFieldInfo";
+import RiceFields from "./src/components/riceField/RiceFields";
 
-import AddRiceSeason from "./components/riceSeason/AddRiceSeason";
-import ModifyRiceSeason from "./components/riceSeason/ModifyRiceSeason";
-import RiceSeasonInfo from "./components/riceSeason/RiceSeasonInfo";
-import RiceSeasonInfoForTrader from "./components/riceSeason/RiceSeasonInfoForTrader";
-import RiceSeasons from "./components/riceSeason/RiceSeasons";
+import AddRiceSeason from "./src/components/riceSeason/AddRiceSeason";
+import ModifyRiceSeason from "./src/components/riceSeason/ModifyRiceSeason";
+import RiceSeasonInfo from "./src/components/riceSeason/RiceSeasonInfo";
+import RiceSeasonInfoForTrader from "./src/components/riceSeason/RiceSeasonInfoForTrader";
+import RiceSeasons from "./src/components/riceSeason/RiceSeasons";
 
-import ModifySuggestToBuy from "./components/suggestToBuy/ModifySuggestToBuy";
-import SuggestToBuy from "./components/suggestToBuy/SuggestToBuy";
-import SuggestToBuyInfo from "./components/suggestToBuy/SuggestToBuyInfo";
-import SuggestToBuyInfoForFarmer from "./components/suggestToBuy/SuggestToBuyInfoForFarmer";
-import SuggestToBuys from "./components/suggestToBuy/SuggestToBuys";
+import ModifySuggestToBuy from "./src/components/suggestToBuy/ModifySuggestToBuy";
+import SuggestToBuy from "./src/components/suggestToBuy/SuggestToBuy";
+import SuggestToBuyInfo from "./src/components/suggestToBuy/SuggestToBuyInfo";
+import SuggestToBuyInfoForFarmer from "./src/components/suggestToBuy/SuggestToBuyInfoForFarmer";
+import SuggestToBuys from "./src/components/suggestToBuy/SuggestToBuys";
 
-import AddUserInfo from "./components/user/AddUserInfo";
-import ModifyUserInfo from "./components/user/ModifyUserInfo";
-import UserInfo from "./components/user/UserInfo";
-import UserOptionModal from "./components/user/UserOptionModal";
+import AddUserInfo from "./src/components/user/AddUserInfo";
+import ModifyUserInfo from "./src/components/user/ModifyUserInfo";
+import UserInfo from "./src/components/user/UserInfo";
+import UserOptionModal from "./src/components/user/UserOptionModal";
 
-import CurrentWeather from "./components/weather/CurrentWeather";
-import DailyWeatherForecast from "./components/weather/DailyWeatherForecast";
-import HourlyWeatherForecast from "./components/weather/HourlyWeatherForecast";
+import CurrentWeather from "./src/components/weather/CurrentWeather";
+import DailyWeatherForecast from "./src/components/weather/DailyWeatherForecast";
+import HourlyWeatherForecast from "./src/components/weather/HourlyWeatherForecast";
 
-import nameList from "./json/nameList";
+import nameList from "./src/json/nameList";
 
 const Stack = createNativeStackNavigator();
 

@@ -8,7 +8,9 @@ const getBillListForFarmer = async (idFarmer) => {
     // console.log("getBillListForFarmer - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Bill List: ", { err: JSON.stringify(err) });
+    console.log("Can't get Bill List for Farmer: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

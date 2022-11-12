@@ -44,11 +44,11 @@ const AddUserInfo = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getAddressData();
-      // console.log("Address data: ", data);
+      // console.log("AddUserInfo - Address data: ", data);
       setAddress(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Address data.");
+      console.log("AddUserInfo - Error while getting Address data.");
     }
   }, []);
   useEffect(() => {
@@ -98,7 +98,7 @@ const AddUserInfo = ({ navigation }) => {
     setUser(initState);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("AddUserInfo - Reset completed.");
   };
 
   // handle disable submit btn
@@ -141,9 +141,9 @@ const AddUserInfo = ({ navigation }) => {
     try {
       // setLoading(true);
 
-      // console.log("Data: ", user);
+      // console.log("AddUserInfo - Data: ", user);
       let dataAPI = await addUser(user); // _id of user recently added
-      console.log("ID User recently added: ", dataAPI);
+      console.log("AddUserInfo - ID User recently added: ", dataAPI);
       Alert.alert("Thông báo", "Thêm người dùng thành công.", [
         {
           text: "Đóng",
@@ -153,7 +153,7 @@ const AddUserInfo = ({ navigation }) => {
       navigation.navigate(nameList.userInfo, { idUser: dataAPI });
       // setLoading(false);
     } catch (err) {
-      console.log("Error while adding User.");
+      console.log("AddUserInfo - Error while adding User.");
     }
     // }
   };
@@ -252,7 +252,7 @@ const AddUserInfo = ({ navigation }) => {
                 placeholder={"Chọn năm"}
                 value={user.birthYear}
                 onChange={(year) => {
-                  console.log("Birth year: ", year.label);
+                  console.log("AddUserInfo - Birth year: ", year.label);
                   setUser({ ...user, birthYear: Number(year.label) });
                 }}
                 style={styles.textField}

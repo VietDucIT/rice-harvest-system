@@ -33,11 +33,11 @@ const UserInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getUser(idUser);
-      // console.log("User data: ", data);
+      // console.log("UserInfo - User data: ", data);
       setUserData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting User data.");
+      console.log("UserInfo - Error while getting User data.");
     }
   }, [idUser]);
 

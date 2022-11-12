@@ -94,9 +94,11 @@ const RiceFieldInfo = ({ navigation, route }) => {
               <Text>{fieldData.description}</Text>
             </View>
 
-            <View flex style={styles.mapContainer}>
-              <Map coordinate={fieldData} />
-            </View>
+            {fieldData && (
+              <View flex style={styles.mapContainer}>
+                <Map fieldData={fieldData} />
+              </View>
+            )}
           </View>
 
           <View flex marginT-20 center>

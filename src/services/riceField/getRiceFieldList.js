@@ -11,7 +11,7 @@ const getRiceFieldList = async (idFarmer) => {
     // console.log("getRiceFieldList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Rice Field list: ", { err: JSON.stringify(err) });
+    console.log("Can't get Rice Field List: ", { err: JSON.stringify(err) });
     throw err;
   }
 };

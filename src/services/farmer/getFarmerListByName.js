@@ -11,7 +11,7 @@ const getFarmerListByName = async (name) => {
     // console.log("getFarmerListByName - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Farmer list by Name: ", {
+    console.log("Can't get Farmer List by Name: ", {
       err: JSON.stringify(err),
     });
     throw err;

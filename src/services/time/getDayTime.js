@@ -8,7 +8,7 @@ const getDayTime = () => {
   };
 
   const getDateString = (date) => {
-    // console.log("Date: ", date);
+    // console.log("getDayTime - Date: ", date);
     const dayStr = `${date.getDate()}-${
       date.getMonth() + 1
     }-${date.getFullYear()}`;
@@ -41,7 +41,7 @@ const getDayTime = () => {
         day = "Saturday";
         break;
       default:
-        console.log("Not a weekday");
+        console.log("getDayTime - Not a weekday");
     }
     return day;
   };

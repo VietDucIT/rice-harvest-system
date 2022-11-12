@@ -38,11 +38,13 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getSuggestToBuy(idSuggestToBuy);
-      // console.log("Suggest To Buy data: ", data);
+      // console.log("SuggestToBuyInfo - Suggest To Buy data: ", data);
       setSuggestToBuyData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Suggest To Buy data.");
+      console.log(
+        "SuggestToBuyInfo - Error while getting Suggest To Buy data."
+      );
     }
   }, [idSuggestToBuy]);
 

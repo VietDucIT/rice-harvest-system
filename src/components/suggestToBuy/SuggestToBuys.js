@@ -23,7 +23,10 @@ const SuggestToBuys = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("SuggestToBuys - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   // const suggestList = [
   //   {
@@ -60,11 +63,11 @@ const SuggestToBuys = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getSuggestToBuyList(userId);
-      // console.log("Suggest To Buy list: ", data);
+      // console.log("SuggestToBuys - Suggest To Buy list: ", data);
       setSuggestArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Suggest To Buy list.");
+      console.log("SuggestToBuys - Error while getting Suggest To Buy list.");
     }
   }, [userId]);
 
@@ -85,7 +88,7 @@ const SuggestToBuys = ({ navigation }) => {
           try {
             // setLoading(true);
             let dataAPI = await deleteSuggestToBuy(id);
-            // console.log("Data API: ", dataAPI);
+            // console.log("SuggestToBuys - Data API: ", dataAPI);
 
             // SET STATUS FOR THIS SUGGEST ???
             Alert.alert("Thông báo", "Đã xóa đề xuất thu mua này.", [
@@ -97,7 +100,7 @@ const SuggestToBuys = ({ navigation }) => {
             navigation.navigate(nameList.suggestToBuys);
             // setLoading(false);
           } catch (err) {
-            console.log("Error while deleting Suggest To Buy.");
+            console.log("SuggestToBuys - Error while deleting Suggest To Buy.");
           }
         },
       },

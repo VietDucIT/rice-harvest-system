@@ -13,7 +13,7 @@ const findConnection = async (idUser, name) => {
     // console.log("findConnection - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Connection List by Name: ", {
+    console.log("Can't find Connection by Name: ", {
       err: JSON.stringify(err),
     });
     throw err;

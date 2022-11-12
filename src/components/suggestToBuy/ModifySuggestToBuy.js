@@ -32,12 +32,14 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getSuggestToBuy(idSuggestToBuy);
-      // console.log("Suggest To Buy data: ", data);
+      // console.log("ModifySuggestToBuy - Suggest To Buy data: ", data);
       setSuggestToBuyData(data);
       setSuggestToBuy(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Suggest To Buy data.");
+      console.log(
+        "ModifySuggestToBuy - Error while getting Suggest To Buy data."
+      );
     }
   }, [idSuggestToBuy]);
 
@@ -77,7 +79,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
   const reset = () => {
     setSuggestToBuy(suggestToBuyData);
     setError({});
-    console.log("Reset completed.");
+    console.log("ModifySuggestToBuy - Reset completed.");
   };
 
   // handle disable submit btn
@@ -146,7 +148,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
 
         let merge = { suggestToBuy, suggestToBuyData };
         let dataAPI = await modifySuggestToBuy(merge);
-        // console.log("Data API: ", dataAPI);
+        // console.log("ModifySuggestToBuy - Data API: ", dataAPI);
         Alert.alert("Thông báo", "Sửa đề xuất thu mua thành công.", [
           {
             text: "Đóng",
@@ -156,7 +158,9 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
         navigation.navigate(nameList.suggestToBuys);
         // setLoading(false);
       } catch (err) {
-        console.log("Error while modifying Suggest To Buy.");
+        console.log(
+          "ModifySuggestToBuy - Error while modifying Suggest To Buy."
+        );
       }
     }
   };

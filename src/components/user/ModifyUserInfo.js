@@ -39,12 +39,12 @@ const ModifyUserInfo = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getUser(idUser);
-      // console.log("User data: ", data);
+      // console.log("ModifyUserInfo - User data: ", data);
       setUserData(data);
       setUser(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting User data.");
+      console.log("ModifyUserInfo - Error while getting User data.");
     }
   }, [idUser]);
   useEffect(() => {
@@ -101,7 +101,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
     setUser(userData);
     setIsReset(!isReset);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("ModifyUserInfo - Reset completed.");
   };
 
   // handle disable submit btn
@@ -144,9 +144,9 @@ const ModifyUserInfo = ({ navigation, route }) => {
       try {
         // setLoading(true);
 
-        // console.log("Data: ", user);
+        // console.log("ModifyUserInfo - Data: ", user);
         let dataAPI = await modifyUser(user);
-        // console.log("Data API: ", dataAPI);
+        // console.log("ModifyUserInfo - Data API: ", dataAPI);
         Alert.alert("Thông báo", "Sửa thông tin người dùng thành công.", [
           {
             text: "Đóng",
@@ -156,7 +156,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
         navigation.navigate(nameList.userInfo, { idUser: user._id });
         // setLoading(false);
       } catch (err) {
-        console.log("Error while modifying User.");
+        console.log("ModifyUserInfo - Error while modifying User.");
       }
     }
   };
@@ -255,7 +255,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 value={user.birthYear}
                 // onChange={(year) => setUser({ ...user, birthYear: year })}
                 onChange={(year) => {
-                  console.log("Birth year: ", year.label);
+                  console.log("ModifyUserInfo - Birth year: ", year.label);
                   setUser({ ...user, birthYear: Number(year.label) });
                 }}
                 style={styles.textField}

@@ -11,7 +11,7 @@ const getSuggestToBuyListForRiceSeason = async (idRiceSeason) => {
     // console.log("getSuggestToBuyListForRiceSeason - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Suggest To Buy list for Rice Season: ", {
+    console.log("Can't get Suggest To Buy List for Rice Season: ", {
       err: JSON.stringify(err),
     });
     throw err;

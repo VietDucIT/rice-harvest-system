@@ -25,11 +25,13 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceSeason(idRiceSeason);
-      // console.log("Rice Season data: ", data);
+      // console.log("RiceSeasonInfoForTrader - Rice Season data: ", data);
       setSeasonData(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Season data.");
+      console.log(
+        "RiceSeasonInfoForTrader - Error while getting Rice Season data."
+      );
     }
   }, [idRiceSeason]);
 

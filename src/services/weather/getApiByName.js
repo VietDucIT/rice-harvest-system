@@ -5,12 +5,12 @@ import API_KEY from "./apiKey";
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
 
 const getWeatherByName = (city) => {
-  // console.log("From getApiByName.js: city = ", city)
+  // console.log("getApiByName.js - city = ", city)
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(`${REQUEST_URL}/weather`, {
       params: { q: city, appid: `${API_KEY}` },
     });
-    // console.log("From getApiByName.js: current = ", data);
+    // console.log("getApiByName.js - current = ", data);
 
     if (status === 200) {
       const lat = data.coord.lat;
@@ -19,7 +19,7 @@ const getWeatherByName = (city) => {
         `${REQUEST_URL}/onecall`,
         { params: { lat: lat, lon: lon, appid: `${API_KEY}` } }
       );
-      // console.log("From getApiByName.js: fullData = ", fullData);
+      // console.log("getApiByName.js - fullData = ", fullData);
       // console.log('fullStatus', fullStatus);
 
       if (fullStatus === 200) {

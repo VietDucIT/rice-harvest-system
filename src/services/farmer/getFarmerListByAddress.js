@@ -12,7 +12,7 @@ const getFarmerListByAddress = async (address) => {
     // console.log("getFarmerListByAddress - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Farmer list by Address: ", {
+    console.log("Can't get Farmer List by Address: ", {
       err: JSON.stringify(err),
     });
     throw err;

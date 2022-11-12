@@ -40,7 +40,10 @@ const AddRiceSeason = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("User ID from SecureStore: ", userId), [userId]);
+  useEffect(
+    () => console.log("AddRiceSeason - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   // call API to get Rice Field list
   const [riceFieldArray, setRiceFieldArray] = useState([]);
@@ -48,11 +51,11 @@ const AddRiceSeason = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRiceFieldList(userId);
-      // console.log("Rice Field list: ", data);
+      // console.log("AddRiceSeason - Rice Field list: ", data);
       setRiceFieldArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Field list.");
+      console.log("AddRiceSeason - Error while getting Rice Field list.");
     }
   }, [userId]);
   useEffect(() => {
@@ -65,11 +68,11 @@ const AddRiceSeason = ({ navigation }) => {
     try {
       // setLoading(true);
       const data = await getRiceList();
-      // console.log("Rice list: ", data);
+      // console.log("AddRiceSeason - Rice list: ", data);
       setRiceArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice list.");
+      console.log("AddRiceSeason - Error while getting Rice list.");
     }
   }, []);
   useEffect(() => {
@@ -116,7 +119,7 @@ const AddRiceSeason = ({ navigation }) => {
   const reset = () => {
     setRiceSeason(initState);
     setError(initState);
-    console.log("Reset completed.");
+    console.log("AddRiceSeason - Reset completed.");
   };
 
   // handle disable submit btn
@@ -194,7 +197,7 @@ const AddRiceSeason = ({ navigation }) => {
       // setLoading(true);
 
       let dataAPI = await addRiceSeason(riceSeason);
-      console.log("Data API: ", dataAPI);
+      console.log("AddRiceSeason - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
         {
           text: "Đóng",
@@ -205,7 +208,7 @@ const AddRiceSeason = ({ navigation }) => {
       // navigation.navigate(nameList.riceSeasons);
       // setLoading(false);
     } catch (err) {
-      console.log("Error while adding Rice Season.");
+      console.log("AddRiceSeason - Error while adding Rice Season.");
     }
   };
 
@@ -439,7 +442,7 @@ const AddRiceSeason = ({ navigation }) => {
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
                 label="Thêm"
-                // onPress={() => console.log("Clicked")}
+                // onPress={() => console.log("AddRiceSeason - Clicked")}
                 onPress={handleAdd}
                 disabled={isDisableBtn}
               />

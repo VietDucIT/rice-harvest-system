@@ -8,7 +8,7 @@ const getAddressAPIData = async () => {
     // console.log("getAddressAPIData - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Address data: ", { err: JSON.stringify(err) });
+    console.log("Can't get Address API data: ", { err: JSON.stringify(err) });
     throw err;
   }
 };

@@ -11,7 +11,7 @@ const getRiceBuyingAreaList = async (idTrader) => {
     // console.log("getRiceBuyingAreaList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Rice Buying Area list: ", {
+    console.log("Can't get Rice Buying Area List: ", {
       err: JSON.stringify(err),
     });
     throw err;

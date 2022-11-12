@@ -11,7 +11,7 @@ const getSuggestToBuyList = async (idTrader) => {
     // console.log("getSuggestToBuyList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Suggest To Buy list: ", {
+    console.log("Can't get Suggest To Buy List: ", {
       err: JSON.stringify(err),
     });
     throw err;

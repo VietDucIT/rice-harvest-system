@@ -75,9 +75,11 @@ const RicePrice = ({ navigation }) => {
     }
   }, []);
 
+  useEffect(() => getPricePredictionData(), [getPricePredictionData]);
+
   const handlePrediction = () => {
-    setIsShowPredict(!isShowPredict);
     getPricePredictionData();
+    setIsShowPredict(!isShowPredict);
   };
 
   // ???

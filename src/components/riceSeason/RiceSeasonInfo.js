@@ -23,7 +23,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { idRiceSeason } = route.params;
-  console.log("ID Rice Season: ", idRiceSeason);
+  console.log("RiceSeasonInfo - ID Rice Season: ", idRiceSeason);
   const [seasonData, setSeasonData] = useState({});
   const [suggestList, setSuggestList] = useState({});
 
@@ -31,7 +31,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   const getRiceSeasonData = useCallback(async () => {
     try {
       setIsLoading(true);
-      // console.log("Rice Season data: ", data);
+      // console.log("RiceSeasonInfo - Rice Season data: ", data);
       const data = await getRiceSeason(idRiceSeason);
       setSeasonData(data);
       // setSeasonData({
@@ -41,7 +41,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
       // });
       setIsLoading(false);
     } catch (err) {
-      console.log("Error while getting Rice Season data.");
+      console.log("RiceSeasonInfo - Error while getting Rice Season data.");
     }
   }, [idRiceSeason]);
 
@@ -54,11 +54,11 @@ const RiceSeasonInfo = ({ navigation, route }) => {
     try {
       setIsLoading(true);
       const data = await getSuggestToBuyListForRiceSeason(seasonData._id);
-      // console.log("Suggest To Buy list: ", data);
+      // console.log("RiceSeasonInfo - Suggest To Buy list: ", data);
       setSuggestList(data);
       setIsLoading(false);
     } catch (err) {
-      console.log("Error while getting Suggest To Buy list.");
+      console.log("RiceSeasonInfo - Error while getting Suggest To Buy list.");
     }
   }, [seasonData._id]);
 
