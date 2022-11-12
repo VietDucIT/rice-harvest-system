@@ -102,7 +102,7 @@ const RicePrice = ({ navigation }) => {
             />
             <View center marginV-20>
               <Text text50 green>
-                Cập nhật giá lúa
+                Thông tin giá lúa
               </Text>
               <Text text80 marginT-10>
                 Ngày {date}

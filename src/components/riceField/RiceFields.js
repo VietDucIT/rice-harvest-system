@@ -7,11 +7,11 @@ import nameList from "../../json/nameList";
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import SearchBar from "../core/SearchBar";
-import Search from "../core/Search";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import findRiceFieldByName from "../../services/riceField/findRiceFieldByName";
 import getRiceFieldList from "../../services/riceField/getRiceFieldList";
 import deleteRiceField from "../../services/riceField/deleteRiceField";
 import getUserIdStored from "../../services/user/getUserIdStored";
@@ -28,12 +28,6 @@ const RiceFields = ({ navigation }) => {
     () => console.log("RiceFields - RFrom Ricefields, User ID: ", userId),
     [userId]
   );
-
-  const [value, setValue] = useState();
-  function updateSearch(value) {
-    //do your search logic or anything
-    console.log("RiceFields - Value: ", value);
-  }
 
   const [fieldName, setFieldName] = useState("");
 
@@ -55,6 +49,23 @@ const RiceFields = ({ navigation }) => {
   useEffect(() => {
     getRiceFieldArray();
   }, [getRiceFieldArray]);
+
+  // get Rice Field list by Name
+  const getRiceFieldArrayByName = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await findRiceFieldByName(fieldName, userId);
+      // console.log("RiceFields - Rice Fields data: ", data);
+      setRiceFieldArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("RiceFields - Error while finding Rice Field by Name.");
+    }
+  }, [fieldName, userId]);
+
+  useEffect(() => {
+    getRiceFieldArrayByName();
+  }, [getRiceFieldArrayByName]);
 
   // delete a Rice Field
   const handleDelete = (field) => {
@@ -106,19 +117,13 @@ const RiceFields = ({ navigation }) => {
             </View>
           </View>
 
-          {/* ??? */}
-          <Search
-            value={value}
-            updateSearch={updateSearch}
-            style={{ marginTop: "8%" }}
-          />
-          {/* <SearchBar
+          <SearchBar
             placeholder="Nhập tên ruộng lúa"
             handleSearch={(name) => {
               setFieldName(name);
-              // console.log("RiceFields - Tested");
+              console.log("RiceFields - Rice Field name: ", name);
             }}
-          /> */}
+          />
 
           <View marginT-20>
             {riceFieldArray &&

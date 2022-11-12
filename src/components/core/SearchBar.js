@@ -19,6 +19,7 @@ const SearchBar = ({ handleSearch, ...props }) => {
           placeholder={props.placeholder}
           value={name}
           onChangeText={setName}
+          autoCapitalize="words"
         />
       </View>
 

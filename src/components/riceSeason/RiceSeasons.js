@@ -17,6 +17,7 @@ import SearchBar from "../core/SearchBar";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import findRiceSeasonByName from "../../services/riceSeason/findRiceSeasonByName";
 import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
 import deleteRiceSeason from "../../services/riceSeason/deleteRiceSeason";
 import getUserIdStored from "../../services/user/getUserIdStored";
@@ -36,34 +37,12 @@ const RiceSeasons = ({ navigation }) => {
 
   // FIND RICE SEASON BY NAME
   const [seasonName, setSeasonName] = useState("");
-  let hasResult = true;
-
-  // FILTER
-
-  // const initArray = [
-  //   {
-  //     id: 1,
-  //     name: "Thu Đông 2022",
-  //     riceField: "Mẫu ruộng số 1",
-  //     rice: "OM 18",
-  //     timeStart: "19/9/2022",
-  //     timeEnd: "19/12/2022",
-  //     totalRice: 900,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Đông Xuân 2023",
-  //     riceField: "Mẫu ruộng số 1",
-  //     rice: "OM 5451",
-  //     timeStart: "19/9/2022",
-  //     timeEnd: "19/12/2022",
-  //     totalRice: 900,
-  //   },
-  // ];
 
   const [riceSeasonArray, setRiceSeasonArray] = useState([]);
 
-  // call API
+  let hasResult = true;
+
+  // get Rice Season list
   const getRiceSeasonArray = useCallback(async () => {
     try {
       // setLoading(true);
@@ -79,6 +58,23 @@ const RiceSeasons = ({ navigation }) => {
   useEffect(() => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
+
+  // get Rice Season list by Name
+  const getRiceSeasonArrayByName = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await findRiceSeasonByName(seasonName, userId);
+      // console.log("RiceSeasons - Rice Seasons data: ", data);
+      setRiceSeasonArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("RiceSeasons - Error while finding Rice Season by Name.");
+    }
+  }, [seasonName, userId]);
+
+  useEffect(() => {
+    getRiceSeasonArrayByName();
+  }, [getRiceSeasonArrayByName]);
 
   // delete a Rice Season
   const handleDelete = (id) => {
@@ -132,7 +128,10 @@ const RiceSeasons = ({ navigation }) => {
 
           <SearchBar
             placeholder="Nhập tên vụ mùa"
-            handleSearch={(name) => setSeasonName(name)}
+            handleSearch={(name) => {
+              setSeasonName(name);
+              console.log("RiceSeasons - Rice Season name: ", name);
+            }}
           />
 
           <View marginT-20>

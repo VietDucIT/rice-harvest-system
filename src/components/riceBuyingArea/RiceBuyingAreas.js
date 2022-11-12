@@ -11,6 +11,7 @@ import SearchBar from "../core/SearchBar";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
+import findRiceBuyingAreaByName from "../../services/riceBuyingArea/findRiceBuyingAreaByName";
 import getRiceBuyingAreaList from "../../services/riceBuyingArea/getRiceBuyingAreaList";
 import deleteRiceBuyingArea from "../../services/riceBuyingArea/deleteRiceBuyingArea";
 import getUserIdStored from "../../services/user/getUserIdStored";
@@ -31,7 +32,7 @@ const RiceBuyingAreas = ({ navigation }) => {
   const [riceBuyingAreaName, setRiceBuyingAreaName] = useState("");
   const [riceBuyingAreaArray, setRiceBuyingAreaArray] = useState([]);
 
-  // call API
+  // get Rice Buying Area list
   const getRiceBuyingAreaArray = useCallback(async () => {
     try {
       // setLoading(true);
@@ -49,6 +50,25 @@ const RiceBuyingAreas = ({ navigation }) => {
   useEffect(() => {
     getRiceBuyingAreaArray();
   }, [getRiceBuyingAreaArray]);
+
+  // get Rice Buying Area list by Name
+  const getRiceBuyingAreaArrayByName = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await findRiceBuyingAreaByName(riceBuyingAreaName, userId);
+      // console.log("RiceBuyingAreas - Rice Buying Areas data: ", data);
+      setRiceBuyingAreaArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log(
+        "RiceBuyingAreas - Error while finding Rice BuyingArea by Name."
+      );
+    }
+  }, [riceBuyingAreaName, userId]);
+
+  useEffect(() => {
+    getRiceBuyingAreaArrayByName();
+  }, [getRiceBuyingAreaArrayByName]);
 
   // delete a Rice Buying Area
   const handleDelete = (item) => {
@@ -104,10 +124,12 @@ const RiceBuyingAreas = ({ navigation }) => {
           </View>
         </View>
 
-        {/* ??? */}
         <SearchBar
           placeholder="Nhập tên khu vực"
-          handleSearch={(name) => setRiceBuyingAreaName(name)}
+          handleSearch={(name) => {
+            setRiceBuyingAreaName(name);
+            console.log("RiceBuyingAreas - Rice Buying Area name: ", name);
+          }}
         />
 
         <View marginT-20>
@@ -123,9 +145,6 @@ const RiceBuyingAreas = ({ navigation }) => {
               <View style={styles.subContainer}>
                 <View style={styles.address}>
                   <Text text80>
-                    {/* {item.address.length <= 40
-                    ? `${item.address}`
-                    : `${item.address.substring(0, 39)}...`} */}
                     {item.village +
                       ", " +
                       item.commune +

@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
@@ -9,15 +8,12 @@ import color from "../../config/color";
 import provinceVN2000 from "../../json/provinceVN2000";
 
 const Map = ({ fieldData, ...props }) => {
-  console.log("Map - Field Data: ", fieldData);
+  // ( 9.66 ; 105.86 ) <=> ( 1068274.57	; 539311.12 )
+  // ( 9.66	; 105.865 ) <=> ( 1068275.16 ;	539859.84 )
+  // ( 9.665 ;	105.865 ) <=> ( 1068828.14 ;	539859.24 )
+  // ( 9.666 ;	105.86 ) <=> ( 1068938.15 ;	539310.42 )
 
-  // let x = vn2000_to_wgs84(
-  //   fieldData.x1,
-  //   fieldData.y1,
-  //   17.94,
-  //   "VN2000_SOC_TRANG"
-  // );
-  // console.log("Map - Hehe: ", Number(x.y) + 4.8);
+  console.log("Map - Field Data: ", fieldData);
   const point1 = vn2000_to_wgs84(
     fieldData.x1,
     fieldData.y1,
@@ -58,7 +54,7 @@ const Map = ({ fieldData, ...props }) => {
     ];
     console.log(pointList);
   } else {
-    console.log("Map - Not found");
+    console.log("Map - Can't convert VN2000 to WGS-84");
   }
 
   return (
@@ -97,44 +93,3 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
-
-// import React from "react";
-// import { StyleSheet, View } from "react-native";
-// import { LatLng, LeafletView } from "react-native-leaflet-view";
-
-// import color from "../../config/color";
-// const coordinate = {
-//   lat: 37.78825,
-//   lng: -122.4324,
-// };
-// const Map = () => {
-//   return (
-//     <View style={styles.container}>
-//       <LeafletView
-//         mapMarkers={[
-//           {
-//             position: {
-//               lat: 37.78825,
-//               lng: -122.4324,
-//             },
-//             icon: "📍",
-//             size: [32, 32],
-//           },
-//         ]}
-//         mapCenterPosition={{
-//           lat: 37.78825,
-//           lng: -122.4324,
-//         }}
-//       />
-//     </View>
-//   );
-// };
-// export default Map;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//   },
-// });
