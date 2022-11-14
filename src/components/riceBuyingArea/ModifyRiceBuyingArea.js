@@ -154,13 +154,11 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
                 grey10
                 value={riceBuyingArea.name}
                 onChangeText={(text) => onChange(text, "name")}
-                errorMessage={"Vui lòng nhập Tên."}
-                errorColor={color.redColor}
+                // errorMessage={"Vui lòng nhập Tên."}
+                // errorColor={color.redColor}
                 style={styles.textField}
               />
-              <Text red style={styles.errorMessage}>
-                {error.name}
-              </Text>
+              <Text red>{error.name}</Text>
             </View>
 
             {/* Address */}

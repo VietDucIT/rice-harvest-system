@@ -10,29 +10,17 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getFarmer from "../../services/user/getUser";
+import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
 
 StyleInit();
 
 const FarmerInfo = ({ navigation, route }) => {
-  const [farmerData, setFarmerData] = useState({
-    id: 1,
-    name: "Nguyễn Văn A",
-    nickname: "Hai A",
-    gender: 1,
-    birthYear: 1900,
-    village: "Mỹ Đức",
-    commune: "Thiện Mỹ",
-    town: "Châu Thành",
-    province: "Sóc Trăng",
-    phone: "0123456789",
-    password: "********",
-    role: 0,
-  });
-  // const [isLoading, setLoading] = useState(false);
-
   const { idFarmer } = route.params;
 
-  //call API
+  const [farmerData, setFarmerData] = useState({});
+  const [riceSeasonArray, setRiceSeasonArray] = useState({});
+
+  // get Farmer data
   const getFarmerData = useCallback(async () => {
     try {
       // setLoading(true);
@@ -49,107 +37,22 @@ const FarmerInfo = ({ navigation, route }) => {
     getFarmerData();
   }, [getFarmerData]);
 
-  const riceFields = [
-    {
-      id: "1",
-      name: "Mẫu ruộng số 1",
-    },
-    {
-      id: "2",
-      name: "Mẫu ruộng số 2",
-    },
-    {
-      id: "3",
-      name: "Mẫu ruộng số 3",
-    },
-    {
-      id: "4",
-      name: "Mẫu ruộng số 4",
-    },
-    {
-      id: "5",
-      name: "Mẫu ruộng số 5",
-    },
-    {
-      id: "6",
-      name: "Mẫu ruộng số 6",
-    },
-  ];
+  // get Rice Season list of Farmer
+  const getRiceSeasonArray = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await getRiceSeasonList(idFarmer);
+      // console.log("FarmerInfo - Rice Season list: ", data);
+      setRiceSeasonArray(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("FarmerInfo - Error while getting Rice Season list.");
+    }
+  }, [idFarmer]);
 
-  const riceSeasons = [
-    {
-      id: 1,
-      name: "Thu Đông 2022",
-      riceField: "Mẫu ruộng số 1",
-      rice: "OM 18",
-      timeStart: "19/9/2022",
-      timeEnd: "19/12/2022",
-      totalRice: 900,
-    },
-    {
-      id: 2,
-      name: "Đông Xuân 2023",
-      riceField: "Mẫu ruộng số 2",
-      rice: "OM 18",
-      timeStart: "19/9/2022",
-      timeEnd: "19/12/2022",
-      totalRice: 900,
-    },
-    {
-      id: 3,
-      name: "Đông Xuân 2023",
-      riceField: "Mẫu ruộng số 3",
-      rice: "OM 18",
-      timeStart: "19/9/2022",
-      timeEnd: "19/12/2022",
-      totalRice: 900,
-    },
-    {
-      id: 4,
-      name: "Đông Xuân 2023",
-      riceField: "Mẫu ruộng số 4",
-      rice: "OM 18",
-      timeStart: "19/9/2022",
-      timeEnd: "19/12/2022",
-      totalRice: 900,
-    },
-    {
-      id: 5,
-      name: "Đông Xuân 2023",
-      riceField: "Mẫu ruộng số 5",
-      rice: "OM 18",
-      timeStart: "19/9/2022",
-      timeEnd: "19/12/2022",
-      totalRice: 900,
-    },
-    // {
-    //   id: 6,
-    //   name: "Đông Xuân 2023",
-    //   riceField: "Mẫu ruộng số 2",
-    //   rice: "OM 18",
-    //   timeStart: "19/9/2022",
-    //   timeEnd: "19/12/2022",
-    //   totalRice: 900,
-    // },
-    // {
-    //   id: 7,
-    //   name: "Đông Xuân 2023",
-    //   riceField: "Mẫu ruộng số 2",
-    //   rice: "OM 18",
-    //   timeStart: "19/9/2022",
-    //   timeEnd: "19/12/2022",
-    //   totalRice: 900,
-    // },
-    // {
-    //   id: 8,
-    //   name: "Đông Xuân 2023",
-    //   riceField: "Mẫu ruộng số 2",
-    //   rice: "OM 18",
-    //   timeStart: "19/9/2022",
-    //   timeEnd: "19/12/2022",
-    //   totalRice: 900,
-    // },
-  ];
+  useEffect(() => {
+    getRiceSeasonArray();
+  }, [getRiceSeasonArray]);
 
   return (
     <ScrollView>
@@ -204,20 +107,20 @@ const FarmerInfo = ({ navigation, route }) => {
           <View marginT-30>
             <TextR style={styles.listLabel}>Danh sách ruộng đất:</TextR>
             <View>
-              {riceSeasons.map((item) => {
+              {riceSeasonArray.map((item, index) => {
                 return (
                   <View
-                    style={styles.riceFieldItem}
+                    style={styles.riceSeasonItem}
                     padding-5
                     marginV-8
                     marginH-16
-                    key={item._id}
+                    key={index}
                   >
                     <View flex style={styles.subContainer}>
                       <Text text80 style={styles.riceFieldName}>
-                        {item.riceField.length <= 40
-                          ? `${item.riceField}`
-                          : `${item.riceField.substring(0, 39)}...`}
+                        {item.riceFieldName.length <= 40
+                          ? item.riceFieldName
+                          : `${item.riceFieldName.substring(0, 39)}...`}
                       </Text>
                       <Text
                         green
@@ -265,7 +168,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     marginLeft: 20,
   },
-  riceFieldItem: {
+  riceSeasonItem: {
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },

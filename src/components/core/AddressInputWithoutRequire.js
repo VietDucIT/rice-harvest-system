@@ -11,7 +11,7 @@ StyleInit();
 
 const { TextField } = Incubator;
 
-const AddressInput = ({ addressObject, handleAddress, isReset }) => {
+const AddressInputWithoutRequire = ({ handleAddress, isReset }) => {
   const initState = {
     province: "",
     town: "",
@@ -19,23 +19,21 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
     village: "",
   };
   const [address, setAddress] = useState(initState);
-  const [error, setError] = useState(initState);
-
-  useEffect(() => {
-    if (addressObject) setAddress(addressObject);
-  }, []);
 
   // call API to get Address data
   const [addressAPI, setAddressAPI] = useState([]);
   const getAddressAPI = useCallback(async () => {
     try {
       const data = await getAddressAPIData();
-      // console.log("AddressInput - AddressAPI data: ", data);
+      // console.log("AddressInputWithoutRequire - AddressAPI data: ", data);
       setAddressAPI(data);
     } catch (err) {
-      console.log("AddressInput - Error while getting AddressAPI data.");
+      console.log(
+        "AddressInputWithoutRequire - Error while getting AddressAPI data."
+      );
     }
   }, []);
+
   useEffect(() => {
     getAddressAPI();
   }, [getAddressAPI]);
@@ -60,34 +58,12 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
     );
   };
 
-  const onChangeVillage = (text) => {
-    // text = text.trim();
-    let message = "";
-    if (text === "") {
-      message = "* Bắt buộc.";
-    } else {
-      message = "";
-    }
-    setError({
-      ...error,
-      village: message,
-    });
-    setAddress({
-      ...address,
-      village: text,
-    });
-  };
-
   useEffect(() => {
     handleAddress(address);
   }, [address]);
 
   useEffect(() => {
-    if (addressObject) {
-      setAddress(addressObject);
-    } else {
-      setAddress(initState);
-    }
+    setAddress(initState);
   }, [isReset]);
 
   return (
@@ -115,7 +91,6 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
             <Picker.Item key={index} value={item.name} label={item.name} />
           ))}
         </Picker>
-        <Text red>{error.province}</Text>
       </View>
 
       {/* Town */}
@@ -141,7 +116,6 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
               <Picker.Item key={index} value={item.name} label={item.name} />
             ))}
           </Picker>
-          <Text red>{error.town}</Text>
         </View>
       )}
 
@@ -169,7 +143,6 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
               )
             )}
           </Picker>
-          <Text red>{error.commune}</Text>
         </View>
       )}
 
@@ -180,19 +153,23 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
             text70
             grey10
             value={address.village}
-            onChangeText={onChangeVillage}
+            onChangeText={(text) => {
+              setAddress({
+                ...address,
+                village: text,
+              });
+            }}
             placeholder="Ấp"
             containerStyle={{ marginBottom: 10 }}
             style={[styles.addressItem, styles.textField]}
             autoCapitalize="words"
           />
-          <Text red>{error.village}</Text>
         </View>
       )}
     </View>
   );
 };
-export default AddressInput;
+export default AddressInputWithoutRequire;
 
 const styles = StyleSheet.create({
   textField: {

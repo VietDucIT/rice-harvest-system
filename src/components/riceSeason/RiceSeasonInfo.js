@@ -101,12 +101,12 @@ const RiceSeasonInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{seasonData.riceField}</Text>
+              <Text text70>{seasonData.riceFieldName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{seasonData.rice}</Text>
+              <Text text70>{seasonData.riceName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -153,14 +153,14 @@ const RiceSeasonInfo = ({ navigation, route }) => {
               </Button>
               {isShowMenu && (
                 <View marginT-20>
-                  {suggestList.map((item) => {
+                  {suggestList.map((item, index) => {
                     return (
                       <View
                         style={styles.riceSeasonItem}
                         padding-5
                         marginV-8
                         marginH-16
-                        key={item._id}
+                        key={index}
                       >
                         <TextR>
                           <TextR style={styles.traderName}>

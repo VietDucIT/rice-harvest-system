@@ -169,9 +169,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                 style={styles.textField}
                 autoCapitalize="words"
               />
-              <Text red style={styles.errorMessage}>
-                {error.name}
-              </Text>
+              <Text red>{error.name}</Text>
             </View>
 
             {/* Address */}
@@ -216,9 +214,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x1}
-                  </Text>
+                  <Text red>{error.x1}</Text>
                 </View>
 
                 <View>
@@ -238,9 +234,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y1}
-                  </Text>
+                  <Text red>{error.y1}</Text>
                 </View>
               </View>
 
@@ -266,9 +260,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x2}
-                  </Text>
+                  <Text red>{error.x2}</Text>
                 </View>
 
                 <View>
@@ -288,9 +280,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y2}
-                  </Text>
+                  <Text red>{error.y2}</Text>
                 </View>
               </View>
 
@@ -316,9 +306,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x3}
-                  </Text>
+                  <Text red>{error.x3}</Text>
                 </View>
 
                 <View>
@@ -338,9 +326,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y3}
-                  </Text>
+                  <Text red>{error.y3}</Text>
                 </View>
               </View>
 
@@ -366,9 +352,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x4}
-                  </Text>
+                  <Text red>{error.x4}</Text>
                 </View>
 
                 <View>
@@ -388,9 +372,7 @@ const ModifyRiceField = ({ navigation, route }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y4}
-                  </Text>
+                  <Text red>{error.y4}</Text>
                 </View>
               </View>
             </View>

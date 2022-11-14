@@ -128,13 +128,13 @@ const SuggestToBuys = ({ navigation }) => {
           <SearchBar placeholder="Nhập tên nông dân" />
 
           <View marginT-20>
-            {suggestArray.map((item) => (
+            {suggestArray.map((item, index) => (
               <View
                 style={styles.riceSeasonItem}
                 padding-5
                 marginV-8
                 marginH-16
-                key={item._id}
+                key={index}
               >
                 <TextR style={styles.farmerName}>{item.farmerName}</TextR>
                 <View flex style={styles.subContainer}>

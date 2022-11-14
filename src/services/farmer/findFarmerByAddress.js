@@ -7,7 +7,7 @@ const findFarmerByAddress = async (address) => {
   try {
     // console.log("Address: ", address);
     const response = await axios.get(`${REQUEST_URL}/farmer/find-by-address`, {
-      params: address,
+      params: { address: address },
     });
     // console.log("findFarmerByAddress - Response from server: ", response.data);
     return response.data;

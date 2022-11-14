@@ -193,9 +193,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 style={styles.textField}
                 autoCapitalize="words"
               />
-              <Text red style={styles.errorMessage}>
-                {error.name}
-              </Text>
+              <Text red>{error.name}</Text>
             </View>
 
             {/* Nickname */}
@@ -264,9 +262,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                   <Picker.Item key={index} value={user.item} label={item} />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.birthYear}
-              </Text>
+              <Text red>{error.birthYear}</Text>
             </View>
 
             {/* Address */}
@@ -279,96 +275,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 handleAddress={(address) => setUser({ ...user, ...address })}
                 isReset={isReset}
               />
-
-              {/* <View flex style={styles.addressContainer}>
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.village}
-                    onChangeText={(text) => onChange(text, "village")}
-                    placeholder="Ấp"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.village}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.commune}
-                    onChangeText={(text) => onChange(text, "commune")}
-                    placeholder="Xã"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.commune}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.town}
-                    onChangeText={(text) => onChange(text, "town")}
-                    placeholder="Huyện"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.town}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.province}
-                    onChangeText={(text) => onChange(text, "province")}
-                    placeholder="Tỉnh"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.province}
-                  </Text>
-                </View>
-              </View> */}
             </View>
 
             {/* Phone */}
@@ -384,40 +290,8 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 keyboardType="numeric"
                 style={styles.textField}
               />
-              <Text red style={styles.errorMessage}>
-                {error.phone}
-              </Text>
+              <Text red>{error.phone}</Text>
             </View>
-
-            {/* Role */}
-            {/* <View marginT-10>
-              <TextR text70 style={styles.label}>
-                Vai trò:
-              </TextR>
-              <RadioGroup
-                initialValue={user.role}
-                onValueChange={(value) => setUser({ ...user, role: value })}
-                flex
-                style={styles.ratioContainer}
-              >
-                <RadioButton
-                  value={0}
-                  label={"Nông dân"}
-                  marginV-10
-                  marginL-10
-                  color={color.greenColor}
-                  labelStyle={{ fontSize: 16 }}
-                />
-                <RadioButton
-                  value={1}
-                  label={"Thương lái"}
-                  marginV-10
-                  marginL-20
-                  color={color.greenColor}
-                  labelStyle={{ fontSize: 16 }}
-                />
-              </RadioGroup>
-            </View> */}
 
             {/* Password */}
             <View marginT-10>
@@ -439,9 +313,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 style={styles.textField}
                 marginT-10
               />
-              <Text red style={styles.errorMessage}>
-                {error.password}
-              </Text>
+              <Text red>{error.password}</Text>
             </View>
 
             {/* Confirm Password */}
@@ -464,9 +336,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 style={styles.textField}
                 marginT-10
               />
-              <Text red style={styles.errorMessage}>
-                {error.confirmPassword}
-              </Text>
+              <Text red>{error.confirmPassword}</Text>
             </View>
 
             <View flex marginT-50 center style={styles.btnContainer}>

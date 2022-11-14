@@ -191,9 +191,7 @@ const AddUserInfo = ({ navigation }) => {
                 style={styles.textField}
                 autoCapitalize="words"
               />
-              <Text red style={styles.errorMessage}>
-                {error.name}
-              </Text>
+              <Text red>{error.name}</Text>
             </View>
 
             {/* Nickname */}
@@ -262,9 +260,7 @@ const AddUserInfo = ({ navigation }) => {
                   <Picker.Item key={index} value={item} label={item} />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.birthYear}
-              </Text>
+              <Text red>{error.birthYear}</Text>
             </View>
 
             {/* Address */}
@@ -277,101 +273,6 @@ const AddUserInfo = ({ navigation }) => {
                 isReset={isReset}
               />
             </View>
-            {/* <View marginT-10>
-              <TextR text70 style={styles.label}>
-                Địa chỉ:
-              </TextR>
-
-              <View flex style={styles.addressContainer}>
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.village}
-                    onChangeText={(text) => onChange(text, "village")}
-                    placeholder="Ấp"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.village}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.commune}
-                    onChangeText={(text) => onChange(text, "commune")}
-                    placeholder="Xã"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.commune}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.town}
-                    onChangeText={(text) => onChange(text, "town")}
-                    placeholder="Huyện"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.town}
-                  </Text>
-                </View>
-
-                <View marginH-20>
-                  <TextField
-                    text70
-                    grey10
-                    value={user.province}
-                    onChangeText={(text) => onChange(text, "province")}
-                    placeholder="Tỉnh"
-                    floatingPlaceholder
-                    floatOnFocus
-                    floatingPlaceholderColor={{
-                      focus: color.greenColor,
-                      default: color.lightGreyColor,
-                    }}
-                    containerStyle={{ marginBottom: 10 }}
-                    style={[styles.addressItem, styles.textField]}
-                    autoCapitalize="words"
-                  />
-                  <Text red style={styles.errorMessage}>
-                    {error.province}
-                  </Text>
-                </View>
-              </View>
-            </View> */}
 
             {/* Phone */}
             <View marginT-10>
@@ -386,9 +287,7 @@ const AddUserInfo = ({ navigation }) => {
                 keyboardType="numeric"
                 style={styles.textField}
               />
-              <Text red style={styles.errorMessage}>
-                {error.phone}
-              </Text>
+              <Text red>{error.phone}</Text>
             </View>
 
             {/* Role */}
@@ -436,9 +335,7 @@ const AddUserInfo = ({ navigation }) => {
                 maxLength={20}
                 showCharCounter
               />
-              <Text red style={styles.errorMessage}>
-                {error.password}
-              </Text>
+              <Text red>{error.password}</Text>
             </View>
 
             {/* Confirm Password */}
@@ -456,9 +353,7 @@ const AddUserInfo = ({ navigation }) => {
                 maxLength={20}
                 showCharCounter
               />
-              <Text red style={styles.errorMessage}>
-                {error.confirmPassword}
-              </Text>
+              <Text red>{error.confirmPassword}</Text>
             </View>
 
             <View flex marginT-50 center style={styles.btnContainer}>

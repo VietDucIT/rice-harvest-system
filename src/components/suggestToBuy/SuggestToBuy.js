@@ -289,9 +289,7 @@ const SuggestToBuy = ({ navigation, route }) => {
                 style={styles.textField}
                 keyboardType="numeric"
               />
-              <Text red style={styles.errorMessage}>
-                {error.suggestedPrice}
-              </Text>
+              <Text red>{error.suggestedPrice}</Text>
             </View>
 
             {/* Suggested Time End */}
@@ -304,9 +302,7 @@ const SuggestToBuy = ({ navigation, route }) => {
                 value={suggestToBuy.suggestedTimeEnd}
                 onChange={(text) => onChange(text, "suggestedTimeEnd")}
               />
-              <Text red style={styles.errorMessage}>
-                {error.suggestedTimeEnd}
-              </Text>
+              <Text red>{error.suggestedTimeEnd}</Text>
             </View>
 
             {/* Description */}

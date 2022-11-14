@@ -89,8 +89,8 @@ const AddRiceSeason = ({ navigation }) => {
   const initState = {
     seasonName: "",
     seasonYear: "",
-    riceField: "",
-    rice: "",
+    riceFieldName: "",
+    riceName: "",
     currentState: "",
     timeStart: "",
     timeEnd: "",
@@ -127,8 +127,8 @@ const AddRiceSeason = ({ navigation }) => {
     if (
       riceSeason.seasonName &&
       riceSeason.seasonYear &&
-      riceSeason.riceField &&
-      riceSeason.rice &&
+      riceSeason.riceFieldName &&
+      riceSeason.riceName &&
       riceSeason.currentState &&
       riceSeason.timeStart
     ) {
@@ -161,19 +161,19 @@ const AddRiceSeason = ({ navigation }) => {
       err = true;
     }
 
-    if (!riceSeason.riceField) {
-      setError({ ...error, riceField: "* Bắt buộc." });
+    if (!riceSeason.riceFieldName) {
+      setError({ ...error, riceFieldName: "* Bắt buộc." });
       err = false;
     } else {
-      setError({ ...error, riceField: "" });
+      setError({ ...error, riceFieldName: "" });
       err = true;
     }
 
-    if (!riceSeason.rice) {
-      setError({ ...error, rice: "* Bắt buộc." });
+    if (!riceSeason.riceName) {
+      setError({ ...error, riceName: "* Bắt buộc." });
       err = false;
     } else {
-      setError({ ...error, rice: "" });
+      setError({ ...error, riceName: "" });
       err = true;
     }
 
@@ -246,17 +246,15 @@ const AddRiceSeason = ({ navigation }) => {
                     }}
                     style={[styles.seasonName, styles.textField]}
                   >
-                    {seasonNameArray.map((item) => (
+                    {seasonNameArray.map((item, index) => (
                       <Picker.Item
-                        key={item._id}
+                        key={index}
                         value={item.name}
                         label={item.name}
                       />
                     ))}
                   </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.seasonName}
-                  </Text>
+                  <Text red>{error.seasonName}</Text>
                 </View>
 
                 <View marginL-20>
@@ -270,13 +268,11 @@ const AddRiceSeason = ({ navigation }) => {
                     }}
                     style={[styles.seasonYear, styles.textField]}
                   >
-                    {seasonYearArray.map((item) => (
-                      <Picker.Item key={item} value={item} label={item} />
+                    {seasonYearArray.map((item, index) => (
+                      <Picker.Item key={index} value={item} label={item} />
                     ))}
                   </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.seasonYear}
-                  </Text>
+                  <Text red>{error.seasonYear}</Text>
                 </View>
               </View>
             </View>
@@ -287,17 +283,17 @@ const AddRiceSeason = ({ navigation }) => {
               <Picker
                 migrateTextField
                 text70
-                value={riceSeason.riceField}
+                value={riceSeason.riceFieldName}
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
-                  setRiceSeason({ ...riceSeason, riceField: field.value });
+                  setRiceSeason({ ...riceSeason, riceFieldName: field.value });
                 }}
                 style={styles.textField}
               >
-                {riceFieldArray.map((item) => (
+                {riceFieldArray.map((item, index) => (
                   <Picker.Item
-                    key={item._id}
-                    value={item._id}
+                    key={index}
+                    value={item.name}
                     label={
                       item.name.length < 40
                         ? item.name
@@ -306,9 +302,7 @@ const AddRiceSeason = ({ navigation }) => {
                   />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.riceField}
-              </Text>
+              <Text red>{error.riceFieldName}</Text>
             </View>
 
             {/* Rice */}
@@ -317,25 +311,23 @@ const AddRiceSeason = ({ navigation }) => {
               <Picker
                 migrateTextField
                 text70
-                value={riceSeason.rice}
+                value={riceSeason.riceName}
                 placeholder={"Chọn giống lúa"}
                 onChange={(rice) => {
-                  setRiceSeason({ ...riceSeason, rice: rice.value });
+                  setRiceSeason({ ...riceSeason, riceName: rice.value });
                 }}
                 style={styles.textField}
               >
                 {riceArray &&
-                  riceArray.map((item) => (
+                  riceArray.map((item, index) => (
                     <Picker.Item
-                      key={item._id}
-                      value={item._id}
+                      key={index}
+                      value={item.name}
                       label={item.name}
                     />
                   ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.rice}
-              </Text>
+              <Text red>{error.riceName}</Text>
             </View>
 
             {/* Tình trạng hiện tại */}
@@ -351,17 +343,15 @@ const AddRiceSeason = ({ navigation }) => {
                 }}
                 style={styles.textField}
               >
-                {seasonStateArray.map((item) => (
+                {seasonStateArray.map((item, index) => (
                   <Picker.Item
-                    key={item._id}
+                    key={index}
                     value={item.name}
                     label={item.name}
                   />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.currentState}
-              </Text>
+              <Text red>{error.currentState}</Text>
             </View>
 
             {/* Time Start */}
@@ -379,9 +369,7 @@ const AddRiceSeason = ({ navigation }) => {
                   setRiceSeason({ ...riceSeason, timeStart: time });
                 }}
               />
-              <Text red style={styles.errorMessage}>
-                {error.timeStart}
-              </Text>
+              <Text red>{error.timeStart}</Text>
             </View>
 
             {/* Time End */}
@@ -413,9 +401,7 @@ const AddRiceSeason = ({ navigation }) => {
                   onChangeText={onChangeTotalRice}
                   style={styles.textField}
                 />
-                <Text red style={styles.errorMessage}>
-                  {error.totalRice}
-                </Text>
+                <Text red>{error.totalRice}</Text>
               </View>
             )}
 
@@ -478,7 +464,6 @@ const styles = StyleSheet.create({
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
   },
-  errorMessage: {},
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",

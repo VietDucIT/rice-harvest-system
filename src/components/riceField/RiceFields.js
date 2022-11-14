@@ -127,14 +127,14 @@ const RiceFields = ({ navigation }) => {
 
           <View marginT-20>
             {riceFieldArray &&
-              riceFieldArray.map((item) => (
+              riceFieldArray.map((item, index) => (
                 <View
                   flex
                   style={styles.fieldItem}
                   padding-5
                   marginV-8
                   marginH-16
-                  key={item._id}
+                  key={index}
                 >
                   <Text text70>
                     {item.name?.length <= 40

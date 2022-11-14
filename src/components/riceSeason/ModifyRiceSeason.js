@@ -108,8 +108,8 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const initState = {
     seasonName: "",
     seasonYear: "",
-    riceFieldId: "",
-    rice: "",
+    riceFieldName: "",
+    riceName: "",
     currentState: "",
     timeStart: "",
     timeEnd: "",
@@ -146,8 +146,8 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     if (
       riceSeason.seasonName &&
       riceSeason.seasonYear &&
-      riceSeason.riceFieldId &&
-      riceSeason.rice &&
+      riceSeason.riceFieldName &&
+      riceSeason.riceName &&
       riceSeason.currentState &&
       riceSeason.timeStart
     ) {
@@ -175,19 +175,19 @@ const ModifyRiceSeason = ({ navigation, route }) => {
       err = true;
     }
 
-    if (!riceSeason.riceFieldId) {
-      setError({ ...error, riceFieldId: "* Bắt buộc." });
+    if (!riceSeason.riceFieldName) {
+      setError({ ...error, riceFieldName: "* Bắt buộc." });
       err = false;
     } else {
-      setError({ ...error, riceFieldId: "" });
+      setError({ ...error, riceFieldName: "" });
       err = true;
     }
 
-    if (!riceSeason.rice) {
-      setError({ ...error, rice: "* Bắt buộc." });
+    if (!riceSeason.riceName) {
+      setError({ ...error, riceName: "* Bắt buộc." });
       err = false;
     } else {
-      setError({ ...error, rice: "" });
+      setError({ ...error, riceName: "" });
       err = true;
     }
 
@@ -269,9 +269,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                       />
                     ))}
                   </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.seasonName}
-                  </Text>
+                  <Text red>{error.seasonName}</Text>
                 </View>
 
                 <View marginL-20>
@@ -289,9 +287,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                       <Picker.Item key={index} value={item} label={item} />
                     ))}
                   </Picker>
-                  <Text red style={styles.errorMessage}>
-                    {error.seasonYear}
-                  </Text>
+                  <Text red>{error.seasonYear}</Text>
                 </View>
               </View>
             </View>
@@ -302,24 +298,26 @@ const ModifyRiceSeason = ({ navigation, route }) => {
               <Picker
                 migrateTextField
                 text70
-                value={riceSeason.riceField}
+                value={riceSeason.riceFieldName}
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
-                  setRiceSeason({ ...riceSeason, riceField: field.value });
+                  setRiceSeason({ ...riceSeason, riceFieldName: field.value });
                 }}
                 style={styles.textField}
               >
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item
                     key={index}
-                    value={item._id}
-                    label={"Mẫu ruộng số " + item._id}
+                    value={item.name}
+                    label={
+                      item.name.length < 40
+                        ? item.name
+                        : `${item.name.substring(0, 39)}...`
+                    }
                   />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.riceField}
-              </Text>
+              <Text red>{error.riceFieldName}</Text>
             </View>
 
             {/* Rice */}
@@ -328,10 +326,10 @@ const ModifyRiceSeason = ({ navigation, route }) => {
               <Picker
                 migrateTextField
                 text70
-                value={riceSeason.rice}
+                value={riceSeason.riceName}
                 placeholder={"Chọn giống lúa"}
                 onChange={(rice) => {
-                  setRiceSeason({ ...riceSeason, rice: rice.value });
+                  setRiceSeason({ ...riceSeason, riceName: rice.value });
                 }}
                 style={styles.textField}
               >
@@ -339,9 +337,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                   <Picker.Item key={index} value={item} label={item} />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.rice}
-              </Text>
+              <Text red>{error.riceName}</Text>
             </View>
 
             {/* Tình trạng hiện tại */}
@@ -365,9 +361,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                   />
                 ))}
               </Picker>
-              <Text red style={styles.errorMessage}>
-                {error.currentState}
-              </Text>
+              <Text red>{error.currentState}</Text>
             </View>
 
             {/* Time Start */}
@@ -385,9 +379,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                   setRiceSeason({ ...riceSeason, timeStart: time });
                 }}
               />
-              <Text red style={styles.errorMessage}>
-                {error.timeStart}
-              </Text>
+              <Text red>{error.timeStart}</Text>
             </View>
 
             {/* Time End */}
@@ -419,9 +411,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                   onChangeText={onChangeTotalRice}
                   style={styles.textField}
                 />
-                <Text red style={styles.errorMessage}>
-                  {error.totalRice}
-                </Text>
+                <Text red>{error.totalRice}</Text>
               </View>
             )}
 
@@ -483,7 +473,6 @@ const styles = StyleSheet.create({
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
   },
-  errorMessage: {},
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",

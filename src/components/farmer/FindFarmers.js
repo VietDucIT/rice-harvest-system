@@ -1,84 +1,36 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Image, StyleSheet, Text as TextR } from "react-native";
-import { Text, View } from "react-native-ui-lib";
+import { Switch, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import SearchBar from "../core/SearchBar";
+import CustomButton from "../core/CustomButton";
+import AddressInputWithoutRequire from "../core/AddressInputWithoutRequire";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getFarmerListByName from "../../services/farmer/getFarmerListByName";
-// import getFarmerListByAddress from "../../services/farmer/getFarmerListByAddress";
+import findFarmerByName from "../../services/farmer/findFarmerByName";
+import findFarmerByAddress from "../../services/farmer/findFarmerByAddress";
 
 StyleInit();
 
 const FindFarmers = ({ navigation }) => {
-  const [farmerName, setFarmerName] = useState("");
-  const [farmerArray, setFarmerArray] = useState(initFarmerArray);
+  const [isFindByAddress, setIsFindByAddress] = useState(false);
+
+  const [farmerArray, setFarmerArray] = useState([]);
   // const [isLoading, setLoading] = useState(false);
 
-  const initFarmerArray = [
-    {
-      id: 1,
-      name: "Nguyễn Văn A",
-      nickname: "Chín A",
-      gender: 1,
-      birthYear: 1960,
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      phone: "0123 456 789",
-      role: 0,
-    },
-    {
-      id: 2,
-      name: "Trần Thị B",
-      nickname: "6 Bê",
-      gender: 0,
-      birthYear: 1950,
-      address: "Mỹ An, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      phone: "0123 456 780",
-      role: 0,
-    },
-    {
-      id: 3,
-      name: "Lê Trần Minh C",
-      nickname: "Hai Xẹo",
-      gender: 1,
-      birthYear: 1966,
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      phone: "0123 456 781",
-      role: 0,
-    },
-    {
-      id: 4,
-      name: "Nguyễn Văn A",
-      nickname: "Năm A",
-      gender: 1,
-      birthYear: 1960,
-      address: "Mỹ Đức, Mỹ Hương, Mỹ Tú, Sóc Trăng",
-      phone: "0123 456 782",
-      role: 0,
-    },
-    {
-      id: 5,
-      name: "Nguyễn Minh D",
-      nickname: "Tư Di",
-      gender: 1,
-      birthYear: 1960,
-      address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-      phone: "0123 456 783",
-      role: 0,
-    },
-  ];
+  // find Farmers by Name
+  const [farmerName, setFarmerName] = useState("");
 
-  // call API
-  const getFarmerArray = useCallback(async () => {
+  const findByName = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getFarmerListByName(farmerName);
-      // const data2 = await getFarmerListByAddress(address);
+      const data = await findFarmerByName(farmerName);
+      // const data2 = await findFarmerByAddress(address);
       // console.log("FindFarmner - Farmer list: ", data);
       setFarmerArray(data);
       // setLoading(false);
@@ -88,8 +40,34 @@ const FindFarmers = ({ navigation }) => {
   }, [farmerName]);
 
   useEffect(() => {
-    getFarmerArray();
-  }, [getFarmerArray]);
+    findByName();
+  }, [findByName]);
+
+  // find Farmers by Address
+  const [address, setAddress] = useState({});
+  const [isReset, setIsReset] = useState(false);
+
+  const handleFind = async () => {
+    try {
+      // setLoading(true);
+
+      // console.log("FindFarmers by Address - Data: ", riceField);
+      const data = await findFarmerByAddress(address);
+      setFarmerArray(data);
+      // console.log("FindFarmers by Address - Data API: ", data);
+      // setLoading(false);
+    } catch (err) {
+      console.log(
+        "FindFarmers by Address - Error while finding Farmers by Address."
+      );
+    }
+  };
+
+  const reset = () => {
+    setAddress({});
+    setIsReset(!isReset);
+    console.log("AddRiceFieldWithoutRequire - Reset completed.");
+  };
 
   return (
     <View flex marginB-60>
@@ -108,45 +86,82 @@ const FindFarmers = ({ navigation }) => {
           </View>
         </View>
 
-        <SearchBar
-          placeholder="Nhập tên nông dân..."
-          handleSearch={(name) => setFarmerName(name)}
-        />
+        <View row>
+          <Text text50 green>
+            Tìm theo địa chỉ
+          </Text>
+          <Switch
+            width={80}
+            height={38}
+            thumbSize={34}
+            onColor={color.greenColor}
+            offColor={color.greyColor}
+            value={isFindByAddress}
+            onValueChange={() => setIsFindByAddress(!isFindByAddress)}
+            // style={{marginBottom: 20}}
+          />
+        </View>
 
-        {/* <View>Lọc</View> */}
+        {!isFindByAddress && (
+          <SearchBar
+            placeholder="Nhập tên nông dân..."
+            handleSearch={(name) => setFarmerName(name)}
+          />
+        )}
+
+        {isFindByAddress && (
+          <View>
+            <AddressInputWithoutRequire
+              handleAddress={(address) => setAddress(address)}
+              isReset={isReset}
+            />
+            <CustomButton label="Nhập lại" onPress={reset} />
+            <CustomButton label="Tìm" onPress={handleFind} />
+          </View>
+        )}
 
         <View marginT-20>
-          {farmerArray?.map((item) => (
-            <View
-              style={styles.farmerItem}
-              padding-5
-              marginV-8
-              marginH-16
-              key={item._id}
-            >
-              <TextR style={styles.farmerName}>
-                {item.name} ({item.nickname})
-              </TextR>
-              <View flex style={styles.subContainer}>
-                <Text text80>
-                  {item.address.length <= 40
-                    ? `${item.address}`
-                    : `${item.address.substring(0, 39)}...`}
-                </Text>
-                <Text
-                  green
-                  text70
-                  onPress={() =>
-                    navigation.navigate(nameList.farmerInfo, {
-                      idFarmer: item._id,
-                    })
-                  }
-                >
-                  Xem
-                </Text>
+          {farmerArray?.map((item, index) => {
+            const address =
+              item.village +
+              ", " +
+              item.commune +
+              ", " +
+              item.town +
+              ", " +
+              item.province;
+            return (
+              <View
+                style={styles.farmerItem}
+                padding-5
+                marginV-8
+                marginH-16
+                key={index}
+              >
+                <TextR style={styles.farmerName}>
+                  {item.name} ({item.nickname})
+                </TextR>
+                <View flex style={styles.subContainer}>
+                  <Text text80>
+                    {address.length <= 40
+                      ? address
+                      : `${address.substring(0, 39)}...`}
+                  </Text>
+                  <Text
+                    green
+                    text70
+                    onPress={() =>
+                      navigation.navigate(nameList.farmerInfo, {
+                        idFarmer: item._id,
+                      })
+                    }
+                  >
+                    Xem
+                  </Text>
+                </View>
               </View>
-            </View>
-          ))}
+            );
+          })}
         </View>
       </View>
     </View>
@@ -159,7 +174,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-
   farmerItem: {
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,

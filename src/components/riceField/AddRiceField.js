@@ -115,7 +115,7 @@ const AddRiceField = ({ navigation }) => {
     setRiceField({ ...riceField, farmerId: userId });
   }, [userId]);
 
-  // call API
+  // call API to add Rice Field
   const handleAdd = async () => {
     try {
       // setLoading(true);
@@ -169,9 +169,7 @@ const AddRiceField = ({ navigation }) => {
                 style={styles.textField}
                 autoCapitalize="words"
               />
-              <Text red style={styles.errorMessage}>
-                {error.name}
-              </Text>
+              <Text red>{error.name}</Text>
             </View>
 
             {/* Address */}
@@ -215,9 +213,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x1}
-                  </Text>
+                  <Text red>{error.x1}</Text>
                 </View>
 
                 <View>
@@ -237,9 +233,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y1}
-                  </Text>
+                  <Text red>{error.y1}</Text>
                 </View>
                 {/* <TextField
                   text70
@@ -272,9 +266,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x2}
-                  </Text>
+                  <Text red>{error.x2}</Text>
                 </View>
 
                 <View>
@@ -294,9 +286,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y2}
-                  </Text>
+                  <Text red>{error.y2}</Text>
                 </View>
               </View>
 
@@ -322,9 +312,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x3}
-                  </Text>
+                  <Text red>{error.x3}</Text>
                 </View>
 
                 <View>
@@ -344,9 +332,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y3}
-                  </Text>
+                  <Text red>{error.y3}</Text>
                 </View>
               </View>
 
@@ -372,9 +358,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.x4}
-                  </Text>
+                  <Text red>{error.x4}</Text>
                 </View>
 
                 <View>
@@ -394,9 +378,7 @@ const AddRiceField = ({ navigation }) => {
                     style={[styles.coorItem, styles.textField]}
                     keyboardType="numeric"
                   />
-                  <Text red style={styles.errorMessage}>
-                    {error.y4}
-                  </Text>
+                  <Text red>{error.y4}</Text>
                 </View>
               </View>
             </View>

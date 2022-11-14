@@ -117,9 +117,7 @@ const FirstScreen = ({ navigation }) => {
             style={styles.textField}
             marginT-10
           />
-          <Text red style={styles.errorMessage}>
-            {error.phone}
-          </Text>
+          <Text red>{error.phone}</Text>
 
           {/* Password */}
           <TextField
@@ -139,9 +137,7 @@ const FirstScreen = ({ navigation }) => {
             style={styles.textField}
             marginT-10
           />
-          <Text red style={styles.errorMessage}>
-            {error.password}
-          </Text>
+          <Text red>{error.password}</Text>
         </View>
 
         <View>

@@ -2,12 +2,12 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const findRiceSeasonByName = async (name, idFarmer) => {
+const findRiceSeasonByName = async (name, year, idFarmer) => {
   try {
-    // console.log("Rice Season name: ", name);
+    // console.log("Rice Season name: " + name + " " + year);
     const response = await axios.get(
       `${REQUEST_URL}/rice-season/find-by-name`,
-      { params: { name: name, idFarmer: idFarmer } }
+      { params: { name: name, year: year, idFarmer: idFarmer } }
     );
     // console.log("findRiceSeasonByName - Response from server: ", response.data);
     return response.data;

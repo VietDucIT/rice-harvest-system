@@ -78,13 +78,13 @@ const Notifications = ({ navigation }) => {
 
         <View>
           <View marginT-20>
-            {notificationArray.map((item) => (
+            {notificationArray.map((item, index) => (
               <View
                 style={styles.riceSeasonItem}
                 padding-5
                 marginV-8
                 marginH-16
-                key={item._id}
+                key={index}
               >
                 <TextR style={styles.farmerName}>{item.farmerName}</TextR>
                 <View flex style={styles.subContainer}>
