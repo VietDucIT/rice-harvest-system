@@ -6,13 +6,12 @@ import {
   StyleSheet,
   Text as TextR,
 } from "react-native";
-import { Incubator, Picker, Text, View } from "react-native-ui-lib";
+import { Picker, Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
-import SearchBar from "../core/SearchBar";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -38,19 +37,16 @@ const RiceSeasons = ({ navigation }) => {
   );
 
   // FIND RICE SEASON BY NAME
-  // const [seasonName, setSeasonName] = useState("");
   let seasonName = { name: "", year: "" };
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
-  let seasonYearArray = [];
+  let seasonYearArray = ["Tất cả"];
   for (let i = currentYear + 1; i >= currentYear - 10; i--) {
     seasonYearArray.push(i.toString());
   }
 
   const [riceSeasonArray, setRiceSeasonArray] = useState([]);
-
-  let hasResult = true;
 
   // get Rice Season list
   const getRiceSeasonArray = useCallback(async () => {
@@ -136,14 +132,6 @@ const RiceSeasons = ({ navigation }) => {
             </View>
           </View>
 
-          {/* <SearchBar
-            placeholder="Nhập tên vụ mùa"
-            handleSearch={(name) => {
-              setSeasonName(name);
-              console.log("RiceSeasons - Rice Season name: ", name);
-            }}
-          /> */}
-
           {/* Search by selecting name and year */}
           <View center flex style={styles.seasonNameContainer}>
             <View>
@@ -162,6 +150,7 @@ const RiceSeasons = ({ navigation }) => {
                     label={item.name}
                   />
                 ))}
+                <Picker.Item value="Tất cả" label="Tất cả" />
               </Picker>
             </View>
 
@@ -184,65 +173,64 @@ const RiceSeasons = ({ navigation }) => {
               marginL-10
               label="Tìm"
               onPress={() => getRiceSeasonArrayByName()}
-              style={{ width: 50, height: 45 }}
+              style={{ height: 45 }}
             />
           </View>
 
           <View marginT-20>
-            {riceSeasonArray.map((item, index) => {
-              const fullName = item.seasonName + " " + item.seasonYear;
-              // const searchString = seasonName;
-              // if (fullName.includes(searchString)) {
-              // hasResult = true;
-              return (
-                <View
-                  style={styles.riceSeasonItem}
-                  padding-5
-                  marginV-8
-                  marginH-16
-                  key={index}
-                >
-                  <TextR style={styles.riceSeasonName}>
-                    {item.seasonName} {item.seasonYear}
-                  </TextR>
-                  <View flex style={styles.subContainer}>
-                    <Text text80>
-                      {item.riceField}
-                      {/* {item.riceField.length <= 40
+            {riceSeasonArray &&
+              riceSeasonArray.map((item, index) => {
+                const fullName = item.seasonName + " " + item.seasonYear;
+                return (
+                  <View
+                    style={styles.riceSeasonItem}
+                    padding-5
+                    marginV-8
+                    marginH-16
+                    key={index}
+                  >
+                    <TextR style={styles.riceSeasonName}>
+                      {item.seasonName} {item.seasonYear}
+                    </TextR>
+                    <View flex style={styles.subContainer}>
+                      <Text text80>
+                        {item.riceField}
+                        {/* {item.riceField.length <= 40
                           ? `${item.riceField}`
                           : `${item.riceField.substring(0, 39)}...`} */}
-                    </Text>
-                    <View flex right style={styles.controllContainer}>
-                      <Text
-                        green
-                        text70
-                        onPress={() =>
-                          navigation.navigate(nameList.riceSeasonInfo, {
-                            idRiceSeason: item._id,
-                          })
-                        }
-                      >
-                        Xem
                       </Text>
-                      <Text
-                        text70
-                        onPress={() => handleDelete(item._id)}
-                        style={styles.deleteBtn}
-                      >
-                        Xóa
-                      </Text>
+                      <View flex right style={styles.controllContainer}>
+                        <Text
+                          green
+                          text70
+                          onPress={() =>
+                            navigation.navigate(nameList.riceSeasonInfo, {
+                              idRiceSeason: item._id,
+                            })
+                          }
+                        >
+                          Xem
+                        </Text>
+                        <Text
+                          text70
+                          onPress={() => handleDelete(item._id)}
+                          style={styles.deleteBtn}
+                        >
+                          Xóa
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              );
-              // }
-            })}
+                );
+                // }
+              })}
 
-            {/* {seasonName && !hasResult && (
-              <View center>
-                Không có vụ mùa nào có tên này. Vui lòng nhập lại.
+            {riceSeasonArray.length == 0 && (
+              <View center margin-20>
+                <Text text70>Không có vụ mùa nào có tên này.</Text>
+                <Text text70>Vui lòng chọn lại hoặc thêm mới vụ mùa.</Text>
               </View>
-            )} */}
+            )}
           </View>
 
           <View marginT-30 center>

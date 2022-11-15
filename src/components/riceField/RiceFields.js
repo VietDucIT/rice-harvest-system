@@ -25,7 +25,7 @@ const RiceFields = ({ navigation }) => {
     setUserId(value);
   });
   useEffect(
-    () => console.log("RiceFields - RFrom Ricefields, User ID: ", userId),
+    () => console.log("RiceFields - From RiceFields, User ID: ", userId),
     [userId]
   );
 

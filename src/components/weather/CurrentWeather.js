@@ -22,7 +22,8 @@ import { StyleInit } from "../../config/StyleInit";
 import getDayTime from "../../services/time/getDayTime";
 import getWeatherByCoord from "../../services/weather/getApiByCoord";
 import getAddressAPIData from "../../services/address/getAddressAPIData";
-import convertNameToCoord from "../../services/weather/convertNameToCoord";
+import convertNameToCoord from "../../services/address/convertNameToCoord";
+import convertCoordToName from "../../services/address/convertCoordToName";
 
 import initWeatherData from "../../json/initWeatherData";
 
@@ -39,18 +40,48 @@ const CurrentWeather = ({ navigation }) => {
   const [searchedProvince, setSearchedProvince] = useState("");
   const [location, setLocation] = useState();
   const [errorLocation, setErrorLocation] = useState(null);
+  const [locationName, setLocationName] = useState("");
 
   useEffect(() => {
+    // declare and self call function
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorLocation("Không thể truy cập thông tin vị trí của bạn.");
         return;
       }
-      let { coords } = await Location.getCurrentPositionAsync({});
+      const { coords } = await Location.getCurrentPositionAsync({});
+      // console.log("CurrentWeather - Current Location: ", coords);
       setLocation(coords);
     })();
   }, []);
+
+  // Convert Coord to Name
+  const getLocationName = useCallback(async () => {
+    try {
+      const data = await convertCoordToName(
+        location.latitude,
+        location.longitude
+      );
+      setLocationName(data[0].local_names.vi);
+      Alert.alert(
+        "Thông báo",
+        `Hiển thị thông tin thời tiết tại ${data[0].local_names.vi}.`,
+        [
+          {
+            text: "OK",
+            style: "cancel",
+          },
+        ]
+      );
+    } catch (err) {
+      console.log("CurrentWeather - Can't convert Coord to Name.");
+    }
+  }, [location]);
+
+  useEffect(() => {
+    getLocationName();
+  }, [getLocationName]);
 
   // NOT SHOW ???
   if (errorLocation) {
@@ -65,7 +96,7 @@ const CurrentWeather = ({ navigation }) => {
   //   text = JSON.stringify(location);
   // }
 
-  const [weatherData, setWeatherData] = useState(initWeatherData);
+  const [weatherData, setWeatherData] = useState(initWeatherData); //
 
   // Get full weather data
   const getAPI = useCallback(async () => {
@@ -93,7 +124,6 @@ const CurrentWeather = ({ navigation }) => {
     try {
       setLoading(true);
       const data = await getAddressAPIData();
-      console.log("CurrentWeather - AddressAPI data: ");
       setAddressAPI(data);
       setLoading(false);
     } catch (err) {
@@ -136,9 +166,7 @@ const CurrentWeather = ({ navigation }) => {
 
   return (
     <ScrollView>
-      {/* <View flex paddingH-25 paddingT-120> */}
-      {/* {weatherData === initWeatherData ? ( */}
-      {isLoading ? (
+      {weatherData === initWeatherData || isLoading ? (
         <Loader />
       ) : (
         <View flex marginB-50>
@@ -158,17 +186,22 @@ const CurrentWeather = ({ navigation }) => {
               <Text center marginT-10>
                 {currentTime}
               </Text>
-              {/* {searchedProvince && (
-                <Text center marginT-10>
-                  {searchedProvince}
-                </Text>
-              )} */}
+              {locationName && (
+                <View row center marginT-10>
+                  <FontAwesome5
+                    name="map-marker-alt"
+                    size={20}
+                    color={color.greenColor}
+                  />
+                  <Text> {locationName}</Text>
+                </View>
+              )}
             </View>
           </View>
 
           {/* Search Bar */}
           <View flex center style={styles.searchContainer}>
-            <View marginH-20 style={styles.searchBox}>
+            <View marginH-10 style={styles.searchBox}>
               <Picker
                 migrateTextField
                 text70

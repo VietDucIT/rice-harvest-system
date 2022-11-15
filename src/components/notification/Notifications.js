@@ -36,6 +36,7 @@ const Notifications = ({ navigation }) => {
       // setLoading(true);
       const data = await getNotificationList(userId);
       // console.log("Notifications - Notification list: ", data);
+      await data.sort((a, b) => a.createAt - b.createAt);
       setNotificationArray(data);
       // setLoading(false);
     } catch (err) {

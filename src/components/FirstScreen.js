@@ -54,6 +54,11 @@ const FirstScreen = ({ navigation }) => {
     }
   }, [user]);
 
+  const reset = () => {
+    setUser(initState);
+    console.log("FirstScreen - Clear text field.");
+  };
+
   // call API
   const handleLogIn = async () => {
     try {
@@ -69,6 +74,7 @@ const FirstScreen = ({ navigation }) => {
           },
         ]
       );
+      reset();
       await SecureStore.setItemAsync("USER_ID", dataAPI._id);
       navigation.navigate(nameList.mainScreen);
     } catch (err) {

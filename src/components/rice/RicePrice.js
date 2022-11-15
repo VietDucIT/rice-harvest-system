@@ -75,7 +75,9 @@ const RicePrice = ({ navigation }) => {
     }
   }, []);
 
-  useEffect(() => getPricePredictionData(), [getPricePredictionData]);
+  useEffect(() => {
+    getPricePredictionData();
+  }, [getPricePredictionData]);
 
   const handlePrediction = () => {
     getPricePredictionData();
