@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
+import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
@@ -83,14 +84,16 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian sạ: </TextR>
-              <Text text70>{seasonData.timeStart}</Text>
+              <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
+              <Text text70>
+                {dayjs(seasonData.timeStart).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian gặt (dự kiến): </TextR>
+              <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
               <Text text70 style={styles.important}>
-                {seasonData.timeEnd}
+                {dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
               </Text>
             </View>
 

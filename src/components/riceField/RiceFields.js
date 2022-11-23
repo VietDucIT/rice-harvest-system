@@ -24,10 +24,7 @@ const RiceFields = ({ navigation }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(
-    () => console.log("RiceFields - From RiceFields, User ID: ", userId),
-    [userId]
-  );
+  useEffect(() => console.log("RiceFields - User ID: ", userId), [userId]);
 
   const [fieldName, setFieldName] = useState("");
 

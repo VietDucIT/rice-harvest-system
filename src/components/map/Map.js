@@ -15,26 +15,26 @@ const Map = ({ fieldData, ...props }) => {
 
   console.log("Map - Field Data: ", fieldData);
   const point1 = vn2000_to_wgs84(
-    fieldData.x1,
     fieldData.y1,
+    fieldData.x1,
     0,
     "VN2000_SOC_TRANG"
   );
   const point2 = vn2000_to_wgs84(
-    fieldData.x2,
     fieldData.y2,
+    fieldData.x2,
     0,
     "VN2000_SOC_TRANG"
   );
   const point3 = vn2000_to_wgs84(
-    fieldData.x3,
     fieldData.y3,
+    fieldData.x3,
     0,
     "VN2000_SOC_TRANG"
   );
   const point4 = vn2000_to_wgs84(
-    fieldData.x4,
     fieldData.y4,
+    fieldData.x4,
     0,
     "VN2000_SOC_TRANG"
   );
@@ -46,11 +46,11 @@ const Map = ({ fieldData, ...props }) => {
     console.log("Map - Point 3: ", point3);
     console.log("Map - Point 4: ", point4);
     pointList = [
-      { latitude: Number(point1.x) - 4.8, longitude: Number(point1.y) + 4.8 },
-      { latitude: Number(point2.x) - 4.8, longitude: Number(point2.y) + 4.8 },
-      { latitude: Number(point3.x) - 4.8, longitude: Number(point3.y) + 4.8 },
-      { latitude: Number(point4.x) - 4.8, longitude: Number(point4.y) + 4.8 },
-      { latitude: Number(point1.x) - 4.8, longitude: Number(point1.y) + 4.8 },
+      { latitude: Number(point1.x), longitude: Number(point1.y) },
+      { latitude: Number(point2.x), longitude: Number(point2.y) },
+      { latitude: Number(point3.x), longitude: Number(point3.y) },
+      { latitude: Number(point4.x), longitude: Number(point4.y) },
+      { latitude: Number(point1.x), longitude: Number(point1.y) },
     ];
     console.log(pointList);
   } else {

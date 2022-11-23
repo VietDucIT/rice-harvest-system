@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
+import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
@@ -13,10 +14,8 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
 import getSuggestToBuyListForRiceSeason from "../../services/suggestToBuy/getSuggestToBuyListForRiceSeason";
-import getDayTime from "../../services/time/getDayTime";
 
 StyleInit();
-const { getDateString } = getDayTime();
 
 const RiceSeasonInfo = ({ navigation, route }) => {
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -34,11 +33,6 @@ const RiceSeasonInfo = ({ navigation, route }) => {
       // console.log("RiceSeasonInfo - Rice Season data: ", data);
       const data = await getRiceSeason(idRiceSeason);
       setSeasonData(data);
-      // setSeasonData({
-      //   ...data,
-      //   timeStart: getDateString(data.timeStart),
-      //   timeEnd: getDateString(data.timeEnd),
-      // });
       setIsLoading(false);
     } catch (err) {
       console.log("RiceSeasonInfo - Error while getting Rice Season data.");
@@ -65,13 +59,6 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   useEffect(() => {
     getSuggestToBuyListData();
   }, [getSuggestToBuyListData]);
-
-  // const timeS = "",
-  //   timeE = "";
-  // useEffect(() => {
-  //   timeS = getDateString(seasonData.timeStart);
-  //   timeE = getDateString(seasonData.timeEnd);
-  // }, [seasonData]);
 
   return (
     <ScrollView>
@@ -115,14 +102,17 @@ const RiceSeasonInfo = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian sạ: </TextR>
-              <Text text70>{seasonData.timeStart}</Text>
+              <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
+              <Text text70>
+                {dayjs(seasonData.timeStart).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian gặt: </TextR>
-              <Text text70>{seasonData.timeEnd}</Text>
-              {/* <Text text70>{getDateString(seasonData.timeEnd)}</Text> */}
+              <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
+              <Text text70>
+                {dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             {seasonData.currentState === "Đã thu hoạch" && (

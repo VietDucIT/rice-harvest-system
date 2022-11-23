@@ -366,7 +366,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
 
             {/* Time Start */}
             <View marginT-20>
-              <TextR style={styles.label}>Thời gian sạ:</TextR>
+              <TextR style={styles.label}>Ngày sạ:</TextR>
               <DateTimePicker
                 migrateTextField
                 containerStyle={{ marginVertical: 20 }}
@@ -384,7 +384,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
 
             {/* Time End */}
             <View marginT-20>
-              <TextR style={styles.label}>Thời gian gặt:</TextR>
+              <TextR style={styles.label}>Ngày gặt:</TextR>
               <DateTimePicker
                 migrateTextField
                 containerStyle={{ marginVertical: 20 }}

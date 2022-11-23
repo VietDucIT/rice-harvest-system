@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
+import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
@@ -17,19 +18,6 @@ import getSuggestToBuy from "../../services/suggestToBuy/getSuggestToBuy";
 StyleInit();
 
 const SuggestToBuyInfo = ({ navigation, route }) => {
-  // const suggestData = {
-  //   id: 1,
-  //   farmerName: "Nguyễn Văn A",
-  //   riceField: "Mẫu ruộng số 1",
-  //   rice: "OM 18",
-  //   currentState: "Lúa chín",
-  //   timeStart: "19/9/2022",
-  //   timeEnd: "19/12/2022",
-  //   suggestedPrice: 6000,
-  //   suggestedTimeEnd: "20/9/2022",
-  //   description: "Thu mua bằng giá thị trường",
-  // };
-
   const { idSuggestToBuy } = route.params;
   const [suggestToBuyData, setSuggestToBuyData] = useState({});
 
@@ -92,13 +80,17 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian sạ: </TextR>
-              <Text text70>{suggestToBuyData.timeStart}</Text>
+              <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
+              <Text text70>
+                {dayjs(suggestToBuyData.timeStart).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Thời gian gặt (dự kiến): </TextR>
-              <Text text70>{suggestToBuyData.timeEnd}</Text>
+              <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
+              <Text text70>
+                {dayjs(suggestToBuyData.timeEnd).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -108,7 +100,9 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày đề xuất thu hoạch: </TextR>
-              <Text text70>{suggestToBuyData.suggestedTimeEnd}</Text>
+              <Text text70>
+                {dayjs(suggestToBuyData.suggestedTimeEnd).format("DD-MM-YYYY")}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>

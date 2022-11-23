@@ -253,7 +253,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
             {/* Time Start */}
             <View marginT-20>
               <TextR style={[styles.label, styles.disableLabel]}>
-                Thời gian sạ:
+                Ngày sạ:
               </TextR>
               <TextField
                 text70
@@ -268,7 +268,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
             {/* Time End */}
             <View marginT-20>
               <TextR style={[styles.label, styles.disableLabel]}>
-                Thời gian gặt (dự kiến):
+                Ngày gặt (dự kiến):
               </TextR>
               <TextField
                 text70

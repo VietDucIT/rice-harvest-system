@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, Linking, ScrollView, StyleSheet } from "react-native";
+import { Image, Linking, LogBox, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 import { Table, Row, Rows } from "react-native-table-component";
 
@@ -13,6 +13,10 @@ import { StyleInit } from "../../config/StyleInit";
 import getDayTime from "../../services/time/getDayTime";
 import getRicePrice from "../../services/ricePrice/getRicePrice";
 import getPricePrediction from "../../services/ricePrice/getPricePrediction";
+
+LogBox.ignoreLogs([
+  "Warning: Failed prop type: Invalid prop `textStyle` of type `array` supplied to `Cell`, expected `object`.",
+]);
 
 StyleInit();
 const { getDateString } = getDayTime();
