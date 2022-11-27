@@ -5,6 +5,7 @@ import { Text, View } from "react-native-ui-lib";
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
+import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -18,7 +19,7 @@ const FarmerInfo = ({ navigation, route }) => {
   const { idFarmer } = route.params;
 
   const [farmerData, setFarmerData] = useState({});
-  const [riceSeasonArray, setRiceSeasonArray] = useState({});
+  const [riceSeasonArray, setRiceSeasonArray] = useState([]);
 
   // get Farmer data
   const getFarmerData = useCallback(async () => {
@@ -53,6 +54,8 @@ const FarmerInfo = ({ navigation, route }) => {
   useEffect(() => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
+
+  const handleSaveContact = () => {};
 
   return (
     <ScrollView>
@@ -105,7 +108,7 @@ const FarmerInfo = ({ navigation, route }) => {
           </View>
 
           <View marginT-30>
-            <TextR style={styles.listLabel}>Danh sách ruộng đất:</TextR>
+            <TextR style={styles.listLabel}>Danh sách vụ mùa:</TextR>
             <View>
               {riceSeasonArray.map((item, index) => {
                 return (
@@ -118,15 +121,21 @@ const FarmerInfo = ({ navigation, route }) => {
                   >
                     <View flex style={styles.subContainer}>
                       <Text text80 style={styles.riceFieldName}>
-                        {item.riceFieldName.length <= 40
+                        {item.seasonName} {item.seasonYear}
+                        {/* {item.riceFieldName.length <= 40
                           ? item.riceFieldName
-                          : `${item.riceFieldName.substring(0, 39)}...`}
+                          : `${item.riceFieldName.substring(0, 39)}...`} */}
                       </Text>
                       <Text
                         green
                         text70
                         onPress={() =>
-                          navigation.navigate(nameList.riceSeasonInfoForTrader)
+                          navigation.navigate(
+                            nameList.riceSeasonInfoForTrader,
+                            {
+                              idRiceSeason: item._id,
+                            }
+                          )
                         }
                       >
                         Xem
@@ -136,6 +145,10 @@ const FarmerInfo = ({ navigation, route }) => {
                 );
               })}
             </View>
+          </View>
+
+          <View center marginT-40>
+            <CustomButton label="Lưu" onPress={handleSaveContact} style={{}} />
           </View>
         </View>
       </View>
@@ -165,7 +178,8 @@ const styles = StyleSheet.create({
   listLabel: {
     fontSize: 16,
     color: color.greenColor,
-    textDecorationLine: "underline",
+    // textDecorationLine: "underline",
+    fontWeight: "bold",
     marginLeft: 20,
   },
   riceSeasonItem: {

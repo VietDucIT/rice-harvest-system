@@ -67,7 +67,7 @@ const AddressInputWithoutRequire = ({ handleAddress, isReset }) => {
   }, [isReset]);
 
   return (
-    <View flex style={styles.addressContainer}>
+    <View marginT-20 style={styles.addressContainer}>
       {/* Province */}
       <View marginH-20 style={styles.addressItem}>
         <Picker

@@ -4,7 +4,6 @@ const nameList = {
   userOptionModal: "   ", // 3 spaces
   fullMap: "Bản đồ ruộng lúa",
   modifyUserInfo: "Chỉnh sửa người dùng",
-  changeCoordIframe: "Chuyển đổi tọa độ",
   riceBuyingAreas: "Danh sách khu vực thu mua",
   bills: "Danh sách phiếu thu mua",
   riceFields: "Danh sách ruộng lúa",
@@ -36,8 +35,6 @@ const nameList = {
   riceSeasonInfo: "Thông tin vụ mùa",
   currentWeather: "Thời tiết hiện tại",
   findFarmers: "Tìm kiếm nông dân",
-
-  test: "Test",
 };
 
 export default nameList;

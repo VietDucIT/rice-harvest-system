@@ -48,7 +48,7 @@ const RicePrice = ({ navigation }) => {
       // setLoading(true);
       const data = await getRicePrice();
       // console.log("RicePrice - Rice Price data: ", data);
-      await data.sort((a, b) => a.rice.localeCompare(b.rice));
+      // await data.sort((a, b) => a.rice.localeCompare(b.rice));
       setRicePriceData(data);
       // setLoading(false);
     } catch (err) {

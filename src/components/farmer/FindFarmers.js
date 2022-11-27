@@ -86,19 +86,18 @@ const FindFarmers = ({ navigation }) => {
           </View>
         </View>
 
-        <View row>
-          <Text text50 green>
-            Tìm theo địa chỉ
-          </Text>
+        <View center row>
+          <Text text70>Tìm theo địa chỉ</Text>
           <Switch
-            width={80}
-            height={38}
-            thumbSize={34}
+            // width={50}
+            // height={10}
+            // thumbSize={14}
             onColor={color.greenColor}
             offColor={color.greyColor}
             value={isFindByAddress}
             onValueChange={() => setIsFindByAddress(!isFindByAddress)}
             // style={{marginBottom: 20}}
+            marginL-20
           />
         </View>
 
@@ -115,8 +114,18 @@ const FindFarmers = ({ navigation }) => {
               handleAddress={(address) => setAddress(address)}
               isReset={isReset}
             />
-            <CustomButton label="Nhập lại" onPress={reset} />
-            <CustomButton label="Tìm" onPress={handleFind} />
+            <View row center>
+              <CustomButton
+                label="Nhập lại"
+                onPress={reset}
+                style={{ width: 120 }}
+              />
+              <CustomButton
+                label="Tìm"
+                onPress={handleFind}
+                style={{ width: 120, marginLeft: 20 }}
+              />
+            </View>
           </View>
         )}
 
@@ -141,11 +150,11 @@ const FindFarmers = ({ navigation }) => {
                 <TextR style={styles.farmerName}>
                   {item.name} ({item.nickname})
                 </TextR>
-                <View flex style={styles.subContainer}>
+                <View style={styles.subContainer}>
                   <Text text80>
-                    {address.length <= 40
+                    {address.length <= 35
                       ? address
-                      : `${address.substring(0, 39)}...`}
+                      : `${address.substring(0, 34)}...`}
                   </Text>
                   <Text
                     green
