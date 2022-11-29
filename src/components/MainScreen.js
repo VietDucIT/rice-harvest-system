@@ -86,7 +86,7 @@ const MainScreen = ({ navigation }) => {
 
           <View marginV-15 center>
             <CustomButton
-              label="Cập nhật giá lúa"
+              label="Thông tin giá lúa"
               text60
               style={styles.btn}
               onPress={() => navigation.navigate(nameList.ricePrice)}

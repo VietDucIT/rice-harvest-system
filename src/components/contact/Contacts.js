@@ -10,44 +10,44 @@ import CustomButton from "../core/CustomButton";
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
-import getConnectionList from "../../services/connection/getConnectionList";
-// import modifyConnection from "../../services/connection/modifyConnection";
-import deleteConnection from "../../services/connection/deleteConnection";
+import getContactList from "../../services/contact/getContactList";
+// import modifyContact from "../../services/contact/modifyContact";
+import deleteContact from "../../services/contact/deleteContact";
 import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const Connections = ({ navigation }) => {
+const Contacts = ({ navigation }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
     setUserId(value);
   });
   useEffect(
-    () => console.log("Connections - User ID from SecureStore: ", userId),
+    () => console.log("Contacts - User ID from SecureStore: ", userId),
     [userId]
   );
 
-  const [connectionArray, setConnectionArray] = useState([]);
+  const [contactArray, setContactArray] = useState([]);
 
   // call API
-  const getConnectionArray = useCallback(async () => {
+  const getContactArray = useCallback(async () => {
     try {
       // setLoading(true);
-      const data = await getConnectionList(userId);
-      // console.log("Connections - Connection list: ", data);
-      setConnectionArray(data);
+      const data = await getContactList(userId);
+      // console.log("Contacts - Contact list: ", data);
+      setContactArray(data);
       // setLoading(false);
     } catch (err) {
-      console.log("Connections - Error while getting Connection list.");
+      console.log("Contacts - Error while getting Contact list.");
     }
   }, [userId]);
 
   useEffect(() => {
-    getConnectionArray();
-  }, [getConnectionArray]);
+    getContactArray();
+  }, [getContactArray]);
 
-  // delete a Connection
+  // delete a Contact
   const handleDelete = (id) => {
     Alert.alert(
       "Hủy kết nối?",
@@ -62,12 +62,12 @@ const Connections = ({ navigation }) => {
           onPress: async () => {
             try {
               // setLoading(true);
-              let dataAPI = await deleteConnection(id);
-              // console.log("Connections - Data API: ", dataAPI);
-              navigation.navigate(nameList.connections);
+              let dataAPI = await deleteContact(id);
+              // console.log("Contacts - Data API: ", dataAPI);
+              navigation.navigate(nameList.contacts);
               // setLoading(false);
             } catch (err) {
-              console.log("Connections - Error while deleting Connection.");
+              console.log("Contacts - Error while deleting Contact.");
             }
           },
         },
@@ -96,7 +96,7 @@ const Connections = ({ navigation }) => {
           <SearchBar placeholder="Nhập tên nông dân" />
 
           <View marginT-20>
-            {connectionArray.map((item, index) => (
+            {contactArray.map((item, index) => (
               <View
                 style={styles.riceSeasonItem}
                 padding-5
@@ -116,8 +116,8 @@ const Connections = ({ navigation }) => {
                       green
                       text70
                       onPress={() =>
-                        navigation.navigate(nameList.connectionInfo, {
-                          idConnection: item._id,
+                        navigation.navigate(nameList.contactInfo, {
+                          idContact: item._id,
                         })
                       }
                     >
@@ -147,7 +147,7 @@ const Connections = ({ navigation }) => {
     </ScrollView>
   );
 };
-export default Connections;
+export default Contacts;
 
 const styles = StyleSheet.create({
   logo: {

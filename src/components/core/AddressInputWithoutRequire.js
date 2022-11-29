@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet } from "react-native";
-import { Incubator, Picker, Text, View } from "react-native-ui-lib";
+import { Incubator, Picker, View } from "react-native-ui-lib";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";

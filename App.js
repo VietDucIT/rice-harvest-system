@@ -11,7 +11,7 @@ import Bills from "./src/components/bill/Bills";
 
 import Calculator from "./src/components/calculator/Calculator";
 
-import Connections from "./src/components/connection/Connections";
+import Contacts from "./src/components/contact/Contacts";
 
 import FarmerInfo from "./src/components/farmer/FarmerInfo";
 import FindFarmers from "./src/components/farmer/FindFarmers";
@@ -66,7 +66,7 @@ export default function App() {
         <Stack.Screen name={nameList.billInfo} component={BillInfo} />
         <Stack.Screen name={nameList.bills} component={Bills} />
         <Stack.Screen name={nameList.calculator} component={Calculator} />
-        <Stack.Screen name={nameList.connections} component={Connections} />
+        <Stack.Screen name={nameList.contacts} component={Contacts} />
         <Stack.Screen name={nameList.farmerInfo} component={FarmerInfo} />
         <Stack.Screen name={nameList.findFarmers} component={FindFarmers} />
         <Stack.Screen name={nameList.fullMap} component={FullMap} />

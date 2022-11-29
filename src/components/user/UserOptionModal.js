@@ -49,30 +49,34 @@ const UserOptionModal = ({ navigation }) => {
   };
 
   const handleDeleteAccount = () => {
-    Alert.alert("Xác nhận", "Bạn có chắc chắn muốn xóa tài khoản này?", [
-      {
-        text: "Chắc chắn",
-        onPress: async () => {
-          try {
-            let dataAPI = await deleteUser(userId);
-            // console.log("UserOptionModal - Data API: ", dataAPI);
-            Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
-            navigation.navigate(nameList.addUserInfo);
-          } catch (err) {
-            console.log("UserOptionModal - Error while deleting User.");
-          }
+    Alert.alert(
+      "Xác nhận",
+      "Việc xóa tài khoản sẽ xóa tất cả thông tin của bạn và KHÔNG thể khôi phục. Bạn có chắc chắn muốn xóa tài khoản này?",
+      [
+        {
+          text: "Chắc chắn",
+          onPress: async () => {
+            try {
+              let dataAPI = await deleteUser(userId);
+              // console.log("UserOptionModal - Data API: ", dataAPI);
+              Alert.alert("Thông báo", "Bạn đã xóa tài khoản thành công.", [
+                {
+                  text: "Đóng",
+                  style: "cancel",
+                },
+              ]);
+              navigation.navigate(nameList.addUserInfo);
+            } catch (err) {
+              console.log("UserOptionModal - Error while deleting User.");
+            }
+          },
         },
-      },
-      {
-        text: "Quay lại",
-        style: "cancel",
-      },
-    ]);
+        {
+          text: "Quay lại",
+          style: "cancel",
+        },
+      ]
+    );
   };
 
   return (
@@ -82,6 +86,16 @@ const UserOptionModal = ({ navigation }) => {
           Tùy chọn
         </Text>
         <View center>
+          {/* Main Screen */}
+          <Button
+            link
+            style={styles.modalText}
+            onPress={() => navigation.navigate(nameList.mainScreen)}
+            marginV-5
+          >
+            <Text text65>Về màn hình chính</Text>
+          </Button>
+
           {/* User Info */}
           <Button
             link

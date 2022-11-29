@@ -13,7 +13,7 @@ const nameList = {
   addUserInfo: "Đăng ký tài khoản",
   suggestToBuy: "Đề xuất thu mua",
   ricePrice: "Giá lúa",
-  connections: "Kết nối",
+  contacts: "Liên hệ",
   calculator: "Máy tính",
   billInfo: "Phiếu thu mua",
   suggestToBuys: "Quản lý đề xuất thu mua",

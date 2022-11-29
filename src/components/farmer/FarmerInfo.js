@@ -12,6 +12,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getFarmer from "../../services/user/getUser";
 import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
+import addContact from "../../services/contact/addContact";
 
 StyleInit();
 
@@ -55,7 +56,20 @@ const FarmerInfo = ({ navigation, route }) => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
 
-  const handleSaveContact = () => {};
+  const handleSaveContact = async (farmerId) => {
+    try {
+      let dataAPI = await addContact(farmerId);
+      Alert.alert("Thông báo", "Đã thêm vào danh sách liên hệ.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.contacts);
+    } catch (err) {
+      console.log("FarmerInfo - Error while adding Contact.");
+    }
+  };
 
   return (
     <ScrollView>
@@ -148,7 +162,13 @@ const FarmerInfo = ({ navigation, route }) => {
           </View>
 
           <View center marginT-40>
-            <CustomButton label="Lưu" onPress={handleSaveContact} style={{}} />
+            <CustomButton
+              label="Lưu"
+              onPress={() => {
+                handleSaveContact(farmerData._id);
+              }}
+              style={{}}
+            />
           </View>
         </View>
       </View>
