@@ -204,8 +204,7 @@ const AddRiceSeason = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.goBack();
-      // navigation.navigate(nameList.riceSeasons);
+      navigation.navigate(nameList.riceSeasons, { hasNewSeason: true });
       // setLoading(false);
     } catch (err) {
       console.log("AddRiceSeason - Error while adding Rice Season.");

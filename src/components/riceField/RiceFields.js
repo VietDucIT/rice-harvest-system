@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -18,7 +24,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const RiceFields = ({ navigation }) => {
+const RiceFields = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -64,6 +70,13 @@ const RiceFields = ({ navigation }) => {
     getRiceFieldArrayByName();
   }, [getRiceFieldArrayByName]);
 
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewField) {
+      getRiceFieldArray();
+    }
+  }, [route.params?.hasNewField]);
+
   // delete a Rice Field
   const handleDelete = (field) => {
     Alert.alert("Xác nhận", `Bạn có chắc chắn muốn xóa ${field.name}?`, [
@@ -86,7 +99,9 @@ const RiceFields = ({ navigation }) => {
                 style: "cancel",
               },
             ]);
-            navigation.goBack();
+
+            // recall API to get list after deleting
+            getRiceFieldArray();
             // setLoading(false);
           } catch (err) {
             console.log("RiceFields - Error while deleting Rice Field.");
@@ -133,12 +148,21 @@ const RiceFields = ({ navigation }) => {
                   marginH-16
                   key={index}
                 >
-                  <Text text70>
-                    {item.name?.length <= 40
-                      ? `${item.name}`
-                      : `${item.name?.substring(0, 39)}...`}
-                  </Text>
-                  <View flex right style={styles.controllContainer}>
+                  <TouchableOpacity>
+                    <Text
+                      text70
+                      onPress={() =>
+                        navigation.navigate(nameList.riceFieldInfo, {
+                          idRiceField: item._id,
+                        })
+                      }
+                    >
+                      {item.name?.length <= 40
+                        ? `${item.name}`
+                        : `${item.name?.substring(0, 39)}...`}
+                    </Text>
+                  </TouchableOpacity>
+                  <View right>
                     <Text
                       green
                       text70

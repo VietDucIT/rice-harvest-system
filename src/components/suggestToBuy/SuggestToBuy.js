@@ -161,7 +161,7 @@ const SuggestToBuy = ({ navigation, route }) => {
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.suggestToBuys);
+        navigation.navigate(nameList.suggestToBuys, { hasNewSuggest: true });
         // setLoading(false);
       } catch (err) {
         console.log("SuggestToBuy - Error while adding Suggest To Buy.");

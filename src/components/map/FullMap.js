@@ -13,14 +13,15 @@ import getAllRiceField from "../../services/riceField/getAllRiceField";
 
 const FullMap = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  let fieldArray = [];
+  const [fieldArray, setFieldArray] = useState([]);
 
   // get all Rice Field
   const getRiceFieldArray = useCallback(async () => {
     try {
       setIsLoading(true);
-      fieldArray = await getAllRiceField();
-      console.log("FullMap - All Rice Fields: ", fieldArray);
+      const data = await getAllRiceField();
+      setFieldArray(data);
+      // console.log("FullMap - All Rice Fields: ", fieldArray);
       setIsLoading(false);
     } catch (err) {
       console.log("FullMap - Error while getting all Rice Fields.");
@@ -45,54 +46,56 @@ const FullMap = (props) => {
             longitudeDelta: 0.04,
           }}
         >
-          {fieldArray.map(async (item, index) => {
+          {fieldArray.map((item, index) => {
             const point1 = vn2000_to_wgs84(
-              item.x1,
               item.y1,
+              item.x1,
               0,
               "VN2000_SOC_TRANG"
             );
             const point2 = vn2000_to_wgs84(
-              item.x2,
               item.y2,
+              item.x2,
               0,
               "VN2000_SOC_TRANG"
             );
             const point3 = vn2000_to_wgs84(
-              item.x3,
               item.y3,
+              item.x3,
               0,
               "VN2000_SOC_TRANG"
             );
             const point4 = vn2000_to_wgs84(
-              item.x4,
               item.y4,
+              item.x4,
               0,
               "VN2000_SOC_TRANG"
             );
 
+            // longitude: kinh độ (W/E), latitude: vĩ độ (N/S)
             const pointList = [
               {
-                latitude: Number(point1.x) - 4.8,
-                longitude: Number(point1.y) + 4.8,
+                longitude: Number(point1.x),
+                latitude: Number(point1.y),
               },
               {
-                latitude: Number(point2.x) - 4.8,
-                longitude: Number(point2.y) + 4.8,
+                longitude: Number(point2.x),
+                latitude: Number(point2.y),
               },
               {
-                latitude: Number(point3.x) - 4.8,
-                longitude: Number(point3.y) + 4.8,
+                longitude: Number(point3.x),
+                latitude: Number(point3.y),
               },
               {
-                latitude: Number(point4.x) - 4.8,
-                longitude: Number(point4.y) + 4.8,
+                longitude: Number(point4.x),
+                latitude: Number(point4.y),
               },
               {
-                latitude: Number(point1.x) - 4.8,
-                longitude: Number(point1.y) + 4.8,
+                longitude: Number(point1.x),
+                latitude: Number(point1.y),
               },
             ];
+            // console.log("PointList", index, ":", pointList);
 
             return (
               <Polygon

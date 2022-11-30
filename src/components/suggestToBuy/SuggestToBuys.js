@@ -17,7 +17,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const SuggestToBuys = ({ navigation }) => {
+const SuggestToBuys = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -27,34 +27,6 @@ const SuggestToBuys = ({ navigation }) => {
     () => console.log("SuggestToBuys - User ID from SecureStore: ", userId),
     [userId]
   );
-
-  // const suggestList = [
-  //   {
-  //     id: 1,
-  //     farmerName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 1",
-  //   },
-  //   {
-  //     id: 2,
-  //     farmerName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 2",
-  //   },
-  //   {
-  //     id: 3,
-  //     farmerName: "Nguyễn Văn A",
-  //     riceField: "Mẫu ruộng số 3",
-  //   },
-  //   {
-  //     id: 4,
-  //     farmerName: "Cao Thanh B",
-  //     riceField: "Mẫu ruộng số 1",
-  //   },
-  //   {
-  //     id: 5,
-  //     farmerName: "Lâm C",
-  //     riceField: "Mẫu ruộng số 2",
-  //   },
-  // ];
 
   const [suggestArray, setSuggestArray] = useState([]);
 
@@ -74,6 +46,13 @@ const SuggestToBuys = ({ navigation }) => {
   useEffect(() => {
     getSuggestToBuyArray();
   }, [getSuggestToBuyArray]);
+
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewSuggest) {
+      getSuggestToBuyArray();
+    }
+  }, [route.params?.hasNewSuggest]);
 
   // delete a Suggest To Buy
   const handleDelete = (id) => {
@@ -97,7 +76,9 @@ const SuggestToBuys = ({ navigation }) => {
                 style: "cancel",
               },
             ]);
-            navigation.navigate(nameList.suggestToBuys);
+
+            // recall API to get list after deleting
+            getSuggestToBuyArray();
             // setLoading(false);
           } catch (err) {
             console.log("SuggestToBuys - Error while deleting Suggest To Buy.");

@@ -219,7 +219,9 @@ const ModifyRiceSeason = ({ navigation, route }) => {
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.riceSeasons);
+        navigation.navigate(nameList.riceSeasonInfo, {
+          idRiceSeason,
+        });
         // setLoading(false);
       } catch (err) {
         console.log("ModifyRiceSeason - Error while modifying Rice Season.");

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Incubator, Text, View } from "react-native-ui-lib";
 
-// import nameList from "../../json/nameList";
+import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
@@ -129,8 +129,7 @@ const AddRiceField = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.goBack();
-      // navigation.navigate(nameList.riceFields);
+      navigation.navigate(nameList.riceFields, { hasNewField: true });
       // setLoading(false);
     } catch (err) {
       console.log("AddRiceField - Error while adding Rice Field.");

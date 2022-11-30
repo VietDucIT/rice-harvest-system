@@ -93,7 +93,7 @@ const UserOptionModal = ({ navigation }) => {
             onPress={() => navigation.navigate(nameList.mainScreen)}
             marginV-5
           >
-            <Text text65>Về màn hình chính</Text>
+            <Text text65>Màn hình chính</Text>
           </Button>
 
           {/* User Info */}

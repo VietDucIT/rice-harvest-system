@@ -150,7 +150,7 @@ const MainScreen = ({ navigation }) => {
 
           <View marginV-15 center>
             <CustomButton
-              label="Xem bản đồ ruộng đất"
+              label="Bản đồ ruộng đất"
               text60
               style={styles.btn}
               onPress={() => navigation.navigate(nameList.fullMap)}

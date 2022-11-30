@@ -18,7 +18,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const RiceBuyingAreas = ({ navigation }) => {
+const RiceBuyingAreas = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -70,6 +70,13 @@ const RiceBuyingAreas = ({ navigation }) => {
     getRiceBuyingAreaArrayByName();
   }, [getRiceBuyingAreaArrayByName]);
 
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewBuyingArea) {
+      getRiceBuyingAreaArray();
+    }
+  }, [route.params?.hasNewBuyingArea]);
+
   // delete a Rice Buying Area
   const handleDelete = (item) => {
     Alert.alert(
@@ -94,7 +101,9 @@ const RiceBuyingAreas = ({ navigation }) => {
                   style: "cancel",
                 },
               ]);
-              navigation.goBack();
+
+              // recall API to get list after deleting
+              getRiceBuyingAreaArray();
               // setLoading(false);
             } catch (err) {
               console.log(

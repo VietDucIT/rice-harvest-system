@@ -153,7 +153,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.userInfo, { idUser: user._id });
+        navigation.navigate(nameList.userInfo, { idUser });
         // setLoading(false);
       } catch (err) {
         console.log("ModifyUserInfo - Error while modifying User.");

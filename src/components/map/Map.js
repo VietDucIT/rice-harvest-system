@@ -41,18 +41,20 @@ const Map = ({ fieldData, ...props }) => {
   let pointList;
 
   if (point1 && point2 && point3 && point4) {
-    console.log("Map - Point 1: ", point1);
-    console.log("Map - Point 2: ", point2);
-    console.log("Map - Point 3: ", point3);
-    console.log("Map - Point 4: ", point4);
+    // console.log("Map - Point 1: ", point1);
+    // console.log("Map - Point 2: ", point2);
+    // console.log("Map - Point 3: ", point3);
+    // console.log("Map - Point 4: ", point4);
+
+    // longitude: kinh độ (W/E), latitude: vĩ độ (N/S)
     pointList = [
-      { latitude: Number(point1.x), longitude: Number(point1.y) },
-      { latitude: Number(point2.x), longitude: Number(point2.y) },
-      { latitude: Number(point3.x), longitude: Number(point3.y) },
-      { latitude: Number(point4.x), longitude: Number(point4.y) },
-      { latitude: Number(point1.x), longitude: Number(point1.y) },
+      { longitude: Number(point1.x), latitude: Number(point1.y) },
+      { longitude: Number(point2.x), latitude: Number(point2.y) },
+      { longitude: Number(point3.x), latitude: Number(point3.y) },
+      { longitude: Number(point4.x), latitude: Number(point4.y) },
+      { longitude: Number(point1.x), latitude: Number(point1.y) },
     ];
-    console.log(pointList);
+    // console.log(pointList);
   } else {
     console.log("Map - Can't convert VN2000 to WGS-84");
   }

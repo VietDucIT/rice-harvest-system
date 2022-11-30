@@ -155,7 +155,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
             style: "cancel",
           },
         ]);
-        navigation.navigate(nameList.suggestToBuys);
+        navigation.navigate(nameList.suggestToBuyInfo, { idSuggestToBuy });
         // setLoading(false);
       } catch (err) {
         console.log(

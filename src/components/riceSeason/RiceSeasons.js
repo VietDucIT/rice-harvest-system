@@ -25,7 +25,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const RiceSeasons = ({ navigation }) => {
+const RiceSeasons = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -82,6 +82,13 @@ const RiceSeasons = ({ navigation }) => {
     }
   };
 
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewSeason) {
+      getRiceSeasonArray();
+    }
+  }, [route.params?.hasNewSeason]);
+
   // delete a Rice Season
   const handleDelete = (id) => {
     Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa vụ mùa này?", [
@@ -104,7 +111,9 @@ const RiceSeasons = ({ navigation }) => {
                 style: "cancel",
               },
             ]);
-            navigation.navigate(nameList.riceSeasons);
+
+            // recall API to get list after deleting
+            getRiceSeasonArray();
             // setLoading(false);
           } catch (err) {
             console.log("RiceSeasons - Error while deleting Rice Season.");

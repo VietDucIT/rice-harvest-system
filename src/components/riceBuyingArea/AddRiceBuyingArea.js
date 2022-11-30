@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Incubator, Text, View } from "react-native-ui-lib";
 
-// import nameList from "../../json/nameList";
+import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
@@ -107,8 +107,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
           style: "cancel",
         },
       ]);
-      navigation.goBack();
-      // navigation.navigate(nameList.riceBuyingAreas);
+      navigation.navigate(nameList.riceBuyingAreas, { hasNewBuyingArea: true });
       // setLoading(false);
     } catch (err) {
       console.log("AddRiceBuyingArea - Error while adding Rice Buying Area.");

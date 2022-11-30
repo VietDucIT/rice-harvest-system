@@ -115,7 +115,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
         },
       ]);
       navigation.navigate(nameList.riceBuyingAreaInfo, {
-        idRiceBuyingArea: riceBuyingArea._id,
+        idRiceBuyingArea,
       });
       // setLoading(false);
     } catch (err) {
