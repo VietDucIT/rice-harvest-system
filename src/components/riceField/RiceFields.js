@@ -41,7 +41,7 @@ const RiceFields = ({ navigation, route }) => {
     try {
       // setLoading(true);
       const data = await getRiceFieldList(userId);
-      // console.log("RiceFields - Rice Fields data: ", data);
+      console.log("RiceFields - Rice Fields data: ", data);
       setRiceFieldArray(data);
       // setLoading(false);
     } catch (err) {

@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  TouchableOpacity,
 } from "react-native";
 import { Picker, Text, View } from "react-native-ui-lib";
 
@@ -90,7 +91,7 @@ const RiceSeasons = ({ navigation, route }) => {
   }, [route.params?.hasNewSeason]);
 
   // delete a Rice Season
-  const handleDelete = (id) => {
+  const handleDelete = (season) => {
     Alert.alert("Thông báo", "Bạn có chắc chắn muốn xóa vụ mùa này?", [
       {
         text: "Quay lại",
@@ -101,11 +102,11 @@ const RiceSeasons = ({ navigation, route }) => {
         onPress: async () => {
           try {
             // setLoading(true);
-            let dataAPI = await deleteRiceSeason(id);
+            let dataAPI = await deleteRiceSeason(season._id);
             // console.log("RiceSeasons - Data API: ", dataAPI);
 
             // SET STATUS FOR THIS
-            Alert.alert("Thông báo", "Đã xóa vụ mùa này.", [
+            Alert.alert("Thông báo", `Đã xóa vụ mùa ${season.name}.`, [
               {
                 text: "Đóng",
                 style: "cancel",
@@ -189,25 +190,33 @@ const RiceSeasons = ({ navigation, route }) => {
           <View marginT-20>
             {riceSeasonArray &&
               riceSeasonArray.map((item, index) => {
-                const fullName = item.seasonName + " " + item.seasonYear;
                 return (
                   <View
+                    flex
                     style={styles.riceSeasonItem}
                     padding-5
                     marginV-8
                     marginH-16
                     key={index}
                   >
-                    <TextR style={styles.riceSeasonName}>
-                      {item.seasonName} {item.seasonYear}
-                    </TextR>
-                    <View flex style={styles.subContainer}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(nameList.riceSeasonInfo, {
+                          idRiceSeason: item._id,
+                        })
+                      }
+                    >
+                      <TextR style={styles.riceSeasonName}>
+                        {item.seasonName} {item.seasonYear}
+                      </TextR>
                       <Text text80>
-                        {item.riceField}
-                        {/* {item.riceField.length <= 40
-                          ? `${item.riceField}`
-                          : `${item.riceField.substring(0, 39)}...`} */}
+                        {/* {item.riceField} */}
+                        {item.riceFieldName.length <= 40
+                          ? `${item.riceFieldName}`
+                          : `${item.riceFieldName.substring(0, 39)}...`}
                       </Text>
+                    </TouchableOpacity>
+                    <View flex style={styles.subContainer}>
                       <View flex right style={styles.controllContainer}>
                         <Text
                           green
@@ -222,7 +231,7 @@ const RiceSeasons = ({ navigation, route }) => {
                         </Text>
                         <Text
                           text70
-                          onPress={() => handleDelete(item._id)}
+                          onPress={() => handleDelete(item)}
                           style={styles.deleteBtn}
                         >
                           Xóa
@@ -277,12 +286,15 @@ const styles = StyleSheet.create({
     // paddingBottom: 5,
   },
   riceSeasonItem: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
   riceSeasonName: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
   },
   subContainer: {
     flexDirection: "row",

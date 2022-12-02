@@ -24,7 +24,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
   const { idRiceSeason } = route.params;
   console.log("RiceSeasonInfo - ID Rice Season: ", idRiceSeason);
   const [seasonData, setSeasonData] = useState({});
-  const [suggestList, setSuggestList] = useState({});
+  const [suggestList, setSuggestList] = useState([]);
 
   // call API to get Rice Season data
   const getRiceSeasonData = useCallback(async () => {
@@ -111,7 +111,9 @@ const RiceSeasonInfo = ({ navigation, route }) => {
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
               <Text text70>
-                {dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
+                {seasonData.timeEnd
+                  ? dayjs(seasonData.timeEnd).format("DD-MM-YYYY")
+                  : ""}
               </Text>
             </View>
 
@@ -138,51 +140,59 @@ const RiceSeasonInfo = ({ navigation, route }) => {
             <View marginT-40>
               <Button link onPress={() => setIsShowMenu(!isShowMenu)} left>
                 <Text green style={styles.link}>
-                  Xem đề xuất thu mua
+                  Bấm vào để xem đề xuất thu mua
                 </Text>
               </Button>
               {isShowMenu && (
                 <View marginT-20>
-                  {suggestList.map((item, index) => {
-                    return (
-                      <View
-                        style={styles.riceSeasonItem}
-                        padding-5
-                        marginV-8
-                        marginH-16
-                        key={index}
-                      >
-                        <TextR>
-                          <TextR style={styles.traderName}>
-                            {item.traderName}{" "}
+                  {suggestList.length == 0 ? (
+                    <Text text70 marginL-20>
+                      Không có đề xuất thu mua...
+                    </Text>
+                  ) : (
+                    suggestList.map((item, index) => {
+                      return (
+                        <View
+                          style={styles.riceSeasonItem}
+                          padding-5
+                          marginV-8
+                          marginH-16
+                          key={index}
+                        >
+                          <TextR>
+                            <TextR style={styles.traderName}>
+                              {item.traderName}{" "}
+                            </TextR>
+                            <TextR
+                              style={
+                                item.status === 1
+                                  ? styles.acceptStatus
+                                  : styles.rejectStatus
+                              }
+                            >
+                              ({item.status === 1 ? "Đồng ý" : "Từ chối"})
+                            </TextR>
                           </TextR>
-                          <TextR
-                            style={
-                              item.status === 1
-                                ? styles.acceptStatus
-                                : styles.rejectStatus
-                            }
-                          >
-                            ({item.status === 1 ? "Đồng ý" : "Từ chối"})
-                          </TextR>
-                        </TextR>
-                        <View style={styles.subContainer}>
-                          <Text text80>Giá: {item.suggestedPrice} đồng/kg</Text>
-                          <Text
-                            green
-                            text70
-                            onPress={() =>
-                              navigation.navigate(
-                                nameList.suggestToBuyInfoForFarmer
-                              )
-                            }
-                          >
-                            Xem
-                          </Text>
+                          <View style={styles.subContainer}>
+                            <Text text80>
+                              Giá: {item.suggestedPrice} đồng/kg
+                            </Text>
+                            <Text
+                              green
+                              text70
+                              onPress={() =>
+                                navigation.navigate(
+                                  nameList.suggestToBuyInfoForFarmer
+                                )
+                              }
+                            >
+                              Xem
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </View>
               )}
             </View>
