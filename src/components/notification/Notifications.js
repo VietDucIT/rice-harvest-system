@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { ScrollView, StyleSheet, Text as TextR } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -17,7 +17,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const Notifications = ({ navigation }) => {
+const Notifications = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -48,6 +48,13 @@ const Notifications = ({ navigation }) => {
     getNotificationArray();
   }, [getNotificationArray]);
 
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewNotification) {
+      getNotificationArray();
+    }
+  }, [route.params?.hasNewNotification]);
+
   // delete a Notification
   const handleDelete = (id) => {
     Alert.alert("Xóa thông báo?", [
@@ -61,8 +68,8 @@ const Notifications = ({ navigation }) => {
           try {
             // setLoading(true);
             let dataAPI = await deleteNotification(id);
-            // console.log("Notifications - Data API: ", dataAPI);
-            navigation.navigate(nameList.notifications);
+
+            getNotificationArray();
             // setLoading(false);
           } catch (err) {
             console.log("Notifications - Error while deleting Notification.");

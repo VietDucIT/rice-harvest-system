@@ -79,9 +79,9 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
             </View>
 
             {/* How to show Address on Map */}
-            <View flex style={styles.mapContainer}>
+            {/* <View flex style={styles.mapContainer}>
               <Map />
-            </View>
+            </View> */}
           </View>
 
           <View flex marginT-20 center>

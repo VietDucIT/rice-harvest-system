@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+  TouchableOpacity,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
+import SearchBar from "../core/SearchBar";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
@@ -17,7 +25,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const Contacts = ({ navigation }) => {
+const Contacts = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -47,6 +55,13 @@ const Contacts = ({ navigation }) => {
     getContactArray();
   }, [getContactArray]);
 
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewContact) {
+      getContactArray();
+    }
+  }, [route.params?.hasNewContact]);
+
   // delete a Contact
   const handleDelete = (id) => {
     Alert.alert(
@@ -63,8 +78,15 @@ const Contacts = ({ navigation }) => {
             try {
               // setLoading(true);
               let dataAPI = await deleteContact(id);
-              // console.log("Contacts - Data API: ", dataAPI);
-              navigation.navigate(nameList.contacts);
+
+              Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
+                {
+                  text: "Đóng",
+                  style: "cancel",
+                },
+              ]);
+
+              getContactArray();
               // setLoading(false);
             } catch (err) {
               console.log("Contacts - Error while deleting Contact.");
@@ -88,29 +110,37 @@ const Contacts = ({ navigation }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Quản lý đề xuất thu mua
+                Quản lý liên hệ
               </Text>
             </View>
           </View>
 
-          <SearchBar placeholder="Nhập tên nông dân" />
+          <SearchBar placeholder="Nhập tên người liên hệ" />
 
           <View marginT-20>
             {contactArray.map((item, index) => (
               <View
-                style={styles.riceSeasonItem}
+                style={styles.contactItem}
                 padding-5
                 marginV-8
                 marginH-16
                 key={index}
               >
-                <TextR style={styles.farmerName}>{item.farmerName}</TextR>
-                <View flex style={styles.subContainer}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(nameList.contactInfo, {
+                      idContact: item._id,
+                    })
+                  }
+                >
+                  <TextR style={styles.farmerName}>{item.userName2}</TextR>
                   <Text text80>
-                    {item.riceField.length <= 40
-                      ? `${item.riceField}`
-                      : `${item.riceField.substring(0, 39)}...`}
+                    {item.userNickname2.length <= 40
+                      ? `${item.userNickname2}`
+                      : `${item.userNickname2.substring(0, 39)}...`}
                   </Text>
+                </TouchableOpacity>
+                <View flex style={styles.subContainer}>
                   <View flex right style={styles.controllContainer}>
                     <Text
                       green
@@ -125,7 +155,7 @@ const Contacts = ({ navigation }) => {
                     </Text>
                     <Text
                       text70
-                      onPress={handleDelete}
+                      onPress={() => handleDelete(item._id)}
                       style={styles.deleteBtn}
                     >
                       Xóa
@@ -154,7 +184,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  riceSeasonItem: {
+  contactItem: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },

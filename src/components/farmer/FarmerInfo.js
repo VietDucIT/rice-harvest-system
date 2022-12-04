@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -12,11 +18,22 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getFarmer from "../../services/user/getUser";
 import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
+import getUserIdStored from "../../services/user/getUserIdStored";
 import addContact from "../../services/contact/addContact";
 
 StyleInit();
 
 const FarmerInfo = ({ navigation, route }) => {
+  // get UserID from SecureStore
+  const [userId, setUserId] = useState();
+  getUserIdStored().then((value) => {
+    setUserId(value);
+  });
+  useEffect(
+    () => console.log("FarmerInfo - User ID from SecureStore: ", userId),
+    [userId]
+  );
+
   const { idFarmer } = route.params;
 
   const [farmerData, setFarmerData] = useState({});
@@ -56,9 +73,11 @@ const FarmerInfo = ({ navigation, route }) => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
 
-  const handleSaveContact = async (farmerId) => {
+  const handleSaveContact = async (farmer) => {
     try {
-      let dataAPI = await addContact(farmerId);
+      const contactData = { ...farmer, userId };
+      // console.log("FarmerInfo - Contact Data: ", contactData);
+      let dataAPI = await addContact(contactData);
       Alert.alert("Thông báo", "Đã thêm vào danh sách liên hệ.", [
         {
           text: "Đóng",
@@ -67,7 +86,7 @@ const FarmerInfo = ({ navigation, route }) => {
       ]);
       navigation.navigate(nameList.contacts);
     } catch (err) {
-      console.log("FarmerInfo - Error while adding Contact.");
+      console.log("FarmerInfo - Error while adding Contact.", err);
     }
   };
 
@@ -136,9 +155,6 @@ const FarmerInfo = ({ navigation, route }) => {
                     <View flex style={styles.subContainer}>
                       <Text text80 style={styles.riceFieldName}>
                         {item.seasonName} {item.seasonYear}
-                        {/* {item.riceFieldName.length <= 40
-                          ? item.riceFieldName
-                          : `${item.riceFieldName.substring(0, 39)}...`} */}
                       </Text>
                       <Text
                         green
@@ -165,9 +181,8 @@ const FarmerInfo = ({ navigation, route }) => {
             <CustomButton
               label="Lưu"
               onPress={() => {
-                handleSaveContact(farmerData._id);
+                handleSaveContact(farmerData);
               }}
-              style={{}}
             />
           </View>
         </View>

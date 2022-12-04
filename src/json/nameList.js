@@ -27,6 +27,7 @@ const nameList = {
   notifications: "Thông báo",
   suggestToBuyInfo: "Thông tin đề xuất thu mua",
   riceBuyingAreaInfo: "Thông tin khu vực thu mua",
+  contactInfo: "Thông tin liên hệ",
   userInfo: "Thông tin người dùng",
   farmerInfo: "Thông tin nông dân",
   riceFieldInfo: "Thông tin ruộng lúa",

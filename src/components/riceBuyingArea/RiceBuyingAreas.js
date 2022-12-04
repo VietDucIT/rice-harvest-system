@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Alert, Image, StyleSheet, Text as TextR } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+  TouchableOpacity,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -29,7 +36,7 @@ const RiceBuyingAreas = ({ navigation, route }) => {
     [userId]
   );
 
-  const [riceBuyingAreaName, setRiceBuyingAreaName] = useState("");
+  // const [riceBuyingAreaName, setRiceBuyingAreaName] = useState(""); // search input
   const [riceBuyingAreaArray, setRiceBuyingAreaArray] = useState([]);
 
   // get Rice Buying Area list
@@ -52,10 +59,10 @@ const RiceBuyingAreas = ({ navigation, route }) => {
   }, [getRiceBuyingAreaArray]);
 
   // get Rice Buying Area list by Name
-  const getRiceBuyingAreaArrayByName = useCallback(async () => {
+  const getRiceBuyingAreaArrayByName = async (name) => {
     try {
       // setLoading(true);
-      const data = await findRiceBuyingAreaByName(riceBuyingAreaName, userId);
+      const data = await findRiceBuyingAreaByName(name, userId);
       // console.log("RiceBuyingAreas - Rice Buying Areas data: ", data);
       setRiceBuyingAreaArray(data);
       // setLoading(false);
@@ -64,14 +71,14 @@ const RiceBuyingAreas = ({ navigation, route }) => {
         "RiceBuyingAreas - Error while finding Rice BuyingArea by Name."
       );
     }
-  }, [riceBuyingAreaName, userId]);
-
-  useEffect(() => {
-    getRiceBuyingAreaArrayByName();
-  }, [getRiceBuyingAreaArrayByName]);
+  };
 
   // recall API to get list after adding
   useEffect(() => {
+    console.log(
+      "RiceBuyingAreas - hasNewBuyingArea: ",
+      route.params?.hasNewBuyingArea
+    );
     if (route.params?.hasNewBuyingArea) {
       getRiceBuyingAreaArray();
     }
@@ -117,85 +124,105 @@ const RiceBuyingAreas = ({ navigation, route }) => {
   };
 
   return (
-    <View flex marginB-60>
-      <UserOptionButton navigation={navigation} />
+    <ScrollView>
+      <View flex marginB-60>
+        <UserOptionButton navigation={navigation} />
 
-      <View>
-        <View center marginT-30>
-          <Image
-            style={styles.logo}
-            source={require("../../assets/images/Logo.png")}
+        <View>
+          <View center marginT-30>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/images/Logo.png")}
+            />
+            <View marginV-10>
+              <Text text50 green>
+                Quản lý khu vực thu mua
+              </Text>
+            </View>
+          </View>
+
+          <SearchBar
+            placeholder="Nhập tên khu vực"
+            handleSearch={(name) => {
+              // setRiceBuyingAreaName(name);
+              getRiceBuyingAreaArrayByName(name);
+              console.log("RiceBuyingAreas - Rice Buying Area name: ", name);
+            }}
           />
-          <View marginV-10>
-            <Text text50 green>
-              Quản lý khu vực thu mua
-            </Text>
+
+          <View marginT-20>
+            {riceBuyingAreaArray &&
+              riceBuyingAreaArray.map((item, index) => {
+                const address =
+                  item.village +
+                  ", " +
+                  item.commune +
+                  ", " +
+                  item.town +
+                  ", " +
+                  item.province;
+
+                return (
+                  <View
+                    flex
+                    style={styles.riceBuyingAreaItem}
+                    padding-5
+                    marginV-8
+                    marginH-16
+                    key={index}
+                  >
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(nameList.riceBuyingAreaInfo, {
+                          idRiceBuyingArea: item._id,
+                        })
+                      }
+                    >
+                      <TextR style={styles.riceBuyingAreaName}>
+                        {item.name}
+                      </TextR>
+                      <Text text80>
+                        {address.length <= 35
+                          ? address
+                          : `${address.substring(0, 34)}...`}
+                      </Text>
+                    </TouchableOpacity>
+                    <View flex style={styles.subContainer}>
+                      <View flex right style={styles.controllContainer}>
+                        <Text
+                          green
+                          text70
+                          onPress={() =>
+                            navigation.navigate(nameList.riceBuyingAreaInfo, {
+                              idRiceBuyingArea: item._id,
+                            })
+                          }
+                        >
+                          Xem
+                        </Text>
+                        <Text
+                          text70
+                          onPress={() => handleDelete(item)}
+                          style={styles.deleteBtn}
+                        >
+                          Xóa
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                );
+              })}
+          </View>
+
+          <View marginT-30 center>
+            <CustomButton
+              label="Thêm"
+              onPress={() => navigation.navigate(nameList.addRiceBuyingArea)}
+            />
           </View>
         </View>
-
-        <SearchBar
-          placeholder="Nhập tên khu vực"
-          handleSearch={(name) => {
-            setRiceBuyingAreaName(name);
-            console.log("RiceBuyingAreas - Rice Buying Area name: ", name);
-          }}
-        />
-
-        <View marginT-20>
-          {riceBuyingAreaArray.map((item, index) => (
-            <View
-              style={styles.riceBuyingAreaItem}
-              padding-5
-              marginV-8
-              marginH-16
-              key={index}
-            >
-              <TextR style={styles.riceBuyingAreaName}>{item.name}</TextR>
-              <View style={styles.subContainer}>
-                <View style={styles.address}>
-                  <Text text80>
-                    {item.village +
-                      ", " +
-                      item.commune +
-                      ", " +
-                      item.town +
-                      ", " +
-                      item.province}
-                  </Text>
-                </View>
-                <View flex right style={styles.controllContainer}>
-                  <Text
-                    green
-                    text70
-                    onPress={() =>
-                      navigation.navigate(nameList.riceBuyingAreaInfo, {
-                        idRiceBuyingArea: item._id,
-                      })
-                    }
-                  >
-                    Xem
-                  </Text>
-                  <Text
-                    text70
-                    onPress={() => handleDelete(item)}
-                    style={styles.deleteBtn}
-                  >
-                    Xóa
-                  </Text>
-                </View>
-              </View>
-            </View>
-          ))}
-        </View>
-
-        <View marginT-30 center>
-          <CustomButton
-            label="Thêm"
-            onPress={() => navigation.navigate(nameList.addRiceBuyingArea)}
-          />
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default RiceBuyingAreas;
@@ -206,6 +233,9 @@ const styles = StyleSheet.create({
     height: 50,
   },
   riceBuyingAreaItem: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
@@ -217,10 +247,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-  },
-  address: {
-    paddingRight: 10,
-    width: "80%",
   },
   deleteBtn: {
     color: color.redColor,

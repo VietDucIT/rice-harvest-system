@@ -17,7 +17,7 @@ import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
 
-const Bills = ({ navigation }) => {
+const Bills = ({ navigation, route }) => {
   // get UserID from SecureStore
   const [userId, setUserId] = useState();
   getUserIdStored().then((value) => {
@@ -48,36 +48,45 @@ const Bills = ({ navigation }) => {
     getBillArray();
   }, [getBillArray]);
 
-  // delete a Bill
-  const handleDelete = (item) => {
-    Alert.alert("Thông báo", `Bạn có chắc chắn muốn xóa Phiếu thu mua này?`, [
-      {
-        text: "Quay lại",
-        style: "cancel",
-      },
-      {
-        text: "Đồng ý",
-        onPress: async () => {
-          try {
-            // setLoading(true);
-            // let dataAPI = await deleteBill(item._id);
-            // console.log("Bills - Data API: ", dataAPI);
+  // recall API to get list after adding
+  useEffect(() => {
+    if (route.params?.hasNewBill) {
+      getBillArray();
+    }
+  }, [route.params?.hasNewBill]);
 
-            Alert.alert("Thông báo", "Đã xóa phiếu thu mua.", [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
-            navigation.goBack();
-            // setLoading(false);
-          } catch (err) {
-            console.log("Bills - Error while deleting Bill.");
-          }
-        },
-      },
-    ]);
-  };
+  // NOT ALLOW TO DELETE
+  // delete a Bill
+  // const handleDelete = (item) => {
+  //   Alert.alert("Thông báo", `Bạn có chắc chắn muốn xóa Phiếu thu mua này?`, [
+  //     {
+  //       text: "Quay lại",
+  //       style: "cancel",
+  //     },
+  //     {
+  //       text: "Đồng ý",
+  //       onPress: async () => {
+  //         try {
+  //           // setLoading(true);
+  //           // let dataAPI = await deleteBill(item._id);
+  //           // console.log("Bills - Data API: ", dataAPI);
+
+  //           Alert.alert("Thông báo", "Đã xóa phiếu thu mua.", [
+  //             {
+  //               text: "Đóng",
+  //               style: "cancel",
+  //             },
+  //           ]);
+
+  //           getBillArray();
+  //           // setLoading(false);
+  //         } catch (err) {
+  //           console.log("Bills - Error while deleting Bill.");
+  //         }
+  //       },
+  //     },
+  //   ]);
+  // };
 
   return (
     <View flex marginB-60>

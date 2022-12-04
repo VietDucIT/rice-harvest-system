@@ -144,7 +144,7 @@ const AddUserInfo = ({ navigation }) => {
       // console.log("AddUserInfo - Data: ", user);
       let dataAPI = await addUser(user); // _id of user recently added
       console.log("AddUserInfo - ID User recently added: ", dataAPI);
-      Alert.alert("Thông báo", "Thêm người dùng thành công.", [
+      Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
         {
           text: "Đóng",
           style: "cancel",
