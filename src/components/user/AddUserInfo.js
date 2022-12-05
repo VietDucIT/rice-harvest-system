@@ -17,7 +17,6 @@ import {
 
 import nameList from "../../json/nameList";
 
-// import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 import AddressInput from "../core/AddressInput";
 
@@ -25,6 +24,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import addUser from "../../services/user/addUser";
+import checkExistedPhone from "../../services/user/checkExistedPhone";
 
 StyleInit();
 
@@ -120,6 +120,23 @@ const AddUserInfo = ({ navigation }) => {
     }
   }, [user]);
 
+  // call API to check if phone is existed
+  const [isExistedPhone, setIsExistedPhone] = useState(false);
+  const checkPhone = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const data = await checkExistedPhone(user.phone);
+      // console.log("AddUserInfo - Phone is existed: ", data);
+      setIsExistedPhone(data);
+      // setLoading(false);
+    } catch (err) {
+      console.log("AddUserInfo - Error while checking existed phone.");
+    }
+  }, [user.phone]);
+  useEffect(() => {
+    checkPhone();
+  }, [checkPhone]);
+
   // call API
   const handleAdd = async () => {
     let err = false;
@@ -161,8 +178,6 @@ const AddUserInfo = ({ navigation }) => {
   return (
     <ScrollView>
       <View flex marginB-60>
-        {/* <UserOptionButton navigation={navigation} /> */}
-
         <View>
           <View center marginT-30>
             <Image

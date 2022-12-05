@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button } from "react-native-ui-lib";
 
 import { StyleInit } from "../../config/StyleInit";
@@ -8,7 +8,6 @@ StyleInit();
 
 const CustomButton = (props) => {
   return (
-    // <TouchableOpacity>
     <Button
       text70
       white
@@ -17,7 +16,6 @@ const CustomButton = (props) => {
       style={styles.btn}
       {...props}
     />
-    // </TouchableOpacity>
   );
 };
 export default CustomButton;

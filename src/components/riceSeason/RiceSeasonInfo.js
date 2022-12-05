@@ -60,6 +60,13 @@ const RiceSeasonInfo = ({ navigation, route }) => {
     getSuggestToBuyListData();
   }, [getSuggestToBuyListData]);
 
+  // recall API to get Suggest To Buy list after accept/reject
+  useEffect(() => {
+    if (route.params?.hasUpdated) {
+      getSuggestToBuyListData();
+    }
+  }, [route.params?.hasUpdated]);
+
   return (
     <ScrollView>
       <View flex marginB-60>
@@ -161,7 +168,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                         >
                           <TextR>
                             <TextR style={styles.traderName}>
-                              {item.traderName}{" "}
+                              {item.traderId}{" "}
                             </TextR>
                             <TextR
                               style={
@@ -182,7 +189,8 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                               text70
                               onPress={() =>
                                 navigation.navigate(
-                                  nameList.suggestToBuyInfoForFarmer
+                                  nameList.suggestToBuyInfoForFarmer,
+                                  { idSuggestToBuy: item._id }
                                 )
                               }
                             >

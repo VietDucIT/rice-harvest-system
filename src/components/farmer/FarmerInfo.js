@@ -20,6 +20,7 @@ import getFarmer from "../../services/user/getUser";
 import getRiceSeasonList from "../../services/riceSeason/getRiceSeasonList";
 import getUserIdStored from "../../services/user/getUserIdStored";
 import addContact from "../../services/contact/addContact";
+import checkIfContacted from "../../services/contact/checkIfContacted";
 
 StyleInit();
 
@@ -37,6 +38,7 @@ const FarmerInfo = ({ navigation, route }) => {
   const { idFarmer } = route.params;
 
   const [farmerData, setFarmerData] = useState({});
+  const [isContacted, setIsContacted] = useState(false);
   const [riceSeasonArray, setRiceSeasonArray] = useState([]);
 
   // get Farmer data
@@ -73,6 +75,20 @@ const FarmerInfo = ({ navigation, route }) => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
 
+  const checkContact = useCallback(async () => {
+    try {
+      const data = await checkIfContacted(userId, idFarmer);
+      // console.log("FarmerInfo - Is contacted: ", data);
+      setIsContacted(data); // true / false
+    } catch (err) {
+      console.log("FarmerInfo - Error while checking if User is contacted.");
+    }
+  }, [userId, idFarmer]);
+
+  useEffect(() => {
+    checkContact();
+  }, [checkContact]);
+
   const handleSaveContact = async (farmer) => {
     try {
       const contactData = { ...farmer, userId };
@@ -84,7 +100,7 @@ const FarmerInfo = ({ navigation, route }) => {
           style: "cancel",
         },
       ]);
-      navigation.navigate(nameList.contacts);
+      navigation.navigate(nameList.findFarmers, { hasNewContact: true });
     } catch (err) {
       console.log("FarmerInfo - Error while adding Contact.", err);
     }
@@ -178,12 +194,20 @@ const FarmerInfo = ({ navigation, route }) => {
           </View>
 
           <View center marginT-40>
-            <CustomButton
-              label="Lưu"
-              onPress={() => {
-                handleSaveContact(farmerData);
-              }}
-            />
+            {isContacted ? (
+              <CustomButton
+                label="Đã lưu liên hệ"
+                disabled
+                style={{ width: 180 }}
+              />
+            ) : (
+              <CustomButton
+                label="Lưu"
+                onPress={() => {
+                  handleSaveContact(farmerData);
+                }}
+              />
+            )}
           </View>
         </View>
       </View>
@@ -199,8 +223,6 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     marginHorizontal: 20,
-    // flexDirection: "column",
-    // flexWrap: "wrap",
   },
   itemContainer: {
     flexDirection: "row",

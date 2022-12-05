@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polygon } from "react-native-maps";
+import MapView, { Polygon, Marker } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
 
 import color from "../../config/color";
@@ -78,6 +78,12 @@ const Map = ({ fieldData, ...props }) => {
             // strokeWidth={6}
           />
         )}
+
+        {/* <Marker
+          coordinate={{ latitude: 9.65, longitude: 105.853 }}
+          title={"Kênh Cầu Tre"}
+          description={"description"}
+        /> */}
       </MapView>
     </View>
   );

@@ -61,35 +61,37 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Nông dân: </TextR>
-              <Text text70>{suggestToBuyData.farmerName}</Text>
+              {/* Farmer Name */}
+              <Text text70>{suggestToBuyData.seasonFarmerId}</Text>
+              {/* <Text text70>Nguyễn Việt Đức</Text> */}
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{suggestToBuyData.riceField}</Text>
+              <Text text70>{suggestToBuyData.seasonRiceFieldName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{suggestToBuyData.rice}</Text>
+              <Text text70>{suggestToBuyData.seasonRiceName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tình trạng: </TextR>
-              <Text text70>{suggestToBuyData.currentState}</Text>
+              <Text text70>{suggestToBuyData.seasonState}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
               <Text text70>
-                {dayjs(suggestToBuyData.timeStart).format("DD-MM-YYYY")}
+                {dayjs(suggestToBuyData.seasonTimeStart).format("DD-MM-YYYY")}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
               <Text text70>
-                {dayjs(suggestToBuyData.timeEnd).format("DD-MM-YYYY")}
+                {dayjs(suggestToBuyData.seasonTimeEnd).format("DD-MM-YYYY")}
               </Text>
             </View>
 
@@ -108,6 +110,10 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ghi chú: </TextR>
               <Text text70>{suggestToBuyData.description}</Text>
+              {/* <Text text70>
+                Mồng 9 tháng Chạp sẽ cắt trước 2 công, và cắt tiếp 5 công vào
+                mồng 10.
+              </Text> */}
             </View>
 
             {/* <View flex style={styles.mapContainer}>

@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+  TouchableOpacity,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -28,7 +34,23 @@ const SuggestToBuys = ({ navigation, route }) => {
     [userId]
   );
 
-  const [suggestArray, setSuggestArray] = useState([]);
+  // const [suggestArray, setSuggestArray] = useState([
+  //   {
+  //     _id: "1",
+  //     seasonFarmerName: "Nguyễn Việt Đức (Ba Đức)",
+  //     seasonRiceFieldName: "Ruộng Kênh Cầu Tre",
+  //   },
+  //   {
+  //     _id: "2",
+  //     seasonFarmerName: "Nguyễn Việt Đức (Ba Đức)",
+  //     seasonRiceFieldName: "Ruộng Láng Ba Rinh",
+  //   },
+  //   {
+  //     _id: "3",
+  //     seasonFarmerName: "Lê Thị C (Năm C)",
+  //     seasonRiceFieldName: "Ruộng Bờ Dọc",
+  //   },
+  // ]);
 
   // call API
   const getSuggestToBuyArray = useCallback(async () => {
@@ -106,24 +128,36 @@ const SuggestToBuys = ({ navigation, route }) => {
             </View>
           </View>
 
-          <SearchBar placeholder="Nhập tên nông dân" />
+          <SearchBar placeholder="Nhập tên nông dân..." />
 
           <View marginT-20>
             {suggestArray.map((item, index) => (
               <View
-                style={styles.riceSeasonItem}
+                style={styles.suggestToBuyItem}
                 padding-5
                 marginV-8
                 marginH-16
                 key={index}
               >
-                <TextR style={styles.farmerName}>{item.farmerName}</TextR>
-                <View flex style={styles.subContainer}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(nameList.suggestToBuyInfo, {
+                      idSuggestToBuy: item._id,
+                    })
+                  }
+                >
+                  {/* Farmer Name */}
+                  <TextR style={styles.farmerName}>{item.seasonFarmerId}</TextR>
+                  {/* <TextR style={styles.farmerName}>
+                    {item.seasonFarmerName}
+                  </TextR> */}
                   <Text text80>
-                    {item.riceField.length <= 40
-                      ? `${item.riceField}`
-                      : `${item.riceField.substring(0, 39)}...`}
+                    {item.seasonRiceFieldName.length <= 35
+                      ? `${item.seasonRiceFieldName}`
+                      : `${item.seasonRiceFieldName.substring(0, 34)}...`}
                   </Text>
+                </TouchableOpacity>
+                <View flex style={styles.subContainer}>
                   <View flex right style={styles.controllContainer}>
                     <Text
                       green
@@ -138,7 +172,7 @@ const SuggestToBuys = ({ navigation, route }) => {
                     </Text>
                     <Text
                       text70
-                      onPress={handleDelete}
+                      onPress={() => handleDelete(item._id)}
                       style={styles.deleteBtn}
                     >
                       Xóa
@@ -167,7 +201,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  riceSeasonItem: {
+  suggestToBuyItem: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },

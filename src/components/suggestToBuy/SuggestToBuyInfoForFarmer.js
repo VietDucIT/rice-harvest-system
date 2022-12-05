@@ -67,8 +67,10 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
                 },
               ]
             );
-            navigation.goBack();
-            // navigation.navigate(nameList.riceSeasonInfo, {idRiceSeason: riceSeason._id});
+            navigation.navigate(nameList.riceSeasonInfo, {
+              idRiceSeason: riceSeason._id,
+              hasUpdated: true,
+            });
           },
         },
       ]
@@ -91,8 +93,10 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
               style: "cancel",
             },
           ]);
-          navigation.goBack();
-          // navigation.navigate(nameList.riceSeasonInfo, {idRiceSeason: riceSeason._id});
+          navigation.navigate(nameList.riceSeasonInfo, {
+            idRiceSeason: riceSeason._id,
+            hasUpdated: true,
+          });
         },
       },
     ]);
@@ -121,37 +125,37 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
               <TextR style={styles.itemLabel}>Thương lái: </TextR>
               <Text text70>
                 <TextR style={styles.important}>
-                  {suggestToBuyData.traderName}
+                  {suggestToBuyData.traderId}
                 </TextR>
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{suggestToBuyData.riceField}</Text>
+              <Text text70>{suggestToBuyData.seasonRiceFieldName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giống lúa: </TextR>
-              <Text text70>{suggestToBuyData.rice}</Text>
+              <Text text70>{suggestToBuyData.seasonRiceName}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tình trạng: </TextR>
-              <Text text70>{suggestToBuyData.currentState}</Text>
+              <Text text70>{suggestToBuyData.seasonState}</Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
               <Text text70>
-                {dayjs(suggestToBuyData.timeStart).format("DD-MM-YYYY")}
+                {dayjs(suggestToBuyData.seasonTimeStart).format("DD-MM-YYYY")}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
               <Text text70>
-                {dayjs(suggestToBuyData.timeEnd).format("DD-MM-YYYY")}
+                {dayjs(suggestToBuyData.seasonTimeEnd).format("DD-MM-YYYY")}
               </Text>
             </View>
 
@@ -177,14 +181,27 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Ghi chú từ thương lái: </TextR>
-              <Text text70>{suggestToBuyData.description}</Text>
+              <TextR style={[styles.itemLabel, { width: 150 }]}>
+                {/* Ghi chú từ thương lái:{" "} */}
+                Thương lái ghi chú:{" "}
+              </TextR>
+              <Text text70 style={{ width: 200 }}>
+                {suggestToBuyData.description}
+              </Text>
             </View>
           </View>
 
           <View flex marginT-40 center style={styles.btnContainer}>
-            <CustomButton label="Từ chối" onPress={handleReject} />
-            <CustomButton label="Chấp nhận" onPress={handleAccept} />
+            <CustomButton
+              label="Từ chối"
+              onPress={handleReject}
+              style={{ marginLeft: 30, width: 130 }}
+            />
+            <CustomButton
+              label="Chấp nhận"
+              onPress={handleAccept}
+              style={{ marginRight: 30, width: 130 }}
+            />
           </View>
         </View>
       </View>

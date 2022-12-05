@@ -7,6 +7,7 @@ import {
   Text as TextR,
 } from "react-native";
 import { DateTimePicker, Incubator, Text, View } from "react-native-ui-lib";
+import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
@@ -51,28 +52,22 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
   const [error, setError] = useState({});
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
-  const onChange = (text, field) => {
-    text = text.trim();
+  const onChangePrice = (text) => {
     let message = "";
-    if (text === "" && field === "suggestedPrice") {
+    if (text === "") {
       message = "* Vui lòng nhập giá đề xuất.";
-    } else if (Number(text) <= 0 && field === "suggestedPrice") {
+    } else if (Number(text) <= 0) {
       message = "* Giá đề xuất phải lớn hơn 0.";
-    } else if (
-      field === "suggestedTimeEnd" &&
-      Date.parse(text) <= Date.parse(suggestToBuyData.timeStart)
-    ) {
-      message = "* Ngày đề xuất thu hoạch không hợp lệ.";
     } else {
       message = "";
+      setSuggestToBuy({
+        ...suggestToBuy,
+        suggestedPrice: text,
+      });
     }
     setError({
       ...error,
-      [field]: message,
-    });
-    setSuggestToBuy({
-      ...suggestToBuy,
-      [field]: text,
+      suggestedPrice: message,
     });
   };
 
@@ -91,77 +86,20 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
     }
   }, [suggestToBuy]);
 
-  // const handleSuggest = () => {
-  //   let hasErr = true;
-  //   if (!suggestedTimeEnd) {
-  //     setErrorSuggestedTimeEnd("* Vui lòng nhập ngày đề xuất thu hoạch.");
-  //     hasErr = true;
-  //   } else {
-  //     setErrorSuggestedTimeEnd("");
-  //     hasErr = false;
-  //   }
-
-  //   if (!hasErr) {
-  //     Alert.alert("Thông báo", "Sửa đề xuất thu mua thành công.", [
-  //       {
-  //         text: "Đóng",
-  //         style: "cancel",
-  //       },
-  //     ]);
-  //     navigation.navigate(nameList.suggestToBuys);
-  //   }
-  // };
-
   const handleSuggest = async () => {
-    let hasErr = true;
-    if (!suggestToBuy.suggestedPrice) {
-      setError({
-        ...error,
-        suggestedPrice: "* Vui lòng nhập giá đề xuất.",
-      });
-      hasErr = true;
-    } else {
-      setError({
-        ...error,
-        suggestedPrice: "",
-      });
-    }
-    if (!suggestToBuy.suggestedTimeEnd) {
-      setError({
-        ...error,
-        suggestedTimeEnd: "* Vui lòng nhập ngày đề xuất thu hoạch.",
-      });
-      hasErr = true;
-    } else {
-      setError({
-        ...error,
-        suggestedTimeEnd: "",
-      });
-    }
-    // if (!error.suggestedPrice && !error.suggestedTimeEnd) {
-    //   hasErr = false;
-    // }
-
-    if (!hasErr) {
-      try {
-        // setLoading(true);
-
-        let merge = { suggestToBuy, suggestToBuyData };
-        let dataAPI = await modifySuggestToBuy(merge);
-        // console.log("ModifySuggestToBuy - Data API: ", dataAPI);
-        Alert.alert("Thông báo", "Sửa đề xuất thu mua thành công.", [
-          {
-            text: "Đóng",
-            style: "cancel",
-          },
-        ]);
-        navigation.navigate(nameList.suggestToBuyInfo, { idSuggestToBuy });
-        // setLoading(false);
-      } catch (err) {
-        console.log(
-          "ModifySuggestToBuy - Error while modifying Suggest To Buy."
-        );
-      }
+    try {
+      let merge = { ...suggestToBuy, ...suggestToBuyData };
+      let dataAPI = await modifySuggestToBuy(merge);
+      // console.log("ModifySuggestToBuy - Data API: ", dataAPI);
+      Alert.alert("Thông báo", "Sửa đề xuất thu mua thành công.", [
+        {
+          text: "Đóng",
+          style: "cancel",
+        },
+      ]);
+      navigation.navigate(nameList.suggestToBuyInfo, { idSuggestToBuy });
+    } catch (err) {
+      console.log("ModifySuggestToBuy - Error while modifying Suggest To Buy.");
     }
   };
 
@@ -195,11 +133,20 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
                   " " +
                   suggestToBuyData.seasonYear
                 }
-                value={
-                  suggestToBuyData.seasonName +
-                  " " +
-                  suggestToBuyData.seasonYear
-                }
+                style={styles.textField}
+                editable={false}
+              />
+            </View>
+
+            {/* Farmer */}
+            <View marginT-20>
+              <TextR style={[styles.label, styles.disableLabel]}>
+                Nông dân:
+              </TextR>
+              <TextField
+                text70
+                grey30
+                placeholder={suggestToBuyData.seasonFarmerId}
                 style={styles.textField}
                 editable={false}
               />
@@ -213,8 +160,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.riceField}
-                value={suggestToBuyData.riceField}
+                placeholder={suggestToBuyData.seasonRiceFieldName}
                 style={styles.textField}
                 editable={false}
               />
@@ -228,8 +174,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.rice}
-                value={suggestToBuyData.rice}
+                placeholder={suggestToBuyData.seasonRiceName}
                 style={styles.textField}
                 editable={false}
               />
@@ -243,8 +188,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.currentState}
-                value={suggestToBuyData.currentState}
+                placeholder={suggestToBuyData.seasonState}
                 style={styles.textField}
                 editable={false}
               />
@@ -258,8 +202,9 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.timeStart}
-                value={suggestToBuyData.timeStart}
+                placeholder={dayjs(suggestToBuyData.seasonTimeStart).format(
+                  "DD-MM-YYYY"
+                )}
                 style={styles.textField}
                 editable={false}
               />
@@ -273,8 +218,9 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.timeEnd}
-                value={suggestToBuyData.timeEnd}
+                placeholder={dayjs(suggestToBuyData.seasonTimeEnd).format(
+                  "DD-MM-YYYY"
+                )}
                 style={styles.textField}
                 editable={false}
               />
@@ -287,7 +233,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
                 text70
                 grey10
                 value={suggestToBuy.suggestedPrice}
-                onChangeText={(text) => onChange(text, "suggestedPrice")}
+                onChangeText={(text) => onChangePrice(text)}
                 style={styles.textField}
                 keyboardType="numeric"
               />
@@ -302,9 +248,10 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
                 value={suggestToBuy.suggestedTimeEnd}
-                onChange={(text) => onChange(text, "suggestedTimeEnd")}
+                onChange={(text) =>
+                  setSuggestToBuy({ ...suggestToBuy, suggestedTimeEnd: text })
+                }
               />
-              <Text red>{error.suggestedTimeEnd}</Text>
             </View>
 
             {/* Description */}

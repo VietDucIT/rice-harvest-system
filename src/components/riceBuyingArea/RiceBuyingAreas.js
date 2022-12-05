@@ -142,7 +142,7 @@ const RiceBuyingAreas = ({ navigation, route }) => {
           </View>
 
           <SearchBar
-            placeholder="Nhập tên khu vực"
+            placeholder="Nhập tên khu vực..."
             handleSearch={(name) => {
               // setRiceBuyingAreaName(name);
               getRiceBuyingAreaArrayByName(name);

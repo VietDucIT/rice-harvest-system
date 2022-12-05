@@ -12,14 +12,13 @@ import { Text, View } from "react-native-ui-lib";
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
-import CustomButton from "../core/CustomButton";
 import SearchBar from "../core/SearchBar";
+import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getContactList from "../../services/contact/getContactList";
-// import modifyContact from "../../services/contact/modifyContact";
 import deleteContact from "../../services/contact/deleteContact";
 import getUserIdStored from "../../services/user/getUserIdStored";
 
