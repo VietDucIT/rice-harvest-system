@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Image, Linking, LogBox, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib";
-import { Table, Row, Rows } from "react-native-table-component";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+} from "react-native-table-component";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
@@ -37,9 +43,43 @@ const RicePrice = ({ navigation }) => {
   };
   // table present Rice Price Prediction
   const table2 = {
-    tableHead: [],
-    tableTitle: [],
-    tableData: [],
+    tableHead: ["Ngày", "OM 18", "OM 5451", "IR 504", "Đài Thơm 8"],
+    tableTitle: [
+      "05/12",
+      "06/12",
+      "07/12",
+      "08/12",
+      "09/12",
+      "10/12",
+      "11/12",
+      "12/12",
+      "13/12",
+      "14/12",
+    ],
+    tableData: [
+      // ["05/12", "6850", "6700", "6250", "6850"], // 05/12
+      // ["06/12", "6850", "6500", "6250", "6850"], // 06/12
+      // ["07/12", "6850", "6500", "6250", "6850"], // 07/12
+
+      // ["08/12", "6750", "6300", "6157", "6780"], // 08/12
+      // ["09/12", "6821", "6400", "6220", "6842"], // 09/12
+      // ["10/12", "6850", "6550", "6250", "6850"], // 10/12
+      // ["11/12", "6850", "6500", "6250", "6820"], // 11/12
+      // ["12/12", "6870", "6574", "6260", "6850"], // 12/12
+      // ["13/12", "6850", "6600", "6250", "6850"], // 13/12
+      // ["14/12", "6900", "6600", "6250", "6850"], // 14/12
+      ["6850", "6700", "6250", "6850"], // 05/12
+      ["6850", "6500", "6250", "6850"], // 06/12
+      ["6850", "6500", "6250", "6850"], // 07/12
+
+      ["6750", "6300", "6157", "6780"], // 08/12
+      ["6821", "6400", "6220", "6842"], // 09/12
+      ["6850", "6550", "6250", "6850"], // 10/12
+      ["6850", "6500", "6250", "6820"], // 11/12
+      ["6870", "6574", "6260", "6850"], // 12/12
+      ["6850", "6600", "6250", "6850"], // 13/12
+      ["6900", "6600", "6250", "6850"], // 14/12
+    ],
   };
 
   // call API to get Rice Price of today
@@ -67,7 +107,7 @@ const RicePrice = ({ navigation }) => {
   }
 
   // call API to get Price Prediction
-  const getPricePredictionData = useCallback(async () => {
+  const getPricePredictionData = async () => {
     try {
       setIsLoading(true);
       const data = await getPricePrediction();
@@ -77,11 +117,7 @@ const RicePrice = ({ navigation }) => {
     } catch (err) {
       console.log("RicePrice - Error while getting Price Prediction data.");
     }
-  }, []);
-
-  useEffect(() => {
-    getPricePredictionData();
-  }, [getPricePredictionData]);
+  };
 
   const handlePrediction = () => {
     getPricePredictionData();
@@ -91,7 +127,7 @@ const RicePrice = ({ navigation }) => {
   // ???
   // for (let i = 0; i < pricePredictionData.length; i++) {
   //   const rowData = [];
-  //   rowData.push(pricePredictionData[i].rice, pricePredictionData[i].price);
+  //   rowData.push(pricePredictionData.om18[i].price, pricePredictionData.om5451[i].price, pricePredictionData.ir504[i].price, pricePredictionData.daiThom8[i].price);
   //   table2.tableData.push(rowData);
   // }
 
@@ -120,10 +156,10 @@ const RicePrice = ({ navigation }) => {
             <Table borderStyle={{ borderWidth: 1 }}>
               <Row
                 data={table1.tableHead}
-                style={styles.head}
-                textStyle={styles.heading}
+                style={styles.tableHead}
+                textStyle={styles.tableHeading}
               />
-              <Rows data={table1.tableData} textStyle={styles.text} />
+              <Rows data={table1.tableData} textStyle={styles.tableText} />
             </Table>
           </View>
 
@@ -154,24 +190,40 @@ const RicePrice = ({ navigation }) => {
 
           {isShowPredict && isLoading && <LoaderPart />}
 
-          {isShowPredict && !isLoading && (
+          {isShowPredict && ( //!isLoading &&
             <View marginT-20>
-              <Text>Đây là dự báo giá lúa.</Text>
+              {/* <Text>Đây là dự báo giá lúa.</Text> */}
 
-              {/* <View right marginR-15 marginT-10>
+              <View right marginR-15 marginT-10>
                 <Text text80>(Đơn vị tính: đồng/kg)</Text>
               </View>
 
-              <ScrollView flex padding-16 paddingT-30 horizontal>
+              {/* <ScrollView flex padding-16 paddingT-30 horizontal> */}
+              <View flex padding-16 paddingT-30>
                 <Table borderStyle={{ borderWidth: 1 }}>
                   <Row
                     data={table2.tableHead}
-                    style={styles.head}
-                    textStyle={styles.heading}
+                    style={styles.tableHead}
+                    textStyle={styles.tableHeading}
+                    flexArr={[1, 1, 1, 1, 1]}
                   />
-                  <Rows data={table2.tableData} textStyle={styles.text} />
+                  {/* <Rows data={table2.tableData} textStyle={styles.tableText} /> */}
+                  <TableWrapper style={styles.tableWrapper}>
+                    <Col
+                      data={table2.tableTitle}
+                      style={styles.tableTitle}
+                      textStyle={styles.tableSubHeading}
+                    />
+                    <Rows
+                      data={table2.tableData}
+                      style={styles.tableRow}
+                      textStyle={styles.tableText}
+                      flexArr={[1, 1, 1, 1]}
+                    />
+                  </TableWrapper>
                 </Table>
-              </ScrollView> */}
+              </View>
+              {/* </ScrollView> */}
             </View>
           )}
         </View>
@@ -186,15 +238,24 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  head: {
-    height: 40,
+  tableHead: {
+    height: 60,
   },
-  heading: {
-    margin: 8,
+  tableHeading: {
+    marginVertical: 8,
+    marginHorizontal: 4,
+    fontWeight: "600",
     textAlign: "center",
     color: color.greenColor,
   },
-  text: {
+  tableSubHeading: {
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  tableWrapper: { flexDirection: "row" },
+  tableTitle: { flex: 1 },
+  tableRow: { height: 40 },
+  tableText: {
     margin: 6,
     textAlign: "center",
   },

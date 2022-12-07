@@ -130,7 +130,7 @@ const RiceFields = ({ navigation, route }) => {
           </View>
 
           <SearchBar
-            placeholder="Nhập tên ruộng lúa"
+            placeholder="Nhập tên ruộng lúa..."
             handleSearch={(name) => {
               setFieldName(name);
               console.log("RiceFields - Rice Field name: ", name);

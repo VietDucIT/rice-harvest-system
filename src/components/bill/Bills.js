@@ -6,13 +6,11 @@ import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
-import SearchBar from "../core/SearchBar";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getBillList from "../../services/bill/getBillList";
-// import deleteBill from "../../services/bill/deleteBill";
 import getUserIdStored from "../../services/user/getUserIdStored";
 
 StyleInit();
@@ -28,7 +26,6 @@ const Bills = ({ navigation, route }) => {
     [userId]
   );
 
-  const [billName, setBillName] = useState("");
   const [billArray, setBillArray] = useState([]);
 
   // call API
@@ -55,39 +52,6 @@ const Bills = ({ navigation, route }) => {
     }
   }, [route.params?.hasNewBill]);
 
-  // NOT ALLOW TO DELETE
-  // delete a Bill
-  // const handleDelete = (item) => {
-  //   Alert.alert("Thông báo", `Bạn có chắc chắn muốn xóa Phiếu thu mua này?`, [
-  //     {
-  //       text: "Quay lại",
-  //       style: "cancel",
-  //     },
-  //     {
-  //       text: "Đồng ý",
-  //       onPress: async () => {
-  //         try {
-  //           // setLoading(true);
-  //           // let dataAPI = await deleteBill(item._id);
-  //           // console.log("Bills - Data API: ", dataAPI);
-
-  //           Alert.alert("Thông báo", "Đã xóa phiếu thu mua.", [
-  //             {
-  //               text: "Đóng",
-  //               style: "cancel",
-  //             },
-  //           ]);
-
-  //           getBillArray();
-  //           // setLoading(false);
-  //         } catch (err) {
-  //           console.log("Bills - Error while deleting Bill.");
-  //         }
-  //       },
-  //     },
-  //   ]);
-  // };
-
   return (
     <View flex marginB-60>
       <UserOptionButton navigation={navigation} />
@@ -104,12 +68,6 @@ const Bills = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
-
-        {/* ??? */}
-        <SearchBar
-          placeholder="Nhập tên khu vực"
-          handleSearch={(name) => setBillName(name)}
-        />
 
         <View marginT-20>
           {billArray.map((item, index) => (

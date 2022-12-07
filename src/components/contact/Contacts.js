@@ -114,7 +114,7 @@ const Contacts = ({ navigation, route }) => {
             </View>
           </View>
 
-          <SearchBar placeholder="Nhập tên người liên hệ" />
+          <SearchBar placeholder="Nhập tên người liên hệ..." />
 
           <View marginT-20>
             {contactArray.map((item, index) => (
