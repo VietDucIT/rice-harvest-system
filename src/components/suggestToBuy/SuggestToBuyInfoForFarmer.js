@@ -28,11 +28,9 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
   // call API to get Suggest To Buy data
   const getSuggestToBuyData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getSuggestToBuy(idSuggestToBuy);
       // console.log("SuggestToBuyInfoForFarmer - Suggest To Buy data: ", data);
       setSuggestToBuyData(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "SuggestToBuyInfoForFarmer - Error while getting Suggest To Buy data."

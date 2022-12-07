@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const findFarmerByName = async (name) => {
   try {
-    // console.log("Farmer name: ", name);
+    // console.log("Farmer's name: ", name);
     const response = await axios.get(`${REQUEST_URL}/farmer/find-by-name`, {
       params: { name: name },
     });

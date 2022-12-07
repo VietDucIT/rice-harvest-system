@@ -83,7 +83,6 @@ const CurrentWeather = ({ navigation }) => {
     getLocationName();
   }, [getLocationName]);
 
-  // NOT SHOW ???
   if (errorLocation) {
     Alert.alert("Lỗi", { errorLocation }, [
       {
@@ -351,16 +350,6 @@ const styles = StyleSheet.create({
     // borderTopLeftRadius: 20,
     // borderBottomLeftRadius: 20,
   },
-  // searchBtn: {
-  //   height: 40,
-  //   borderWidth: 1,
-  //   borderLeftWidth: 0,
-  //   borderColor: color.lightGreyColor,
-  //   borderRadius: 0,
-  //   borderTopRightRadius: 20,
-  //   borderBottomRightRadius: 20,
-  //   backgroundColor: color.greenColor,
-  // },
   weatherContainer: {
     marginTop: 30,
     flexDirection: "row",

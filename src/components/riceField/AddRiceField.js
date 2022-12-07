@@ -56,13 +56,6 @@ const AddRiceField = ({ navigation }) => {
   const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
-  // useEffect(() => {
-  //   setRiceField({
-  //     ...riceField,
-  //     d1: Object.assign({ lat: x1, lon: y1 }),
-  //   });
-  // }, [x1, y1]);
-
   const onChange = (text, field) => {
     // text = text.trim();
     let message = "";
@@ -88,7 +81,7 @@ const AddRiceField = ({ navigation }) => {
     console.log("AddRiceField - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceField.name &&
@@ -234,13 +227,6 @@ const AddRiceField = ({ navigation }) => {
                   />
                   <Text red>{error.y1}</Text>
                 </View>
-                {/* <TextField
-                  text70
-                  grey10
-                  onChangeText={setD1}
-                  value={riceField.d1}
-                  placeholder="Điểm 1"
-                /> */}
               </View>
 
               {/* D2 */}

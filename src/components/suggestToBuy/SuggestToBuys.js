@@ -55,11 +55,9 @@ const SuggestToBuys = ({ navigation, route }) => {
   // call API
   const getSuggestToBuyArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getSuggestToBuyList(userId);
       // console.log("SuggestToBuys - Suggest To Buy list: ", data);
       setSuggestArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("SuggestToBuys - Error while getting Suggest To Buy list.");
     }
@@ -87,11 +85,9 @@ const SuggestToBuys = ({ navigation, route }) => {
         text: "Đồng ý",
         onPress: async () => {
           try {
-            // setLoading(true);
             let dataAPI = await deleteSuggestToBuy(id);
             // console.log("SuggestToBuys - Data API: ", dataAPI);
 
-            // SET STATUS FOR THIS SUGGEST ???
             Alert.alert("Thông báo", "Đã xóa đề xuất thu mua này.", [
               {
                 text: "Đóng",
@@ -101,7 +97,6 @@ const SuggestToBuys = ({ navigation, route }) => {
 
             // recall API to get list after deleting
             getSuggestToBuyArray();
-            // setLoading(false);
           } catch (err) {
             console.log("SuggestToBuys - Error while deleting Suggest To Buy.");
           }

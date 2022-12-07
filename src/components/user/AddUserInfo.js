@@ -42,11 +42,9 @@ const AddUserInfo = ({ navigation }) => {
   const [address, setAddress] = useState([]);
   const getAddress = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getAddressData();
       // console.log("AddUserInfo - Address data: ", data);
       setAddress(data);
-      // setLoading(false);
     } catch (err) {
       console.log("AddUserInfo - Error while getting Address data.");
     }
@@ -101,7 +99,7 @@ const AddUserInfo = ({ navigation }) => {
     console.log("AddUserInfo - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       user.name &&
@@ -124,11 +122,9 @@ const AddUserInfo = ({ navigation }) => {
   const [isExistedPhone, setIsExistedPhone] = useState(false);
   const checkPhone = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await checkExistedPhone(user.phone);
       // console.log("AddUserInfo - Phone is existed: ", data);
       setIsExistedPhone(data);
-      // setLoading(false);
     } catch (err) {
       console.log("AddUserInfo - Error while checking existed phone.");
     }
@@ -156,8 +152,6 @@ const AddUserInfo = ({ navigation }) => {
 
     // if (err) {
     try {
-      // setLoading(true);
-
       // console.log("AddUserInfo - Data: ", user);
       let dataAPI = await addUser(user); // _id of user recently added
       console.log("AddUserInfo - ID User recently added: ", dataAPI);
@@ -168,7 +162,6 @@ const AddUserInfo = ({ navigation }) => {
         },
       ]);
       navigation.navigate(nameList.userInfo, { idUser: dataAPI });
-      // setLoading(false);
     } catch (err) {
       console.log("AddUserInfo - Error while adding User.");
     }
@@ -270,7 +263,6 @@ const AddUserInfo = ({ navigation }) => {
                 }}
                 style={styles.textField}
               >
-                {/* value={user.item} ??? */}
                 {yearArray.map((item, index) => (
                   <Picker.Item key={index} value={item} label={item} />
                 ))}

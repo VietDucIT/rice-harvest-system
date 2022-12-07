@@ -2,7 +2,6 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-// For which farmer ???
 const addRiceSeason = async (riceSeasonData) => {
   try {
     // console.log("Rice Season: ", riceSeasonData);

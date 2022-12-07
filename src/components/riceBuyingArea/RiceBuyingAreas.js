@@ -36,17 +36,14 @@ const RiceBuyingAreas = ({ navigation, route }) => {
     [userId]
   );
 
-  // const [riceBuyingAreaName, setRiceBuyingAreaName] = useState(""); // search input
   const [riceBuyingAreaArray, setRiceBuyingAreaArray] = useState([]);
 
   // get Rice Buying Area list
   const getRiceBuyingAreaArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceBuyingAreaList(userId);
       // console.log("RiceBuyingAreas - Rice Buying Area list: ", data);
       setRiceBuyingAreaArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "RiceBuyingAreas - Error while getting Rice Buying Area list."
@@ -61,11 +58,9 @@ const RiceBuyingAreas = ({ navigation, route }) => {
   // get Rice Buying Area list by Name
   const getRiceBuyingAreaArrayByName = async (name) => {
     try {
-      // setLoading(true);
       const data = await findRiceBuyingAreaByName(name, userId);
       // console.log("RiceBuyingAreas - Rice Buying Areas data: ", data);
       setRiceBuyingAreaArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "RiceBuyingAreas - Error while finding Rice BuyingArea by Name."
@@ -98,7 +93,6 @@ const RiceBuyingAreas = ({ navigation, route }) => {
           text: "Đồng ý",
           onPress: async () => {
             try {
-              // setLoading(true);
               let dataAPI = await deleteRiceBuyingArea(item._id);
               // console.log("RiceBuyingAreas - Data API: ", dataAPI);
 
@@ -111,7 +105,6 @@ const RiceBuyingAreas = ({ navigation, route }) => {
 
               // recall API to get list after deleting
               getRiceBuyingAreaArray();
-              // setLoading(false);
             } catch (err) {
               console.log(
                 "RiceBuyingAreas - Error while deleting Rice Buying Area."
@@ -144,7 +137,6 @@ const RiceBuyingAreas = ({ navigation, route }) => {
           <SearchBar
             placeholder="Nhập tên khu vực..."
             handleSearch={(name) => {
-              // setRiceBuyingAreaName(name);
               getRiceBuyingAreaArrayByName(name);
               console.log("RiceBuyingAreas - Rice Buying Area name: ", name);
             }}

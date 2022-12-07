@@ -30,12 +30,10 @@ const ModifyRiceField = ({ navigation, route }) => {
   const [fieldData, setFieldData] = useState({});
   const getRiceFieldData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceField(idRiceField);
       // console.log("ModifyRiceField - Rice Field data: ", data);
       setFieldData(data);
       setRiceField(data);
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyRiceField - Error while getting Rice Field data.");
     }
@@ -90,7 +88,7 @@ const ModifyRiceField = ({ navigation, route }) => {
     console.log("ModifyRiceField - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceField.name &&
@@ -113,11 +111,8 @@ const ModifyRiceField = ({ navigation, route }) => {
     }
   }, [riceField]);
 
-  // call API
   const handleModify = async () => {
     try {
-      // setLoading(true);
-
       // console.log("ModifyRiceField - Data: ", riceField);
       let dataAPI = await modifyRiceField(riceField);
       // console.log("ModifyRiceField - Data API: ", dataAPI);
@@ -127,11 +122,9 @@ const ModifyRiceField = ({ navigation, route }) => {
           style: "cancel",
         },
       ]);
-      // navigation.navigate(nameList.riceFields);
       navigation.navigate(nameList.riceFieldInfo, {
         idRiceField: riceField._id,
       });
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyRiceField - Error while modifying Rice Field.");
     }

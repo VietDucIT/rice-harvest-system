@@ -40,16 +40,13 @@ const FindFarmers = ({ navigation, route }) => {
 
   const [contactArray, setContactArray] = useState([]);
   const [isShowContact, setIsShowContact] = useState(true);
-  // const [isLoading, setLoading] = useState(false);
 
   // call API to get Contact list to show as default
   const getContactArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getContactList(userId);
       // console.log("Contacts - Contact list: ", data);
       setContactArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("Contacts - Error while getting Contact list.");
     }
@@ -80,7 +77,6 @@ const FindFarmers = ({ navigation, route }) => {
           text: "Đồng ý",
           onPress: async () => {
             try {
-              // setLoading(true);
               let dataAPI = await deleteContact(id);
 
               Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
@@ -91,7 +87,6 @@ const FindFarmers = ({ navigation, route }) => {
               ]);
 
               getContactArray();
-              // setLoading(false);
             } catch (err) {
               console.log("Contacts - Error while deleting Contact.");
             }
@@ -103,18 +98,15 @@ const FindFarmers = ({ navigation, route }) => {
 
   // find Farmers by Name
   const [farmerArray, setFarmerArray] = useState([]);
-  // const [farmerName, setFarmerName] = useState("");
 
   const findByName = async (farmerName) => {
     setIsShowContact(false);
 
     try {
-      // setLoading(true);
       const data = await findFarmerByName(farmerName);
       // const data2 = await findFarmerByAddress(address);
       // console.log("FindFarmner - Farmer list: ", data);
       setFarmerArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("FindFarmner - Error while getting Farmer list.");
     }
@@ -127,13 +119,10 @@ const FindFarmers = ({ navigation, route }) => {
 
   const handleFind = async () => {
     try {
-      // setLoading(true);
-
       // console.log("FindFarmers by Address - Data: ", riceField);
       const data = await findFarmerByAddress(address);
-      setFarmerArray(data);
       // console.log("FindFarmers by Address - Data API: ", data);
-      // setLoading(false);
+      setFarmerArray(data);
     } catch (err) {
       console.log(
         "FindFarmers by Address - Error while finding Farmers by Address."

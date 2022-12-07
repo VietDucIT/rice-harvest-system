@@ -20,14 +20,12 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
   const { idRiceBuyingArea } = route.params;
   const [buyingAreaData, setBuyingAreaData] = useState({});
 
-  // call API
+  // call API to get Rice Buying Area
   const getRiceBuyingAreaData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceBuyingArea(idRiceBuyingArea);
       // console.log("RiceBuyingAreaInfo - Rice Buying Area data: ", data);
       setBuyingAreaData(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "RiceBuyingAreaInfo - Error while getting Rice Buying Area data."

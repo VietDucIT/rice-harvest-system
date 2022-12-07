@@ -14,28 +14,15 @@ import getUser from "../../services/user/getUser";
 StyleInit();
 
 const UserInfo = ({ navigation, route }) => {
-  // const userData = {
-  //   id: 1,
-  //   name: "Nguyễn Văn A",
-  //   nickname: "Hai A",
-  //   gender: 1,
-  //   birthYear: 1960,
-  //   address: "Mỹ Đức, Thiện Mỹ, Châu Thành, Sóc Trăng",
-  //   phone: "0123 456 789",
-  //   role: 0,
-  // };
-
   const { idUser } = route.params;
   const [userData, setUserData] = useState({});
 
   // call API to get User data
   const getUserData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getUser(idUser);
       // console.log("UserInfo - User data: ", data);
       setUserData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("UserInfo - Error while getting User data.");
     }

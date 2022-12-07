@@ -30,12 +30,10 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
   const [buyingAreaData, setBuyingAreaData] = useState({}); // to get data from backend, refill after reset
   const getRiceBuyingAreaData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceBuyingArea(idRiceBuyingArea);
       // console.log("ModifyRiceBuyingArea - Rice Buying Area data: ", data);
       setBuyingAreaData(data);
       setRiceBuyingArea(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "ModifyRiceBuyingArea - Error while getting Rice Buying Area data."
@@ -86,7 +84,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
     console.log("ModifyRiceBuyingArea - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceBuyingArea.name &&
@@ -101,11 +99,8 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
     }
   }, [riceBuyingArea]);
 
-  // call API
   const handleModify = async () => {
     try {
-      // setLoading(true);
-
       let dataAPI = await modifyRiceBuyingArea(riceBuyingArea);
       // console.log("ModifyRiceBuyingArea - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
@@ -117,7 +112,6 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
       navigation.navigate(nameList.riceBuyingAreaInfo, {
         idRiceBuyingArea,
       });
-      // setLoading(false);
     } catch (err) {
       console.log(
         "ModifyRiceBuyingArea - Error while modifying Rice Buying Area."
@@ -154,8 +148,6 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
                 grey10
                 value={riceBuyingArea.name}
                 onChangeText={(text) => onChange(text, "name")}
-                // errorMessage={"Vui lòng nhập Tên."}
-                // errorColor={color.redColor}
                 style={styles.textField}
               />
               <Text red>{error.name}</Text>

@@ -5,8 +5,6 @@ import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
-import Map from "../map/Map";
-
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
@@ -21,14 +19,12 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
   const { idRiceSeason } = route.params;
   const [seasonData, setSeasonData] = useState({});
 
-  // call API
+  // call API to get Rice Season
   const getRiceSeasonData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceSeason(idRiceSeason);
       // console.log("RiceSeasonInfoForTrader - Rice Season data: ", data);
       setSeasonData(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "RiceSeasonInfoForTrader - Error while getting Rice Season data."
@@ -96,10 +92,6 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
                 {dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
               </Text>
             </View>
-
-            {/* <View flex style={styles.mapContainer}>
-              <Map />
-            </View> */}
           </View>
 
           <View flex marginT-30 center>

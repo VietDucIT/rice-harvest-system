@@ -75,7 +75,7 @@ const AddRiceBuyingArea = ({ navigation }) => {
     console.log("AddRiceBuyingArea - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceBuyingArea.name &&
@@ -94,11 +94,8 @@ const AddRiceBuyingArea = ({ navigation }) => {
     setRiceBuyingArea({ ...riceBuyingArea, traderId: userId });
   }, [userId]);
 
-  // call API
   const handleAdd = async () => {
     try {
-      // setLoading(true);
-
       let dataAPI = await addRiceBuyingArea(riceBuyingArea);
       // console.log("AddRiceBuyingArea - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm khu vực thu mua thành công.", [
@@ -108,7 +105,6 @@ const AddRiceBuyingArea = ({ navigation }) => {
         },
       ]);
       navigation.navigate(nameList.riceBuyingAreas, { hasNewBuyingArea: true });
-      // setLoading(false);
     } catch (err) {
       console.log("AddRiceBuyingArea - Error while adding Rice Buying Area.");
     }
@@ -143,8 +139,6 @@ const AddRiceBuyingArea = ({ navigation }) => {
                 grey10
                 value={riceBuyingArea.name}
                 onChangeText={(text) => onChange(text, "name")}
-                // errorMessage={"Vui lòng nhập Tên."}
-                // errorColor={color.redColor}
                 style={styles.textField}
                 autoCapitalize="words"
               />

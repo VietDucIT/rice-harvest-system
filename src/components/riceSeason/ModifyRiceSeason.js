@@ -40,12 +40,10 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const [seasonData, setSeasonData] = useState({});
   const getRiceSeasonData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceSeason(idRiceSeason);
       // console.log("ModifyRiceSeason - Rice Season data: ", data);
       setSeasonData(data);
       setRiceSeason(data);
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyRiceSeason - Error while getting Rice Season data.");
     }
@@ -68,11 +66,9 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const [riceFieldArray, setRiceFieldArray] = useState([]);
   const getRiceFieldArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceFieldList(userId);
       // console.log("ModifyRiceSeason - Rice Field list: ", data);
       setRiceFieldArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyRiceSeason - Error while getting Rice Field list.");
     }
@@ -85,11 +81,9 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const [riceArray, setRiceArray] = useState([]);
   const getRiceArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceList();
       // console.log("ModifyRiceSeason - Rice list: ", data);
       setRiceArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyRiceSeason - Error while getting Rice list.");
     }
@@ -131,7 +125,6 @@ const ModifyRiceSeason = ({ navigation, route }) => {
       message = "";
     }
     setErrorTotalRice(message);
-    // setTotalRice(text);
     setRiceSeason({ ...riceSeason, totalRice: text });
   };
 
@@ -141,7 +134,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
     console.log("ModifyRiceSeason - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceSeason.seasonName &&
@@ -209,8 +202,6 @@ const ModifyRiceSeason = ({ navigation, route }) => {
 
     if (err) {
       try {
-        // setLoading(true);
-
         let dataAPI = await modifyRiceSeason(riceSeason);
         // console.log("ModifyRiceSeason - Data API: ", dataAPI);
         Alert.alert("Thông báo", "Đã lưu thông tin vụ mùa.", [
@@ -222,7 +213,6 @@ const ModifyRiceSeason = ({ navigation, route }) => {
         navigation.navigate(nameList.riceSeasonInfo, {
           idRiceSeason,
         });
-        // setLoading(false);
       } catch (err) {
         console.log("ModifyRiceSeason - Error while modifying Rice Season.");
       }
@@ -372,10 +362,8 @@ const ModifyRiceSeason = ({ navigation, route }) => {
               <DateTimePicker
                 migrateTextField
                 containerStyle={{ marginVertical: 20 }}
-                // label={"Date"}
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
                 value={riceSeason.timeStart}
                 onChange={(time) => {
                   setRiceSeason({ ...riceSeason, timeStart: time });
@@ -393,7 +381,6 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                 label={"Date"}
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
                 value={riceSeason.timeEnd}
                 onChange={(time) => {
                   setRiceSeason({ ...riceSeason, timeEnd: time });

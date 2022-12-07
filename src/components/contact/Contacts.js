@@ -37,14 +37,12 @@ const Contacts = ({ navigation, route }) => {
 
   const [contactArray, setContactArray] = useState([]);
 
-  // call API
+  // call API to get Contact list
   const getContactArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getContactList(userId);
       // console.log("Contacts - Contact list: ", data);
       setContactArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("Contacts - Error while getting Contact list.");
     }
@@ -75,7 +73,6 @@ const Contacts = ({ navigation, route }) => {
           text: "Đồng ý",
           onPress: async () => {
             try {
-              // setLoading(true);
               let dataAPI = await deleteContact(id);
 
               Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
@@ -86,7 +83,6 @@ const Contacts = ({ navigation, route }) => {
               ]);
 
               getContactArray();
-              // setLoading(false);
             } catch (err) {
               console.log("Contacts - Error while deleting Contact.");
             }

@@ -19,26 +19,13 @@ StyleInit();
 const RiceFieldInfo = ({ navigation, route }) => {
   const { idRiceField } = route.params;
   const [fieldData, setFieldData] = useState({});
-  // let coordinate = {};
 
   // call API
   const getRiceFieldData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceField(idRiceField);
       // console.log("RiceFieldInfo - Rice Field data: ", data);
-      // coordinate = {
-      //   x1: data.x1,
-      //   y1: data.y1,
-      //   x2: data.x2,
-      //   y2: data.y2,
-      //   x3: data.x3,
-      //   y3: data.y3,
-      //   x4: data.x4,
-      //   y4: data.y4,
-      // };
       setFieldData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RiceFieldInfo - RError while getting Rice Field data.");
     }

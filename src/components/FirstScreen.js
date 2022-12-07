@@ -45,7 +45,7 @@ const FirstScreen = ({ navigation }) => {
     });
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (user.phone && user.password) {
       setIsDisableBtn(false);
@@ -59,7 +59,6 @@ const FirstScreen = ({ navigation }) => {
     console.log("FirstScreen - Clear text field.");
   };
 
-  // call API
   const handleLogIn = async () => {
     try {
       let dataAPI = await logIn(user);
@@ -166,16 +165,6 @@ const FirstScreen = ({ navigation }) => {
               style={styles.heading}
               onPress={() => navigation.navigate(nameList.addUserInfo)} // Sign Up
             />
-            {/* Test screen */}
-            {/* <Button
-              link
-              text70
-              green20
-              label="Click me"
-              marginT-5
-              style={styles.heading}
-              onPress={() => navigation.navigate(nameList.mainScreen)}
-            /> */}
           </View>
         </View>
       </View>

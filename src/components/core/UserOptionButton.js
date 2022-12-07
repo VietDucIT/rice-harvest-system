@@ -18,5 +18,4 @@ const UserOptionButton = ({ navigation }) => {
     </View>
   );
 };
-
 export default UserOptionButton;

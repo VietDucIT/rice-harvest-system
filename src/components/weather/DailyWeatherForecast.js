@@ -68,11 +68,9 @@ const DailyWeatherForecast = ({ navigation, route }) => {
                   size={50}
                   color={color.greenColor}
                 />
-                {/* <View centerV style={styles.weatherLabel}> */}
                 <Text text80 marginT-5>
                   Lượng mưa
                 </Text>
-                {/* </View> */}
                 <Text text60>
                   {dayItem.rain ? dayItem.rain : 0}{" "}
                   <TextR style={styles.unit}>mm/s</TextR>
@@ -85,10 +83,8 @@ const DailyWeatherForecast = ({ navigation, route }) => {
                   size={50}
                   color={color.greenColor}
                 />
-                {/* <View centerV style={styles.weatherLabel}> */}
                 <Text text80>Nhiệt độ</Text>
                 <Text text80>trung bình</Text>
-                {/* </View> */}
                 <Text text60>
                   {Math.round(dayItem.temp.day - 273.15)}{" "}
                   <TextR style={styles.unit}>&#8451;</TextR>
@@ -223,8 +219,6 @@ const styles = StyleSheet.create({
     height: 50,
   },
   dayItem: {
-    // backgroundColor: color.greenColor,
-    // borderWith: 10,
     width: "100%",
     justifyContent: "space-between",
   },
@@ -234,9 +228,6 @@ const styles = StyleSheet.create({
   },
   weatherItem: {
     width: 150,
-  },
-  weatherLabel: {
-    height: 50,
   },
   unit: {
     fontSize: 18,

@@ -52,11 +52,9 @@ const RiceSeasons = ({ navigation, route }) => {
   // get Rice Season list
   const getRiceSeasonArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceSeasonList(userId);
       // console.log("RiceSeasons - Rice Season list: ", data);
       setRiceSeasonArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RiceSeasons - Error while getting Rice Season list.");
     }
@@ -69,7 +67,6 @@ const RiceSeasons = ({ navigation, route }) => {
   // get Rice Season list by Name
   const getRiceSeasonArrayByName = async () => {
     try {
-      // setLoading(true);
       const data = await findRiceSeasonByName(
         seasonName.name,
         seasonName.year,
@@ -77,7 +74,6 @@ const RiceSeasons = ({ navigation, route }) => {
       );
       // console.log("RiceSeasons - Rice Seasons data: ", data);
       setRiceSeasonArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RiceSeasons - Error while finding Rice Season by Name.");
     }
@@ -101,11 +97,9 @@ const RiceSeasons = ({ navigation, route }) => {
         text: "Đồng ý",
         onPress: async () => {
           try {
-            // setLoading(true);
             let dataAPI = await deleteRiceSeason(season._id);
             // console.log("RiceSeasons - Data API: ", dataAPI);
 
-            // SET STATUS FOR THIS
             Alert.alert("Thông báo", `Đã xóa vụ mùa ${season.name}.`, [
               {
                 text: "Đóng",
@@ -115,7 +109,6 @@ const RiceSeasons = ({ navigation, route }) => {
 
             // recall API to get list after deleting
             getRiceSeasonArray();
-            // setLoading(false);
           } catch (err) {
             console.log("RiceSeasons - Error while deleting Rice Season.");
           }
@@ -142,7 +135,7 @@ const RiceSeasons = ({ navigation, route }) => {
             </View>
           </View>
 
-          {/* Search by selecting name and year */}
+          {/* Search by selecting Name and Year */}
           <View center flex style={styles.seasonNameContainer}>
             <View>
               <Picker
@@ -210,7 +203,6 @@ const RiceSeasons = ({ navigation, route }) => {
                         {item.seasonName} {item.seasonYear}
                       </TextR>
                       <Text text80>
-                        {/* {item.riceField} */}
                         {item.riceFieldName.length <= 40
                           ? `${item.riceFieldName}`
                           : `${item.riceFieldName.substring(0, 39)}...`}
@@ -283,7 +275,6 @@ const styles = StyleSheet.create({
   textField: {
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
-    // paddingBottom: 5,
   },
   riceSeasonItem: {
     flexDirection: "row",

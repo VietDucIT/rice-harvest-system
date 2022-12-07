@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Alert, Image, StyleSheet, Text as TextR } from "react-native";
+import { Image, StyleSheet, Text as TextR } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -28,14 +28,12 @@ const Bills = ({ navigation, route }) => {
 
   const [billArray, setBillArray] = useState([]);
 
-  // call API
+  // call API to get Bill list
   const getBillArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getBillList(userId);
       // console.log("Bills - Bill list: ", data);
       setBillArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("Bills - Error while getting Bill list.");
     }
@@ -82,9 +80,6 @@ const Bills = ({ navigation, route }) => {
               <View style={styles.subContainer}>
                 <View style={styles.address}>
                   <Text text80>
-                    {/* {item.address.length <= 40
-                    ? `${item.address}`
-                    : `${item.address.substring(0, 39)}...`} */}
                     {item.village +
                       ", " +
                       item.commune +

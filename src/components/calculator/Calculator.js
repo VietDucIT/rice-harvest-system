@@ -33,10 +33,6 @@ const Calculator = ({ navigation }) => {
   const [total, setTotal] = useState(0);
   const [isReset, setIsReset] = useState(true);
 
-  // const addColumnItem = () => {
-  //   console.log("Calculator - Add a column");
-  // };
-
   const calculateTotal = () => {
     setTotal(
       sums.sum1 +
@@ -170,22 +166,6 @@ const Calculator = ({ navigation }) => {
                 handleTotal={(sum) => setSums({ ...sums, sum16: sum })}
                 isReset={isReset}
               />
-
-              {/* <View
-                style={styles.plusContainer}
-                margin-10
-                center
-                onPress={() => console.log("Calculator - Add a column.")}
-              >
-                <Button
-                  link
-                  text30
-                  green20
-                  label="+"
-                  style={styles.heading}
-                  onPress={addColumnItem}
-                />
-              </View> */}
             </View>
 
             <View flex marginT-20 center style={styles.btnContainer}>

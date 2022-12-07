@@ -2,10 +2,9 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-// For which farmer ???
 const addRiceField = async (riceFieldData) => {
   try {
-    console.log("Rice Field: ", riceFieldData);
+    // console.log("Rice Field: ", riceFieldData);
     const response = await axios.post(
       `${REQUEST_URL}/rice-field/`,
       riceFieldData

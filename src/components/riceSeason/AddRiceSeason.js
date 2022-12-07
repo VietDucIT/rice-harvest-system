@@ -49,11 +49,9 @@ const AddRiceSeason = ({ navigation }) => {
   const [riceFieldArray, setRiceFieldArray] = useState([]);
   const getRiceFieldArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceFieldList(userId);
       // console.log("AddRiceSeason - Rice Field list: ", data);
       setRiceFieldArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("AddRiceSeason - Error while getting Rice Field list.");
     }
@@ -66,11 +64,9 @@ const AddRiceSeason = ({ navigation }) => {
   const [riceArray, setRiceArray] = useState([]);
   const getRiceArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceList();
       // console.log("AddRiceSeason - Rice list: ", data);
       setRiceArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("AddRiceSeason - Error while getting Rice list.");
     }
@@ -112,7 +108,6 @@ const AddRiceSeason = ({ navigation }) => {
       message = "";
     }
     setErrorTotalRice(message);
-    // setTotalRice(text);
     setRiceSeason({ ...riceSeason, totalRice: text });
   };
 
@@ -122,7 +117,7 @@ const AddRiceSeason = ({ navigation }) => {
     console.log("AddRiceSeason - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       riceSeason.seasonName &&
@@ -138,7 +133,6 @@ const AddRiceSeason = ({ navigation }) => {
     }
   }, [riceSeason]);
 
-  // JUST A TEMPORARY SOLUTION, WILL REMOVE IF FINDING A BETTER ONE
   useEffect(() => {
     setRiceSeason({ ...riceSeason, farmerId: userId });
   }, [userId]);
@@ -194,10 +188,8 @@ const AddRiceSeason = ({ navigation }) => {
     }
 
     try {
-      // setLoading(true);
-
       let dataAPI = await addRiceSeason(riceSeason);
-      console.log("AddRiceSeason - Data API: ", dataAPI);
+      // console.log("AddRiceSeason - Data API: ", dataAPI);
       Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
         {
           text: "Đóng",
@@ -205,7 +197,6 @@ const AddRiceSeason = ({ navigation }) => {
         },
       ]);
       navigation.navigate(nameList.riceSeasons, { hasNewSeason: true });
-      // setLoading(false);
     } catch (err) {
       console.log("AddRiceSeason - Error while adding Rice Season.");
     }
@@ -359,10 +350,8 @@ const AddRiceSeason = ({ navigation }) => {
               <DateTimePicker
                 migrateTextField
                 containerStyle={{ marginVertical: 20 }}
-                // label={"Date"}
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
                 value={riceSeason.timeStart}
                 onChange={(time) => {
                   setRiceSeason({ ...riceSeason, timeStart: time });
@@ -380,7 +369,6 @@ const AddRiceSeason = ({ navigation }) => {
                 label={"Date"}
                 dateFormat={"DD/MM/YYYY"}
                 placeholder={"Chọn ngày"}
-                // value={new Date('September 19, 2022')}
                 value={riceSeason.timeEnd}
                 onChange={(time) => {
                   setRiceSeason({ ...riceSeason, timeEnd: time });
@@ -427,7 +415,6 @@ const AddRiceSeason = ({ navigation }) => {
               <CustomButton label="Nhập lại" onPress={reset} />
               <CustomButton
                 label="Thêm"
-                // onPress={() => console.log("AddRiceSeason - Clicked")}
                 onPress={handleAdd}
                 disabled={isDisableBtn}
               />

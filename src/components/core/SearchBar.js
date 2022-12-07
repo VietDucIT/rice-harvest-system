@@ -29,7 +29,6 @@ const SearchBar = ({ handleSearch, ...props }) => {
     </View>
   );
 };
-
 export default SearchBar;
 
 const styles = StyleSheet.create({

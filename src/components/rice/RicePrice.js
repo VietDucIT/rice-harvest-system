@@ -57,21 +57,9 @@ const RicePrice = ({ navigation }) => {
       "14/12",
     ],
     tableData: [
-      // ["05/12", "6850", "6700", "6250", "6850"], // 05/12
-      // ["06/12", "6850", "6500", "6250", "6850"], // 06/12
-      // ["07/12", "6850", "6500", "6250", "6850"], // 07/12
-
-      // ["08/12", "6750", "6300", "6157", "6780"], // 08/12
-      // ["09/12", "6821", "6400", "6220", "6842"], // 09/12
-      // ["10/12", "6850", "6550", "6250", "6850"], // 10/12
-      // ["11/12", "6850", "6500", "6250", "6820"], // 11/12
-      // ["12/12", "6870", "6574", "6260", "6850"], // 12/12
-      // ["13/12", "6850", "6600", "6250", "6850"], // 13/12
-      // ["14/12", "6900", "6600", "6250", "6850"], // 14/12
       ["6850", "6700", "6250", "6850"], // 05/12
       ["6850", "6500", "6250", "6850"], // 06/12
       ["6850", "6500", "6250", "6850"], // 07/12
-
       ["6750", "6300", "6157", "6780"], // 08/12
       ["6821", "6400", "6220", "6842"], // 09/12
       ["6850", "6550", "6250", "6850"], // 10/12
@@ -85,12 +73,9 @@ const RicePrice = ({ navigation }) => {
   // call API to get Rice Price of today
   const getRicePriceData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRicePrice();
       // console.log("RicePrice - Rice Price data: ", data);
-      // await data.sort((a, b) => a.rice.localeCompare(b.rice));
       setRicePriceData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RicePrice - Error while getting Rice Price data.");
     }
@@ -124,7 +109,6 @@ const RicePrice = ({ navigation }) => {
     setIsShowPredict(!isShowPredict);
   };
 
-  // ???
   // for (let i = 0; i < pricePredictionData.length; i++) {
   //   const rowData = [];
   //   rowData.push(pricePredictionData.om18[i].price, pricePredictionData.om5451[i].price, pricePredictionData.ir504[i].price, pricePredictionData.daiThom8[i].price);
@@ -175,11 +159,6 @@ const RicePrice = ({ navigation }) => {
         </View>
 
         <View marginT-40>
-          {/* <Button link onPress={() => setIsShowPredict(!isShowPredict)} left>
-            <Text green style={styles.link}>
-              Xem dự báo giá lúa
-            </Text>
-          </Button> */}
           <View center>
             <CustomButton
               label="Xem dự báo giá lúa"
@@ -190,42 +169,41 @@ const RicePrice = ({ navigation }) => {
 
           {isShowPredict && isLoading && <LoaderPart />}
 
-          {isShowPredict && ( //!isLoading &&
-            <View marginT-20>
-              {/* <Text>Đây là dự báo giá lúa.</Text> */}
+          {isShowPredict &&
+            !isLoading && ( //
+              <View marginT-20>
+                <View right marginR-15 marginT-10>
+                  <Text text80>(Đơn vị tính: đồng/kg)</Text>
+                </View>
 
-              <View right marginR-15 marginT-10>
-                <Text text80>(Đơn vị tính: đồng/kg)</Text>
-              </View>
-
-              {/* <ScrollView flex padding-16 paddingT-30 horizontal> */}
-              <View flex padding-16 paddingT-30>
-                <Table borderStyle={{ borderWidth: 1 }}>
-                  <Row
-                    data={table2.tableHead}
-                    style={styles.tableHead}
-                    textStyle={styles.tableHeading}
-                    flexArr={[1, 1, 1, 1, 1]}
-                  />
-                  {/* <Rows data={table2.tableData} textStyle={styles.tableText} /> */}
-                  <TableWrapper style={styles.tableWrapper}>
-                    <Col
-                      data={table2.tableTitle}
-                      style={styles.tableTitle}
-                      textStyle={styles.tableSubHeading}
+                {/* <ScrollView flex padding-16 paddingT-30 horizontal> */}
+                <View flex padding-16 paddingT-30>
+                  <Table borderStyle={{ borderWidth: 1 }}>
+                    <Row
+                      data={table2.tableHead}
+                      style={styles.tableHead}
+                      textStyle={styles.tableHeading}
+                      flexArr={[1, 1, 1, 1, 1]}
                     />
-                    <Rows
-                      data={table2.tableData}
-                      style={styles.tableRow}
-                      textStyle={styles.tableText}
-                      flexArr={[1, 1, 1, 1]}
-                    />
-                  </TableWrapper>
-                </Table>
+                    {/* <Rows data={table2.tableData} textStyle={styles.tableText} /> */}
+                    <TableWrapper style={styles.tableWrapper}>
+                      <Col
+                        data={table2.tableTitle}
+                        style={styles.tableTitle}
+                        textStyle={styles.tableSubHeading}
+                      />
+                      <Rows
+                        data={table2.tableData}
+                        style={styles.tableRow}
+                        textStyle={styles.tableText}
+                        flexArr={[1, 1, 1, 1]}
+                      />
+                    </TableWrapper>
+                  </Table>
+                </View>
+                {/* </ScrollView> */}
               </View>
-              {/* </ScrollView> */}
-            </View>
-          )}
+            )}
         </View>
       </View>
     </ScrollView>

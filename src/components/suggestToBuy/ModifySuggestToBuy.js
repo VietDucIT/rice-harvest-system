@@ -31,12 +31,10 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
   // call API to get Suggest To Buy data to fill the form
   const getSuggestToBuyData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getSuggestToBuy(idSuggestToBuy);
       // console.log("ModifySuggestToBuy - Suggest To Buy data: ", data);
       setSuggestToBuyData(data);
       setSuggestToBuy(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "ModifySuggestToBuy - Error while getting Suggest To Buy data."

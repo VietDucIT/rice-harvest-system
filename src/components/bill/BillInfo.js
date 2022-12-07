@@ -18,14 +18,12 @@ const BillInfo = ({ navigation, route }) => {
   const { idBill } = route.params;
   const [billData, setBillData] = useState({});
 
-  // call API
+  // call API to get Bill data
   const getBillData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getBill(idBill);
       // console.log("BillInfo - Bill data: ", data);
       setBillData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("BillInfo - Error while getting Bill data.");
     }

@@ -21,13 +21,11 @@ const MainScreen = ({ navigation }) => {
   const [userData, setUserData] = useState({});
   const getUserData = useCallback(async () => {
     try {
-      // setLoading(true);
       const userId = await getUserIdStored();
       console.log("MainScreen - User ID from SecureStore: ", userId);
       const data = await getUser(userId);
       // console.log("MainScreen - User data: ", data);
       setUserData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("MainScreen - Error while getting User data.");
     }
@@ -36,17 +34,14 @@ const MainScreen = ({ navigation }) => {
     getUserData();
   }, [getUserData]);
 
-  // JUST COMMENT FROM 0:00 TO ABOUT 6:00
   // call API to update Rice Price
   const updateRicePriceData = useCallback(async () => {
     try {
-      // setLoading(true);
       const isNeedToUpdate = await checkNewestRicePrice();
       console.log("MainScreen - IsNeedToUpdate: ", isNeedToUpdate);
       if (isNeedToUpdate) {
         await updateRicePrice();
       }
-      // setLoading(false);
     } catch (err) {
       console.log("MainScreen - Error while handle Rice Price data.");
     }

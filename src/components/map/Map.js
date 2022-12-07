@@ -5,8 +5,6 @@ import { vn2000_to_wgs84 } from "vn2000-converter";
 
 import color from "../../config/color";
 
-import provinceVN2000 from "../../json/provinceVN2000";
-
 const Map = ({ fieldData, ...props }) => {
   // ( 9.66 ; 105.86 ) <=> ( 1068274.57	; 539311.12 )
   // ( 9.66	; 105.865 ) <=> ( 1068275.16 ;	539859.84 )

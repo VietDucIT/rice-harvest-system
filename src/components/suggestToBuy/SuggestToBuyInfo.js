@@ -5,8 +5,6 @@ import dayjs from "dayjs";
 
 import nameList from "../../json/nameList";
 
-import Map from "../map/Map";
-
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
 
@@ -24,11 +22,9 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
   // call API to get Suggest To Buy data
   const getSuggestToBuyData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getSuggestToBuy(idSuggestToBuy);
       // console.log("SuggestToBuyInfo - Suggest To Buy data: ", data);
       setSuggestToBuyData(data);
-      // setLoading(false);
     } catch (err) {
       console.log(
         "SuggestToBuyInfo - Error while getting Suggest To Buy data."
@@ -115,10 +111,6 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
                 mồng 10.
               </Text> */}
             </View>
-
-            {/* <View flex style={styles.mapContainer}>
-              <Map />
-            </View> */}
           </View>
 
           <View flex marginT-30 center>

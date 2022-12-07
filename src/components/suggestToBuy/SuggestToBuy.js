@@ -42,11 +42,9 @@ const SuggestToBuy = ({ navigation, route }) => {
   // call API to get Rice Season data
   const getRiceSeasonData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceSeason(idRiceSeason);
       // console.log("SuggestToBuy - Rice Season data: ", data);
       setSeasonData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("SuggestToBuy - Error while getting Rice Season data.");
     }
@@ -90,7 +88,7 @@ const SuggestToBuy = ({ navigation, route }) => {
     console.log("SuggestToBuy - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (suggestToBuy.suggestedPrice && suggestToBuy.suggestedTimeEnd) {
       setIsDisableBtn(false);

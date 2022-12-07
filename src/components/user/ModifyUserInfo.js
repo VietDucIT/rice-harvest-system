@@ -37,12 +37,10 @@ const ModifyUserInfo = ({ navigation, route }) => {
   const [userData, setUserData] = useState({});
   const getUserData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getUser(idUser);
       // console.log("ModifyUserInfo - User data: ", data);
       setUserData(data);
       setUser(data);
-      // setLoading(false);
     } catch (err) {
       console.log("ModifyUserInfo - Error while getting User data.");
     }
@@ -104,7 +102,7 @@ const ModifyUserInfo = ({ navigation, route }) => {
     console.log("ModifyUserInfo - Reset completed.");
   };
 
-  // handle disable submit btn
+  // handle disable Submit button
   useEffect(() => {
     if (
       user.name &&
@@ -123,7 +121,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
     }
   }, [user]);
 
-  // call API
   const handleModify = async () => {
     let err = false;
     if (!error.birthYear) {
@@ -142,8 +139,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
 
     if (err) {
       try {
-        // setLoading(true);
-
         // console.log("ModifyUserInfo - Data: ", user);
         let dataAPI = await modifyUser(user);
         // console.log("ModifyUserInfo - Data API: ", dataAPI);
@@ -154,7 +149,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
           },
         ]);
         navigation.navigate(nameList.userInfo, { idUser });
-        // setLoading(false);
       } catch (err) {
         console.log("ModifyUserInfo - Error while modifying User.");
       }
@@ -251,7 +245,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 text70
                 placeholder={"Chọn năm"}
                 value={user.birthYear}
-                // onChange={(year) => setUser({ ...user, birthYear: year })}
                 onChange={(year) => {
                   console.log("ModifyUserInfo - Birth year: ", year.label);
                   setUser({ ...user, birthYear: Number(year.label) });

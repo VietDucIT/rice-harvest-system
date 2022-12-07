@@ -39,11 +39,9 @@ const RiceFields = ({ navigation, route }) => {
   // get Rice Field list
   const getRiceFieldArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceFieldList(userId);
-      console.log("RiceFields - Rice Fields data: ", data);
+      // console.log("RiceFields - Rice Fields data: ", data);
       setRiceFieldArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RiceFields - Error while getting Rice Field list.");
     }
@@ -56,11 +54,9 @@ const RiceFields = ({ navigation, route }) => {
   // get Rice Field list by Name
   const getRiceFieldArrayByName = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await findRiceFieldByName(fieldName, userId);
       // console.log("RiceFields - Rice Fields data: ", data);
       setRiceFieldArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("RiceFields - Error while finding Rice Field by Name.");
     }
@@ -88,11 +84,9 @@ const RiceFields = ({ navigation, route }) => {
         text: "Đồng ý",
         onPress: async () => {
           try {
-            // setLoading(true);
             let dataAPI = await deleteRiceField(field._id);
             // console.log("RiceFields - Data API: ", dataAPI);
 
-            // SET STATUS FOR THIS ???
             Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
               {
                 text: "Đóng",
@@ -102,7 +96,6 @@ const RiceFields = ({ navigation, route }) => {
 
             // recall API to get list after deleting
             getRiceFieldArray();
-            // setLoading(false);
           } catch (err) {
             console.log("RiceFields - Error while deleting Rice Field.");
           }

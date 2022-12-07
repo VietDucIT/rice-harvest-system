@@ -30,15 +30,13 @@ const Notifications = ({ navigation, route }) => {
 
   const [notificationArray, setNotificationArray] = useState([]);
 
-  // call API
+  // call API to get Notification list
   const getNotificationArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getNotificationList(userId);
       // console.log("Notifications - Notification list: ", data);
       await data.sort((a, b) => a.createAt - b.createAt);
       setNotificationArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("Notifications - Error while getting Notification list.");
     }
@@ -66,11 +64,8 @@ const Notifications = ({ navigation, route }) => {
         text: "Xóa",
         onPress: async () => {
           try {
-            // setLoading(true);
             let dataAPI = await deleteNotification(id);
-
             getNotificationArray();
-            // setLoading(false);
           } catch (err) {
             console.log("Notifications - Error while deleting Notification.");
           }
