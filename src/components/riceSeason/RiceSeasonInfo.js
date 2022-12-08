@@ -147,7 +147,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
             <View marginT-40>
               <Button link onPress={() => setIsShowMenu(!isShowMenu)} left>
                 <Text green style={styles.link}>
-                  Bấm vào để xem đề xuất thu mua
+                  {!isShowMenu ? "Xem đề xuất thu mua" : "Ẩn đề xuất thu mua"}
                 </Text>
               </Button>
               {isShowMenu && (

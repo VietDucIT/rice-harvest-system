@@ -18,6 +18,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getSuggestToBuy from "../../services/suggestToBuy/getSuggestToBuy";
+import modifySuggestToBuy from "../../services/suggestToBuy/modifySuggestToBuy";
 
 StyleInit();
 
@@ -53,22 +54,29 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
         },
         {
           text: "Đồng ý",
-          onPress: () => {
-            setSuggestToBuyData({ ...suggestToBuyData, status: "Đồng ý" });
-            Alert.alert(
-              "Thông báo",
-              "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
-              [
-                {
-                  text: "Đóng",
-                  style: "cancel",
-                },
-              ]
-            );
-            navigation.navigate(nameList.riceSeasonInfo, {
-              idRiceSeason: riceSeason._id,
-              hasUpdated: true,
-            });
+          onPress: async () => {
+            try {
+              setSuggestToBuyData({ ...suggestToBuyData, status: "Đồng ý" });
+              let dataAPI = await modifySuggestToBuy(suggestToBuyData);
+
+              Alert.alert(
+                "Thông báo",
+                "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
+                [
+                  {
+                    text: "Đóng",
+                    style: "cancel",
+                  },
+                ]
+              );
+
+              navigation.navigate(nameList.riceSeasonInfo, {
+                idRiceSeason: riceSeason._id,
+                hasUpdated: true,
+              });
+            } catch (err) {
+              console.log("Contacts - Error while deleting Contact.");
+            }
           },
         },
       ]
@@ -85,6 +93,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
         text: "Từ chối",
         onPress: () => {
           setSuggestToBuyData({ ...suggestToBuyData, status: "Từ chối" });
+
           Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
             {
               text: "Đóng",

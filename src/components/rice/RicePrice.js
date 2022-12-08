@@ -19,6 +19,7 @@ import { StyleInit } from "../../config/StyleInit";
 import getDayTime from "../../services/time/getDayTime";
 import getRicePrice from "../../services/ricePrice/getRicePrice";
 import getPricePrediction from "../../services/ricePrice/getPricePrediction";
+import getPriceHistory from "../../services/ricePrice/getPriceHistory";
 
 LogBox.ignoreLogs([
   "Warning: Failed prop type: Invalid prop `textStyle` of type `array` supplied to `Cell`, expected `object`.",
@@ -32,6 +33,7 @@ const url = "https://congthuong.vn/chu-de/gia-lua-gao-hom-nay.topic";
 const RicePrice = ({ navigation }) => {
   const [ricePriceData, setRicePriceData] = useState([]);
   const [pricePredictionData, setPricePredictionData] = useState([]);
+  const [priceHistoryData, setPriceHistoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isShowPredict, setIsShowPredict] = useState(false);
 
@@ -43,31 +45,9 @@ const RicePrice = ({ navigation }) => {
   };
   // table present Rice Price Prediction
   const table2 = {
-    tableHead: ["Ngày", "OM 18", "OM 5451", "IR 504", "Đài Thơm 8"],
-    tableTitle: [
-      "05/12",
-      "06/12",
-      "07/12",
-      "08/12",
-      "09/12",
-      "10/12",
-      "11/12",
-      "12/12",
-      "13/12",
-      "14/12",
-    ],
-    tableData: [
-      ["6850", "6700", "6250", "6850"], // 05/12
-      ["6850", "6500", "6250", "6850"], // 06/12
-      ["6850", "6500", "6250", "6850"], // 07/12
-      ["6750", "6300", "6157", "6780"], // 08/12
-      ["6821", "6400", "6220", "6842"], // 09/12
-      ["6850", "6550", "6250", "6850"], // 10/12
-      ["6850", "6500", "6250", "6820"], // 11/12
-      ["6870", "6574", "6260", "6850"], // 12/12
-      ["6850", "6600", "6250", "6850"], // 13/12
-      ["6900", "6600", "6250", "6850"], // 14/12
-    ],
+    tableHead: ["Ngày", "OM 5451", "OM 18", "IR 504", "Đài Thơm 8"],
+    tableTitle: [],
+    tableData: [],
   };
 
   // call API to get Rice Price of today
@@ -96,24 +76,65 @@ const RicePrice = ({ navigation }) => {
     try {
       setIsLoading(true);
       const data = await getPricePrediction();
-      console.log("RicePrice - Price Prediction data: ", data);
-      setPricePredictionData(data);
+      // console.log("RicePrice - Price Prediction data: ", data);
+      const dataArray = await data.split("\n");
+      setPricePredictionData(dataArray);
       setIsLoading(false);
     } catch (err) {
       console.log("RicePrice - Error while getting Price Prediction data.");
     }
   };
 
+  // call API to get Price History
+  const getPriceHistoryData = async () => {
+    try {
+      // setIsLoading(true);
+      const data = await getPriceHistory();
+      // console.log("RicePrice - Price History data: ", data);
+      setPriceHistoryData(data);
+      // setIsLoading(false);
+    } catch (err) {
+      console.log("RicePrice - Error while getting Price History data.");
+    }
+  };
+
   const handlePrediction = () => {
     getPricePredictionData();
+    getPriceHistoryData();
     setIsShowPredict(!isShowPredict);
   };
 
-  // for (let i = 0; i < pricePredictionData.length; i++) {
-  //   const rowData = [];
-  //   rowData.push(pricePredictionData.om18[i].price, pricePredictionData.om5451[i].price, pricePredictionData.ir504[i].price, pricePredictionData.daiThom8[i].price);
-  //   table2.tableData.push(rowData);
-  // }
+  // Push date to tableTitle
+  for (let i = -2; i <= 7; i++) {
+    let day = new Date(Date.now() + 86400000 * i);
+    let date = `${day.getDate()}/${day.getMonth() + 1}`;
+    table2.tableTitle.push(date);
+    // console.log(`Next ${i} days: ${date}`);
+  }
+
+  // Push History data to tableData
+  for (let i = 0; i < 3; i++) {
+    const rowData = [];
+    rowData.push(
+      priceHistoryData[i], // OM 5451
+      priceHistoryData[i + 3], // OM 18
+      priceHistoryData[i + 6], // IR 504
+      priceHistoryData[i + 9] // Dai Thom 8
+    );
+    table2.tableData.push(rowData);
+  }
+
+  // Push Prediction data to tableData
+  for (let i = 0; i < 7; i++) {
+    const rowData = [];
+    rowData.push(
+      pricePredictionData[i], // OM 5451
+      pricePredictionData[i + 7], // OM 18
+      pricePredictionData[i + 14], // IR 504
+      pricePredictionData[i + 21] // Dai Thom 8
+    );
+    table2.tableData.push(rowData);
+  }
 
   return (
     <ScrollView>
@@ -161,7 +182,9 @@ const RicePrice = ({ navigation }) => {
         <View marginT-40>
           <View center>
             <CustomButton
-              label="Xem dự báo giá lúa"
+              label={
+                !isShowPredict ? "Xem dự báo giá lúa" : "Ẩn dự báo giá lúa"
+              }
               onPress={handlePrediction}
               style={styles.predictBtn}
             />
@@ -202,6 +225,13 @@ const RicePrice = ({ navigation }) => {
                   </Table>
                 </View>
                 {/* </ScrollView> */}
+
+                <View marginH-15 marginT-10>
+                  <Text text80 style={styles.bottomNote}>
+                    (Dữ liệu bao gồm giá lúa 3 ngày trước đó và DỰ BÁO giá lúa
+                    cho 7 ngày tiếp theo)
+                  </Text>
+                </View>
               </View>
             )}
         </View>
@@ -239,5 +269,8 @@ const styles = StyleSheet.create({
   },
   predictBtn: {
     width: 220,
+  },
+  bottomNote: {
+    fontStyle: "italic",
   },
 });
