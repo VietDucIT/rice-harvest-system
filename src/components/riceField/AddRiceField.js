@@ -108,7 +108,6 @@ const AddRiceField = ({ navigation }) => {
     setRiceField({ ...riceField, farmerId: userId });
   }, [userId]);
 
-  // call API to add Rice Field
   const handleAdd = async () => {
     try {
       // setLoading(true);
@@ -134,8 +133,8 @@ const AddRiceField = ({ navigation }) => {
       <View flex marginB-50>
         <UserOptionButton navigation={navigation} />
 
-        <View paddingT-30>
-          <View center>
+        <View>
+          <View center marginT-30>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}

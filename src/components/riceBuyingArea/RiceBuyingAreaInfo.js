@@ -4,7 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import Map from "../map/Map";
+import MapForBuyingArea from "../map/MapForBuyingArea";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
@@ -54,7 +54,7 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
         <UserOptionButton navigation={navigation} />
 
         <View>
-          <View center>
+          <View center marginT-30>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}
@@ -69,12 +69,14 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên: </TextR>
-              <Text style={styles.itemContent}>{buyingAreaData.name}</Text>
+              <Text text70 style={styles.itemContent}>
+                {buyingAreaData.name}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text style={styles.itemContent}>
+              <Text text70 style={styles.itemContent}>
                 {buyingAreaData.village}, {buyingAreaData.commune},{" "}
                 {buyingAreaData.town}, {buyingAreaData.province}
               </Text>
@@ -82,14 +84,13 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text style={styles.itemContent}>
+              <Text text70 style={styles.itemContent}>
                 {buyingAreaData.description}
               </Text>
             </View>
 
-            {/* How to show Address on Map */}
             <View flex style={styles.mapContainer}>
-              <Map fieldData={fieldData} />
+              <MapForBuyingArea riceBuyingArea={buyingAreaData} />
             </View>
           </View>
 
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   itemLabel: {
+    fontSize: 17,
     fontWeight: "500",
   },
   itemContent: {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -18,6 +19,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getSuggestToBuyList from "../../services/suggestToBuy/getSuggestToBuyList";
+import findSuggestToBuyByFarmerName from "../../services/suggestToBuy/findSuggestToBuyByFarmerName";
 import deleteSuggestToBuy from "../../services/suggestToBuy/deleteSuggestToBuy";
 import getUserIdStored from "../../services/user/getUserIdStored";
 
@@ -34,6 +36,7 @@ const SuggestToBuys = ({ navigation, route }) => {
     [userId]
   );
 
+  const [suggestArray, setSuggestArray] = useState([]);
   // const [suggestArray, setSuggestArray] = useState([
   //   {
   //     _id: "1",
@@ -52,7 +55,7 @@ const SuggestToBuys = ({ navigation, route }) => {
   //   },
   // ]);
 
-  // call API
+  // call API to get Suggest To Buy Array
   const getSuggestToBuyArray = useCallback(async () => {
     try {
       const data = await getSuggestToBuyList(userId);
@@ -105,6 +108,18 @@ const SuggestToBuys = ({ navigation, route }) => {
     ]);
   };
 
+  const findByFarmerName = async (farmerName) => {
+    try {
+      const data = await findSuggestToBuyByFarmerName(farmerName, userId);
+      // console.log("SuggestToBuys - Farmer list: ", data);
+      setSuggestArray(data);
+    } catch (err) {
+      console.log(
+        "SuggestToBuys - Error while finding Suggest To Buy list by Farmer's name."
+      );
+    }
+  };
+
   return (
     <ScrollView>
       <View flex marginB-60>
@@ -123,59 +138,66 @@ const SuggestToBuys = ({ navigation, route }) => {
             </View>
           </View>
 
-          <SearchBar placeholder="Nhập tên nông dân..." />
+          <SearchBar
+            placeholder="Nhập tên nông dân..."
+            handleSearch={(name) => findByFarmerName(name)}
+          />
 
           <View marginT-20>
-            {suggestArray.map((item, index) => (
-              <View
-                style={styles.suggestToBuyItem}
-                padding-5
-                marginV-8
-                marginH-16
-                key={index}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(nameList.suggestToBuyInfo, {
-                      idSuggestToBuy: item._id,
-                    })
-                  }
+            {suggestArray.length == 0 ? (
+              <Text text70 marginL-20>
+                Không có đề xuất thu mua nào...
+              </Text>
+            ) : (
+              suggestArray.map((item, index) => (
+                <View
+                  style={styles.suggestToBuyItem}
+                  padding-5
+                  marginV-8
+                  marginH-16
+                  key={index}
                 >
-                  {/* Farmer Name */}
-                  <TextR style={styles.farmerName}>{item.seasonFarmerId}</TextR>
-                  {/* <TextR style={styles.farmerName}>
-                    {item.seasonFarmerName}
-                  </TextR> */}
-                  <Text text80>
-                    {item.seasonRiceFieldName.length <= 35
-                      ? `${item.seasonRiceFieldName}`
-                      : `${item.seasonRiceFieldName.substring(0, 34)}...`}
-                  </Text>
-                </TouchableOpacity>
-                <View flex style={styles.subContainer}>
-                  <View flex right style={styles.controllContainer}>
-                    <Text
-                      green
-                      text70
-                      onPress={() =>
-                        navigation.navigate(nameList.suggestToBuyInfo, {
-                          idSuggestToBuy: item._id,
-                        })
-                      }
-                    >
-                      Xem
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate(nameList.suggestToBuyInfo, {
+                        idSuggestToBuy: item._id,
+                      })
+                    }
+                  >
+                    <TextR style={styles.farmerName}>
+                      {item.seasonFarmerName} ({item.seasonFarmerNickname})
+                    </TextR>
+                    <Text text80>
+                      {item.seasonRiceFieldName.length <= 35
+                        ? `${item.seasonRiceFieldName}`
+                        : `${item.seasonRiceFieldName.substring(0, 34)}...`}
                     </Text>
-                    <Text
-                      text70
-                      onPress={() => handleDelete(item._id)}
-                      style={styles.deleteBtn}
-                    >
-                      Xóa
-                    </Text>
+                  </TouchableOpacity>
+                  <View flex style={styles.subContainer}>
+                    <View flex right style={styles.controllContainer}>
+                      <Text
+                        green
+                        text70
+                        onPress={() =>
+                          navigation.navigate(nameList.suggestToBuyInfo, {
+                            idSuggestToBuy: item._id,
+                          })
+                        }
+                      >
+                        Xem
+                      </Text>
+                      <Text
+                        text70
+                        onPress={() => handleDelete(item._id)}
+                        style={styles.deleteBtn}
+                      >
+                        Xóa
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            ))}
+              ))
+            )}
           </View>
 
           <View marginT-30 center>

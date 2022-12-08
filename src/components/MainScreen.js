@@ -55,8 +55,8 @@ const MainScreen = ({ navigation }) => {
       <View flex marginB-50>
         <UserOptionButton navigation={navigation} />
 
-        <View paddingT-50>
-          <View center>
+        <View>
+          <View center marginT-50>
             <Image
               style={styles.logo}
               source={require("../assets/images/Logo.png")}
@@ -145,7 +145,7 @@ const MainScreen = ({ navigation }) => {
 
           <View marginV-15 center>
             <CustomButton
-              label="Bản đồ ruộng đất"
+              label="Bản đồ ruộng lúa"
               text60
               style={styles.btn}
               onPress={() => navigation.navigate(nameList.fullMap)}

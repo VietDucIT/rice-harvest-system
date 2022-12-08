@@ -57,14 +57,16 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
           <View flex marginH-25 marginT-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Vụ mùa: </TextR>
-              <Text text70>
+              <Text text70 style={styles.itemContent}>
                 {seasonData.seasonName} {seasonData.seasonYear}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ruộng lúa: </TextR>
-              <Text text70>{seasonData.riceFieldName}</Text>
+              <Text text70 style={styles.itemContent}>
+                {seasonData.riceFieldName}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
@@ -76,20 +78,24 @@ const RiceSeasonInfoForTrader = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tình trạng: </TextR>
-              <Text text70>{seasonData.currentState}</Text>
+              <Text text70 style={styles.itemContent}>
+                {seasonData.currentState}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày sạ: </TextR>
-              <Text text70>
+              <Text text70 style={styles.itemContent}>
                 {dayjs(seasonData.timeStart).format("DD-MM-YYYY")}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Ngày gặt (dự kiến): </TextR>
-              <Text text70 style={styles.important}>
-                {dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
+              <Text text70 style={[styles.itemContent, styles.important]}>
+                {seasonData.timeEnd
+                  ? dayjs(seasonData.timeEnd).format("DD-MM-YYYY")
+                  : ""}
               </Text>
             </View>
           </View>
@@ -118,12 +124,18 @@ const styles = StyleSheet.create({
     height: 50,
   },
   itemContainer: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingRight: 10,
   },
   itemLabel: {
     fontSize: 17,
     fontWeight: "500",
+  },
+  itemContent: {
+    width: "90%",
+    paddingRight: 10,
   },
   important: {
     color: color.redColor,

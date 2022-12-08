@@ -144,7 +144,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={suggestToBuyData.seasonFarmerId}
+                placeholder={`${suggestToBuyData.seasonFarmerName} (${suggestToBuyData.seasonFarmerNickname})`}
                 style={styles.textField}
                 editable={false}
               />
@@ -216,9 +216,11 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={dayjs(suggestToBuyData.seasonTimeEnd).format(
-                  "DD-MM-YYYY"
-                )}
+                placeholder={
+                  suggestToBuyData.seasonTimeEnd
+                    ? dayjs(suggestToBuyData.seasonTimeEnd).format("DD-MM-YYYY")
+                    : ""
+                }
                 style={styles.textField}
                 editable={false}
               />

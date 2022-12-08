@@ -133,7 +133,6 @@ const AddUserInfo = ({ navigation }) => {
     checkPhone();
   }, [checkPhone]);
 
-  // call API
   const handleAdd = async () => {
     let err = false;
     if (!error.birthYear) {
@@ -361,6 +360,13 @@ const AddUserInfo = ({ navigation }) => {
                 showCharCounter
               />
               <Text red>{error.confirmPassword}</Text>
+            </View>
+
+            <View marginT-20>
+              <Text red>
+                * Lưu ý: Bạn cần ghi nhớ Số điện thoại và Mật khẩu để đăng nhập
+                vào hệ thống.
+              </Text>
             </View>
 
             <View flex marginT-50 center style={styles.btnContainer}>

@@ -137,8 +137,8 @@ const HourlyWeatherForecast = ({ navigation, route }) => {
       <View flex marginB-50>
         <UserOptionButton navigation={navigation} />
 
-        <View paddingT-30 marginB-20>
-          <View center>
+        <View marginB-20>
+          <View center marginT-30>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}

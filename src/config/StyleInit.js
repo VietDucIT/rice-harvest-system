@@ -4,6 +4,7 @@ const StyleInit = () => {
   Colors.loadColors({
     green: "#5CB157",
     red: "#F00",
+    blue: "00F",
   });
 
   Typography.loadTypographies({

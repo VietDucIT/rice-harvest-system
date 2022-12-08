@@ -112,7 +112,7 @@ const UserOptionModal = ({ navigation }) => {
           <Button
             link
             style={styles.modalText}
-            onPress={() => navigation.navigate(nameList.notification)}
+            onPress={() => navigation.navigate(nameList.notifications)}
             marginV-5
           >
             <Text text65>Thông báo</Text>

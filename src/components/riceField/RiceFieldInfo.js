@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Image, ScrollView, StyleSheet, Text as TextR } from "react-native";
+import {
+  Image,
+  LogBox,
+  ScrollView,
+  StyleSheet,
+  Text as TextR,
+} from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
@@ -14,13 +20,15 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getRiceField from "../../services/riceField/getRiceField";
 
+LogBox.ignoreLogs(["Input error!"]);
+
 StyleInit();
 
 const RiceFieldInfo = ({ navigation, route }) => {
   const { idRiceField } = route.params;
   const [fieldData, setFieldData] = useState({});
 
-  // call API
+  // call API to get Rice Field data
   const getRiceFieldData = useCallback(async () => {
     try {
       const data = await getRiceField(idRiceField);
@@ -41,7 +49,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
         <UserOptionButton navigation={navigation} />
 
         <View>
-          <View center>
+          <View center marginT-30>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}
@@ -56,29 +64,34 @@ const RiceFieldInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mẫu ruộng: </TextR>
-              <Text>{fieldData.name}</Text>
+              <Text text70 style={styles.itemContent}>
+                {fieldData.name}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>
+              <Text text70 style={styles.itemContent}>
                 {fieldData.village}, {fieldData.commune}, {fieldData.town},{" "}
                 {fieldData.province}
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
-              <TextR style={styles.itemLabel}>Tọa độ các điểm: </TextR>
-              <Text>
-                ({fieldData.x1};{fieldData.y1}), ({fieldData.x2};{fieldData.y2}
-                ), ({fieldData.x3};{fieldData.y3}), ({fieldData.x4};
+              <TextR style={styles.itemLabel}>Tọa độ điểm: </TextR>
+              <Text text70 style={styles.itemContent}>
+                ({fieldData.x1}; {fieldData.y1}), ({fieldData.x2};{" "}
+                {fieldData.y2}
+                ), ({fieldData.x3}; {fieldData.y3}), ({fieldData.x4};{" "}
                 {fieldData.y4})
               </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text>{fieldData.description}</Text>
+              <Text text70 style={styles.itemContent}>
+                {fieldData.description}
+              </Text>
             </View>
 
             {fieldData && (
@@ -111,11 +124,18 @@ const styles = StyleSheet.create({
     height: 50,
   },
   itemContainer: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingRight: 10,
   },
   itemLabel: {
+    fontSize: 17,
     fontWeight: "500",
+  },
+  itemContent: {
+    width: "90%",
+    paddingRight: 10,
   },
   mapContainer: {
     width: "100%",

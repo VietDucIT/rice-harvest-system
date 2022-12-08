@@ -39,7 +39,7 @@ const BillInfo = ({ navigation, route }) => {
         <UserOptionButton navigation={navigation} />
 
         <View>
-          <View center>
+          <View center marginT-30>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}
@@ -54,12 +54,14 @@ const BillInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên: </TextR>
-              <Text style={styles.itemContent}>{billData.name}</Text>
+              <Text text70 style={styles.itemContent}>
+                {billData.name}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text style={styles.itemContent}>
+              <Text text70 style={styles.itemContent}>
                 {billData.village}, {billData.commune}, {billData.town},{" "}
                 {billData.province}
               </Text>
@@ -67,7 +69,9 @@ const BillInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Mô tả: </TextR>
-              <Text style={styles.itemContent}>{billData.description}</Text>
+              <Text text70 style={styles.itemContent}>
+                {billData.description}
+              </Text>
             </View>
 
             <View flex style={styles.mapContainer}>
@@ -104,6 +108,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   itemLabel: {
+    fontSize: 17,
     fontWeight: "500",
   },
   itemContent: {

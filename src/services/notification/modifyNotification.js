@@ -1,3 +1,4 @@
+// RESET STATUS TO READ/UNREAD
 import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";

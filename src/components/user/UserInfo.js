@@ -38,7 +38,7 @@ const UserInfo = ({ navigation, route }) => {
         <UserOptionButton navigation={navigation} />
 
         <View>
-          <View center>
+          <View center marginT-30>
             <Image
               style={styles.avatar}
               source={
@@ -57,27 +57,35 @@ const UserInfo = ({ navigation, route }) => {
           <View flex marginH-25 marginV-20>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Họ tên: </TextR>
-              <Text green>{userData.name}</Text>
+              <Text green text70 style={styles.itemContent}>
+                {userData.name}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Tên thường dùng: </TextR>
-              <Text green>{userData.nickname}</Text>
+              <Text green text70 style={styles.itemContent}>
+                {userData.nickname}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giới tính: </TextR>
-              <Text>{userData.gender === 0 ? "Nữ" : "Nam"}</Text>
+              <Text text70 style={styles.itemContent}>
+                {userData.gender === 0 ? "Nữ" : "Nam"}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Năm sinh: </TextR>
-              <Text>{userData.birthYear}</Text>
+              <Text text70 style={styles.itemContent}>
+                {userData.birthYear}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text>
+              <Text text70 style={styles.itemContent}>
                 {userData.village +
                   ", " +
                   userData.commune +
@@ -90,12 +98,16 @@ const UserInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Số điện thoại: </TextR>
-              <Text>{userData.phone}</Text>
+              <Text text70 style={styles.itemContent}>
+                {userData.phone}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Vai trò: </TextR>
-              <Text>{userData.role === 0 ? "Nông dân" : "Thương lái"}</Text>
+              <Text text70 style={styles.itemContent}>
+                {userData.role === 0 ? "Nông dân" : "Thương lái"}
+              </Text>
             </View>
           </View>
 
@@ -123,10 +135,17 @@ const styles = StyleSheet.create({
     height: 100,
   },
   itemContainer: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingRight: 10,
   },
   itemLabel: {
+    fontSize: 17,
     fontWeight: "500",
+  },
+  itemContent: {
+    width: "90%",
+    paddingRight: 10,
   },
 });

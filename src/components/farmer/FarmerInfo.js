@@ -112,7 +112,7 @@ const FarmerInfo = ({ navigation, route }) => {
         <UserOptionButton navigation={navigation} />
 
         <View>
-          <View center>
+          <View center marginT-30>
             <Image
               style={styles.avatar}
               source={
@@ -134,17 +134,21 @@ const FarmerInfo = ({ navigation, route }) => {
           <View style={styles.contentWrapper}>
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Giới tính: </TextR>
-              <Text text70>{farmerData.gender === 0 ? "Nữ" : "Nam"}</Text>
+              <Text text70 style={styles.itemContent}>
+                {farmerData.gender === 0 ? "Nữ" : "Nam"}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Năm sinh: </TextR>
-              <Text text70>{farmerData.birthYear}</Text>
+              <Text text70 style={styles.itemContent}>
+                {farmerData.birthYear}
+              </Text>
             </View>
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Địa chỉ: </TextR>
-              <Text text70>
+              <Text text70 style={styles.itemContent}>
                 {farmerData.village}, {farmerData.commune}, {farmerData.town},{" "}
                 {farmerData.province}
               </Text>
@@ -152,7 +156,9 @@ const FarmerInfo = ({ navigation, route }) => {
 
             <View flex style={styles.itemContainer} marginT-5>
               <TextR style={styles.itemLabel}>Số điện thoại: </TextR>
-              <Text text70>{farmerData.phone}</Text>
+              <Text text70 style={styles.itemContent}>
+                {farmerData.phone}
+              </Text>
             </View>
           </View>
 
@@ -225,12 +231,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   itemContainer: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingRight: 10,
   },
   itemLabel: {
     fontWeight: "500",
     fontSize: 17,
+  },
+  itemContent: {
+    width: "90%",
+    paddingRight: 10,
   },
   listLabel: {
     fontSize: 16,

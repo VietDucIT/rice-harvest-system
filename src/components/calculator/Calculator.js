@@ -81,8 +81,8 @@ const Calculator = ({ navigation }) => {
       <View flex marginB-50>
         <UserOptionButton navigation={navigation} />
 
-        <View paddingT-50>
-          <View center>
+        <View>
+          <View center marginT-50>
             <Image
               style={styles.logo}
               source={require("../../assets/images/Logo.png")}

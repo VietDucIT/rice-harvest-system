@@ -20,6 +20,7 @@ import { StyleInit } from "../../config/StyleInit";
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
 import addSuggestToBuy from "../../services/suggestToBuy/addSuggestToBuy";
 import getUserIdStored from "../../services/user/getUserIdStored";
+import getUser from "../../services/user/getUser";
 
 StyleInit();
 
@@ -43,7 +44,7 @@ const SuggestToBuy = ({ navigation, route }) => {
   const getRiceSeasonData = useCallback(async () => {
     try {
       const data = await getRiceSeason(idRiceSeason);
-      // console.log("SuggestToBuy - Rice Season data: ", data);
+      console.log("SuggestToBuy - Rice Season data: ", data);
       setSeasonData(data);
     } catch (err) {
       console.log("SuggestToBuy - Error while getting Rice Season data.");
@@ -53,6 +54,21 @@ const SuggestToBuy = ({ navigation, route }) => {
   useEffect(() => {
     getRiceSeasonData();
   }, [getRiceSeasonData]);
+
+  // call API to get Farmer info (just need Farmer name, nickname)
+  const [farmerData, setFarmerData] = useState({});
+  const getFarmerData = useCallback(async () => {
+    try {
+      const data = await getUser(seasonData.farmerId);
+      console.log("SuggestToBuy - Farmer data: ", data);
+      setFarmerData(data);
+    } catch (err) {
+      console.log("SuggestToBuy - Error while getting Farmer data.");
+    }
+  }, [seasonData.farmerId]);
+  useEffect(() => {
+    getFarmerData();
+  }, [getFarmerData]);
 
   const initState = {
     suggestedPrice: "",
@@ -108,6 +124,8 @@ const SuggestToBuy = ({ navigation, route }) => {
         seasonId: seasonData._id,
         seasonState: seasonData.currentState,
         seasonFarmerId: seasonData.farmerId,
+        seasonFarmerName: farmerData.name,
+        seasonFarmerNickname: farmerData.nickname,
         seasonRiceFieldName: seasonData.riceFieldName,
         seasonRiceName: seasonData.riceName,
         seasonName: seasonData.seasonName,
@@ -227,7 +245,11 @@ const SuggestToBuy = ({ navigation, route }) => {
               <TextField
                 text70
                 grey30
-                placeholder={dayjs(seasonData.timeEnd).format("DD-MM-YYYY")}
+                placeholder={
+                  seasonData.timeEnd
+                    ? dayjs(seasonData.timeEnd).format("DD-MM-YYYY")
+                    : ""
+                }
                 style={styles.textField}
                 editable={false}
               />
