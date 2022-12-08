@@ -119,10 +119,13 @@ const SuggestToBuyInfo = ({ navigation, route }) => {
               <Text text70 style={styles.itemContent}>
                 {suggestToBuyData.description}
               </Text>
-              {/* <Text text70 style={styles.itemContent}>
-                Mồng 9 tháng Chạp sẽ cắt trước 2 công, và cắt tiếp 5 công vào
-                mồng 10.
-              </Text> */}
+            </View>
+
+            <View flex style={styles.itemContainer} marginT-5>
+              <TextR style={styles.itemLabel}>Tình trạng: </TextR>
+              <Text text70 style={styles.itemContent}>
+                {suggestToBuyData.status}
+              </Text>
             </View>
           </View>
 

@@ -24,6 +24,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 import seasonNameArray from "../../json/seasonName";
 import seasonStateArray from "../../json/seasonState";
+
 import getRiceFieldList from "../../services/riceField/getRiceFieldList";
 import getRiceList from "../../services/rice/getRiceList";
 import getRiceSeason from "../../services/riceSeason/getRiceSeason";
@@ -94,9 +95,9 @@ const ModifyRiceSeason = ({ navigation, route }) => {
 
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
-  const seasonYearArray = [];
+  let seasonYearArray = [];
   for (let i = currentYear + 1; i >= currentYear - 10; i--) {
-    seasonYearArray.push(i.toString);
+    seasonYearArray.push(i.toString());
   }
 
   const initState = {
@@ -232,7 +233,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Chỉnh sửa thông tin
+                Chỉnh sửa vụ mùa
               </Text>
             </View>
           </View>
@@ -271,7 +272,10 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                     value={riceSeason.seasonYear}
                     placeholder={"Chọn năm"}
                     onChange={(year) => {
-                      setRiceSeason({ ...riceSeason, seasonYear: year.value });
+                      setRiceSeason({
+                        ...riceSeason,
+                        seasonYear: year.value,
+                      });
                     }}
                     style={[styles.seasonYear, styles.textField]}
                   >

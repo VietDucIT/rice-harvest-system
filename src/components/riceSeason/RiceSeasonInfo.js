@@ -160,7 +160,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
               </Button>
               {isShowMenu && (
                 <View marginT-20>
-                  {suggestList.length == 0 ? (
+                  {suggestList.length === 0 ? (
                     <Text text70 marginL-20>
                       Không có đề xuất thu mua...
                     </Text>
@@ -176,16 +176,16 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                         >
                           <TextR>
                             <TextR style={styles.traderName}>
-                              {item.traderId}{" "}
+                              {item.traderName} ({item.traderNickname}){" "}
                             </TextR>
                             <TextR
                               style={
-                                item.status === 1
+                                item.status === "Chấp nhận"
                                   ? styles.acceptStatus
                                   : styles.rejectStatus
                               }
                             >
-                              ({item.status === 1 ? "Đồng ý" : "Từ chối"})
+                              ({item.status})
                             </TextR>
                           </TextR>
                           <View style={styles.subContainer}>

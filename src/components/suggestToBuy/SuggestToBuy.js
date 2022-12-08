@@ -55,6 +55,21 @@ const SuggestToBuy = ({ navigation, route }) => {
     getRiceSeasonData();
   }, [getRiceSeasonData]);
 
+  // call API to get Trader info (just need Trader name, nickname)
+  const [traderData, setTraderData] = useState({});
+  const getTraderData = useCallback(async () => {
+    try {
+      const data = await getUser(userId);
+      console.log("SuggestToBuy - Trader data: ", data);
+      setTraderData(data);
+    } catch (err) {
+      console.log("SuggestToBuy - Error while getting Trader data.");
+    }
+  }, [userId]);
+  useEffect(() => {
+    getTraderData();
+  }, [getTraderData]);
+
   // call API to get Farmer info (just need Farmer name, nickname)
   const [farmerData, setFarmerData] = useState({});
   const getFarmerData = useCallback(async () => {
@@ -132,6 +147,8 @@ const SuggestToBuy = ({ navigation, route }) => {
         seasonYear: seasonData.seasonYear,
         seasonTimeEnd: seasonData.timeEnd,
         seasonTimeStart: seasonData.timeStart,
+        traderName: traderData.name,
+        traderNickname: traderData.nickname,
       };
       // console.log("SuggestToBuy - merge: ", merge);
       let dataAPI = await addSuggestToBuy(merge);

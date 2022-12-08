@@ -13,7 +13,7 @@ const FullMap = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldArray, setFieldArray] = useState([]);
 
-  // get all Rice Field
+  // get all Rice Fields
   const getRiceFieldArray = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -99,8 +99,8 @@ const FullMap = (props) => {
               <Polygon
                 key={index}
                 coordinates={pointList}
-                strokeColor={color.redColor} // ???
-                fillColor={color.lightRedTransparent} // ???
+                strokeColor={color.greenColor}
+                fillColor={color.lightGreenTransparent}
                 // strokeWidth={6}
               />
             );
@@ -124,13 +124,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// import React from "react";
-// import { StyleSheet, View } from "react-native";
-// import MapView, { Polygon } from "react-native-maps";
-
-// import color from "../../config/color";
-
-// const FullMap = (props) => {
 //   const fieldArray = [
 //     [
 //       { latitude: 9.66, longitude: 105.86 },
@@ -168,42 +161,3 @@ const styles = StyleSheet.create({
 //       { latitude: 9.665, longitude: 105.865 },
 //     ],
 //   ];
-
-//   return (
-//     <View style={styles.container}>
-//       <MapView
-//         style={styles.map}
-//         initialRegion={{
-//           latitude: 9.66,
-//           longitude: 105.86,
-//           latitudeDelta: 0.05,
-//           longitudeDelta: 0.04,
-//         }}
-//       >
-//         {fieldArray.map((item, index) => {
-//           return (
-//             <Polygon
-//               key={index}
-//               coordinates={item}
-//               strokeColor={color.redColor}
-//               fillColor={color.lightRedTransparent}
-//             />
-//           );
-//         })}
-//       </MapView>
-//     </View>
-//   );
-// };
-// export default FullMap;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     ...StyleSheet.absoluteFillObject,
-//     flex: 1,
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//   },
-//   map: {
-//     ...StyleSheet.absoluteFillObject,
-//   },
-// });

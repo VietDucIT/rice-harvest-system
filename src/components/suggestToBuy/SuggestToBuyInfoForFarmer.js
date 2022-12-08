@@ -44,69 +44,76 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
   }, [getSuggestToBuyData]);
 
   const handleAccept = () => {
+    Alert.alert("Xác nhận", "Bạn có chắc chắn chấp nhận đề xuất thu mua này?", [
+      {
+        text: "Quay lại",
+        style: "cancel",
+      },
+      {
+        text: "Chấp nhận",
+        onPress: async () => {
+          try {
+            let dataAPI = await modifySuggestToBuy({
+              ...suggestToBuyData,
+              status: "Chấp nhận",
+            });
+
+            Alert.alert(
+              "Thông báo",
+              "Đã chấp nhận đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
+              [
+                {
+                  text: "Đóng",
+                  style: "cancel",
+                },
+              ]
+            );
+
+            navigation.navigate(nameList.riceSeasonInfo, {
+              idRiceSeason: suggestToBuyData.seasonId,
+              hasUpdated: true,
+            });
+          } catch (err) {
+            console.log(
+              "SuggestToBuyInfoForFarmer - Error while accepting Suggust To Buy."
+            );
+          }
+        },
+      },
+    ]);
+  };
+
+  const handleReject = () => {
     Alert.alert(
       "Xác nhận",
-      "Bạn có chắc chắn đồng ý với đề xuất thu mua này?",
+      "Bạn có chắc chắn muốn từ chối đề xuất thu mua này?",
       [
         {
           text: "Quay lại",
           style: "cancel",
         },
         {
-          text: "Đồng ý",
+          text: "Từ chối",
           onPress: async () => {
-            try {
-              setSuggestToBuyData({ ...suggestToBuyData, status: "Đồng ý" });
-              let dataAPI = await modifySuggestToBuy(suggestToBuyData);
+            let dataAPI = await modifySuggestToBuy({
+              ...suggestToBuyData,
+              status: "Từ chối",
+            });
 
-              Alert.alert(
-                "Thông báo",
-                "Đã đồng ý với đề xuất thu mua. Thương lái sẽ sớm liên hệ với bạn.",
-                [
-                  {
-                    text: "Đóng",
-                    style: "cancel",
-                  },
-                ]
-              );
-
-              navigation.navigate(nameList.riceSeasonInfo, {
-                idRiceSeason: riceSeason._id,
-                hasUpdated: true,
-              });
-            } catch (err) {
-              console.log("Contacts - Error while deleting Contact.");
-            }
+            Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
+              {
+                text: "Đóng",
+                style: "cancel",
+              },
+            ]);
+            navigation.navigate(nameList.riceSeasonInfo, {
+              idRiceSeason: suggestToBuyData.seasonId,
+              hasUpdated: true,
+            });
           },
         },
       ]
     );
-  };
-
-  const handleReject = () => {
-    Alert.alert("Xác nhận", "Bạn có chắc chắn từ chối đề xuất thu mua này?", [
-      {
-        text: "Quay lại",
-        style: "cancel",
-      },
-      {
-        text: "Từ chối",
-        onPress: () => {
-          setSuggestToBuyData({ ...suggestToBuyData, status: "Từ chối" });
-
-          Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
-            {
-              text: "Đóng",
-              style: "cancel",
-            },
-          ]);
-          navigation.navigate(nameList.riceSeasonInfo, {
-            idRiceSeason: riceSeason._id,
-            hasUpdated: true,
-          });
-        },
-      },
-    ]);
   };
 
   return (
@@ -132,7 +139,8 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
               <TextR style={styles.itemLabel}>Thương lái: </TextR>
               <Text text70 style={styles.itemContent}>
                 <TextR style={styles.important}>
-                  {suggestToBuyData.traderId}
+                  {suggestToBuyData.traderName} (
+                  {suggestToBuyData.traderNickname})
                 </TextR>
               </Text>
             </View>
@@ -207,16 +215,32 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
           </View>
 
           <View flex marginT-40 center style={styles.btnContainer}>
-            <CustomButton
-              label="Từ chối"
-              onPress={handleReject}
-              style={{ marginLeft: 30, width: 130 }}
-            />
-            <CustomButton
-              label="Chấp nhận"
-              onPress={handleAccept}
-              style={{ marginRight: 30, width: 130 }}
-            />
+            {suggestToBuyData.status === "Từ chối" ? (
+              <CustomButton
+                label="Đã từ chối"
+                style={{ marginLeft: 30, width: 130 }}
+                disabled
+              />
+            ) : (
+              <CustomButton
+                label="Từ chối"
+                onPress={handleReject}
+                style={{ marginLeft: 30, width: 130 }}
+              />
+            )}
+            {suggestToBuyData.status === "Chấp nhận" ? (
+              <CustomButton
+                label="Đã chấp nhận"
+                style={{ marginRight: 30, width: 170 }}
+                disabled
+              />
+            ) : (
+              <CustomButton
+                label="Chấp nhận"
+                onPress={handleAccept}
+                style={{ marginRight: 30, width: 130 }}
+              />
+            )}
           </View>
         </View>
       </View>
