@@ -95,13 +95,15 @@ const RiceBuyingAreas = ({ navigation, route }) => {
             try {
               let dataAPI = await deleteRiceBuyingArea(item._id);
               // console.log("RiceBuyingAreas - Data API: ", dataAPI);
-
-              Alert.alert("Thông báo", "Đã xóa khu vực thu mua.", [
-                {
-                  text: "Đóng",
-                  style: "cancel",
-                },
-              ]);
+              if (dataAPI) {
+                ToastAndroid.show("Đã xóa khu vực thu mua", ToastAndroid.SHORT);
+              }
+              // Alert.alert("Thông báo", "Đã xóa khu vực thu mua.", [
+              //   {
+              //     text: "Đóng",
+              //     style: "cancel",
+              //   },
+              // ]);
 
               // recall API to get list after deleting
               getRiceBuyingAreaArray();

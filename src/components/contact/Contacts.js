@@ -74,13 +74,15 @@ const Contacts = ({ navigation, route }) => {
           onPress: async () => {
             try {
               let dataAPI = await deleteContact(id);
-
-              Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
-                {
-                  text: "Đóng",
-                  style: "cancel",
-                },
-              ]);
+              if (dataAPI) {
+                ToastAndroid.show("Đã xóa người liên hệ", ToastAndroid.SHORT);
+              }
+              // Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
+              //   {
+              //     text: "Đóng",
+              //     style: "cancel",
+              //   },
+              // ]);
 
               getContactArray();
             } catch (err) {

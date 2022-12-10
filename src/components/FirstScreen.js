@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  ToastAndroid,
+} from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
 import * as SecureStore from "expo-secure-store";
 
@@ -63,16 +69,20 @@ const FirstScreen = ({ navigation }) => {
     try {
       let dataAPI = await logIn(user);
       console.log("FirstScreen - Data from BE: ", dataAPI);
-      Alert.alert(
-        `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
-        "Bạn đã đăng nhập thành công.",
-        [
-          {
-            text: "Tiếp tục",
-            style: "cancel",
-          },
-        ]
-      );
+
+      if (dataAPI) {
+        ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
+      }
+      // Alert.alert(
+      //   `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
+      //   "Bạn đã đăng nhập thành công.",
+      //   [
+      //     {
+      //       text: "Tiếp tục",
+      //       style: "cancel",
+      //     },
+      //   ]
+      // );
       reset();
       await SecureStore.setItemAsync("USER_ID", dataAPI._id);
       navigation.navigate(nameList.mainScreen);

@@ -86,13 +86,15 @@ const RiceFields = ({ navigation, route }) => {
           try {
             let dataAPI = await deleteRiceField(field._id);
             // console.log("RiceFields - Data API: ", dataAPI);
-
-            Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
+            if (dataAPI) {
+              ToastAndroid.show(`Đã xóa ${field.name}.`, ToastAndroid.SHORT);
+            }
+            // Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
+            //   {
+            //     text: "Đóng",
+            //     style: "cancel",
+            //   },
+            // ]);
 
             // recall API to get list after deleting
             getRiceFieldArray();

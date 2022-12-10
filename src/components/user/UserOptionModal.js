@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, StyleSheet, ToastAndroid } from "react-native";
 import { Button, Text, View } from "react-native-ui-lib";
 import * as SecureStore from "expo-secure-store";
 
@@ -32,12 +32,13 @@ const UserOptionModal = ({ navigation }) => {
         text: "Đăng xuất",
         onPress: () => {
           SecureStore.deleteItemAsync("USER_ID");
-          Alert.alert("Thông báo", "Bạn đã đăng xuất thành công.", [
-            {
-              text: "Đóng",
-              style: "cancel",
-            },
-          ]);
+          ToastAndroid.show("Đăng xuất thành công", ToastAndroid.SHORT);
+          // Alert.alert("Thông báo", "Bạn đã đăng xuất thành công.", [
+          //   {
+          //     text: "Đóng",
+          //     style: "cancel",
+          //   },
+          // ]);
           navigation.navigate(nameList.firstScreen);
         },
       },
@@ -109,14 +110,14 @@ const UserOptionModal = ({ navigation }) => {
           </Button>
 
           {/* Notifications */}
-          <Button
+          {/* <Button
             link
             style={styles.modalText}
             onPress={() => navigation.navigate(nameList.notifications)}
             marginV-5
           >
             <Text text65>Thông báo</Text>
-          </Button>
+          </Button> */}
 
           {/* Sign out */}
           <Button

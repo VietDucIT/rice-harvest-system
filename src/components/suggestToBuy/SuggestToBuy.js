@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { DateTimePicker, Incubator, Text, View } from "react-native-ui-lib";
 import dayjs from "dayjs";
@@ -153,12 +154,15 @@ const SuggestToBuy = ({ navigation, route }) => {
       // console.log("SuggestToBuy - merge: ", merge);
       let dataAPI = await addSuggestToBuy(merge);
       // console.log("SuggestToBuy - Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      if (dataAPI) {
+        ToastAndroid.show("Đề xuất thu mua thành công", ToastAndroid.SHORT);
+      }
+      // Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
+      //   {
+      //     text: "Đóng",
+      //     style: "cancel",
+      //   },
+      // ]);
       navigation.navigate(nameList.suggestToBuys, { hasNewSuggest: true });
     } catch (err) {
       console.log("SuggestToBuy - Error while adding Suggest To Buy.");

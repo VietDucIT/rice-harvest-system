@@ -34,7 +34,7 @@ const FindFarmers = ({ navigation, route }) => {
     setUserId(value);
   });
   useEffect(
-    () => console.log("Contacts - User ID from SecureStore: ", userId),
+    () => console.log("FindFarmners - User ID from SecureStore: ", userId),
     [userId]
   );
 
@@ -78,13 +78,15 @@ const FindFarmers = ({ navigation, route }) => {
           onPress: async () => {
             try {
               let dataAPI = await deleteContact(id);
-
-              Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
-                {
-                  text: "Đóng",
-                  style: "cancel",
-                },
-              ]);
+              if (dataAPI) {
+                ToastAndroid.show("Đã xóa người liên hệ", ToastAndroid.SHORT);
+              }
+              // Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
+              //   {
+              //     text: "Đóng",
+              //     style: "cancel",
+              //   },
+              // ]);
 
               getContactArray();
             } catch (err) {
@@ -105,10 +107,10 @@ const FindFarmers = ({ navigation, route }) => {
     try {
       const data = await findFarmerByName(farmerName);
       // const data2 = await findFarmerByAddress(address);
-      // console.log("FindFarmner - Farmer list: ", data);
+      // console.log("FindFarmners - Farmer list: ", data);
       setFarmerArray(data);
     } catch (err) {
-      console.log("FindFarmner - Error while getting Farmer list.");
+      console.log("FindFarmners - Error while getting Farmer list.");
     }
   };
 
@@ -117,11 +119,18 @@ const FindFarmers = ({ navigation, route }) => {
   const [address, setAddress] = useState({});
   const [isReset, setIsReset] = useState(false);
 
-  const handleFind = async () => {
+  const findByAddress = async () => {
+    setIsShowContact(false);
+
     try {
-      // console.log("FindFarmers by Address - Data: ", riceField);
-      const data = await findFarmerByAddress(address);
-      // console.log("FindFarmers by Address - Data API: ", data);
+      console.log("FindFarmers by Address: ", address);
+      const data = await findFarmerByAddress(
+        address.province,
+        address.town,
+        address.commune,
+        address.village
+      );
+      console.log("FindFarmers by Address - Data API: ", data);
       setFarmerArray(data);
     } catch (err) {
       console.log(
@@ -190,7 +199,7 @@ const FindFarmers = ({ navigation, route }) => {
                 />
                 <CustomButton
                   label="Tìm"
-                  onPress={handleFind}
+                  onPress={findByAddress}
                   style={{ width: 120, marginLeft: 20 }}
                 />
               </View>

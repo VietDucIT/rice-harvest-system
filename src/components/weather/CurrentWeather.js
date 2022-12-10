@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Picker, Text, View } from "react-native-ui-lib";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -64,16 +65,23 @@ const CurrentWeather = ({ navigation }) => {
         location.longitude
       );
       setLocationName(data[0].local_names.vi);
-      Alert.alert(
-        "Thông báo",
-        `Hiển thị thông tin thời tiết tại ${data[0].local_names.vi}.`,
-        [
-          {
-            text: "OK",
-            style: "cancel",
-          },
-        ]
-      );
+
+      if (data) {
+        ToastAndroid.show(
+          `Hiển thị thời tiết tại \n${data[0].local_names.vi}`,
+          ToastAndroid.LONG
+        );
+      }
+      // Alert.alert(
+      //   "Thông báo",
+      //   `Hiển thị thông tin thời tiết tại ${data[0].local_names.vi}.`,
+      //   [
+      //     {
+      //       text: "OK",
+      //       style: "cancel",
+      //     },
+      //   ]
+      // );
     } catch (err) {
       console.log("CurrentWeather - Can't convert Coord to Name.");
     }

@@ -99,13 +99,18 @@ const RiceSeasons = ({ navigation, route }) => {
           try {
             let dataAPI = await deleteRiceSeason(season._id);
             // console.log("RiceSeasons - Data API: ", dataAPI);
-
-            Alert.alert("Thông báo", `Đã xóa vụ mùa ${season.name}.`, [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
+            if (dataAPI) {
+              ToastAndroid.show(
+                `Đã xóa vụ mùa ${season.name}`,
+                ToastAndroid.SHORT
+              );
+            }
+            // Alert.alert("Thông báo", `Đã xóa vụ mùa ${season.name}.`, [
+            //   {
+            //     text: "Đóng",
+            //     style: "cancel",
+            //   },
+            // ]);
 
             // recall API to get list after deleting
             getRiceSeasonArray();

@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import {
   Incubator,
@@ -142,12 +143,16 @@ const ModifyUserInfo = ({ navigation, route }) => {
         // console.log("ModifyUserInfo - Data: ", user);
         let dataAPI = await modifyUser(user);
         // console.log("ModifyUserInfo - Data API: ", dataAPI);
-        Alert.alert("Thông báo", "Sửa thông tin người dùng thành công.", [
-          {
-            text: "Đóng",
-            style: "cancel",
-          },
-        ]);
+
+        if (dataAPI) {
+          ToastAndroid.show("Đã lưu thông tin", ToastAndroid.SHORT);
+        }
+        // Alert.alert("Thông báo", "Đã lưu thông tin người dùng.", [
+        //   {
+        //     text: "Đóng",
+        //     style: "cancel",
+        //   },
+        // ]);
         navigation.navigate(nameList.userInfo, { idUser });
       } catch (err) {
         console.log("ModifyUserInfo - Error while modifying User.");

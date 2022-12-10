@@ -91,12 +91,15 @@ const SuggestToBuys = ({ navigation, route }) => {
             let dataAPI = await deleteSuggestToBuy(id);
             // console.log("SuggestToBuys - Data API: ", dataAPI);
 
-            Alert.alert("Thông báo", "Đã xóa đề xuất thu mua này.", [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
+            if (dataAPI) {
+              ToastAndroid.show("Đã xóa đề xuất thu mua", ToastAndroid.SHORT);
+            }
+            // Alert.alert("Thông báo", "Đã xóa đề xuất thu mua này.", [
+            //   {
+            //     text: "Đóng",
+            //     style: "cancel",
+            //   },
+            // ]);
 
             // recall API to get list after deleting
             getSuggestToBuyArray();

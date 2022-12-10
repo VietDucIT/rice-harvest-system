@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Incubator, Text, View } from "react-native-ui-lib";
 
@@ -103,12 +104,18 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
     try {
       let dataAPI = await modifyRiceBuyingArea(riceBuyingArea);
       // console.log("ModifyRiceBuyingArea - Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      if (dataAPI) {
+        ToastAndroid.show(
+          "Đã lưu thông tin khu vực thu mua",
+          ToastAndroid.SHORT
+        );
+      }
+      // Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
+      //   {
+      //     text: "Đóng",
+      //     style: "cancel",
+      //   },
+      // ]);
       navigation.navigate(nameList.riceBuyingAreaInfo, {
         idRiceBuyingArea,
       });
@@ -132,7 +139,7 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Chỉnh sửa thông tin
+                Chỉnh sửa khu vực thu mua
               </Text>
             </View>
           </View>

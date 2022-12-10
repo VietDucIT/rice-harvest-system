@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Incubator, Text, View } from "react-native-ui-lib";
 
@@ -116,12 +117,15 @@ const ModifyRiceField = ({ navigation, route }) => {
       // console.log("ModifyRiceField - Data: ", riceField);
       let dataAPI = await modifyRiceField(riceField);
       // console.log("ModifyRiceField - Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      if (dataAPI) {
+        ToastAndroid.show("Đã lưu thông tin ruộng lúa", ToastAndroid.SHORT);
+      }
+      // Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
+      //   {
+      //     text: "Đóng",
+      //     style: "cancel",
+      //   },
+      // ]);
       navigation.navigate(nameList.riceFieldInfo, {
         idRiceField: riceField._id,
       });
@@ -143,7 +147,7 @@ const ModifyRiceField = ({ navigation, route }) => {
             />
             <View marginV-10>
               <Text text50 green>
-                Chỉnh sửa thông tin
+                Chỉnh sửa ruộng lúa
               </Text>
             </View>
           </View>

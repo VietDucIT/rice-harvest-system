@@ -2,11 +2,16 @@ import axios from "axios";
 
 import REQUEST_URL from "../urlToBackend";
 
-const findFarmerByAddress = async (address) => {
+const findFarmerByAddress = async (province, town, commune, village) => {
   try {
-    // console.log("Address: ", address);
+    // console.log("Address: ", province, town, commune, village);
     const response = await axios.get(`${REQUEST_URL}/farmer/find-by-address`, {
-      params: { address: address },
+      params: {
+        province: province,
+        town: town,
+        commune: commune,
+        village: village,
+      },
     });
     // console.log("findFarmerByAddress - Response from server: ", response.data);
     return response.data;

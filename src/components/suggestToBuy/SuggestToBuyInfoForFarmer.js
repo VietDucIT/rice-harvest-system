@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 import dayjs from "dayjs";
@@ -100,12 +101,18 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
               status: "Từ chối",
             });
 
-            Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
-              {
-                text: "Đóng",
-                style: "cancel",
-              },
-            ]);
+            if (dataAPI) {
+              ToastAndroid.show(
+                "Đã từ chối đề xuất thu mua",
+                ToastAndroid.SHORT
+              );
+            }
+            // Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
+            //   {
+            //     text: "Đóng",
+            //     style: "cancel",
+            //   },
+            // ]);
             navigation.navigate(nameList.riceSeasonInfo, {
               idRiceSeason: suggestToBuyData.seasonId,
               hasUpdated: true,

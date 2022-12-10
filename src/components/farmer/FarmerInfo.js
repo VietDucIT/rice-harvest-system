@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
@@ -94,12 +95,15 @@ const FarmerInfo = ({ navigation, route }) => {
       const contactData = { ...farmer, userId };
       // console.log("FarmerInfo - Contact Data: ", contactData);
       let dataAPI = await addContact(contactData);
-      Alert.alert("Thông báo", "Đã thêm vào danh sách liên hệ.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      if (dataAPI) {
+        ToastAndroid.show("Đã thêm vào danh sách liên hệ", ToastAndroid.SHORT);
+      }
+      // Alert.alert("Thông báo", "Đã thêm vào danh sách liên hệ.", [
+      //   {
+      //     text: "Đóng",
+      //     style: "cancel",
+      //   },
+      // ]);
       navigation.navigate(nameList.findFarmers, { hasNewContact: true });
     } catch (err) {
       console.log("FarmerInfo - Error while adding Contact.", err);

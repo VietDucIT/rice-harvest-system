@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import {
   DateTimePicker,
@@ -205,12 +206,15 @@ const ModifyRiceSeason = ({ navigation, route }) => {
       try {
         let dataAPI = await modifyRiceSeason(riceSeason);
         // console.log("ModifyRiceSeason - Data API: ", dataAPI);
-        Alert.alert("Thông báo", "Đã lưu thông tin vụ mùa.", [
-          {
-            text: "Đóng",
-            style: "cancel",
-          },
-        ]);
+        if (dataAPI) {
+          ToastAndroid.show("Đã lưu thông tin vụ mùa", ToastAndroid.SHORT);
+        }
+        // Alert.alert("Thông báo", "Đã lưu thông tin vụ mùa.", [
+        //   {
+        //     text: "Đóng",
+        //     style: "cancel",
+        //   },
+        // ]);
         navigation.navigate(nameList.riceSeasonInfo, {
           idRiceSeason,
         });

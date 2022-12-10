@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import {
   Incubator,
@@ -119,52 +120,74 @@ const AddUserInfo = ({ navigation }) => {
   }, [user]);
 
   // call API to check if phone is existed
-  const [isExistedPhone, setIsExistedPhone] = useState(false);
-  const checkPhone = useCallback(async () => {
-    try {
-      const data = await checkExistedPhone(user.phone);
-      // console.log("AddUserInfo - Phone is existed: ", data);
-      setIsExistedPhone(data);
-    } catch (err) {
-      console.log("AddUserInfo - Error while checking existed phone.");
-    }
-  }, [user.phone]);
-  useEffect(() => {
-    checkPhone();
-  }, [checkPhone]);
+  // const [isExistedPhone, setIsExistedPhone] = useState(false);
+  // const checkPhone = useCallback(async () => {
+  //   try {
+  //     const data = await checkExistedPhone(user.phone);
+  //     // console.log("AddUserInfo - Phone is existed: ", data);
+  //     setIsExistedPhone(data);
+  //   } catch (err) {
+  //     console.log("AddUserInfo - Error while checking existed phone.");
+  //   }
+  // }, [user.phone]);
+  // useEffect(() => {
+  //   checkPhone();
+  // }, [checkPhone]);
 
   const handleAdd = async () => {
-    let err = false;
+    // let err = false;
     if (!error.birthYear) {
       setError({
         ...error,
         birthYear: "* Bắt buộc.",
       });
-      err = false;
+      // err = false;
     } else {
       setError({
         ...error,
         birthYear: "",
       });
-      err = true;
+      // err = true;
     }
 
-    // if (err) {
-    try {
-      // console.log("AddUserInfo - Data: ", user);
-      let dataAPI = await addUser(user); // _id of user recently added
-      console.log("AddUserInfo - ID User recently added: ", dataAPI);
-      Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
-      navigation.navigate(nameList.userInfo, { idUser: dataAPI });
-    } catch (err) {
-      console.log("AddUserInfo - Error while adding User.");
+    if (checkExistedPhone(user.phone)) {
+      //(err) {
+      try {
+        // console.log("AddUserInfo - Data: ", user);
+        let dataAPI = await addUser(user); // _id of user recently added
+        // console.log("AddUserInfo - ID User recently added: ", dataAPI);
+
+        if (dataAPI) {
+          ToastAndroid.show("Đăng ký tài khoản thành công", ToastAndroid.SHORT);
+        }
+        // Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
+        //   {
+        //     text: "Đóng",
+        //     style: "cancel",
+        //   },
+        // ]);
+        navigation.navigate(nameList.userInfo, { idUser: dataAPI });
+      } catch (err) {
+        console.log("AddUserInfo - Error while adding User.");
+      }
+    } else {
+      Alert.alert(
+        "Thông báo",
+        "Số điện thoại đã được dùng để đăng ký tài khoản trước đó.",
+        [
+          {
+            text: "Đăng nhập",
+            color: color.redColor,
+
+            onPress: () => navigation.navigate(nameList.firstScreen),
+          },
+          {
+            text: "Nhập lại",
+            style: "cancel",
+          },
+        ]
+      );
     }
-    // }
   };
 
   return (

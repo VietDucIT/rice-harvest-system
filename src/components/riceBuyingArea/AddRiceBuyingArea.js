@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text as TextR,
+  ToastAndroid,
 } from "react-native";
 import { Incubator, Text, View } from "react-native-ui-lib";
 
@@ -98,12 +99,15 @@ const AddRiceBuyingArea = ({ navigation }) => {
     try {
       let dataAPI = await addRiceBuyingArea(riceBuyingArea);
       // console.log("AddRiceBuyingArea - Data API: ", dataAPI);
-      Alert.alert("Thông báo", "Thêm khu vực thu mua thành công.", [
-        {
-          text: "Đóng",
-          style: "cancel",
-        },
-      ]);
+      if (dataAPI) {
+        ToastAndroid.show("Đã thêm khu vực thu mua", ToastAndroid.SHORT);
+      }
+      // Alert.alert("Thông báo", "Thêm khu vực thu mua thành công.", [
+      //   {
+      //     text: "Đóng",
+      //     style: "cancel",
+      //   },
+      // ]);
       navigation.navigate(nameList.riceBuyingAreas, { hasNewBuyingArea: true });
     } catch (err) {
       console.log("AddRiceBuyingArea - Error while adding Rice Buying Area.");
