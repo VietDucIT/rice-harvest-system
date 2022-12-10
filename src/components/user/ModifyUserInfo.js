@@ -27,6 +27,7 @@ import { StyleInit } from "../../config/StyleInit";
 
 import getUser from "../../services/user/getUser";
 import modifyUser from "../../services/user/modifyUser";
+import checkExistedPhone from "../../services/user/checkExistedPhone";
 
 StyleInit();
 
@@ -123,22 +124,24 @@ const ModifyUserInfo = ({ navigation, route }) => {
   }, [user]);
 
   const handleModify = async () => {
-    let err = false;
+    // let err = false;
     if (!error.birthYear) {
       setError({
         ...error,
         birthYear: "* Bắt buộc.",
       });
-      err = false;
+      // err = false;
     } else {
       setError({
         ...error,
         birthYear: "",
       });
-      err = true;
+      // err = true;
     }
 
-    if (err) {
+    const isExistedPhone = await checkExistedPhone(user.phone);
+    // console.log("ModifyUserInfo - Phone is existed: ", isExistedPhone);
+    if (!isExistedPhone) {
       try {
         // console.log("ModifyUserInfo - Data: ", user);
         let dataAPI = await modifyUser(user);
@@ -157,6 +160,23 @@ const ModifyUserInfo = ({ navigation, route }) => {
       } catch (err) {
         console.log("ModifyUserInfo - Error while modifying User.");
       }
+    } else {
+      Alert.alert(
+        "Thông báo",
+        "Số điện thoại đã được dùng để đăng ký tài khoản trước đó.",
+        [
+          {
+            text: "Đăng nhập",
+            color: color.redColor,
+
+            onPress: () => navigation.navigate(nameList.firstScreen),
+          },
+          {
+            text: "Nhập lại",
+            style: "cancel",
+          },
+        ]
+      );
     }
   };
 
@@ -269,7 +289,12 @@ const ModifyUserInfo = ({ navigation, route }) => {
                 Địa chỉ:
               </TextR>
               <AddressInput
-                addressObject={user}
+                addressObject={{
+                  province: user.province,
+                  town: user.town,
+                  commune: user.commune,
+                  village: user.village,
+                }}
                 handleAddress={(address) => setUser({ ...user, ...address })}
                 isReset={isReset}
               />
@@ -293,48 +318,45 @@ const ModifyUserInfo = ({ navigation, route }) => {
 
             {/* Password */}
             <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Mật khẩu:
+              </TextR>
               <TextField
                 secureTextEntry
-                text65
-                value={user.password}
+                text70
+                grey10
+                // value={user.password}
                 onChangeText={(text) => onChange(text, "password")}
-                placeholder="Mật khẩu"
-                floatingPlaceholder
-                floatOnFocus
-                floatingPlaceholderColor={{
-                  focus: color.greenColor,
-                  default: color.lightGreyColor,
-                }}
-                containerStyle={{ marginBottom: 10 }}
+                style={styles.textField}
                 maxLength={20}
                 showCharCounter
-                style={styles.textField}
-                marginT-10
               />
               <Text red>{error.password}</Text>
             </View>
 
             {/* Confirm Password */}
             <View marginT-10>
+              <TextR text70 style={styles.label}>
+                Nhập lại mật khẩu:
+              </TextR>
               <TextField
                 secureTextEntry
-                text65
+                text70
+                grey10
                 value={user.confirmPassword}
                 onChangeText={(text) => onChange(text, "confirmPassword")}
-                placeholder="Nhập lại mật khẩu"
-                floatingPlaceholder
-                floatOnFocus
-                floatingPlaceholderColor={{
-                  focus: color.greenColor,
-                  default: color.lightGreyColor,
-                }}
-                containerStyle={{ marginBottom: 10 }}
+                style={styles.textField}
                 maxLength={20}
                 showCharCounter
-                style={styles.textField}
-                marginT-10
               />
               <Text red>{error.confirmPassword}</Text>
+            </View>
+
+            <View marginT-20>
+              <Text red>
+                * Lưu ý: Bạn cần ghi nhớ Số điện thoại và Mật khẩu để đăng nhập
+                vào hệ thống.
+              </Text>
             </View>
 
             <View flex marginT-50 center style={styles.btnContainer}>

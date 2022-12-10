@@ -15,6 +15,7 @@ import {
   Text,
   View,
 } from "react-native-ui-lib";
+import * as SecureStore from "expo-secure-store";
 
 import nameList from "../../json/nameList";
 
@@ -38,21 +39,6 @@ const AddUserInfo = ({ navigation }) => {
   for (let year = currentYear; year >= 1922; year--) {
     yearArray.push(year.toString());
   }
-
-  // call API to get Address data
-  const [address, setAddress] = useState([]);
-  const getAddress = useCallback(async () => {
-    try {
-      const data = await getAddressData();
-      // console.log("AddUserInfo - Address data: ", data);
-      setAddress(data);
-    } catch (err) {
-      console.log("AddUserInfo - Error while getting Address data.");
-    }
-  }, []);
-  useEffect(() => {
-    getAddress();
-  }, [getAddress]);
 
   const initState = {
     name: "",
@@ -150,11 +136,13 @@ const AddUserInfo = ({ navigation }) => {
       // err = true;
     }
 
-    if (checkExistedPhone(user.phone)) {
+    const isExistedPhone = await checkExistedPhone(user.phone);
+    // console.log("AddUserInfo - Phone is existed: ", isExistedPhone);
+    if (!isExistedPhone) {
       //(err) {
       try {
         // console.log("AddUserInfo - Data: ", user);
-        let dataAPI = await addUser(user); // _id of user recently added
+        let dataAPI = await addUser(user); // return _id of user recently added
         // console.log("AddUserInfo - ID User recently added: ", dataAPI);
 
         if (dataAPI) {
@@ -166,6 +154,7 @@ const AddUserInfo = ({ navigation }) => {
         //     style: "cancel",
         //   },
         // ]);
+        await SecureStore.setItemAsync("USER_ID", dataAPI);
         navigation.navigate(nameList.userInfo, { idUser: dataAPI });
       } catch (err) {
         console.log("AddUserInfo - Error while adding User.");
@@ -201,7 +190,7 @@ const AddUserInfo = ({ navigation }) => {
             />
             <View center marginV-10>
               <Text text50 green>
-                Đăng ký thông tin
+                Đăng ký tài khoản
               </Text>
               {/* <TextR style={styles.require}>* Bắt buộc nhập</TextR> */}
             </View>
@@ -413,12 +402,12 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  require: {
-    marginTop: 10,
-    color: color.redColor,
-    fontSize: 14,
-    fontStyle: "italic",
-  },
+  // require: {
+  //   marginTop: 10,
+  //   color: color.redColor,
+  //   fontSize: 14,
+  //   fontStyle: "italic",
+  // },
   label: {
     fontSize: 18,
     fontWeight: "500",

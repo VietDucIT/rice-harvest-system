@@ -212,7 +212,7 @@ const FarmerInfo = ({ navigation, route }) => {
               />
             ) : (
               <CustomButton
-                label="Lưu"
+                label="Lưu liên hệ"
                 onPress={() => {
                   handleSaveContact(farmerData);
                 }}
