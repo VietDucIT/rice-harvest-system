@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polygon } from "react-native-maps";
+import MapView, { Marker, Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
 
 import color from "../../config/color";
 
+import seasonState from "../../json/seasonState";
+
 const Map = ({ fieldData, ...props }) => {
-  console.log("Map - Field Data: ", fieldData);
+  // set color for Rice Field
+  let fieldColor = "red";
+  for (let item of seasonState) {
+    if (item.name === fieldData.currentStatus) {
+      fieldColor = item.color;
+      // console.log("Map - Field's color: ", fieldColor);
+      break;
+    }
+  }
+
+  // console.log("Map - Field Data: ", fieldData);
   const point1 = vn2000_to_wgs84(
     fieldData.y1,
     fieldData.x1,
@@ -52,6 +64,15 @@ const Map = ({ fieldData, ...props }) => {
     console.log("Map - Can't convert VN2000 to WGS-84.");
   }
 
+  const address =
+    fieldData.village +
+    ", " +
+    fieldData.commune +
+    ", " +
+    fieldData.town +
+    ", " +
+    fieldData.province;
+
   return (
     <View style={styles.container}>
       <MapView
@@ -64,12 +85,26 @@ const Map = ({ fieldData, ...props }) => {
         }}
       >
         {pointList && (
-          <Polygon
-            coordinates={pointList}
-            strokeColor={color.redColor}
-            fillColor={color.lightRedTransparent}
-            // strokeWidth={6}
-          />
+          <View>
+            <Marker
+              coordinate={pointList[1]}
+              title={fieldData.name}
+              description={address}
+            />
+            <Polygon
+              coordinates={pointList}
+              strokeColor={color[fieldColor + "Color"]}
+              fillColor={
+                color[
+                  "light" +
+                    fieldColor.charAt(0).toUpperCase() +
+                    fieldColor.slice(1) +
+                    "Transparent"
+                ]
+              }
+              // strokeWidth={6}
+            />
+          </View>
         )}
       </MapView>
     </View>

@@ -19,6 +19,7 @@ import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getRiceField from "../../services/riceField/getRiceField";
+import getCurrentStatus from "../../services/riceSeason/getCurrentStatus";
 
 LogBox.ignoreLogs(["Input error!"]);
 
@@ -27,6 +28,7 @@ StyleInit();
 const RiceFieldInfo = ({ navigation, route }) => {
   const { idRiceField } = route.params;
   const [fieldData, setFieldData] = useState({});
+  const [currentStatus, setCurrentStatus] = useState();
 
   // call API to get Rice Field data
   const getRiceFieldData = useCallback(async () => {
@@ -35,13 +37,28 @@ const RiceFieldInfo = ({ navigation, route }) => {
       // console.log("RiceFieldInfo - Rice Field data: ", data);
       setFieldData(data);
     } catch (err) {
-      console.log("RiceFieldInfo - RError while getting Rice Field data.");
+      console.log("RiceFieldInfo - Error while getting Rice Field data.");
     }
   }, [idRiceField]);
 
   useEffect(() => {
     getRiceFieldData();
   }, [getRiceFieldData]);
+
+  // call API to get current status of Rice Field
+  const getCurrentState = useCallback(async () => {
+    try {
+      const data = await getCurrentStatus(idRiceField);
+      // console.log("RiceFieldInfo - Current Status: ", data);
+      setCurrentStatus(data);
+    } catch (err) {
+      console.log("RiceFieldInfo - Error while current status of Rice Field.");
+    }
+  }, [idRiceField]);
+
+  useEffect(() => {
+    getCurrentState();
+  }, [getCurrentState]);
 
   return (
     <ScrollView>
@@ -96,7 +113,7 @@ const RiceFieldInfo = ({ navigation, route }) => {
 
             {fieldData && (
               <View flex style={styles.mapContainer}>
-                <Map fieldData={fieldData} />
+                <Map fieldData={{ ...fieldData, currentStatus }} />
               </View>
             )}
           </View>

@@ -185,7 +185,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                                   : styles.rejectStatus
                               }
                             >
-                              ({item.status})
+                              {item.status && `(${item.status})`}
                             </TextR>
                           </TextR>
                           <View style={styles.subContainer}>

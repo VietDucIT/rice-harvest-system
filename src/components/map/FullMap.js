@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polygon } from "react-native-maps";
+import MapView, { Marker, Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
+
+import nameList from "../../json/nameList";
 
 import Loader from "../core/Loader";
 
@@ -9,7 +11,9 @@ import color from "../../config/color";
 
 import getAllRiceField from "../../services/riceField/getAllRiceField";
 
-const FullMap = (props) => {
+import seasonState from "../../json/seasonState";
+
+const FullMap = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldArray, setFieldArray] = useState([]);
 
@@ -45,6 +49,15 @@ const FullMap = (props) => {
           }}
         >
           {fieldArray.map((item, index) => {
+            let fieldColor = "red";
+            for (let state of seasonState) {
+              if (state.name === item.currentStatus) {
+                fieldColor = state.color;
+                // console.log("FullMap - Field's color: ", fieldColor);
+                break;
+              }
+            }
+
             const point1 = vn2000_to_wgs84(
               item.y1,
               item.x1,
@@ -96,13 +109,34 @@ const FullMap = (props) => {
             // console.log("Point List", index, ":", pointList);
 
             return (
-              <Polygon
-                key={index}
-                coordinates={pointList}
-                strokeColor={color.greenColor}
-                fillColor={color.lightGreenTransparent}
-                // strokeWidth={6}
-              />
+              <View key={index}>
+                <Marker
+                  coordinate={pointList[1]}
+                  title={item.name}
+                  description={item.currentStatus}
+                  // pinColor={color[fieldColor + "Color"]}
+                  onPress={() =>
+                    navigation.navigate(nameList.riceFieldInfo, {
+                      idRiceField: item._id,
+                    })
+                  }
+                />
+                <Polygon
+                  coordinates={pointList}
+                  // strokeColor={color.greenColor}
+                  // fillColor={color.lightGreenTransparent}
+                  strokeColor={color[fieldColor + "Color"]}
+                  fillColor={
+                    color[
+                      "light" +
+                        fieldColor.charAt(0).toUpperCase() +
+                        fieldColor.slice(1) +
+                        "Transparent"
+                    ]
+                  }
+                  // strokeWidth={6}
+                />
+              </View>
             );
           })}
         </MapView>

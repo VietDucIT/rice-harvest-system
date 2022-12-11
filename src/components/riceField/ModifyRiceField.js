@@ -59,7 +59,7 @@ const ModifyRiceField = ({ navigation, route }) => {
     y4: "",
     description: "",
   };
-  const [riceField, setRiceField] = useState(initState);
+  const [riceField, setRiceField] = useState(fieldData);
   const [error, setError] = useState(initState);
   const [isReset, setIsReset] = useState(true);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
