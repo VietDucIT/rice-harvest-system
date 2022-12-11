@@ -5,8 +5,10 @@ import {
   ScrollView,
   StyleSheet,
   ToastAndroid,
+  TouchableOpacity,
 } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as SecureStore from "expo-secure-store";
 
 import nameList from "../json/nameList";
@@ -29,6 +31,7 @@ const FirstScreen = ({ navigation }) => {
   };
   const [user, setUser] = useState(initState);
   const [error, setError] = useState(initState);
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -120,7 +123,7 @@ const FirstScreen = ({ navigation }) => {
             text65
             value={user.phone}
             onChangeText={(text) => onChange(text, "phone")}
-            placeholder="Tên đăng nhập (Số điện thoại)"
+            placeholder="Số điện thoại"
             floatingPlaceholder
             floatOnFocus
             floatingPlaceholderColor={{
@@ -135,23 +138,49 @@ const FirstScreen = ({ navigation }) => {
           <Text red>{error.phone}</Text>
 
           {/* Password */}
-          <TextField
-            secureTextEntry
-            text65
-            value={user.password}
-            onChangeText={(text) => onChange(text, "password")}
-            placeholder="Mật khẩu"
-            floatingPlaceholder
-            floatOnFocus
-            floatingPlaceholderColor={{
-              focus: color.greenColor,
-              default: color.lightGreyColor,
-            }}
-            containerStyle={{ marginBottom: 10 }}
-            showCharCounter
-            style={styles.textField}
-            marginT-10
-          />
+          <View style={styles.passwordContainer}>
+            <TextField
+              secureTextEntry={!isShowPassword}
+              text65
+              value={user.password}
+              onChangeText={(text) => onChange(text, "password")}
+              placeholder="Mật khẩu"
+              floatingPlaceholder
+              floatOnFocus
+              floatingPlaceholderColor={{
+                focus: color.greenColor,
+                default: color.lightGreyColor,
+              }}
+              containerStyle={{ marginBottom: 10 }}
+              showCharCounter
+              style={[styles.textField, styles.password]}
+              marginT-10
+            />
+            <TouchableOpacity
+              style={styles.eye}
+              onPress={() => setIsShowPassword(!isShowPassword)}
+            >
+              {isShowPassword ? (
+                <Text green text70 style={{ fontWeight: "600" }}>
+                  Ẩn
+                </Text>
+              ) : (
+                // <FontAwesome5
+                //   name="eye"
+                //   size={22}
+                //   color={color.greenColor}
+                // />
+                <Text green text70 style={{ fontWeight: "600" }}>
+                  Hiện
+                </Text>
+                // <FontAwesome5
+                //   name="eye-slash"
+                //   size={22}
+                //   color={color.greenColor}
+                // />
+              )}
+            </TouchableOpacity>
+          </View>
           <Text red>{error.password}</Text>
         </View>
 
@@ -192,5 +221,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+  },
+  password: {
+    width: 300,
+  },
+  eye: {
+    marginTop: 35,
+    marginHorizontal: 10,
   },
 });

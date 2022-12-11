@@ -86,6 +86,7 @@ const AddRiceSeason = ({ navigation }) => {
   const initState = {
     seasonName: "",
     seasonYear: "",
+    riceFieldId: "",
     riceFieldName: "",
     riceName: "",
     currentState: "",
@@ -280,19 +281,24 @@ const AddRiceSeason = ({ navigation }) => {
                 value={riceSeason.riceFieldName}
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
-                  setRiceSeason({ ...riceSeason, riceFieldName: field.value });
+                  setRiceSeason({
+                    ...riceSeason,
+                    riceFieldId: field.value,
+                    riceFieldName: field.label,
+                  });
                 }}
                 style={styles.textField}
               >
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item
                     key={index}
-                    value={item.name}
-                    label={
-                      item.name.length < 40
-                        ? item.name
-                        : `${item.name.substring(0, 39)}...`
-                    }
+                    value={item._id}
+                    label={item.name}
+                    // label={
+                    //   item.name.length < 40
+                    //     ? item.name
+                    //     : `${item.name.substring(0, 39)}...`
+                    // }
                   />
                 ))}
               </Picker>

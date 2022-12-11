@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text as TextR,
   ToastAndroid,
+  TouchableOpacity,
 } from "react-native";
 import {
   Incubator,
@@ -15,6 +16,7 @@ import {
   Text,
   View,
 } from "react-native-ui-lib";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as SecureStore from "expo-secure-store";
 
 import nameList from "../../json/nameList";
@@ -57,6 +59,8 @@ const AddUserInfo = ({ navigation }) => {
   const [user, setUser] = useState(initState);
   const [error, setError] = useState(initState);
   const [isReset, setIsReset] = useState(true);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
@@ -343,16 +347,42 @@ const AddUserInfo = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Mật khẩu:
               </TextR>
-              <TextField
-                secureTextEntry
-                text70
-                grey10
-                value={user.password}
-                onChangeText={(text) => onChange(text, "password")}
-                style={styles.textField}
-                maxLength={20}
-                showCharCounter
-              />
+              <View style={styles.passwordContainer}>
+                <TextField
+                  secureTextEntry={!isShowPassword}
+                  text70
+                  grey10
+                  value={user.password}
+                  onChangeText={(text) => onChange(text, "password")}
+                  style={[styles.textField, styles.password]}
+                  maxLength={20}
+                  showCharCounter
+                />
+                <TouchableOpacity
+                  style={styles.eye}
+                  onPress={() => setIsShowPassword(!isShowPassword)}
+                >
+                  {isShowPassword ? (
+                    <Text green text70>
+                      Ẩn
+                    </Text>
+                  ) : (
+                    // <FontAwesome5
+                    //   name="eye"
+                    //   size={22}
+                    //   color={color.greenColor}
+                    // />
+                    <Text green text70>
+                      Hiện
+                    </Text>
+                    // <FontAwesome5
+                    //   name="eye-slash"
+                    //   size={22}
+                    //   color={color.greenColor}
+                    // />
+                  )}
+                </TouchableOpacity>
+              </View>
               <Text red>{error.password}</Text>
             </View>
 
@@ -361,16 +391,34 @@ const AddUserInfo = ({ navigation }) => {
               <TextR text70 style={styles.label}>
                 Nhập lại mật khẩu:
               </TextR>
-              <TextField
-                secureTextEntry
-                text70
-                grey10
-                value={user.confirmPassword}
-                onChangeText={(text) => onChange(text, "confirmPassword")}
-                style={styles.textField}
-                maxLength={20}
-                showCharCounter
-              />
+              <View style={styles.passwordContainer}>
+                <TextField
+                  secureTextEntry={!isShowConfirmPassword}
+                  text70
+                  grey10
+                  value={user.confirmPassword}
+                  onChangeText={(text) => onChange(text, "confirmPassword")}
+                  style={[styles.textField, styles.password]}
+                  maxLength={20}
+                  showCharCounter
+                />
+                <TouchableOpacity
+                  style={styles.eye}
+                  onPress={() =>
+                    setIsShowConfirmPassword(!isShowConfirmPassword)
+                  }
+                >
+                  {isShowConfirmPassword ? (
+                    <Text green text70>
+                      Ẩn
+                    </Text>
+                  ) : (
+                    <Text green text70>
+                      Hiện
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              </View>
               <Text red>{error.confirmPassword}</Text>
             </View>
 
@@ -421,6 +469,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: color.lightGreyColor,
     paddingBottom: 5,
+  },
+  passwordContainer: {
+    // width: "100%",
+    // flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  password: {
+    width: 300,
+  },
+  eye: {
+    marginTop: 12,
+    marginHorizontal: 10,
   },
   btnContainer: {
     flexDirection: "row",

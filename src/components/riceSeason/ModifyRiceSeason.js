@@ -104,6 +104,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
   const initState = {
     seasonName: "",
     seasonYear: "",
+    riceFieldId: "",
     riceFieldName: "",
     riceName: "",
     currentState: "",
@@ -154,7 +155,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
 
   const handleModify = async () => {
     let err = false;
-    if (!seasonName) {
+    if (!riceSeason.seasonName) {
       setError({ ...error, seasonName: "* Bắt buộc." });
       err = false;
     } else {
@@ -162,7 +163,7 @@ const ModifyRiceSeason = ({ navigation, route }) => {
       err = true;
     }
 
-    if (!seasonYear) {
+    if (!riceSeason.seasonYear) {
       setError({ ...error, seasonYear: "* Bắt buộc." });
       err = false;
     } else {
@@ -301,19 +302,24 @@ const ModifyRiceSeason = ({ navigation, route }) => {
                 value={riceSeason.riceFieldName}
                 placeholder={"Chọn ruộng lúa"}
                 onChange={(field) => {
-                  setRiceSeason({ ...riceSeason, riceFieldName: field.value });
+                  setRiceSeason({
+                    ...riceSeason,
+                    riceFieldId: field.value,
+                    riceFieldName: field.label,
+                  });
                 }}
                 style={styles.textField}
               >
                 {riceFieldArray.map((item, index) => (
                   <Picker.Item
                     key={index}
-                    value={item.name}
-                    label={
-                      item.name.length < 40
-                        ? item.name
-                        : `${item.name.substring(0, 39)}...`
-                    }
+                    value={item._id}
+                    label={item.name}
+                    // label={
+                    //   item.name.length < 40
+                    //     ? item.name
+                    //     : `${item.name.substring(0, 39)}...`
+                    // }
                   />
                 ))}
               </Picker>
