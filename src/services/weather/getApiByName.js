@@ -5,12 +5,12 @@ import API_KEY from "./apiKey";
 const REQUEST_URL = "https://api.openweathermap.org/data/3.0";
 
 const getWeatherByName = (city) => {
-  // console.log("getApiByName.js - city = ", city)
+  // console.log("getApiByName - city = ", city)
   return new Promise(async (resolve, reject) => {
     const { data, status } = await axios.get(`${REQUEST_URL}/weather`, {
       params: { q: city, appid: `${API_KEY}` },
     });
-    // console.log("getApiByName.js - current = ", data);
+    // console.log("getApiByName - current = ", data);
 
     if (status === 200) {
       const lat = data.coord.lat;
@@ -19,16 +19,16 @@ const getWeatherByName = (city) => {
         `${REQUEST_URL}/onecall`,
         { params: { lat: lat, lon: lon, appid: `${API_KEY}` } }
       );
-      // console.log("getApiByName.js - fullData = ", fullData);
+      // console.log("getApiByName - fullData = ", fullData);
       // console.log('fullStatus', fullStatus);
 
       if (fullStatus === 200) {
         resolve(fullData);
       } else {
-        reject("Can't get coordinate of this city.");
+        reject("getApiByName - Can't get coordinate of this city.");
       }
     } else {
-      reject("Can't find this city.");
+      reject("getApiByName - Can't find this city.");
     }
   });
 };

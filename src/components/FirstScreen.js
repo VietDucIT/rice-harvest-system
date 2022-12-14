@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button, Incubator, Text, View } from "react-native-ui-lib";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+// import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as SecureStore from "expo-secure-store";
 
 import nameList from "../json/nameList";
@@ -76,16 +76,6 @@ const FirstScreen = ({ navigation }) => {
       if (dataAPI) {
         ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
       }
-      // Alert.alert(
-      //   `Xin chào ${dataAPI.nickname ? dataAPI.nickname : dataAPI.name}`,
-      //   "Bạn đã đăng nhập thành công.",
-      //   [
-      //     {
-      //       text: "Tiếp tục",
-      //       style: "cancel",
-      //     },
-      //   ]
-      // );
       reset();
       await SecureStore.setItemAsync("USER_ID", dataAPI._id);
       navigation.navigate(nameList.mainScreen);

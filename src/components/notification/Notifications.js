@@ -5,13 +5,12 @@ import { Text, View } from "react-native-ui-lib";
 import nameList from "../../json/nameList";
 
 import UserOptionButton from "../core/UserOptionButton";
-import CustomButton from "../core/CustomButton";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";
 
 import getNotificationList from "../../services/notification/getNotificationList";
-import modifyNotification from "../../services/notification/modifyNotification";
+// import modifyNotification from "../../services/notification/modifyNotification";
 import deleteNotification from "../../services/notification/deleteNotification";
 import getUserIdStored from "../../services/user/getUserIdStored";
 
@@ -83,18 +82,18 @@ const Notifications = ({ navigation, route }) => {
           <View marginT-20>
             {notificationArray.map((item, index) => (
               <View
-                style={styles.riceSeasonItem}
+                style={styles.notificationItem}
                 padding-5
                 marginV-8
                 marginH-16
                 key={index}
               >
-                <TextR style={styles.farmerName}>{item.farmerName}</TextR>
+                <TextR style={styles.title}>{item.title}</TextR>
                 <View flex style={styles.subContainer}>
                   <Text text80>
-                    {item.riceField.length <= 40
-                      ? `${item.riceField}`
-                      : `${item.riceField.substring(0, 39)}...`}
+                    {item.description.length <= 40
+                      ? `${item.description}`
+                      : `${item.description.substring(0, 39)}...`}
                   </Text>
                   <View flex right style={styles.controllContainer}>
                     <Text
@@ -108,6 +107,7 @@ const Notifications = ({ navigation, route }) => {
                     >
                       Xem
                     </Text>
+
                     <Text
                       text70
                       onPress={handleDelete}
@@ -132,11 +132,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  riceSeasonItem: {
+  notificationItem: {
     borderBottomColor: color.greenColor,
     borderBottomWidth: 0.5,
   },
-  farmerName: {
+  title: {
     fontSize: 16,
     fontWeight: "600",
   },

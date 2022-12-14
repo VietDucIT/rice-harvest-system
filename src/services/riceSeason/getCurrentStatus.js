@@ -11,7 +11,7 @@ const getCurrentStatus = async (riceFieldId) => {
     // console.log("getCurrentStatus - Response from server: ", response.data);
     return response.data; // return currentState of the newest Rice Season
   } catch (err) {
-    console.log("Can't get current status of Rice Field: ", {
+    console.log("getCurrentStatus - Can't get current status of Rice Field: ", {
       err: JSON.stringify(err),
     });
     throw err;

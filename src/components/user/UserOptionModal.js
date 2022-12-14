@@ -33,12 +33,6 @@ const UserOptionModal = ({ navigation }) => {
         onPress: () => {
           SecureStore.deleteItemAsync("USER_ID");
           ToastAndroid.show("Đăng xuất thành công", ToastAndroid.SHORT);
-          // Alert.alert("Thông báo", "Bạn đã đăng xuất thành công.", [
-          //   {
-          //     text: "Đóng",
-          //     style: "cancel",
-          //   },
-          // ]);
           navigation.navigate(nameList.firstScreen);
         },
       },

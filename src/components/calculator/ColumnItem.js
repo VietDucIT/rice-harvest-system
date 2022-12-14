@@ -57,6 +57,7 @@ const ColumnItem = ({ handleTotal, isReset }) => {
         keyboardType="numeric"
         style={styles.item}
       />
+
       <TextField
         text65
         grey10
@@ -66,6 +67,7 @@ const ColumnItem = ({ handleTotal, isReset }) => {
         keyboardType="numeric"
         style={styles.item}
       />
+
       <TextField
         text65
         grey10
@@ -75,6 +77,7 @@ const ColumnItem = ({ handleTotal, isReset }) => {
         keyboardType="numeric"
         style={styles.item}
       />
+
       <TextField
         text65
         grey10
@@ -84,6 +87,7 @@ const ColumnItem = ({ handleTotal, isReset }) => {
         keyboardType="numeric"
         style={styles.item}
       />
+
       <TextField
         text65
         grey10
@@ -93,6 +97,7 @@ const ColumnItem = ({ handleTotal, isReset }) => {
         keyboardType="numeric"
         style={styles.item}
       />
+
       <Text green text60 center marginT-20>
         {sum}
       </Text>

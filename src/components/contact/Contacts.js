@@ -62,8 +62,8 @@ const Contacts = ({ navigation, route }) => {
   // delete a Contact
   const handleDelete = (id) => {
     Alert.alert(
-      "Hủy kết nối?",
-      "Nếu hủy kết nối, bạn sẽ không còn thông tin liên lạc với người dùng này.",
+      "Xóa liên hệ?",
+      "Nếu xóa liên hệ, thông tin liên lạc của người dùng này sẽ không thể tự động hiển thị với bạn.",
       [
         {
           text: "Quay lại",
@@ -77,13 +77,6 @@ const Contacts = ({ navigation, route }) => {
               if (dataAPI) {
                 ToastAndroid.show("Đã xóa người liên hệ", ToastAndroid.SHORT);
               }
-              // Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
-              //   {
-              //     text: "Đóng",
-              //     style: "cancel",
-              //   },
-              // ]);
-
               getContactArray();
             } catch (err) {
               console.log("Contacts - Error while deleting Contact.");
@@ -137,6 +130,7 @@ const Contacts = ({ navigation, route }) => {
                       : `${item.userNickname2.substring(0, 39)}...`}
                   </Text>
                 </TouchableOpacity>
+
                 <View flex style={styles.subContainer}>
                   <View flex right style={styles.controllContainer}>
                     <Text
@@ -150,6 +144,7 @@ const Contacts = ({ navigation, route }) => {
                     >
                       Xem
                     </Text>
+
                     <Text
                       text70
                       onPress={() => handleDelete(item._id)}

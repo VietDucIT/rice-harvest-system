@@ -8,7 +8,9 @@ const updateRicePrice = async () => {
     // console.log("updateRicePrice - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't update Rice Price: ", { err: JSON.stringify(err) });
+    console.log("updateRicePrice - Can't update Rice Price: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

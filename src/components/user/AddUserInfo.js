@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Image,
@@ -16,7 +16,7 @@ import {
   Text,
   View,
 } from "react-native-ui-lib";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+// import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as SecureStore from "expo-secure-store";
 
 import nameList from "../../json/nameList";
@@ -64,7 +64,6 @@ const AddUserInfo = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -109,41 +108,22 @@ const AddUserInfo = ({ navigation }) => {
     }
   }, [user]);
 
-  // call API to check if phone is existed
-  // const [isExistedPhone, setIsExistedPhone] = useState(false);
-  // const checkPhone = useCallback(async () => {
-  //   try {
-  //     const data = await checkExistedPhone(user.phone);
-  //     // console.log("AddUserInfo - Phone is existed: ", data);
-  //     setIsExistedPhone(data);
-  //   } catch (err) {
-  //     console.log("AddUserInfo - Error while checking existed phone.");
-  //   }
-  // }, [user.phone]);
-  // useEffect(() => {
-  //   checkPhone();
-  // }, [checkPhone]);
-
   const handleAdd = async () => {
-    // let err = false;
     if (!error.birthYear) {
       setError({
         ...error,
         birthYear: "* Bắt buộc.",
       });
-      // err = false;
     } else {
       setError({
         ...error,
         birthYear: "",
       });
-      // err = true;
     }
 
     const isExistedPhone = await checkExistedPhone(user.phone);
     // console.log("AddUserInfo - Phone is existed: ", isExistedPhone);
     if (!isExistedPhone) {
-      //(err) {
       try {
         // console.log("AddUserInfo - Data: ", user);
         let dataAPI = await addUser(user); // return _id of user recently added
@@ -152,12 +132,6 @@ const AddUserInfo = ({ navigation }) => {
         if (dataAPI) {
           ToastAndroid.show("Đăng ký tài khoản thành công", ToastAndroid.SHORT);
         }
-        // Alert.alert("Thông báo", "Đăng ký tài khoản thành công.", [
-        //   {
-        //     text: "Đóng",
-        //     style: "cancel",
-        //   },
-        // ]);
         await SecureStore.setItemAsync("USER_ID", dataAPI);
         navigation.navigate(nameList.userInfo, { idUser: dataAPI });
       } catch (err) {
@@ -450,12 +424,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  // require: {
-  //   marginTop: 10,
-  //   color: color.redColor,
-  //   fontSize: 14,
-  //   fontStyle: "italic",
-  // },
   label: {
     fontSize: 18,
     fontWeight: "500",
@@ -471,8 +439,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   passwordContainer: {
-    // width: "100%",
-    // flexWrap: "wrap",
     flexDirection: "row",
   },
   password: {

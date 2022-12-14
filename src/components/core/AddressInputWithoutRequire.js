@@ -78,7 +78,6 @@ const AddressInputWithoutRequire = ({ handleAddress, isReset }) => {
           onChange={(text) => {
             console.log(text.value);
             setAddress({
-              // ...address,
               province: text.label,
               town: "",
               commune: "",

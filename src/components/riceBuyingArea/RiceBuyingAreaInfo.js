@@ -37,17 +37,6 @@ const RiceBuyingAreaInfo = ({ navigation, route }) => {
     getRiceBuyingAreaData();
   }, [getRiceBuyingAreaData]);
 
-  const fieldData = {
-    x1: 1068274.57,
-    y1: 539311.12,
-    x2: 1068275.16,
-    y2: 539859.84,
-    x3: 1068828.14,
-    y3: 539859.24,
-    x4: 1068938.15,
-    y4: 539310.42,
-  };
-
   return (
     <ScrollView>
       <View flex marginB-50>

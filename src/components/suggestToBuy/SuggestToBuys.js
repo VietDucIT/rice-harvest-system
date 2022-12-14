@@ -37,23 +37,6 @@ const SuggestToBuys = ({ navigation, route }) => {
   );
 
   const [suggestArray, setSuggestArray] = useState([]);
-  // const [suggestArray, setSuggestArray] = useState([
-  //   {
-  //     _id: "1",
-  //     seasonFarmerName: "Nguyễn Việt Đức (Ba Đức)",
-  //     seasonRiceFieldName: "Ruộng Kênh Cầu Tre",
-  //   },
-  //   {
-  //     _id: "2",
-  //     seasonFarmerName: "Nguyễn Việt Đức (Ba Đức)",
-  //     seasonRiceFieldName: "Ruộng Láng Ba Rinh",
-  //   },
-  //   {
-  //     _id: "3",
-  //     seasonFarmerName: "Lê Thị C (Năm C)",
-  //     seasonRiceFieldName: "Ruộng Bờ Dọc",
-  //   },
-  // ]);
 
   // call API to get Suggest To Buy Array
   const getSuggestToBuyArray = useCallback(async () => {
@@ -94,14 +77,6 @@ const SuggestToBuys = ({ navigation, route }) => {
             if (dataAPI) {
               ToastAndroid.show("Đã xóa đề xuất thu mua", ToastAndroid.SHORT);
             }
-            // Alert.alert("Thông báo", "Đã xóa đề xuất thu mua này.", [
-            //   {
-            //     text: "Đóng",
-            //     style: "cancel",
-            //   },
-            // ]);
-
-            // recall API to get list after deleting
             getSuggestToBuyArray();
           } catch (err) {
             console.log("SuggestToBuys - Error while deleting Suggest To Buy.");
@@ -176,6 +151,7 @@ const SuggestToBuys = ({ navigation, route }) => {
                         : `${item.seasonRiceFieldName.substring(0, 34)}...`}
                     </Text>
                   </TouchableOpacity>
+
                   <View flex style={styles.subContainer}>
                     <View flex right style={styles.controllContainer}>
                       <Text
@@ -189,6 +165,7 @@ const SuggestToBuys = ({ navigation, route }) => {
                       >
                         Xem
                       </Text>
+
                       <Text
                         text70
                         onPress={() => handleDelete(item._id)}

@@ -199,7 +199,6 @@ const RicePrice = ({ navigation }) => {
                   <Text text80>(Đơn vị tính: đồng/kg)</Text>
                 </View>
 
-                {/* <ScrollView flex padding-16 paddingT-30 horizontal> */}
                 <View flex padding-16 paddingT-30>
                   <Table borderStyle={{ borderWidth: 1 }}>
                     <Row
@@ -208,7 +207,6 @@ const RicePrice = ({ navigation }) => {
                       textStyle={styles.tableHeading}
                       flexArr={[1, 1, 1, 1, 1]}
                     />
-                    {/* <Rows data={table2.tableData} textStyle={styles.tableText} /> */}
                     <TableWrapper style={styles.tableWrapper}>
                       <Col
                         data={table2.tableTitle}
@@ -224,7 +222,6 @@ const RicePrice = ({ navigation }) => {
                     </TableWrapper>
                   </Table>
                 </View>
-                {/* </ScrollView> */}
 
                 <View marginH-15 marginT-10>
                   <Text text80 style={styles.bottomNote}>

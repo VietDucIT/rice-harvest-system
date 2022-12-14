@@ -96,12 +96,6 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
           ToastAndroid.SHORT
         );
       }
-      // Alert.alert("Thông báo", "Đã lưu thông tin đề xuất thu mua.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.suggestToBuyInfo, { idSuggestToBuy });
     } catch (err) {
       console.log("ModifySuggestToBuy - Error while modifying Suggest To Buy.");
@@ -233,7 +227,7 @@ const ModifySuggestToBuy = ({ navigation, route }) => {
               />
             </View>
 
-            {/* Suggested suggestedPrice */}
+            {/* Suggested Price */}
             <View marginT-20>
               <TextR style={styles.label}>Giá đề xuất (đồng/kg):</TextR>
               <TextField

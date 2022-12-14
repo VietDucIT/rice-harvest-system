@@ -9,7 +9,9 @@ const getPricePrediction = async () => {
     // console.log("getPricePrediction - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Price Prediction: ", { err: JSON.stringify(err) });
+    console.log("getPricePrediction - Can't get Price Prediction: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -45,16 +44,13 @@ const FarmerInfo = ({ navigation, route }) => {
   // get Farmer data
   const getFarmerData = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getFarmer(idFarmer);
       // console.log("FarmerInfo - Farmer data: ", data);
       setFarmerData(data);
-      // setLoading(false);
     } catch (err) {
       console.log("FarmerInfo - Error while getting Farmer data.");
     }
   }, [idFarmer]);
-
   useEffect(() => {
     getFarmerData();
   }, [getFarmerData]);
@@ -62,30 +58,27 @@ const FarmerInfo = ({ navigation, route }) => {
   // get Rice Season list of Farmer
   const getRiceSeasonArray = useCallback(async () => {
     try {
-      // setLoading(true);
       const data = await getRiceSeasonList(idFarmer);
       // console.log("FarmerInfo - Rice Season list: ", data);
       setRiceSeasonArray(data);
-      // setLoading(false);
     } catch (err) {
       console.log("FarmerInfo - Error while getting Rice Season list.");
     }
   }, [idFarmer]);
-
   useEffect(() => {
     getRiceSeasonArray();
   }, [getRiceSeasonArray]);
 
+  // check if contacted to enable/disable Button
   const checkContact = useCallback(async () => {
     try {
       const data = await checkIfContacted(userId, idFarmer);
       // console.log("FarmerInfo - Is contacted: ", data);
-      setIsContacted(data); // true / false
+      setIsContacted(data); // true/false
     } catch (err) {
       console.log("FarmerInfo - Error while checking if User is contacted.");
     }
   }, [userId, idFarmer]);
-
   useEffect(() => {
     checkContact();
   }, [checkContact]);
@@ -98,12 +91,6 @@ const FarmerInfo = ({ navigation, route }) => {
       if (dataAPI) {
         ToastAndroid.show("Đã thêm vào danh sách liên hệ", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Đã thêm vào danh sách liên hệ.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.findFarmers, { hasNewContact: true });
     } catch (err) {
       console.log("FarmerInfo - Error while adding Contact.", err);
@@ -130,7 +117,7 @@ const FarmerInfo = ({ navigation, route }) => {
                 {farmerData.name}
               </Text>
               <Text text60 green>
-                ({farmerData.nickname})
+                {farmerData.nickname && `(${farmerData.nickname})`}
               </Text>
             </View>
           </View>

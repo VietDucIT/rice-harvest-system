@@ -10,7 +10,9 @@ const getNotificationList = async (idUser) => {
     // console.log("getNotificationList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Notification List: ", { err: JSON.stringify(err) });
+    console.log("getNotificationList - Can't get Notification List: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

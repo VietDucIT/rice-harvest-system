@@ -188,6 +188,7 @@ const RiceSeasonInfo = ({ navigation, route }) => {
                               {item.status && `(${item.status})`}
                             </TextR>
                           </TextR>
+
                           <View style={styles.subContainer}>
                             <Text text80>
                               Giá: {item.suggestedPrice} đồng/kg

@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const modifyRiceBuyingArea = async (riceBuyingAreaData) => {
   try {
-    // console.log("Rice Buying Area: ", riceBuyingAreaData);
+    // console.log("modifyRiceBuyingArea - Rice Buying Area: ", riceBuyingAreaData);
     const response = await axios.put(
       `${REQUEST_URL}/rice-buying-area/${riceBuyingAreaData._id}`,
       riceBuyingAreaData
@@ -12,7 +12,7 @@ const modifyRiceBuyingArea = async (riceBuyingAreaData) => {
     // console.log("modifyRiceBuyingArea - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't modify Rice Buying Area: ", {
+    console.log("modifyRiceBuyingArea - Can't modify Rice Buying Area: ", {
       err: JSON.stringify(err),
     });
     throw err;

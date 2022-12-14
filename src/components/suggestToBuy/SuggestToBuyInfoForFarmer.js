@@ -107,12 +107,6 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
                 ToastAndroid.SHORT
               );
             }
-            // Alert.alert("Thông báo", "Đã từ chối đề xuất thu mua.", [
-            //   {
-            //     text: "Đóng",
-            //     style: "cancel",
-            //   },
-            // ]);
             navigation.navigate(nameList.riceSeasonInfo, {
               idRiceSeason: suggestToBuyData.seasonId,
               hasUpdated: true,
@@ -235,6 +229,7 @@ const SuggestToBuyInfoForFarmer = ({ navigation, route }) => {
                 style={{ marginLeft: 30, width: 130 }}
               />
             )}
+
             {suggestToBuyData.status === "Chấp nhận" ? (
               <CustomButton
                 label="Đã chấp nhận"

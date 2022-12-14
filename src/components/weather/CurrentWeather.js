@@ -72,16 +72,6 @@ const CurrentWeather = ({ navigation }) => {
           ToastAndroid.LONG
         );
       }
-      // Alert.alert(
-      //   "Thông báo",
-      //   `Hiển thị thông tin thời tiết tại ${data[0].local_names.vi}.`,
-      //   [
-      //     {
-      //       text: "OK",
-      //       style: "cancel",
-      //     },
-      //   ]
-      // );
     } catch (err) {
       console.log("CurrentWeather - Can't convert Coord to Name.");
     }
@@ -354,9 +344,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingTop: 5,
     paddingLeft: 10,
-    // borderRightWidth: 0,
-    // borderTopLeftRadius: 20,
-    // borderBottomLeftRadius: 20,
   },
   weatherContainer: {
     marginTop: 30,

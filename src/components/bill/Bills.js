@@ -89,6 +89,7 @@ const Bills = ({ navigation, route }) => {
                       item.province}
                   </Text>
                 </View>
+
                 <View flex right style={styles.controllContainer}>
                   <Text
                     green
@@ -101,6 +102,7 @@ const Bills = ({ navigation, route }) => {
                   >
                     Xem
                   </Text>
+
                   <Text
                     text70
                     onPress={() => handleDelete(item)}

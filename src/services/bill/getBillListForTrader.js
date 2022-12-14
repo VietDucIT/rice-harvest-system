@@ -8,7 +8,7 @@ const getBillListForTrader = async (idTrader) => {
     // console.log("getBillListForTrader - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Bill List for Trader: ", {
+    console.log("getBillListForTrader - Can't get Bill list for Trader: ", {
       err: JSON.stringify(err),
     });
     throw err;

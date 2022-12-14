@@ -15,7 +15,7 @@ const Loader = () => (
     <ActivityIndicator size={40} color={color.greenColor} />
 
     <Text text70 marginT-20 green>
-      Đang tải, vui lòng chờ ...
+      Đang tải, vui lòng chờ...
     </Text>
   </View>
 );

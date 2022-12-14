@@ -11,6 +11,7 @@ const MapForBuyingArea = ({ riceBuyingArea }) => {
     riceBuyingArea.town +
     ", " +
     riceBuyingArea.province;
+
   return (
     <View style={styles.container}>
       <MapView

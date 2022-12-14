@@ -9,7 +9,9 @@ const getPriceHistory = async () => {
     // console.log("getPriceHistory - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Price History: ", { err: JSON.stringify(err) });
+    console.log("getPriceHistory - Can't get Price History: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

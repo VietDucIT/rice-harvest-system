@@ -98,14 +98,6 @@ const RiceBuyingAreas = ({ navigation, route }) => {
               if (dataAPI) {
                 ToastAndroid.show("Đã xóa khu vực thu mua", ToastAndroid.SHORT);
               }
-              // Alert.alert("Thông báo", "Đã xóa khu vực thu mua.", [
-              //   {
-              //     text: "Đóng",
-              //     style: "cancel",
-              //   },
-              // ]);
-
-              // recall API to get list after deleting
               getRiceBuyingAreaArray();
             } catch (err) {
               console.log(
@@ -181,6 +173,7 @@ const RiceBuyingAreas = ({ navigation, route }) => {
                           : `${address.substring(0, 34)}...`}
                       </Text>
                     </TouchableOpacity>
+
                     <View flex style={styles.subContainer}>
                       <View flex right style={styles.controllContainer}>
                         <Text
@@ -194,6 +187,7 @@ const RiceBuyingAreas = ({ navigation, route }) => {
                         >
                           Xem
                         </Text>
+
                         <Text
                           text70
                           onPress={() => handleDelete(item)}

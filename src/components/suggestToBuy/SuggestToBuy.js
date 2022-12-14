@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -45,7 +44,7 @@ const SuggestToBuy = ({ navigation, route }) => {
   const getRiceSeasonData = useCallback(async () => {
     try {
       const data = await getRiceSeason(idRiceSeason);
-      console.log("SuggestToBuy - Rice Season data: ", data);
+      // console.log("SuggestToBuy - Rice Season data: ", data);
       setSeasonData(data);
     } catch (err) {
       console.log("SuggestToBuy - Error while getting Rice Season data.");
@@ -61,7 +60,7 @@ const SuggestToBuy = ({ navigation, route }) => {
   const getTraderData = useCallback(async () => {
     try {
       const data = await getUser(userId);
-      console.log("SuggestToBuy - Trader data: ", data);
+      // console.log("SuggestToBuy - Trader data: ", data);
       setTraderData(data);
     } catch (err) {
       console.log("SuggestToBuy - Error while getting Trader data.");
@@ -76,7 +75,7 @@ const SuggestToBuy = ({ navigation, route }) => {
   const getFarmerData = useCallback(async () => {
     try {
       const data = await getUser(seasonData.farmerId);
-      console.log("SuggestToBuy - Farmer data: ", data);
+      // console.log("SuggestToBuy - Farmer data: ", data);
       setFarmerData(data);
     } catch (err) {
       console.log("SuggestToBuy - Error while getting Farmer data.");
@@ -157,12 +156,6 @@ const SuggestToBuy = ({ navigation, route }) => {
       if (dataAPI) {
         ToastAndroid.show("Đề xuất thu mua thành công", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Đề xuất thu mua thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.suggestToBuys, { hasNewSuggest: true });
     } catch (err) {
       console.log("SuggestToBuy - Error while adding Suggest To Buy.");

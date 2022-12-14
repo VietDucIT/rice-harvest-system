@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -58,7 +57,6 @@ const AddRiceField = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -111,22 +109,13 @@ const AddRiceField = ({ navigation }) => {
 
   const handleAdd = async () => {
     try {
-      // setLoading(true);
-
       // console.log("AddRiceField - Data: ", riceField);
       let dataAPI = await addRiceField(riceField);
       // console.log("AddRiceField - Data API: ", dataAPI);
       if (dataAPI) {
         ToastAndroid.show("Đã thêm ruộng lúa", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Thêm ruộng lúa thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.riceFields, { hasNewField: true });
-      // setLoading(false);
     } catch (err) {
       console.log("AddRiceField - Error while adding Rice Field.");
     }

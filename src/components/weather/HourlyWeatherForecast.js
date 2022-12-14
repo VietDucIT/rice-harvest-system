@@ -166,9 +166,6 @@ const styles = StyleSheet.create({
   hourItem: {
     width: "100%",
     justifyContent: "space-between",
-    // borderBottomWidth: 0.5,
-    // borderColor: color.lightGreyColor,
-    // paddingBottom: 5,
   },
   weatherContainer: {
     flexDirection: "row",

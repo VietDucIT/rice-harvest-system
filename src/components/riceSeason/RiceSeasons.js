@@ -37,7 +37,6 @@ const RiceSeasons = ({ navigation, route }) => {
     [userId]
   );
 
-  // FIND RICE SEASON BY NAME
   let seasonName = { name: "", year: "" };
 
   const currentTime = new Date();
@@ -105,14 +104,6 @@ const RiceSeasons = ({ navigation, route }) => {
                 ToastAndroid.SHORT
               );
             }
-            // Alert.alert("Thông báo", `Đã xóa vụ mùa ${season.name}.`, [
-            //   {
-            //     text: "Đóng",
-            //     style: "cancel",
-            //   },
-            // ]);
-
-            // recall API to get list after deleting
             getRiceSeasonArray();
           } catch (err) {
             console.log("RiceSeasons - Error while deleting Rice Season.");
@@ -226,6 +217,7 @@ const RiceSeasons = ({ navigation, route }) => {
                         >
                           Xem
                         </Text>
+
                         <Text
                           text70
                           onPress={() => handleDelete(item)}

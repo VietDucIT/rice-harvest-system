@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -50,7 +49,6 @@ const AddRiceBuyingArea = ({ navigation }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "" && field === "name") {
       message = "* Vui lòng nhập tên khu vực.";
@@ -102,12 +100,6 @@ const AddRiceBuyingArea = ({ navigation }) => {
       if (dataAPI) {
         ToastAndroid.show("Đã thêm khu vực thu mua", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Thêm khu vực thu mua thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.riceBuyingAreas, { hasNewBuyingArea: true });
     } catch (err) {
       console.log("AddRiceBuyingArea - Error while adding Rice Buying Area.");

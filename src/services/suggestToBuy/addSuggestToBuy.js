@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const addSuggestToBuy = async (suggestToBuyData) => {
   try {
-    // console.log("Suggest To Buy: ", suggestToBuyData);
+    // console.log("addSuggestToBuy - Suggest To Buy: ", suggestToBuyData);
     const response = await axios.post(
       `${REQUEST_URL}/suggest-to-buy/`,
       suggestToBuyData
@@ -12,7 +12,9 @@ const addSuggestToBuy = async (suggestToBuyData) => {
     // console.log("addSuggestToBuy - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't add Suggest To Buy: ", { err: JSON.stringify(err) });
+    console.log("addSuggestToBuy - Can't add Suggest To Buy: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

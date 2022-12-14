@@ -61,7 +61,6 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
   };
 
   const onChangeVillage = (text) => {
-    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -102,7 +101,6 @@ const AddressInput = ({ addressObject, handleAddress, isReset }) => {
           onChange={(text) => {
             console.log(text.value);
             setAddress({
-              ...address,
               province: text.value,
               town: "",
               commune: "",

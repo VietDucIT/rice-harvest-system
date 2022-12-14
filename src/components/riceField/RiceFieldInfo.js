@@ -10,10 +10,10 @@ import { Text, View } from "react-native-ui-lib";
 
 import nameList from "../../json/nameList";
 
-import Map from "../map/Map";
-
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
+
+import Map from "../map/Map";
 
 import color from "../../config/color";
 import { StyleInit } from "../../config/StyleInit";

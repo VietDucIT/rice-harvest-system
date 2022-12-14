@@ -78,7 +78,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -124,19 +123,16 @@ const ModifyUserInfo = ({ navigation, route }) => {
   }, [user]);
 
   const handleModify = async () => {
-    // let err = false;
     if (!error.birthYear) {
       setError({
         ...error,
         birthYear: "* Bắt buộc.",
       });
-      // err = false;
     } else {
       setError({
         ...error,
         birthYear: "",
       });
-      // err = true;
     }
 
     const isExistedPhone = await checkExistedPhone(user.phone);
@@ -150,12 +146,6 @@ const ModifyUserInfo = ({ navigation, route }) => {
         if (dataAPI) {
           ToastAndroid.show("Đã lưu thông tin", ToastAndroid.SHORT);
         }
-        // Alert.alert("Thông báo", "Đã lưu thông tin người dùng.", [
-        //   {
-        //     text: "Đóng",
-        //     style: "cancel",
-        //   },
-        // ]);
         navigation.navigate(nameList.userInfo, { idUser });
       } catch (err) {
         console.log("ModifyUserInfo - Error while modifying User.");

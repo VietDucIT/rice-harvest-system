@@ -30,7 +30,10 @@ const RiceFields = ({ navigation, route }) => {
   getUserIdStored().then((value) => {
     setUserId(value);
   });
-  useEffect(() => console.log("RiceFields - User ID: ", userId), [userId]);
+  useEffect(
+    () => console.log("RiceFields - User ID from SecureStore: ", userId),
+    [userId]
+  );
 
   const [fieldName, setFieldName] = useState("");
 
@@ -89,14 +92,6 @@ const RiceFields = ({ navigation, route }) => {
             if (dataAPI) {
               ToastAndroid.show(`Đã xóa ${field.name}.`, ToastAndroid.SHORT);
             }
-            // Alert.alert("Thông báo", `Đã xóa ${field.name}.`, [
-            //   {
-            //     text: "Đóng",
-            //     style: "cancel",
-            //   },
-            // ]);
-
-            // recall API to get list after deleting
             getRiceFieldArray();
           } catch (err) {
             console.log("RiceFields - Error while deleting Rice Field.");
@@ -157,6 +152,7 @@ const RiceFields = ({ navigation, route }) => {
                         : `${item.name?.substring(0, 39)}...`}
                     </Text>
                   </TouchableOpacity>
+
                   <View right>
                     <Text
                       green
@@ -169,6 +165,7 @@ const RiceFields = ({ navigation, route }) => {
                     >
                       Xem
                     </Text>
+
                     <Text
                       text70
                       onPress={() => handleDelete(item)}

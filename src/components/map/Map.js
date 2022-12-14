@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polygon } from "react-native-maps";
 import { vn2000_to_wgs84 } from "vn2000-converter";
@@ -93,8 +93,9 @@ const Map = ({ fieldData, ...props }) => {
             />
             <Polygon
               coordinates={pointList}
-              strokeColor={color[fieldColor + "Color"]}
+              strokeColor={color[fieldColor + "Color"]} // color.greenColor
               fillColor={
+                // color.lightGreenTransparent
                 color[
                   "light" +
                     fieldColor.charAt(0).toUpperCase() +

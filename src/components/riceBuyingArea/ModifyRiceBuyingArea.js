@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -59,7 +58,6 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "" && field === "name") {
       message = "* Vui lòng nhập tên khu vực.";
@@ -110,12 +108,6 @@ const ModifyRiceBuyingArea = ({ navigation, route }) => {
           ToastAndroid.SHORT
         );
       }
-      // Alert.alert("Thông báo", "Đã lưu thông tin khu vực thu mua.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.riceBuyingAreaInfo, {
         idRiceBuyingArea,
       });

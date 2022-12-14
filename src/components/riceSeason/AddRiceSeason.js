@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -195,12 +194,6 @@ const AddRiceSeason = ({ navigation }) => {
       if (dataAPI) {
         ToastAndroid.show("Đã thêm vụ mùa", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Thêm vụ mùa thành công.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.riceSeasons, { hasNewSeason: true });
     } catch (err) {
       console.log("AddRiceSeason - Error while adding Rice Season.");
@@ -290,16 +283,7 @@ const AddRiceSeason = ({ navigation }) => {
                 style={styles.textField}
               >
                 {riceFieldArray.map((item, index) => (
-                  <Picker.Item
-                    key={index}
-                    value={item._id}
-                    label={item.name}
-                    // label={
-                    //   item.name.length < 40
-                    //     ? item.name
-                    //     : `${item.name.substring(0, 39)}...`
-                    // }
-                  />
+                  <Picker.Item key={index} value={item._id} label={item.name} />
                 ))}
               </Picker>
               <Text red>{error.riceFieldName}</Text>
@@ -330,7 +314,7 @@ const AddRiceSeason = ({ navigation }) => {
               <Text red>{error.riceName}</Text>
             </View>
 
-            {/* Tình trạng hiện tại */}
+            {/* Current State */}
             <View marginT-20>
               <TextR style={styles.label}>Tình trạng hiện tại:</TextR>
               <Picker

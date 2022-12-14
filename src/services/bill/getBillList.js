@@ -8,7 +8,9 @@ const getBillList = async (idUser) => {
     // console.log("getBillList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Bill List: ", { err: JSON.stringify(err) });
+    console.log("getBillList - Can't get Bill List: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

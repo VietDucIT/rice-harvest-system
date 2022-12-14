@@ -13,7 +13,7 @@ const getWeatherByCoord = async (lon, lat) => {
     // console.log("getWeatherByCoord - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Weather data by Coordinate: ", {
+    console.log("getWeatherByCoord - Can't get Weather data by Coordinate: ", {
       err: JSON.stringify(err),
     });
     throw err;

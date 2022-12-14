@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -65,7 +64,6 @@ const ModifyRiceField = ({ navigation, route }) => {
   const [isDisableBtn, setIsDisableBtn] = useState(true);
 
   const onChange = (text, field) => {
-    // text = text.trim();
     let message = "";
     if (text === "") {
       message = "* Bắt buộc.";
@@ -120,12 +118,6 @@ const ModifyRiceField = ({ navigation, route }) => {
       if (dataAPI) {
         ToastAndroid.show("Đã lưu thông tin ruộng lúa", ToastAndroid.SHORT);
       }
-      // Alert.alert("Thông báo", "Đã lưu thông tin ruộng lúa.", [
-      //   {
-      //     text: "Đóng",
-      //     style: "cancel",
-      //   },
-      // ]);
       navigation.navigate(nameList.riceFieldInfo, {
         idRiceField: riceField._id,
       });

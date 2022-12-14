@@ -13,9 +13,12 @@ const convertNameToCoord = async (name) => {
     // console.log("convertNameToCoord - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't convert Province's name to Coordinate: ", {
-      err: JSON.stringify(err),
-    });
+    console.log(
+      "convertNameToCoord - Can't convert Province's name to Coordinate: ",
+      {
+        err: JSON.stringify(err),
+      }
+    );
     throw err;
   }
 };

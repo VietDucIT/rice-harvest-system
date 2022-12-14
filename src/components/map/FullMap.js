@@ -114,7 +114,6 @@ const FullMap = ({ navigation }) => {
                   coordinate={pointList[1]}
                   title={item.name}
                   description={item.currentStatus}
-                  // pinColor={color[fieldColor + "Color"]}
                   onPress={() =>
                     navigation.navigate(nameList.riceFieldInfo, {
                       idRiceField: item._id,
@@ -123,10 +122,9 @@ const FullMap = ({ navigation }) => {
                 />
                 <Polygon
                   coordinates={pointList}
-                  // strokeColor={color.greenColor}
-                  // fillColor={color.lightGreenTransparent}
-                  strokeColor={color[fieldColor + "Color"]}
+                  strokeColor={color[fieldColor + "Color"]} // color.greenColor
                   fillColor={
+                    // color.lightGreenTransparent
                     color[
                       "light" +
                         fieldColor.charAt(0).toUpperCase() +
@@ -157,41 +155,3 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
-
-//   const fieldArray = [
-//     [
-//       { latitude: 9.66, longitude: 105.86 },
-//       { latitude: 9.661, longitude: 105.86 },
-//       { latitude: 9.6612, longitude: 105.861 },
-//       { latitude: 9.66, longitude: 105.8612 },
-//       { latitude: 9.66, longitude: 105.86 },
-//     ],
-//     [
-//       { latitude: 9.662, longitude: 105.861 },
-//       { latitude: 9.6627, longitude: 105.861 },
-//       { latitude: 9.6632, longitude: 105.862 },
-//       { latitude: 9.662, longitude: 105.8622 },
-//       { latitude: 9.662, longitude: 105.861 },
-//     ],
-//     [
-//       { latitude: 9.667, longitude: 105.858 },
-//       { latitude: 9.668, longitude: 105.858 },
-//       { latitude: 9.668, longitude: 105.859 },
-//       { latitude: 9.6674, longitude: 105.86 },
-//       { latitude: 9.667, longitude: 105.858 },
-//     ],
-//     [
-//       { latitude: 9.664, longitude: 105.86 },
-//       { latitude: 9.6645, longitude: 105.86 },
-//       { latitude: 9.6646, longitude: 105.861 },
-//       { latitude: 9.6641, longitude: 105.8612 },
-//       { latitude: 9.664, longitude: 105.86 },
-//     ],
-//     [
-//       { latitude: 9.665, longitude: 105.865 },
-//       { latitude: 9.6655, longitude: 105.865 },
-//       { latitude: 9.6656, longitude: 105.8655 },
-//       { latitude: 9.6652, longitude: 105.8657 },
-//       { latitude: 9.665, longitude: 105.865 },
-//     ],
-//   ];

@@ -66,8 +66,8 @@ const FindFarmers = ({ navigation, route }) => {
   // delete a Contact
   const handleDelete = (id) => {
     Alert.alert(
-      "Hủy kết nối?",
-      "Nếu hủy kết nối, bạn sẽ không còn thông tin liên lạc với người dùng này.",
+      "Xóa liên hệ?",
+      "Nếu xóa liên hệ, thông tin liên lạc của người dùng này sẽ không thể tự động hiển thị với bạn.",
       [
         {
           text: "Quay lại",
@@ -81,13 +81,6 @@ const FindFarmers = ({ navigation, route }) => {
               if (dataAPI) {
                 ToastAndroid.show("Đã xóa người liên hệ", ToastAndroid.SHORT);
               }
-              // Alert.alert("Thông báo", "Đã xóa người liên hệ.", [
-              //   {
-              //     text: "Đóng",
-              //     style: "cancel",
-              //   },
-              // ]);
-
               getContactArray();
             } catch (err) {
               console.log("Contacts - Error while deleting Contact.");
@@ -106,11 +99,10 @@ const FindFarmers = ({ navigation, route }) => {
 
     try {
       const data = await findFarmerByName(farmerName);
-      // const data2 = await findFarmerByAddress(address);
-      // console.log("FindFarmners - Farmer list: ", data);
+      // console.log("FindFarmners - Farmer list by Name: ", data);
       setFarmerArray(data);
     } catch (err) {
-      console.log("FindFarmners - Error while getting Farmer list.");
+      console.log("FindFarmners - Error while finding Farmers by Name.");
     }
   };
 
@@ -123,14 +115,14 @@ const FindFarmers = ({ navigation, route }) => {
     setIsShowContact(false);
 
     try {
-      console.log("FindFarmers by Address: ", address);
+      // console.log("FindFarmers by Address: ", address);
       const data = await findFarmerByAddress(
         address.province,
         address.town,
         address.commune,
         address.village
       );
-      console.log("FindFarmers by Address - Data API: ", data);
+      // console.log("FindFarmers by Address - Data API: ", data);
       setFarmerArray(data);
     } catch (err) {
       console.log(
@@ -142,7 +134,7 @@ const FindFarmers = ({ navigation, route }) => {
   const reset = () => {
     setAddress({});
     setIsReset(!isReset);
-    console.log("AddRiceFieldWithoutRequire - Reset completed.");
+    console.log("FindFarmers - Reset completed.");
   };
 
   return (
@@ -173,7 +165,6 @@ const FindFarmers = ({ navigation, route }) => {
               offColor={color.greyColor}
               value={isFindByAddress}
               onValueChange={() => setIsFindByAddress(!isFindByAddress)}
-              // style={{marginBottom: 20}}
               marginL-20
             />
           </View>
@@ -230,6 +221,7 @@ const FindFarmers = ({ navigation, route }) => {
                         : `${item.userNickname2.substring(0, 39)}...`}
                     </Text>
                   </TouchableOpacity>
+
                   <View flex style={styles.subContainer}>
                     <View flex right style={styles.controllContainer}>
                       <Text
@@ -243,6 +235,7 @@ const FindFarmers = ({ navigation, route }) => {
                       >
                         Xem
                       </Text>
+
                       <Text
                         text70
                         onPress={() => handleDelete(item._id)}
@@ -290,6 +283,7 @@ const FindFarmers = ({ navigation, route }) => {
                         : `${address.substring(0, 34)}...`}
                     </Text>
                   </TouchableOpacity>
+
                   <View style={styles.subContainer}>
                     <Text
                       green

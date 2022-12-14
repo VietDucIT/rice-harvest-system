@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const checkExistedPhone = async (phone) => {
   try {
-    // console.log("Phone: ", phone);
+    // console.log("checkExistedPhone - Phone: ", phone);
     const response = await axios.get(
       `${REQUEST_URL}/user/check-existed-phone`,
       {
@@ -14,7 +14,9 @@ const checkExistedPhone = async (phone) => {
     // console.log("checkExistedPhone - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't Check Existed Phone: ", { err: JSON.stringify(err) });
+    console.log("checkExistedPhone - Can't Check Existed Phone: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

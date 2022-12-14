@@ -10,7 +10,7 @@ const findContact = async (idUser, name) => {
     // console.log("findContact - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't find Contact by Name: ", {
+    console.log("findContact - Can't find Contact by Name: ", {
       err: JSON.stringify(err),
     });
     throw err;

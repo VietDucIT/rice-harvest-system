@@ -10,7 +10,7 @@ const checkIfContacted = async (idUser, idUser2) => {
     // console.log("checkIfContacted - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't check Contact: ", {
+    console.log("checkIfContacted - Can't check Contact: ", {
       err: JSON.stringify(err),
     });
     throw err;

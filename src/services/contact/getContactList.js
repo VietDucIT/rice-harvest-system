@@ -8,7 +8,9 @@ const getContactList = async (idUser) => {
     // console.log("getContactList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Contact List: ", { err: JSON.stringify(err) });
+    console.log("getContactList - Can't get Contact List: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

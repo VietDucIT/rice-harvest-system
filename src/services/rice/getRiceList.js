@@ -8,7 +8,9 @@ const getRiceList = async () => {
     // console.log("getRiceList - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't get Rice List: ", { err: JSON.stringify(err) });
+    console.log("getRiceList - Can't get Rice List: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

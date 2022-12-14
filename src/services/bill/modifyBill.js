@@ -4,7 +4,7 @@ import REQUEST_URL from "../urlToBackend";
 
 const modifyBill = async (billData) => {
   try {
-    // console.log("Bill: ", billData);
+    // console.log("modifyBill - Bill: ", billData);
     const response = await axios.put(
       `${REQUEST_URL}/${billData._id}`,
       billData
@@ -12,7 +12,9 @@ const modifyBill = async (billData) => {
     // console.log("modifyBill - Response from server: ", response.data);
     return response.data;
   } catch (err) {
-    console.log("Can't modify Bill: ", { err: JSON.stringify(err) });
+    console.log("modifyBill - Can't modify Bill: ", {
+      err: JSON.stringify(err),
+    });
     throw err;
   }
 };

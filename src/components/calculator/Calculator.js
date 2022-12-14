@@ -4,6 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 
 import UserOptionButton from "../core/UserOptionButton";
 import CustomButton from "../core/CustomButton";
+
 import ColumnItem from "./ColumnItem";
 
 import color from "../../config/color";
@@ -57,7 +58,7 @@ const Calculator = ({ navigation }) => {
   const reset = () => {
     Alert.alert(
       "Xác nhận",
-      "Bạn có chắc chắn muốn xóa tất cả và Bắt đầu lại từ đầu?",
+      "Bạn có chắc chắn muốn xóa tất cả và bắt đầu lại từ đầu?",
       [
         {
           text: "Xoá",
@@ -196,13 +197,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "row",
-  },
-  plusContainer: {
-    height: 325,
-    width: 70,
-    marginBottom: 40,
-    borderWidth: 1,
-    borderColor: color.lightGreyColor,
   },
   totalContainer: {
     width: "100%",
